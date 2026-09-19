@@ -34,6 +34,7 @@ const sections = [
 		<div class="hub-cta">
 			<a class="btn" href={siteUrl('/vocabulary/beginners/')}>Start with beginner words</a>
 			<a class="btn ghost" href={siteUrl('/hindi-to-marathi/')}>Hindi → Marathi</a>
+			<a class="btn ghost" href={siteUrl('/english-to-marathi/')}>English → Marathi</a>
 			<a class="btn ghost" href={siteUrl('/app/')}>About the app</a>
 		</div>
 	</div>
@@ -84,18 +85,22 @@ const sections = [
 	.hub-cta { display: flex; flex-wrap: wrap; gap: 0.75em; margin: 1.5em 0; }
 	.hub-cta .btn {
 		display: inline-block;
+		min-height: 52px;
+		line-height: 52px;
+		padding: 0 1.5em;
 		background: var(--accent);
 		color: #fff;
-		font-weight: 700;
+		font-size: 0.95rem;
+		font-weight: 600;
 		text-decoration: none;
-		padding: 0.7em 1.4em;
 		border-radius: var(--radius);
 	}
-	.hub-cta .btn:hover { background: var(--accent-dark); color: #fff; }
+	.hub-cta .btn:hover { background: var(--accent); filter: brightness(0.92); color: #fff; }
 	.hub-cta .btn.ghost {
 		background: transparent;
 		color: var(--accent);
-		border: 1px solid var(--accent);
+		border: var(--border);
+		line-height: 50px;
 	}
 	section { margin-top: var(--space-5); }
 	.section-head {

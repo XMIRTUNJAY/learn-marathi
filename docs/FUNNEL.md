@@ -12,6 +12,10 @@ Copy + store URLs render from `src/data/app.ts`
 - **Hindi → Marathi:** "hindi to marathi words/sentences" →
   `/hindi-to-marathi/` → words → phrases → Units 01–02 →
   lesson CTA → `/app/`
+- **English → Marathi:** "english to marathi words/sentences" →
+  `/english-to-marathi/` → words → phrases → Units 01–02 →
+  lesson CTA → `/app/` (uses `english`/`mapEn`/`grammarEn` fields;
+  cross-linked both ways with the Hindi section)
 - **Daily life:** "marathi family/food words" →
   `/vocabulary/<cluster>/` → related → unit → practice CTA →
   `/app/`
@@ -34,7 +38,11 @@ Copy + store URLs render from `src/data/app.ts`
   practice in Bol Marathi." + `Continue Learning →`
 
 Coming-soon mode links all CTAs to `/app/` with the
-`comingSoonNote`. Set `playStoreUrl` on launch — no template edits.
+`comingSoonNote`. `/app/` shows real app screenshots
+(`public/screenshots/`, copied from `bol_marathi/frame_*.png`)
+plus a mailto waitlist (`contactEmail` + `waitlistSubject` in
+`src/data/app.ts`) so demand is trackable by inbox. Set
+`playStoreUrl` on launch — no template edits.
 
 ## Events (conceptual, no vendor V1)
 

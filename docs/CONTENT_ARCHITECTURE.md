@@ -10,12 +10,18 @@ layouts, styles and deployment.
 ## 1. Reference (Engineering Notebook)
 
 Astro 7.3.1 + `@astrojs/mdx` + `@astrojs/sitemap` + `@astrojs/rss` +
-`sharp`; file-based `src/pages/`; content collections with zod;
-`Base`/`Article` layouts; `BaseHead` (canonical, OG, Twitter);
-`JsonLd` (`TechArticle`); base-aware `siteUrl()` helper;
-`public/robots.txt` + auto sitemap. This repo mirrors the patterns
-with its own identity (warm accent `#b34700`, Devanagari-friendly
-font stack) and no MDX collections — content is data-driven.
+`sharp`; file-based `src/pages/`; data-driven `getStaticPaths`;
+`Base`/`Learn` layouts; `BaseHead` (canonical, OG, Twitter);
+`JsonLd` (`LearningResource`, `BreadcrumbList`, `FAQPage`);
+base-aware `siteUrl()` helper; `public/robots.txt` + auto sitemap.
+
+Visual identity mirrors the app
+(`bol_marathi/lib/core/design_system/`): terracotta `#A43716`,
+parchment `#FDFBF7`, outline `#DFC0B7` borders, 16px card/button
+radius, pill chips, label-style uppercase kickers, 17px body with
+roomy Devanagari line-height. Light-only like the app (no dark
+mode). App screenshots on `/app/` are copied frames from
+`bol_marathi/frame_*.png` into `public/screenshots/`.
 
 ## 2. Bol Marathi source (verified)
 
@@ -58,14 +64,17 @@ subsets of app fields. No invented translations.
 /vocabulary/<cluster>/         8 curated clusters
 /phrases/                      phrases index
 /phrases/<set>/                greetings, daily, travel
-/hindi-to-marathi/             bridge index
+/hindi-to-marathi/             bridge index (Hindi-first)
 /hindi-to-marathi/words/
 /hindi-to-marathi/phrases/
+/english-to-marathi/           bridge index (English-first)
+/english-to-marathi/words/
+/english-to-marathi/phrases/
 /grammar/                      grammar index
 /grammar/<topic>/              pronouns, verbs, sentence-structure
 /lessons/                      26-unit index
 /lessons/<unit>/               per-unit lesson page
-/app/                          conversion landing page
+/app/                          conversion landing page (screenshots + mailto waitlist)
 ```
 
 No per-word pages (thin-content rule). 156 lessons merged into

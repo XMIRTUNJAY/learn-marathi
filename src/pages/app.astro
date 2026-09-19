@@ -5,17 +5,19 @@ import { BOL_MARATHI_APP } from '../data/app';
 import { units, vocab } from '../lib/learn';
 import { siteUrl } from '../lib/site';
 
-const title = `${BOL_MARATHI_APP.name} — Learn Marathi from Hindi`;
+const title = `${BOL_MARATHI_APP.name} — Learn Marathi from Hindi or English`;
 const description = 'Vocabulary, listening, speaking, sentence-building and spaced repetition — the Bol Marathi app turns these free lessons into usable Marathi.';
-const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
 const url = new URL(Astro.url.pathname, Astro.site).toString();
 const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
+
+const waitlistHref = `mailto:${BOL_MARATHI_APP.contactEmail}?subject=${encodeURIComponent(BOL_MARATHI_APP.waitlistSubject)}`;
 
 const faqs = [
 	{ question: 'Is Bol Marathi free?', answer: 'The learning content on this site is free. App pricing will be announced at launch.' },
 	{ question: 'I speak Hindi. Is Marathi hard for me?', answer: 'Hindi speakers have a head start: Marathi shares the subject–object–verb order and many words. The Hindi → Marathi bridges on this site show the exact patterns.' },
+	{ question: 'Can I learn from English instead of Hindi?', answer: 'Yes. Every word and bridge lesson has English meanings too — see the English → Marathi section — and the app supports an English-learner mode.' },
 	{ question: 'How is the app different from this website?', answer: 'This site teaches reading knowledge. The app adds listening practice, speaking practice with feedback, sentence-building exercises and spaced repetition so you remember words.' },
-	{ question: 'When does the app launch?', answer: BOL_MARATHI_APP.comingSoonNote },
+	{ question: 'How do I get the app?', answer: `${BOL_MARATHI_APP.comingSoonNote} Join the waitlist below and you'll hear first.` },
 ];
 
 const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? BOL_MARATHI_APP.playStoreUrl : null;
@@ -44,26 +46,41 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 			<div class="cta">
 				<h2>Get Bol Marathi</h2>
 				<p>{BOL_MARATHI_APP.comingSoonNote}</p>
-				<p class="note">This page will show the Play Store link the moment the app is hosted — no other changes needed.</p>
+				<p><a class="btn" href={waitlistHref} data-app-cta data-cta-variant="app-waitlist">Join the waitlist</a></p>
+				<p class="note">One email — we'll tell you the moment it's on the Play Store. No spam, ever.</p>
 			</div>
 		)}
+	</div>
+
+	<div class="prose">
+		<h2>Inside the app</h2>
+		<p>Real screens from Bol Marathi — listening quizzes with instant feedback, sentence building, phrase collections and personal goals.</p>
+	</div>
+	<div class="shots">
+		{BOL_MARATHI_APP.screenshots.map((s) => (
+			<figure>
+				<img src={siteUrl(s.src)} alt={s.alt} loading="lazy" width="720" height="1568" />
+				<figcaption>{s.alt}</figcaption>
+			</figure>
+		))}
 	</div>
 
 	<div class="prose">
 		<h2>Who it is for</h2>
 		<ul>
 			<li>Hindi speakers who want to learn Marathi fast through comparison.</li>
+			<li>English speakers starting from zero — every lesson has English meanings.</li>
 			<li>Beginners starting from greetings and the alphabet.</li>
 			<li>Travellers, shoppers and workers who need usable daily Marathi.</li>
 		</ul>
 
 		<h2>How learning works</h2>
 		<ol>
-			<li><strong>Vocabulary</strong> — {vocab.length} words with Hindi meanings, pronunciation and examples.</li>
-			<li><strong>Listening</strong> — audio-backed listening scripts for every lesson.</li>
-			<li><strong>Speaking</strong> — say real sentences with tips and feedback in the app.</li>
+			<li><strong>Vocabulary</strong> — {vocab.length} words with Hindi and English meanings, pronunciation and examples.</li>
+			<li><strong>Listening</strong> — listen-and-pick quizzes with instant right/wrong feedback.</li>
+			<li><strong>Speaking</strong> — say real sentences; microphone check and Marathi voice setup built in.</li>
 			<li><strong>Sentence building</strong> — arrange words into correct SOV Marathi sentences.</li>
-			<li><strong>Spaced repetition</strong> — reviews scheduled so words stick.</li>
+			<li><strong>Spaced repetition</strong> — reviews scheduled so words stick, with streaks and daily goals.</li>
 		</ol>
 
 		<h2>Curriculum</h2>
@@ -89,7 +106,11 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 		<div class="cta">
 			<h2>{storeHref ? 'Download Bol Marathi' : 'Be first to know'}</h2>
 			<p>{storeHref ? 'Start practicing today.' : BOL_MARATHI_APP.comingSoonNote}</p>
-			{storeHref && <a class="btn" href={storeHref} data-app-cta data-cta-variant="app-end">Download Bol Marathi</a>}
+			{storeHref ? (
+				<a class="btn" href={storeHref} data-app-cta data-cta-variant="app-end">Download Bol Marathi</a>
+			) : (
+				<p><a class="btn" href={waitlistHref} data-app-cta data-cta-variant="app-end-waitlist">Join the waitlist</a></p>
+			)}
 		</div>
 	</div>
 </Base>
@@ -97,13 +118,16 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 <style>
 	.btn {
 		display: inline-block;
+		min-height: 52px;
+		line-height: 52px;
+		padding: 0 1.5em;
 		background: var(--accent);
 		color: #fff;
-		font-weight: 700;
+		font-size: 0.95rem;
+		font-weight: 600;
 		text-decoration: none;
-		padding: 0.8em 1.6em;
 		border-radius: var(--radius);
 		margin-top: 0.5em;
 	}
-	.btn:hover { background: var(--accent-dark); color: #fff; }
+	.btn:hover { background: var(--accent); filter: brightness(0.92); color: #fff; }
 </style>
