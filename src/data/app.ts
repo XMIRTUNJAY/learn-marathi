@@ -13,13 +13,14 @@ export const BOL_MARATHI_APP = {
   comingSoonNote: 'Bol Marathi is in closed testing and coming soon to Android.',
   // Waitlist: mailto CTA on /app/ ("Join the waitlist"). Set this to a
   // monitored inbox — every waitlist click opens an email to this address.
+  contactEmail: 'mrxubr@gmail.com',
   waitlistSubject: 'Notify me — Bol Marathi launch',
+  // App walkthrough in tab-flow order: Learn → Practice → Progress → Profile.
   screenshots: [
-    { src: '/screenshots/shot-listen.png', alt: 'Listen & pick quiz in Bol Marathi' },
-    { src: '/screenshots/shot-feedback.png', alt: 'Instant right/wrong feedback after each answer' },
-    { src: '/screenshots/shot-builder.png', alt: 'Sentence builder — arrange Marathi words in order' },
-    { src: '/screenshots/shot-phrases.png', alt: 'Phrase collections — greetings, common phrases and more' },
-    { src: '/screenshots/shot-settings.png', alt: 'Audio speed, microphone check, daily goal and reminders' },
-  ],
-  contactEmail: 'hello@bolmarathi.app',
+    { src: '/screenshots/flow-learn.png', alt: 'Learn home — daily goal, continue learning and due reviews', step: '1 · Learn' },
+    { src: '/screenshots/flow-practice.png', alt: 'Practice Hub — retention stats, recommendations and practice modes', step: '2 · Practice' },
+    { src: '/screenshots/flow-progress.png', alt: 'Progress — streak, XP, weekly practice and skill map', step: '3 · Progress' },
+    { src: '/screenshots/flow-profile.png', alt: 'Profile — badges, app language and audio settings', step: '4 · Profile' },
+  ] as { src: string; alt: string; step: string }[],
+  contactEmail: 'mrxubr@gmail.com',
 };

@@ -54,13 +54,13 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 
 	<div class="prose">
 		<h2>Inside the app</h2>
-		<p>Real screens from Bol Marathi — listening quizzes with instant feedback, sentence building, phrase collections and personal goals.</p>
+		<p>One flow, four tabs — swipe through a real walkthrough: learn today's lesson, practice it, watch progress grow, tune your profile.</p>
 	</div>
-	<div class="shots">
+	<div class="flow" role="region" aria-label="Bol Marathi app walkthrough" tabindex="0">
 		{BOL_MARATHI_APP.screenshots.map((s) => (
 			<figure>
 				<img src={siteUrl(s.src)} alt={s.alt} loading="lazy" width="720" height="1568" />
-				<figcaption>{s.alt}</figcaption>
+				<figcaption><strong>{s.step}</strong><span>{s.alt}</span></figcaption>
 			</figure>
 		))}
 	</div>
