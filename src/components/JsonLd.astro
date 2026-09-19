@@ -5,32 +5,42 @@ type Props = {
 	datePublished?: string;
 	dateModified?: string;
 	url: string;
-	type?: 'LearningResource' | 'Article' | 'FAQPage' | 'WebPage';
+	type?: 'LearningResource' | 'Article' | 'FAQPage' | 'WebPage' | 'WebSite';
 	about?: string;
+	siteName?: string;
 	faq?: { question: string; answer: string }[];
 	breadcrumbs?: { name: string; url: string }[];
 };
 
-const { headline, description, datePublished, dateModified, url, type = 'LearningResource', about, faq = [], breadcrumbs = [] } = Astro.props;
+const { headline, description, datePublished, dateModified, url, type = 'LearningResource', about, siteName, faq = [], breadcrumbs = [] } = Astro.props;
 
-const nodes: Record<string, unknown>[] = [
-	{
-		'@context': 'https://schema.org',
-		'@type': type,
-		headline: type === 'FAQPage' ? undefined : headline,
-		name: type === 'FAQPage' ? headline : undefined,
-		description,
-		inLanguage: ['en', 'mr', 'hi'],
-		...(datePublished ? { datePublished } : {}),
-		...(dateModified ? { dateModified } : {}),
-		author: { '@type': 'Organization', name: 'Bol Marathi' },
-		...(about ? { about } : {}),
-		mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-		...(type === 'FAQPage'
-			? { mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }
-			: {}),
-	},
-];
+const main: Record<string, unknown> =
+	type === 'WebSite'
+		? {
+				'@context': 'https://schema.org',
+				'@type': 'WebSite',
+				name: siteName ?? headline,
+				url,
+				inLanguage: ['en', 'mr', 'hi'],
+			}
+		: {
+				'@context': 'https://schema.org',
+				'@type': type,
+				headline: type === 'FAQPage' ? undefined : headline,
+				name: type === 'FAQPage' ? headline : undefined,
+				description,
+				inLanguage: ['en', 'mr', 'hi'],
+				...(datePublished ? { datePublished } : {}),
+				...(dateModified ? { dateModified } : {}),
+				author: { '@type': 'Organization', name: 'Bol Marathi' },
+				...(about ? { about } : {}),
+				mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+				...(type === 'FAQPage'
+					? { mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }
+					: {}),
+			};
+
+const nodes: Record<string, unknown>[] = [main];
 
 if (breadcrumbs.length > 0) {
 	nodes.push({

@@ -2,7 +2,7 @@
 import AppCTA from '../../components/AppCTA.astro';
 import RelatedContent from '../../components/RelatedContent.astro';
 import Learn from '../../layouts/Learn.astro';
-import { getUnit, units } from '../../lib/learn';
+import { getUnit, units, unitSeo } from '../../lib/learn';
 import { siteUrl } from '../../lib/site';
 
 export async function getStaticPaths() {
@@ -12,15 +12,17 @@ export async function getStaticPaths() {
 const { unit: no } = Astro.params;
 if (!no) throw new Error('Missing unit param');
 const unit = getUnit(no);
+const seo = unitSeo[no] ?? { h1: `Unit ${no} — ${unit.titleEn}`, blurb: unit.subtitleEn };
 const idx = units.findIndex((u) => u.unit === no);
 const prev = idx > 0 ? units[idx - 1] : null;
 const next = idx < units.length - 1 ? units[idx + 1] : null;
 ---
 
 <Learn
-	title={`Unit ${unit.unit} — ${unit.titleEn}`}
-	description={`${unit.subtitleEn}: ${unit.goalsEn.join(', ')}. Six lessons with vocabulary, Hindi→Marathi bridges, speaking, listening, grammar and culture.`}
-	kicker={`Marathi Lessons · Unit ${unit.unit}`}
+	title={`${seo.h1} · Unit ${unit.unit}`}
+	h1={seo.h1}
+	description={`${seo.blurb} ${unit.goalsEn.join(', ')}. Unit ${unit.unit} of the Bol Marathi curriculum — six lessons with vocabulary, Hindi→Marathi bridges, speaking, listening, grammar and culture.`}
+	kicker={`Unit ${unit.unit} of the Bol Marathi curriculum`}
 	crumbs={[
 		{ label: 'Lessons', href: siteUrl('/lessons/') },
 		{ label: `Unit ${unit.unit}`, href: siteUrl(`/lessons/${unit.unit}/`) },
@@ -29,6 +31,7 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 	about={unit.titleEn}
 	meta={[`${unit.lessons} lessons`, unit.subtitleEn]}
 >
+	<p class="lede-sub" lang="mr">{unit.title} · {unit.subtitle}</p>
 	<h2>What you will learn</h2>
 	<p lang="mr">{unit.intro}</p>
 	<ul>
@@ -36,6 +39,8 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 			<li>{g}{unit.goals[i] && unit.goals[i] !== g ? <span lang="mr"> · {unit.goals[i]}</span> : null}</li>
 		))}
 	</ul>
+
+	<AppCTA variant="subtle" context={`unit-${unit.unit}`} />
 
 	<h2>Speaking practice sentences</h2>
 	<div class="table-scroll" role="region" aria-label="Speaking sentences" tabindex="0">
@@ -79,6 +84,14 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 		))}
 	</ul>
 
+	<h2>How to practice this unit</h2>
+	<p>
+		Read each Marathi sentence aloud, check it against the Hindi, then
+		cover the Marathi and recall it from the English. In the app the same
+		unit adds listening quizzes, speaking checks, sentence building and
+		review before you forget.
+	</p>
+
 	<AppCTA variant="lesson" context={`unit-${unit.unit}`} />
 
 	<nav class="pager" aria-label="Units">
@@ -93,9 +106,16 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 			{ label: 'Daily conversation phrases', href: siteUrl('/phrases/daily/') },
 		]}
 	/>
+
+	<AppCTA variant="general" context={`unit-${unit.unit}-end`} />
 </Learn>
 
 <style>
+	.lede-sub {
+		font-size: 1.05em;
+		color: rgb(var(--gray));
+		margin: -0.5em 0 1.5em 0;
+	}
 	.pager {
 		display: flex;
 		justify-content: space-between;

@@ -8,7 +8,7 @@ const { links, title = 'Keep learning' } = Astro.props;
 		<h2>{title}</h2>
 		<ul>
 			{links.map((l) => (
-				<li><a href={l.href}>{l.label}</a></li>
+				<li><a href={l.href} data-funnel="related_click">{l.label}</a></li>
 			))}
 		</ul>
 	</nav>

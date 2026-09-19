@@ -2,6 +2,7 @@
 import Base from './Base.astro';
 import Breadcrumbs, { type Crumb } from '../components/Breadcrumbs.astro';
 import JsonLd from '../components/JsonLd.astro';
+import { siteUrl } from '../lib/site';
 
 type Props = {
 	title: string;
@@ -12,9 +13,10 @@ type Props = {
 	about?: string;
 	meta?: string[];
 	alternates?: { lang: string; href: string }[];
+	h1?: string;
 };
 
-const { title, description, kicker, crumbs, canonicalPath, about, meta = [], alternates } = Astro.props;
+const { title, description, kicker, crumbs, canonicalPath, about, meta = [], alternates, h1 } = Astro.props;
 // Absolute URLs must include the base (e.g. /learn-marathi) — Astro.url.pathname has it, Astro.site does not.
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const abs = (href: string) => new URL(href, Astro.site).toString();
@@ -33,11 +35,12 @@ const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 	<Breadcrumbs items={crumbs} />
 	<div class="prose">
 		<p class="kicker">{kicker}</p>
-		<h1>{title}</h1>
+		<h1>{h1 ?? title}</h1>
 		<p class="lede">{description}</p>
 		{meta.length > 0 && (
 			<p class="learn-meta">{meta.join(' · ')}</p>
 		)}
+		<p class="byline">Curated by Bol Marathi · <a href={siteUrl('/how-it-works/')}>how the curriculum works</a></p>
 	</div>
 	<div class="prose">
 		<slot />
@@ -46,8 +49,11 @@ const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 
 <style>
 	.learn-meta {
-		font-family: var(--font-mono);
 		font-size: 0.8rem;
+		color: rgb(var(--gray));
+	}
+	.byline {
+		font-size: 0.82rem;
 		color: rgb(var(--gray));
 	}
 </style>

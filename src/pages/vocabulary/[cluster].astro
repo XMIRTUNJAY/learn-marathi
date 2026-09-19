@@ -36,7 +36,11 @@ const words = wordsByCategory(cluster.categories);
 		Bol Marathi curriculum.
 	</p>
 
+	<AppCTA variant="subtle" context={`vocabulary-${cluster.slug}`} />
+
 	<VocabTable words={words} caption={cluster.title} />
+
+	<AppCTA variant="vocabulary" context={`vocabulary-${cluster.slug}`} />
 
 	<h2>How to use these words</h2>
 	<p>
@@ -45,9 +49,7 @@ const words = wordsByCategory(cluster.categories);
 		what the listening and speaking practice in Bol Marathi is for.
 	</p>
 
-	<AppCTA variant="soft" context={`vocabulary-${cluster.slug}`} />
-
 	<RelatedContent links={cluster.related} />
 
-	<AppCTA variant="strong" context={`vocabulary-${cluster.slug}-end`} />
+	<AppCTA variant="general" context={`vocabulary-${cluster.slug}-end`} />
 </Learn>

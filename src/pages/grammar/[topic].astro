@@ -38,6 +38,8 @@ const shown = notes.length > 0 ? notes : topic.unitRefs.flatMap((no) => getUnit(
 	<h2>What you will learn</h2>
 	<p>{topic.description} Notes below come straight from the Bol Marathi lessons.</p>
 
+	<AppCTA variant="subtle" context={`grammar-${topic.slug}`} />
+
 	{shown.map((g) => (
 		<section>
 			<h3>{g.titleEn} · <span lang="mr">{g.title}</span></h3>
@@ -48,9 +50,9 @@ const shown = notes.length > 0 ? notes : topic.unitRefs.flatMap((no) => getUnit(
 		</section>
 	))}
 
-	<AppCTA variant="soft" context={`grammar-${topic.slug}`} />
+	<AppCTA variant="grammar" context={`grammar-${topic.slug}`} />
 
 	<RelatedContent links={topic.related} />
 
-	<AppCTA variant="strong" context={`grammar-${topic.slug}-end`} />
+	<AppCTA variant="general" context={`grammar-${topic.slug}-end`} />
 </Learn>

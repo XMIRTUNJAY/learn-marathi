@@ -39,6 +39,8 @@ function parseVocabDart(src) {
     exampleMarathi: field(b, 'exampleMarathi'),
     exampleHindi: field(b, 'exampleHindi'),
     exampleEnglish: field(b, 'exampleEnglish'),
+    note: field(b, 'note'),
+    noteEn: field(b, 'noteEn'),
   }));
 }
 

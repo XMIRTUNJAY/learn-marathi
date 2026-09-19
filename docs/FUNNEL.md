@@ -48,3 +48,21 @@ plus a mailto waitlist (`contactEmail` + `waitlistSubject` in
 
 `page_view`, `content_engagement`, `app_cta_click`,
 `download_click`.
+
+## Implemented declarative hooks (analytics-ready, no JS added)
+
+Every measurable element carries `data-funnel` + context attributes,
+so any future lightweight tracker can subscribe via one delegated
+listener — no per-page code:
+
+| Hook | Elements | Attributes |
+|---|---|---|
+| `app_cta_click` | all AppCTA panels/links, hub hero | `data-app-cta`, `data-cta-variant`, `data-cta-context` |
+| `download_click` | store buttons on /app/ (render only when live) | `data-cta-variant="app-end"` |
+| `waitlist_click` | waitlist mailto buttons | `data-cta-variant="*-waitlist"` |
+| `related_click` | RelatedContent links | (href as target) |
+| `path_click` / `path_step_click` | hub path cards, /start/ steps | (href as target) |
+
+Funnel: SEO landing → `related_click`/`path_*` → `app_cta_click`
+→ /app/ → `waitlist_click`/`download_click`. Add a vendor only
+when traffic justifies it; never two trackers.

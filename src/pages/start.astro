@@ -1,0 +1,65 @@
+---
+import AppCTA from '../components/AppCTA.astro';
+import Base from '../layouts/Base.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { siteUrl } from '../lib/site';
+
+const title = 'New to Marathi? Start Here — 6 Steps';
+const description = 'A beginner path into Marathi: essential words, greetings, first sentences, Hindi bridges, your first lesson, then practice in the app.';
+const url = new URL(Astro.url.pathname, Astro.site).toString();
+const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
+
+const steps = [
+	{ n: 'Step 1', title: 'Essential Marathi words', body: 'Meet your first 100+ words — greetings, yes/no, numbers — with Hindi meanings and pronunciation.', href: siteUrl('/vocabulary/beginners/') },
+	{ n: 'Step 2', title: 'Marathi greetings', body: 'Hello, thank you, sorry: the phrases that open every conversation.', href: siteUrl('/phrases/greetings/') },
+	{ n: 'Step 3', title: 'Basic sentences', body: 'Short everyday sentences with Hindi and English meanings. Say each aloud.', href: siteUrl('/phrases/daily/') },
+	{ n: 'Step 4', title: 'Hindi → Marathi bridges', body: 'See how Hindi patterns map onto Marathi, word by word.', href: siteUrl('/hindi-to-marathi/') },
+	{ n: 'Step 5', title: 'Beginner Lesson 01', body: 'Unit 01 of the curriculum: alphabet, greetings, first words, first sentences.', href: siteUrl('/lessons/01/') },
+	{ n: 'Step 6', title: 'Practice in Bol Marathi', body: 'Turn reading into remembering: listening, speaking, sentence building, review.', href: siteUrl('/app/') },
+];
+---
+
+<Base title={title} description={description}>
+	<JsonLd
+		headline={title}
+		description={description}
+		url={url}
+		type="LearningResource"
+		about="marathi beginner path"
+		breadcrumbs={[{ name: 'Learn Marathi', url: homeUrl }, { name: 'Start here', url }]}
+	/>
+	<div class="prose">
+		<p class="kicker">Beginner path</p>
+		<h1>New to Marathi? Start here.</h1>
+		<p class="lede">Six steps, each linking to a real lesson. No signup, everything below is free.</p>
+		<ol class="steps">
+			{steps.map((s) => (
+				<li>
+					<p class="kicker">{s.n}</p>
+					<h2><a href={s.href} data-funnel="path_step_click">{s.title}</a></h2>
+					<p>{s.body}</p>
+				</li>
+			))}
+		</ol>
+		<AppCTA variant="general" context="start" />
+	</div>
+</Base>
+
+<style>
+	.steps {
+		list-style: none;
+		margin: 2em 0;
+		padding: 0;
+		display: grid;
+		gap: 1em;
+		counter-reset: step;
+	}
+	.steps li {
+		border: var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+		padding: 1.25em 1.25em 1em 1.25em;
+	}
+	.steps h2 { font-size: 1.2rem; margin: 0 0 0.3em 0; }
+	.steps p { margin: 0 0 0.5em 0; }
+</style>

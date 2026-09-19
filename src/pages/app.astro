@@ -48,12 +48,12 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 			<div role="listitem"><strong>6</strong><span>practice modes</span></div>
 		</div>
 		{storeHref ? (
-			<p><a class="btn" href={storeHref} data-app-cta data-cta-variant="app-hero">Download Bol Marathi</a></p>
+			<p><a class="btn" href={storeHref} data-funnel="download_click" data-app-cta data-cta-variant="app-hero">Download Bol Marathi</a></p>
 		) : (
 			<div class="cta">
 				<h2>Get Bol Marathi</h2>
 				<p>{BOL_MARATHI_APP.comingSoonNote}</p>
-				<p><a class="btn" href={waitlistHref} data-app-cta data-cta-variant="app-waitlist">Join the waitlist</a></p>
+				<p><a class="btn" href={waitlistHref} data-funnel="waitlist_click" data-app-cta data-cta-variant="app-waitlist">Join the waitlist</a></p>
 				<p class="note">One email — we'll tell you the moment it's on the Play Store. No spam, ever.</p>
 			</div>
 		)}
@@ -139,9 +139,9 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 			<h2>{storeHref ? 'Download Bol Marathi' : 'Be first to know'}</h2>
 			<p>{storeHref ? 'Start practicing today.' : BOL_MARATHI_APP.comingSoonNote}</p>
 			{storeHref ? (
-				<a class="btn" href={storeHref} data-app-cta data-cta-variant="app-end">Download Bol Marathi</a>
+				<a class="btn" href={storeHref} data-funnel="download_click" data-app-cta data-cta-variant="app-end">Download Bol Marathi</a>
 			) : (
-				<p><a class="btn" href={waitlistHref} data-app-cta data-cta-variant="app-end-waitlist">Join the waitlist</a></p>
+				<p><a class="btn" href={waitlistHref} data-funnel="waitlist_click" data-app-cta data-cta-variant="app-end-waitlist">Join the waitlist</a></p>
 			)}
 		</div>
 	</div>

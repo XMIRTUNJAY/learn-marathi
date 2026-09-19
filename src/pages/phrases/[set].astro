@@ -34,6 +34,8 @@ const phrases = phrasesFor(set);
 		Say each one aloud before moving on.
 	</p>
 
+	<AppCTA variant="subtle" context={`phrases-${set.slug}`} />
+
 	<div class="table-scroll" role="region" aria-label={set.title} tabindex="0">
 		<table class="vocab">
 			<thead>
@@ -57,9 +59,9 @@ const phrases = phrasesFor(set);
 		</table>
 	</div>
 
-	<AppCTA variant="soft" context={`phrases-${set.slug}`} />
+	<AppCTA variant="phrase" context={`phrases-${set.slug}`} />
 
 	<RelatedContent links={set.related} />
 
-	<AppCTA variant="strong" context={`phrases-${set.slug}-end`} />
+	<AppCTA variant="general" context={`phrases-${set.slug}-end`} />
 </Learn>

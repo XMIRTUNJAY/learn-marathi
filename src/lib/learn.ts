@@ -17,6 +17,8 @@ export type Word = {
   exampleMarathi: string;
   exampleHindi: string;
   exampleEnglish: string;
+  note: string;
+  noteEn: string;
 };
 
 export type GrammarRow = { lesson: number; title: string; titleEn: string; text: string; textEn: string; note?: string };
@@ -259,6 +261,39 @@ export const getUnit = (no: string): Unit => {
   const u = units.find((x) => x.unit === no);
   if (!u) throw new Error(`Unknown unit: ${no}`);
   return u;
+};
+
+// Search-oriented H1s per unit. Derived from the verified curriculum
+// (unit titles + focus column in bol_marathi/content/units/README.md).
+// URLs and curriculum identity are unchanged — only the displayed H1
+// and title answer search intent.
+export const unitSeo: Record<string, { h1: string; blurb: string }> = {
+  '01': { h1: 'Marathi Basics for Beginners: Greetings, First Words & Sentences', blurb: 'Alphabet, greetings and your first 50 words.' },
+  '02': { h1: 'Survival Marathi: Essential Verbs & Everyday Questions', blurb: 'Possession, questions and verbs for daily situations.' },
+  '03': { h1: 'Everyday Marathi Vocabulary: Family, Home & Food Words', blurb: '100+ high-frequency words for home life.' },
+  '04': { h1: 'Marathi Sentence Patterns: Build Correct SOV Sentences', blurb: 'Movement verbs, compound verbs and ability.' },
+  '05': { h1: 'Marathi Pronouns & People: I, You, He, She Explained', blurb: 'Full pronoun paradigm plus kinship words.' },
+  '06': { h1: 'Marathi Pronunciation Guide: Sounds Hindi Speakers Must Learn', blurb: 'Retroflex, nasal, visarga and anusvara.' },
+  '07': { h1: 'Marathi Questions: Question Words & How to Ask Anything', blurb: 'Question words and their everyday usage.' },
+  '08': { h1: 'Marathi Postpositions: Location & Relation Markers', blurb: 'The small words that anchor every sentence.' },
+  '09': { h1: 'Marathi Shopping Words: Market, Price & Bargaining', blurb: 'Price, units and bargaining phrases.' },
+  '10': { h1: 'Marathi Health Words: Body, Symptoms & Doctor Visits', blurb: 'Describe symptoms and visit a doctor.' },
+  '11': { h1: 'Marathi for School & Work: Education and Office Words', blurb: 'School, interviews and office life.' },
+  '12': { h1: 'Marathi Technology Words: Devices, Internet & Safety', blurb: 'Talk about phones, internet and safety.' },
+  '13': { h1: 'Marathi Festivals & Culture: Ganesh, Diwali, Gudi Padwa', blurb: 'Festival words and cultural context.' },
+  '14': { h1: 'Marathi Nature & Travel Words: Sahyadri, Konkan & Wildlife', blurb: 'Landscapes, travel and wildlife.' },
+  '15': { h1: 'Marathi Travel Phrases: Tickets, Stations & Stays', blurb: 'Book, navigate and stay anywhere in Maharashtra.' },
+  '16': { h1: 'Marathi Numbers, Time & Seasons: Clock, Calendar, Days', blurb: 'Tell time and talk about seasons.' },
+  '17': { h1: 'Marathi Emotions & Feelings Words: Joy, Sorrow, Empathy', blurb: 'Say how you feel, precisely.' },
+  '18': { h1: 'Marathi Hobbies & Leisure Words: Sports, Arts & Practice', blurb: 'Talk about what you love doing.' },
+  '19': { h1: 'Marathi for Work & Career: Jobs, Interviews & Growth', blurb: 'Job search and workplace language.' },
+  '20': { h1: 'Marathi Review & Mastery Test: Everything So Far', blurb: 'Cumulative review across all topics.' },
+  '21': { h1: 'Advanced Marathi Grammar: Prefixes, Compounds & Voice', blurb: 'Take grammar beyond the basics.' },
+  '22': { h1: 'Marathi Literature & Poetry: Saints to Modern Poets', blurb: 'Abhanga, ovi and modern poetry.' },
+  '23': { h1: 'Business Marathi: Trade, Finance & Contracts', blurb: 'Professional and commercial language.' },
+  '24': { h1: 'Marathi Media & News Words: Press, Broadcast & Social', blurb: 'Follow Marathi news and media.' },
+  '25': { h1: 'Advanced Marathi Conversation: Debate & Presentation', blurb: 'Argue, present and persuade.' },
+  '26': { h1: 'Marathi Final Assessment: Mock Exam & Certificate', blurb: 'Prove your Marathi end to end.' },
 };
 
 /** Phrases for a set: speaking rows of referenced units (real app content). */

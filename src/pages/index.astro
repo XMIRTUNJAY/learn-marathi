@@ -3,15 +3,24 @@ import AppCTA from '../components/AppCTA.astro';
 import Base from '../layouts/Base.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { BOL_MARATHI_APP } from '../data/app';
 import { clusters, phraseSets, grammarTopics, units, vocab } from '../lib/learn';
 import { siteUrl } from '../lib/site';
 
-const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
 const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 const sections = [
 	{ kicker: 'Vocabulary', title: 'Words grouped the way you use them', href: siteUrl('/vocabulary/'), items: clusters.map((c) => ({ label: c.title, href: siteUrl(`/vocabulary/${c.slug}/`) })) },
 	{ kicker: 'Phrases', title: 'Say it in Marathi', href: siteUrl('/phrases/'), items: phraseSets.map((p) => ({ label: p.title, href: siteUrl(`/phrases/${p.slug}/`) })) },
 	{ kicker: 'Grammar', title: 'Patterns, not rules', href: siteUrl('/grammar/'), items: grammarTopics.map((g) => ({ label: g.title, href: siteUrl(`/grammar/${g.slug}/`) })) },
+];
+
+const faqs = [
+	{ q: 'Can I learn Marathi from Hindi?', a: 'Yes — start with Hindi → Marathi words and sentence bridges, which map each Hindi pattern onto Marathi word by word.' },
+	{ q: 'Can I learn Marathi from English?', a: 'Yes — every word and lesson carries English meanings, and there is a dedicated English → Marathi section.' },
+	{ q: 'Is Bol Marathi free?', a: `All ${vocab.length} words and ${units.length * 6} lessons on this site are free. App pricing will be announced at launch.` },
+	{ q: 'How many lessons are there?', a: `${units.length} units and ${units.length * 6} lessons, from Marathi Fundamentals to a final assessment.` },
+	{ q: 'Does Bol Marathi teach speaking?', a: 'The website teaches reading knowledge; the app adds listening, speaking checks, sentence building and spaced repetition.' },
+	{ q: 'How is the app different from this website?', a: 'The website gives you the knowledge. The app gives you the practice loop — listen, speak, build, review, remember — plus streaks, XP and weakest-word recommendations.' },
 ];
 ---
 
@@ -23,21 +32,88 @@ const sections = [
 		type="WebPage"
 		breadcrumbs={[]}
 	/>
+	<JsonLd
+		headline="Learn Marathi — frequently asked questions"
+		description="Answers about learning Marathi from Hindi or English with Bol Marathi."
+		url={homeUrl}
+		type="FAQPage"
+		faq={faqs.map((f) => ({ question: f.q, answer: f.a }))}
+		breadcrumbs={[]}
+	/>
+	<JsonLd
+		headline="Learn Marathi"
+		description={SITE_DESCRIPTION}
+		url={homeUrl}
+		type="WebSite"
+		siteName="Learn Marathi — Bol Marathi"
+		breadcrumbs={[]}
+	/>
 	<div class="prose">
 		<p class="kicker">Bol Marathi · Learn Marathi</p>
-		<h1>Learn Marathi from Hindi and English.</h1>
+		<h1>Learn Marathi from Hindi or English.</h1>
 		<p class="lede">
-			Everyday words, phrases and grammar from the real Bol Marathi curriculum —
-			{units.length} units, {units.length * 6} lessons and {vocab.length} words with Hindi
-			meanings, pronunciation and examples. Useful on its own; practice it in the app.
+			Build practical Marathi vocabulary, understand everyday phrases, and
+			practice listening, speaking and sentence building — from the real
+			Bol Marathi curriculum of {units.length} units and {vocab.length} words.
 		</p>
 		<div class="hub-cta">
-			<a class="btn" href={siteUrl('/vocabulary/beginners/')}>Start with beginner words</a>
-			<a class="btn ghost" href={siteUrl('/hindi-to-marathi/')}>Hindi → Marathi</a>
-			<a class="btn ghost" href={siteUrl('/english-to-marathi/')}>English → Marathi</a>
-			<a class="btn ghost" href={siteUrl('/app/')}>About the app</a>
+			<a class="btn" href={siteUrl('/app/')} data-funnel="app_cta_click" data-app-cta data-cta-variant="hub-hero">{BOL_MARATHI_APP.comingSoon ? 'Join the Android Waitlist' : 'Download Bol Marathi'}</a>
+			<a class="btn ghost" href={siteUrl('/start/')} data-funnel="path_click">Start Learning Free</a>
 		</div>
+		<p class="byline">Curated by Bol Marathi · <a href={siteUrl('/how-it-works/')}>how the curriculum works</a></p>
 	</div>
+
+	<section>
+		<div class="section-head">
+			<div>
+				<p class="kicker">Choose your path</p>
+				<h2>How do you want to learn?</h2>
+			</div>
+		</div>
+		<ul class="card-grid">
+			<li>
+				<a class="card" href={siteUrl('/start/')} data-funnel="path_click">
+					<h3>New to Marathi? Start here</h3>
+					<p>Six steps: words → greetings → sentences → bridges → your first lesson.</p>
+				</a>
+			</li>
+			<li>
+				<a class="card" href={siteUrl('/hindi-to-marathi/')} data-funnel="path_click">
+					<h3>Learn from Hindi</h3>
+					<p>Word pairs and sentence bridges mapped from Hindi you already know.</p>
+				</a>
+			</li>
+			<li>
+				<a class="card" href={siteUrl('/english-to-marathi/')} data-funnel="path_click">
+					<h3>Learn from English</h3>
+					<p>Everyday words and sentences with English meanings and pronunciation.</p>
+				</a>
+			</li>
+			<li>
+				<a class="card" href={siteUrl('/hi/')} data-funnel="path_click" lang="hi">
+					<h3>हिंदी में सीखें</h3>
+					<p>पूरा शुरुआती खंड हिंदी में — शब्द, वाक्य और ऐप।</p>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+	<section>
+		<div class="section-head">
+			<div>
+				<p class="kicker">Popular right now</p>
+				<h2>Marathi learners start here</h2>
+			</div>
+		</div>
+		<ul class="card-grid">
+			<li><a class="card" href={siteUrl('/phrases/greetings/')}><h3>Greetings</h3><p>Hello, thank you, sorry — first phrases.</p></a></li>
+			<li><a class="card" href={siteUrl('/vocabulary/family/')}><h3>Family words</h3><p>Relations and people around you.</p></a></li>
+			<li><a class="card" href={siteUrl('/vocabulary/food/')}><h3>Food words</h3><p>84 words for eating and cooking.</p></a></li>
+			<li><a class="card" href={siteUrl('/vocabulary/travel/')}><h3>Travel words</h3><p>Tickets, stations, directions.</p></a></li>
+			<li><a class="card" href={siteUrl('/vocabulary/numbers-time/')}><h3>Numbers & time</h3><p>Count, tell time, name days.</p></a></li>
+			<li><a class="card" href={siteUrl('/phrases/daily/')}><h3>Daily conversation</h3><p>Sentences for everyday life.</p></a></li>
+		</ul>
+	</section>
 
 	{sections.map((s) => (
 		<section>
@@ -59,6 +135,25 @@ const sections = [
 	<section>
 		<div class="section-head">
 			<div>
+				<p class="kicker">Why Bol Marathi</p>
+				<h2>Reading teaches. Practice makes it stick.</h2>
+			</div>
+			<a href={siteUrl('/app/')}>The app &rarr;</a>
+		</div>
+		<div class="prose">
+			<ul class="why">
+				<li><strong>Weakest words first</strong> — recommendations target what you keep forgetting.</li>
+				<li><strong>Review before you forget</strong> — scheduled repetition with recall tracking.</li>
+				<li><strong>Listen and speak</strong> — quizzes, mic checks and Marathi voice setup.</li>
+				<li><strong>Build sentences</strong> — arrange words into correct Marathi order.</li>
+				<li><strong>Stay consistent</strong> — streaks, XP, levels and reminders.</li>
+			</ul>
+		</div>
+	</section>
+
+	<section>
+		<div class="section-head">
+			<div>
 				<p class="kicker">Lessons</p>
 				<h2>Follow the curriculum</h2>
 			</div>
@@ -76,13 +171,30 @@ const sections = [
 		</ul>
 	</section>
 
+	<section>
+		<div class="section-head">
+			<div>
+				<p class="kicker">FAQ</p>
+				<h2>Common questions</h2>
+			</div>
+		</div>
+		<div class="prose">
+			{faqs.map((f) => (
+				<details>
+					<summary>{f.q}</summary>
+					<p>{f.a}</p>
+				</details>
+			))}
+		</div>
+	</section>
+
 	<div class="prose">
-		<AppCTA variant="strong" context="hub" />
+		<AppCTA variant="general" context="hub" />
 	</div>
 </Base>
 
 <style>
-	.hub-cta { display: flex; flex-wrap: wrap; gap: 0.75em; margin: 1.5em 0; }
+	.hub-cta { display: flex; flex-wrap: wrap; gap: 0.75em; margin: 1.5em 0 0.5em 0; }
 	.hub-cta .btn {
 		display: inline-block;
 		min-height: 52px;
@@ -102,6 +214,7 @@ const sections = [
 		border: var(--border);
 		line-height: 50px;
 	}
+	.byline { font-size: 0.85rem; color: rgb(var(--gray)); }
 	section { margin-top: var(--space-5); }
 	.section-head {
 		display: flex;
@@ -115,4 +228,18 @@ const sections = [
 	.section-head h2 { font-size: 1.4rem; margin: 0; }
 	.section-head a { font-size: 0.9rem; white-space: nowrap; }
 	.card-grid h3 { font-size: 1.05rem; }
+	.why { padding-left: 1.2em; }
+	.why li { margin-bottom: 0.5em; }
+	details {
+		border: var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+		padding: 0.9em 1.1em;
+		margin-bottom: 0.6em;
+	}
+	details summary {
+		font-weight: 600;
+		cursor: pointer;
+	}
+	details p { margin: 0.6em 0 0.2em 0; }
 </style>

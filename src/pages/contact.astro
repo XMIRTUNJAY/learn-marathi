@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { BOL_MARATHI_APP } from '../data/app';
+
+const title = 'Contact Bol Marathi';
+const description = 'Contact Bol Marathi: corrections, native-speaker review, and launch waitlist.';
+const mailto = `mailto:${BOL_MARATHI_APP.contactEmail}`;
+---
+
+<Base title={title} description={description}>
+	<div class="prose">
+		<p class="kicker">Contact</p>
+		<h1>Contact</h1>
+		<ul>
+			<li><strong>Corrections:</strong> found a wrong word or translation? <a href={`${mailto}?subject=${encodeURIComponent('Correction: ')}`}>email a correction</a> — include the page URL.</li>
+			<li><strong>Native review:</strong> Marathi/Hindi speaker willing to review content? <a href={`${mailto}?subject=${encodeURIComponent('Native review offer')}`}>get in touch</a>.</li>
+			<li><strong>Launch waitlist:</strong> <a href={`${mailto}?subject=${encodeURIComponent(BOL_MARATHI_APP.waitlistSubject)}`}>join the Android waitlist</a>.</li>
+		</ul>
+		<p>Email: <a href={mailto}>{BOL_MARATHI_APP.contactEmail}</a></p>
+	</div>
+</Base>

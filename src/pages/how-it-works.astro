@@ -1,0 +1,47 @@
+---
+import AppCTA from '../components/AppCTA.astro';
+import Base from '../layouts/Base.astro';
+import { vocab, units } from '../lib/learn';
+import { siteUrl } from '../lib/site';
+
+const title = 'How the Bol Marathi Curriculum Works';
+const description = 'Where Bol Marathi content comes from: app curriculum as source of truth, auditable sync to this site, and language QA tracking.';
+---
+
+<Base title={title} description={description}>
+	<div class="prose">
+		<p class="kicker">Methodology</p>
+		<h1>How the curriculum works</h1>
+		<p class="lede">
+			One source of truth, two products. The website never invents words —
+			everything teachable here comes from the app's curriculum.
+		</p>
+		<h2>1. Source: the app curriculum</h2>
+		<p>
+			{units.length} unit files × 6 lessons ({units.length * 6} lessons) with
+			grammar, culture, speaking, listening, Hindi→Marathi bridges and
+			sentence builders — plus a {vocab.length}-word trilingual vocabulary
+			with transliteration and examples.
+		</p>
+		<h2>2. Sync: auditable, repeatable</h2>
+		<p>
+			A zero-dependency script copies the curriculum into versioned snapshots.
+			Every website update is a reviewable diff — nothing is hand-copied,
+			nothing silently rewritten.
+		</p>
+		<h2>3. QA: flagged, not faked</h2>
+		<p>
+			Automated scans check every entry for missing fields, duplicates and
+			script errors; samples are reviewed by hand. Uncertain Marathi is
+			flagged for native review rather than "improved" by guesswork.
+		</p>
+		<h2>4. Website vs app</h2>
+		<p>
+			The website teaches reading knowledge: discover, understand, read.
+			The app adds the practice loop: listen, speak, build, review,
+			remember, track. Static pages never pretend to be interactive lessons.
+		</p>
+		<p><em>Curated by Bol Marathi.</em></p>
+		<AppCTA variant="general" context="method" />
+	</div>
+</Base>

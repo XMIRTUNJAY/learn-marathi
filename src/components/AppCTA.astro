@@ -2,37 +2,70 @@
 import { siteUrl } from '../lib/site';
 import { BOL_MARATHI_APP } from '../data/app';
 
+// Contextual CTA engine. Copy follows the conversion principle:
+// name the missing capability (remembering/using), never fake urgency.
+// Labels are honest about product state: pre-launch every CTA reads
+// "Join the Android Waitlist" and routes to /app/ (waitlist); once
+// `playStoreUrl` is set, variant-specific labels route to the store.
 type Props = {
-	variant?: 'soft' | 'strong' | 'lesson';
+	variant?: 'vocabulary' | 'phrase' | 'grammar' | 'lesson' | 'general' | 'subtle';
 	context?: string;
 };
 
-const { variant = 'soft', context = '' } = Astro.props;
+const { variant = 'general', context = '' } = Astro.props;
 
-const copy = {
-	soft: {
-		heading: 'Want to practice these words?',
-		body: `Listen, speak, build sentences and review them with spaced repetition in ${BOL_MARATHI_APP.name}.`,
-		cta: 'Practice in Bol Marathi',
+const live = !BOL_MARATHI_APP.comingSoon && !!BOL_MARATHI_APP.playStoreUrl;
+const href = live ? (BOL_MARATHI_APP.playStoreUrl as string) : siteUrl('/app/');
+const joinLabel = 'Join the Android Waitlist';
+
+const copy: Record<string, { heading: string; body: string; cta: string }> = {
+	vocabulary: {
+		heading: 'Know the words. Now remember them.',
+		body: `You can learn these words here. ${BOL_MARATHI_APP.name} helps you remember and use them through listening, speaking and spaced repetition.`,
+		cta: live ? 'Practice These Words' : joinLabel,
 	},
-	strong: {
-		heading: 'Learn Marathi beyond reading',
-		body: `${BOL_MARATHI_APP.name} combines vocabulary, listening, speaking and sentence-building practice so you can actually use the language.`,
-		cta: 'Download Bol Marathi',
+	phrase: {
+		heading: 'Reading the phrase is easy. Using it takes practice.',
+		body: `Say these phrases aloud, get feedback, and review them before you forget — in ${BOL_MARATHI_APP.name}.`,
+		cta: live ? 'Practice These Phrases' : joinLabel,
+	},
+	grammar: {
+		heading: 'Understand the pattern. Then build sentences.',
+		body: `This page teaches the rule. ${BOL_MARATHI_APP.name} turns it into sentence-building practice with instant feedback.`,
+		cta: live ? 'Practice Sentence Building' : joinLabel,
 	},
 	lesson: {
-		heading: 'Finished this lesson?',
-		body: `Continue your Marathi practice in ${BOL_MARATHI_APP.name}.`,
-		cta: 'Continue Learning →',
+		heading: 'Finished reading? Now practice it.',
+		body: `Continue this lesson with listening, speaking and interactive practice in ${BOL_MARATHI_APP.name}.`,
+		cta: live ? 'Continue in Bol Marathi' : joinLabel,
 	},
-}[variant];
-
-const href = BOL_MARATHI_APP.comingSoon || !BOL_MARATHI_APP.playStoreUrl ? siteUrl('/app/') : BOL_MARATHI_APP.playStoreUrl;
+	general: {
+		heading: 'Want to go beyond reading?',
+		body: `The website gives you the knowledge. The app gives you the practice loop — listen, speak, build, review, remember.`,
+		cta: live ? 'Explore the Bol Marathi App' : joinLabel,
+	},
+	subtle: { heading: '', body: '', cta: '' },
+};
 ---
 
-<aside class="cta" data-cta={variant} data-cta-context={context} aria-label="Bol Marathi app">
-	<h2>{copy.heading}</h2>
-	<p>{copy.body}</p>
-	<a class="btn" href={href} data-app-cta data-cta-variant={variant}>{BOL_MARATHI_APP.comingSoon ? 'Get Bol Marathi' : copy.cta}</a>
-	{BOL_MARATHI_APP.comingSoon && <p class="note">{BOL_MARATHI_APP.comingSoonNote}</p>}
-</aside>
+{variant === 'subtle' ? (
+	<p class="cta-subtle" data-cta="subtle" data-cta-context={context}>
+		<a href={href} data-funnel="app_cta_click" data-app-cta data-cta-variant="subtle">
+			{live ? 'Practice this in the app →' : 'Join the Android waitlist to practice this in the app →'}
+		</a>
+	</p>
+) : (
+	<aside class="cta" data-cta={variant} data-cta-context={context} aria-label="Bol Marathi app">
+		<h2>{copy[variant].heading}</h2>
+		<p>{copy[variant].body}</p>
+		<a class="btn" href={href} data-funnel="app_cta_click" data-app-cta data-cta-variant={variant}>{copy[variant].cta}</a>
+		{BOL_MARATHI_APP.comingSoon && <p class="note">{BOL_MARATHI_APP.comingSoonNote} Free lessons stay free — the app adds the practice loop.</p>}
+	</aside>
+)}
+
+<style>
+	.cta-subtle {
+		margin: 1.25em 0;
+		font-size: 0.95rem;
+	}
+</style>

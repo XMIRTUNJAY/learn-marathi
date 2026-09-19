@@ -40,12 +40,12 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 			सुनना, बोलना, वाक्य बनाना और दोहराव।
 		</p>
 		{storeHref ? (
-			<p><a class="btn" href={storeHref} data-app-cta data-cta-variant="hi-app-hero">बोल मराठी डाउनलोड करें</a></p>
+			<p><a class="btn" href={storeHref} data-funnel="download_click" data-app-cta data-cta-variant="hi-app-hero">बोल मराठी डाउनलोड करें</a></p>
 		) : (
 			<div class="cta">
 				<h2>बोल मराठी पाएँ</h2>
 				<p>{BOL_MARATHI_APP.comingSoonNote}</p>
-				<p><a class="btn" href={waitlistHref} data-app-cta data-cta-variant="hi-app-waitlist">वेटलिस्ट से जुड़ें</a></p>
+				<p><a class="btn" href={waitlistHref} data-funnel="waitlist_click" data-app-cta data-cta-variant="hi-app-waitlist">वेटलिस्ट से जुड़ें</a></p>
 				<p class="note">सिर्फ़ एक ईमेल — Play Store पर आते ही सबसे पहले आपको ख़बर।</p>
 			</div>
 		)}
@@ -76,7 +76,7 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 		<div class="cta">
 			<h2>सबसे पहले जानें</h2>
 			<p>{BOL_MARATHI_APP.comingSoonNote}</p>
-			{!storeHref && <p><a class="btn" href={waitlistHref} data-app-cta data-cta-variant="hi-app-end-waitlist">वेटलिस्ट से जुड़ें</a></p>}
+			{!storeHref && <p><a class="btn" href={waitlistHref} data-funnel="waitlist_click" data-app-cta data-cta-variant="hi-app-end-waitlist">वेटलिस्ट से जुड़ें</a></p>}
 		</div>
 	</div>
 </Base>
