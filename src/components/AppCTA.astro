@@ -10,15 +10,17 @@ import { BOL_MARATHI_APP } from '../data/app';
 type Props = {
 	variant?: 'vocabulary' | 'phrase' | 'grammar' | 'lesson' | 'general' | 'subtle';
 	context?: string;
+	locale?: 'en' | 'hi';
 };
 
-const { variant = 'general', context = '' } = Astro.props;
+const { variant = 'general', context = '', locale = 'en' } = Astro.props;
 
 const live = !BOL_MARATHI_APP.comingSoon && !!BOL_MARATHI_APP.playStoreUrl;
 const href = live ? (BOL_MARATHI_APP.playStoreUrl as string) : siteUrl('/app/');
-const joinLabel = 'Join the Android Waitlist';
+const joinLabel = locale === 'hi' ? 'Android वेटलिस्ट से जुड़ें' : 'Join the Android Waitlist';
 
-const copy: Record<string, { heading: string; body: string; cta: string }> = {
+type Copy = { heading: string; body: string; cta: string };
+const enCopy: Record<string, Copy> = {
 	vocabulary: {
 		heading: 'Know the words. Now remember them.',
 		body: `You can learn these words here. ${BOL_MARATHI_APP.name} helps you remember and use them through listening, speaking and spaced repetition.`,
@@ -46,12 +48,51 @@ const copy: Record<string, { heading: string; body: string; cta: string }> = {
 	},
 	subtle: { heading: '', body: '', cta: '' },
 };
+
+const hiCopy: Record<string, Copy> = {
+	vocabulary: {
+		heading: 'शब्द याद रखें, सिर्फ़ पढ़ें नहीं।',
+		body: `ये शब्द आप यहाँ सीख सकते हैं। ${BOL_MARATHI_APP.name} में सुनकर, बोलकर और दोहराव से इन्हें याद रखें।`,
+		cta: live ? 'इन शब्दों का अभ्यास करें' : joinLabel,
+	},
+	phrase: {
+		heading: 'वाक्य पढ़ना आसान है, बोलना अभ्यास से आता है।',
+		body: `इन वाक्यों को बोलें, फीडबैक पाएँ और भूलने से पहले दोहराएँ — ${BOL_MARATHI_APP.name} में।`,
+		cta: live ? 'इन वाक्यों का अभ्यास करें' : joinLabel,
+	},
+	grammar: {
+		heading: 'नियम समझें, फिर वाक्य बनाएँ।',
+		body: `यह पन्ना नियम सिखाता है। ${BOL_MARATHI_APP.name} में तुरंत फीडबैक के साथ वाक्य बनाने का अभ्यास करें।`,
+		cta: live ? 'वाक्य बनाना सीखें' : joinLabel,
+	},
+	lesson: {
+		heading: 'पढ़ लिया? अब अभ्यास करें।',
+		body: `इस पाठ को ${BOL_MARATHI_APP.name} में सुनने, बोलने और इंटरैक्टिव अभ्यास के साथ आगे बढ़ाएँ।`,
+		cta: live ? 'बोल मराठी में जारी रखें' : joinLabel,
+	},
+	general: {
+		heading: 'सिर्फ़ पढ़ने से आगे बढ़ें?',
+		body: `वेबसाइट ज्ञान देती है। ऐप अभ्यास देता है — सुनें, बोलें, बनाएँ, दोहराएँ, याद रखें।`,
+		cta: live ? 'बोल मराठी ऐप देखें' : joinLabel,
+	},
+	subtle: { heading: '', body: '', cta: '' },
+};
+
+const copy = locale === 'hi' ? hiCopy : enCopy;
+const subtleLabel =
+	locale === 'hi'
+		? live
+			? 'इसे ऐप में अभ्यास करें →'
+			: 'ऐप में अभ्यास के लिए Android वेटलिस्ट से जुड़ें →'
+		: live
+			? 'Practice this in the app →'
+			: 'Join the Android waitlist to practice this in the app →';
 ---
 
 {variant === 'subtle' ? (
 	<p class="cta-subtle" data-cta="subtle" data-cta-context={context}>
 		<a href={href} data-funnel="app_cta_click" data-app-cta data-cta-variant="subtle">
-			{live ? 'Practice this in the app →' : 'Join the Android waitlist to practice this in the app →'}
+			{subtleLabel}
 		</a>
 	</p>
 ) : (
@@ -59,7 +100,14 @@ const copy: Record<string, { heading: string; body: string; cta: string }> = {
 		<h2>{copy[variant].heading}</h2>
 		<p>{copy[variant].body}</p>
 		<a class="btn" href={href} data-funnel="app_cta_click" data-app-cta data-cta-variant={variant}>{copy[variant].cta}</a>
-		{BOL_MARATHI_APP.comingSoon && <p class="note">{BOL_MARATHI_APP.comingSoonNote} Free lessons stay free — the app adds the practice loop.</p>}
+		{BOL_MARATHI_APP.comingSoon && (
+			<p class="note">
+				{BOL_MARATHI_APP.comingSoonNote}{' '}
+				{locale === 'hi'
+					? 'मुफ़्त पाठ मुफ़्त रहेंगे — ऐप अभ्यास जोड़ता है।'
+					: 'Free lessons stay free — the app adds the practice loop.'}
+			</p>
+		)}
 	</aside>
 )}
 

@@ -10,13 +10,14 @@ without ≥1 real curriculum source; no two pages for one intent.
 | how to say sorry in marathi | — | /how-to-say-sorry-in-marathi/ ✅ BUILT (v-greet-04) | phrase | Conversation |
 | marathi words for beginners | /vocabulary/beginners/ ✅ | — | vocabulary | Beginner |
 | marathi phrases for beginners | /phrases/greetings/ ✅ | — | phrase | Beginner |
-| marathi numbers 1 to 100 | /vocabulary/numbers-time/ (partial) | ❌ DEFERRED — vocab has 33 number/time entries, not 1–100. Shipping "1–100" would invent content. P1: needs curriculum addition. | — | Daily life |
-| marathi days of week / months | — | ❌ DEFERRED — coverage unverified. Do not ship until Time-category audit confirms day/month words. | — | Daily life |
+| marathi numbers 1 to 100 | /vocabulary/numbers-time/ (partial) | /marathi-numbers/ ✅ BUILT — honest scope: 1–20, tens–100, ordinals (33 words). Full 1–100 still needs curriculum addition (P1). | vocabulary | Daily life |
+| marathi days of week / months | — | /marathi-days-months/ ✅ BUILT — all 7 days + 12 months verified in Time category | vocabulary | Daily life |
+| marathi pronunciation | /lessons/06/ ✅ (unit page) | /marathi-pronunciation/ ✅ BUILT — repackaged Unit 06 notes | grammar | Beginner |
 | hindi to marathi words/sentences | /hindi-to-marathi/* ✅ + /hi/* ✅ | — | lesson | HI→MR |
 | english to marathi words/sentences | /english-to-marathi/* ✅ | — | lesson | EN→MR |
 | marathi pronouns/verbs/sentence structure | /grammar/* ✅ | — | grammar | Grammar |
 | marathi travel/shopping phrases | /phrases/travel/ ✅ (+vocab) | restaurant set ❌ DEFERRED — no restaurant phrase set in app data; shopping/travel cover the intent | phrase | Conversation |
-| marathi pronunciation | /lessons/06/ ✅ (unit page) | dedicated guide ❌ DEFERRED P1 | lesson | Beginner |
+| marathi pronunciation | /lessons/06/ ✅ (unit page) | /marathi-pronunciation/ ✅ BUILT — repackaged Unit 06 notes | grammar | Beginner |
 
 ## Content gaps (ranked)
 
