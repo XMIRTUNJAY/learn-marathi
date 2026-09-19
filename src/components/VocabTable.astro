@@ -19,7 +19,10 @@ const { words, caption } = Astro.props;
 		<tbody>
 			{words.map((w) => (
 				<tr>
-					<td class="mr" lang="mr">{w.marathi}</td>
+					<td class="mr" lang="mr">
+						{w.marathi}
+						<button type="button" class="say" data-say={w.marathi} aria-label={`Listen: ${w.marathi}`}>🔊</button>
+					</td>
 					<td class="tr">{w.transliteration}</td>
 					<td lang="hi">{w.hindi}</td>
 					<td>{w.english}</td>
@@ -33,3 +36,43 @@ const { words, caption } = Astro.props;
 		</tbody>
 	</table>
 </div>
+
+<script is:inline>
+	(function () {
+		// Device text-to-speech for Marathi headwords. No network, no keys —
+		// uses the visitor's own voices. Buttons remove themselves if speech
+		// synthesis is unavailable, so nothing looks broken.
+		if (!('speechSynthesis' in window)) {
+			document.querySelectorAll('.say').forEach((b) => b.remove());
+			return;
+		}
+		document.addEventListener('click', (e) => {
+			const btn = e.target.closest('[data-say]');
+			if (!btn) return;
+			try {
+				window.speechSynthesis.cancel();
+				const u = new SpeechSynthesisUtterance(btn.getAttribute('data-say') || '');
+				u.lang = 'mr-IN';
+				u.rate = 0.85;
+				window.speechSynthesis.speak(u);
+			} catch (err) {
+				/* voice missing — table content still fully usable */
+			}
+		});
+	})();
+</script>
+
+<style>
+	.say {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		font-size: 0.9em;
+		padding: 0.1em 0.2em;
+		margin-left: 0.25em;
+		line-height: 1;
+	}
+	.say:hover {
+		filter: brightness(0.85);
+	}
+</style>

@@ -1,0 +1,28 @@
+---
+import AppCTA from '../../components/AppCTA.astro';
+import Base from '../../layouts/Base.astro';
+import { clusters, wordsByCategory } from '../../lib/learn';
+import { siteUrl } from '../../lib/site';
+
+const title = 'Free Marathi Quizzes by Topic';
+const description = 'Free 10-question Marathi quizzes — vocabulary topics with instant feedback. A sample of the Bol Marathi practice loop.';
+---
+
+<Base title={title} description={description}>
+	<div class="prose">
+		<p class="kicker">Marathi Quiz</p>
+		<h1>Test yourself: Marathi quizzes</h1>
+		<p class="lede">Pick a topic, answer 10 questions, get instant feedback. Free — and the app turns one round into scheduled reviews.</p>
+		<ul class="card-grid">
+			{clusters.map((c) => (
+				<li>
+					<a class="card" href={siteUrl(`/quiz/${c.slug}/`)} data-funnel="quiz_start">
+						<h3>Quiz: {c.title}</h3>
+						<p>{wordsByCategory(c.categories).length} words · 10 questions</p>
+					</a>
+				</li>
+			))}
+		</ul>
+		<AppCTA variant="general" context="quiz-index" />
+	</div>
+</Base>

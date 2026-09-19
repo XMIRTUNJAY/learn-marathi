@@ -75,6 +75,19 @@ export const clusters: Cluster[] = [
     ],
   },
   {
+    slug: 'colors',
+    title: 'Marathi Colors',
+    description: 'Marathi color words — with Hindi meanings, pronunciation and example sentences from the Bol Marathi curriculum.',
+    intent: 'marathi colors; marathi colour names',
+    categories: ['Colors'],
+    unitRefs: ['01', '20'],
+    related: [
+      { label: 'Beginner words', href: siteUrl('/vocabulary/beginners/') },
+      { label: 'Daily-use Marathi words', href: siteUrl('/vocabulary/daily-life/') },
+      { label: 'Unit 20 — Review & Mastery', href: siteUrl('/lessons/20/') },
+    ],
+  },
+  {
     slug: 'food',
     title: 'Marathi Food Words',
     description: 'Marathi words for food, vegetables, grains and eating — with Hindi meanings, pronunciation and example sentences.',

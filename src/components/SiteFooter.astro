@@ -3,21 +3,46 @@ import { siteUrl } from '../lib/site';
 import { BOL_MARATHI_APP } from '../data/app';
 
 const nextUrl = new URL(siteUrl('/app/#joined'), Astro.site).toString();
+// Hindi pages get a Hindi footer; everything else stays English.
+const hi = Astro.url.pathname.includes('/hi/');
+const t = hi
+	? {
+			heading: 'सबसे पहले जानें',
+			sub: 'लॉन्च की एक ईमेल — Play Store पर आते ही ख़बर।',
+			placeholder: 'aap@example.com',
+			button: 'सूचित करें',
+			learn: 'सीखें',
+			paths: 'मार्ग',
+			product: 'उत्पाद',
+			tagline: 'बोल मराठी पाठ्यक्रम से मुफ़्त मराठी पाठ। ऐप में सुनना, बोलना और दोहराव जुड़ता है।',
+			translate: 'अपनी भाषा में पढ़ें:',
+		}
+	: {
+			heading: 'Be first to know',
+			sub: 'Launch updates, nothing else. One email when Bol Marathi hits the Play Store.',
+			placeholder: 'you@example.com',
+			button: 'Notify me',
+			learn: 'Learn',
+			paths: 'Paths',
+			product: 'Product',
+			tagline: 'Free Marathi lessons from the Bol Marathi curriculum. The app adds listening, speaking and spaced repetition.',
+			translate: 'Read in your language:',
+		};
 ---
 
 <footer class="site-footer">
 	<div class="foot-cta">
 		<div>
-			<h2>Be first to know</h2>
-			<p>Launch updates, nothing else. One email when Bol Marathi hits the Play Store.</p>
+			<h2>{t.heading}</h2>
+			<p>{t.sub}</p>
 		</div>
 		{BOL_MARATHI_APP.waitlistFormAction ? (
 			<form class="waitlist" action={BOL_MARATHI_APP.waitlistFormAction} method="POST" data-funnel="waitlist_signup">
 				<label class="visually-hidden" for="waitlist-email">Email address</label>
-				<input id="waitlist-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+				<input id="waitlist-email" type="email" name="email" placeholder={t.placeholder} required autocomplete="email" />
 				<input type="hidden" name="_subject" value={BOL_MARATHI_APP.waitlistSubject} />
 				<input type="hidden" name="_next" value={nextUrl} />
-				<button type="submit">Notify me</button>
+				<button type="submit">{t.button}</button>
 			</form>
 		) : (
 			<p>
@@ -34,7 +59,7 @@ const nextUrl = new URL(siteUrl('/app/#joined'), Astro.site).toString();
 
 	<div class="foot-grid">
 		<nav aria-label="Learn">
-			<h3>Learn</h3>
+			<h3>{t.learn}</h3>
 			<a href={siteUrl('/start/')}>Start here</a>
 			<a href={siteUrl('/vocabulary/')}>Vocabulary</a>
 			<a href={siteUrl('/phrases/')}>Phrases</a>
@@ -42,13 +67,13 @@ const nextUrl = new URL(siteUrl('/app/#joined'), Astro.site).toString();
 			<a href={siteUrl('/lessons/')}>Lessons</a>
 		</nav>
 		<nav aria-label="Paths">
-			<h3>Paths</h3>
+			<h3>{t.paths}</h3>
 			<a href={siteUrl('/hindi-to-marathi/')}>Hindi → Marathi</a>
 			<a href={siteUrl('/english-to-marathi/')}>English → Marathi</a>
 			<a href={siteUrl('/hi/')} lang="hi">हिंदी में सीखें</a>
 		</nav>
 		<nav aria-label="Product">
-			<h3>Product</h3>
+			<h3>{t.product}</h3>
 			<a href={siteUrl('/app/')}>App</a>
 			<a href={siteUrl('/about/')}>About</a>
 			<a href={siteUrl('/how-it-works/')}>Method</a>
@@ -58,10 +83,10 @@ const nextUrl = new URL(siteUrl('/app/#joined'), Astro.site).toString();
 	</div>
 
 	<div class="foot-base">
-		<p>Free Marathi lessons from the Bol Marathi curriculum. The app adds listening, speaking and spaced repetition.</p>
+		<p>{t.tagline}</p>
 		<div class="translate">
-			<span id="translate-label">Read in your language:</span>
-			<span id="google_translate_element" role="region" aria-labelledby="translate-label"></span>
+			<span id="translate-label">{t.translate}</span>
+			<span id="google_translate_element" role="region" aria-labelledby="translate-label">हिन्दी · मराठी</span>
 		</div>
 	</div>
 </footer>

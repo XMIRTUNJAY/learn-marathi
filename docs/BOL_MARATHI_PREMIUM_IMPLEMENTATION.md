@@ -91,3 +91,37 @@ legitimate polysemy.
 - **A11y:** 1 H1/page verified; screenshot alts; labeled email input;
   focus-visible rings; accent-on-white contrast ~7:1; lang="hi" on
   Hindi pages; tables scroll in regions with labels.
+
+---
+
+# REVIEW-ROUND PASS (external review, minus monetization)
+
+Reviewer claims checked against data first — two rejected with
+evidence: no "गोडा मसाला" entry exists (only correct generic
+मसाला = spice mix); भजी/कांदा भजी and ताट/थाळी are distinct
+entries (fritters vs onion fritters; plate vs platter), not dupes.
+Idli/dosa kept as Maharashtra foods, noted. No alphabet/barakhadi
+page: Grammar category holds conjunctions, not the alphabet —
+documented as gap, not invented.
+
+- **Funnel:** /app/ beta framing ("closed testing — waitlist members
+  get beta invites first"); footer stays the only form CTA, all else
+  mailto (deliberate A/B: `waitlist_signup` vs `waitlist_click`).
+- **Lead magnets:** /downloads/ with Anki-ready TSVs (top-100 +
+  full-1002, `tools/make-anki.mjs`); /quiz/ + 9 cluster quizzes
+  (vanilla JS, 10 Qs, embedded data, "continue in app" ending).
+- **Audio:** speaker buttons on every vocab row via device
+  speechSynthesis (mr-IN, no keys/network); self-removing if
+  unsupported. Full TTS clips deferred (needs cloud keys + native
+  check).
+- **Tech:** trailing slashes centralized in `siteUrl()` (no redirect
+  hops; `#`/`?` safe); homepage title now intent-led; 11 per-section
+  OG cards auto-mapped in BaseHead; analytics loads only when
+  `analyticsScript` is set (Plausible/Umami-ready).
+- **i18n:** Hindi footer variant on /hi/* (band, headings, form);
+  translate widget has fallback text; author byline links xmirtunjay.
+- **Content:** cluster prose blocks (data-driven, unique per page);
+  /vocabulary/colors/ page (13 verified words); numbers/days scope
+  notes; "Units 03" singular/plural fixed.
+- **Deferred honestly:** simple romanization respelling (needs native
+  review with LM-0004); per-word pages; testimonials; monetization.

@@ -28,4 +28,29 @@ const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"
 
 await sharp(Buffer.from(ogSvg)).png().toFile(join(pubDir, 'og-default.png'));
 console.log('og: og-default.png');
+
+const sections = {
+  vocabulary: 'Marathi Vocabulary',
+  phrases: 'Marathi Phrases',
+  grammar: 'Marathi Grammar',
+  lessons: 'Marathi Lessons',
+  quiz: 'Marathi Quiz',
+  'hindi-to-marathi': 'Hindi to Marathi',
+  'english-to-marathi': 'English to Marathi',
+  hi: 'Hindi se Marathi',
+  app: 'Bol Marathi App',
+  start: 'Start Learning Marathi',
+  downloads: 'Free Marathi Anki Decks',
+};
+for (const [slug, label] of Object.entries(sections)) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+<rect width="1200" height="630" fill="#8E2D12"/>
+<rect x="80" y="215" width="105" height="105" rx="22" fill="#FDFBF7"/>
+<text x="132" y="290" font-size="62" text-anchor="middle" fill="#8E2D12" font-family="sans-serif" font-weight="bold">BM</text>
+<text x="220" y="265" font-size="76" fill="#FDFBF7" font-family="sans-serif" font-weight="bold">${label}</text>
+<text x="220" y="320" font-size="38" fill="#FFDBD1" font-family="sans-serif">Learn Marathi · Bol Marathi</text>
+</svg>`;
+  await sharp(Buffer.from(svg)).png().toFile(join(pubDir, `og-${slug}.png`));
+  console.log(`og: og-${slug}.png`);
+}
 if (!existsSync(join(shotsDir, 'flow-learn.webp'))) throw new Error('webp output missing');

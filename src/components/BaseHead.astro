@@ -13,8 +13,13 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const { title, description, imageUrl = `${base}/og-default.png`, noindex = false, alternates = [] } = Astro.props;
-const ogImage = new URL(imageUrl, Astro.site).toString();
+const { title, description, imageUrl, noindex = false, alternates = [] } = Astro.props;
+// Per-section share cards (public/og-<section>.png); explicit imageUrl
+// wins; otherwise map the first URL segment, else the default card.
+const section = Astro.url.pathname.replace(base || '/', '').split('/').filter(Boolean)[0] ?? '';
+const sectionImages = ['vocabulary', 'phrases', 'grammar', 'lessons', 'quiz', 'hindi-to-marathi', 'english-to-marathi', 'hi', 'app', 'start', 'downloads'];
+const resolvedImage = imageUrl ?? (sectionImages.includes(section) ? `${base}/og-${section}.png` : `${base}/og-default.png`);
+const ogImage = new URL(resolvedImage, Astro.site).toString();
 ---
 
 <!-- Global Metadata -->

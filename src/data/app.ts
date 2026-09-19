@@ -18,6 +18,12 @@ export const BOL_MARATHI_APP = {
   // See README "Waitlist". Monitored inbox for mailto path:
   contactEmail: 'mrxubr@gmail.com',
   waitlistFormAction: 'https://formspree.io/f/xqpaeejw',
+  // Privacy-friendly analytics (Plausible/Umami): paste the tracker
+  // script URL here (e.g. https://plausible.io/js/script.js). Empty =
+  // no tracker loads. Extra attributes (data-domain / data-website-id)
+  // go in analyticsAttrs.
+  analyticsScript: '',
+  analyticsAttrs: {} as Record<string, string>,
   waitlistSubject: 'Notify me — Bol Marathi launch',
   // App walkthrough in tab-flow order: Learn → Practice → Progress → Profile.
   screenshots: [

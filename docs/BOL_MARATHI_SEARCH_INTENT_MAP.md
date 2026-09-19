@@ -17,6 +17,9 @@ without ≥1 real curriculum source; no two pages for one intent.
 | english to marathi words/sentences | /english-to-marathi/* ✅ | — | lesson | EN→MR |
 | marathi pronouns/verbs/sentence structure | /grammar/* ✅ | — | grammar | Grammar |
 | marathi travel/shopping phrases | /phrases/travel/ ✅ (+vocab) | restaurant set ❌ DEFERRED — no restaurant phrase set in app data; shopping/travel cover the intent | phrase | Conversation |
+| marathi colors | — | /vocabulary/colors/ ✅ BUILT — 13 color words verified | vocabulary | Daily life |
+| marathi quiz / practice test | — | /quiz/ + /quiz/\<cluster\>/ ✅ BUILT — 10-question engagement pages (practice-loop sample, not thin SEO) | app CTA | Engagement |
+| marathi anki deck | — | /downloads/ ✅ BUILT — top-100 + full-1002 TSV from real data | waitlist | Lead magnet |
 | marathi pronunciation | /lessons/06/ ✅ (unit page) | /marathi-pronunciation/ ✅ BUILT — repackaged Unit 06 notes | grammar | Beginner |
 
 ## Content gaps (ranked)

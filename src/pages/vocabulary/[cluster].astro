@@ -26,7 +26,7 @@ const words = wordsByCategory(cluster.categories);
 	]}
 	canonicalPath={`/vocabulary/${cluster.slug}/`}
 	about={cluster.intent}
-	meta={[`${words.length} words`, `Units ${cluster.unitRefs.join(', ')}`]}
+	meta={[`${words.length} words`, cluster.unitRefs.length > 1 ? `Units ${cluster.unitRefs.join(', ')}` : `Unit ${cluster.unitRefs[0]}`]}
 >
 	<h2>What you will learn</h2>
 	<p>
@@ -34,6 +34,12 @@ const words = wordsByCategory(cluster.categories);
 		({cluster.categories.join(', ').toLowerCase()}) — each with Hindi meaning,
 		English meaning, pronunciation and a real example sentence from the
 		Bol Marathi curriculum.
+	</p>
+	<p>
+		These words come from {cluster.unitRefs.length > 1 ? `Units ${cluster.unitRefs.join(' and ')}` : `Unit ${cluster.unitRefs[0]}`} of
+		the course, where they appear with listening, speaking and
+		sentence-building practice. Learn to recognize them here; the app
+		makes sure you remember them.
 	</p>
 
 	<VocabTable words={words} caption={cluster.title} />
@@ -47,7 +53,7 @@ const words = wordsByCategory(cluster.categories);
 		what the listening and speaking practice in Bol Marathi is for.
 	</p>
 
-	<RelatedContent links={cluster.related} />
+	<RelatedContent links={[...cluster.related, { label: `Quiz yourself: ${cluster.title}`, href: siteUrl(`/quiz/${cluster.slug}/`) }]} />
 
 	<AppCTA variant="general" context={`vocabulary-${cluster.slug}-end`} />
 </Learn>

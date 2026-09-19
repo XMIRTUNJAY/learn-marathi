@@ -1,0 +1,147 @@
+---
+import Base from '../../layouts/Base.astro';
+import { clusters, wordsByCategory } from '../../lib/learn';
+import { siteUrl } from '../../lib/site';
+
+export async function getStaticPaths() {
+	return clusters.map((c) => ({ params: { cluster: c.slug } }));
+}
+
+const { cluster: slug } = Astro.params;
+const cluster = clusters.find((c) => c.slug === slug);
+if (!cluster) throw new Error(`Unknown cluster: ${slug}`);
+const words = wordsByCategory(cluster.categories).map((w) => ({
+	mr: w.marathi,
+	en: w.english,
+	hi: w.hindi,
+	tr: w.transliteration,
+}));
+const dataJson = JSON.stringify(words);
+
+const title = `Marathi Quiz: ${cluster.title}`;
+const description = `A free 10-question Marathi quiz on ${cluster.title.toLowerCase()} — pick the right meaning, then continue with spaced repetition in the app.`;
+---
+
+<Base title={title} description={description}>
+	<div class="prose">
+		<p class="kicker">Marathi Quiz</p>
+		<h1>{cluster.title}: 10-question quiz</h1>
+		<p class="lede">Read the Marathi word, pick the English meaning. 10 questions, instant feedback — a free sample of the practice loop.</p>
+		<div id="quiz" data-funnel="quiz_start">
+			<p class="qmeta"><span id="qpos">Question 1/10</span> · <span id="qscore">Score 0</span></p>
+			<p class="qword" id="qword" lang="mr">…</p>
+			<p class="qtr" id="qtr">…</p>
+			<div class="qopts" id="qopts" role="group" aria-label="Answer options"></div>
+			<p class="qfb" id="qfb" aria-live="polite"></p>
+			<p><button class="btn" id="qnext" type="button" hidden>Next →</button></p>
+		</div>
+		<div id="qdone" hidden>
+			<h2 id="qdone-h">Round complete</h2>
+			<p id="qdone-p"></p>
+			<p>
+				<a class="btn" href={siteUrl(`/vocabulary/${cluster.slug}/`)} data-funnel="quiz_review">Review these words</a>
+				<a class="btn ghost" href={siteUrl('/app/')} data-funnel="app_cta_click" data-app-cta data-cta-variant="quiz">Continue in the app</a>
+			</p>
+		</div>
+	</div>
+</Base>
+
+<script type="application/json" id="quiz-data" set:html={dataJson} />
+<script is:inline>
+	(function () {
+		try {
+			var words = JSON.parse(document.getElementById('quiz-data').textContent || '[]');
+			if (!words.length) return;
+			var order = words.slice().sort(function () { return Math.random() - 0.5; }).slice(0, 10);
+			var i = 0, score = 0, locked = false;
+			var pos = document.getElementById('qpos'), sc = document.getElementById('qscore');
+			var qw = document.getElementById('qword'), qt = document.getElementById('qtr');
+			var opts = document.getElementById('qopts'), fb = document.getElementById('qfb');
+			var next = document.getElementById('qnext'), done = document.getElementById('qdone');
+			function ask() {
+				locked = false;
+				var q = order[i];
+				pos.textContent = 'Question ' + (i + 1) + '/' + order.length;
+				qw.textContent = q.mr;
+				qt.textContent = q.tr + ' · ' + q.hi;
+				fb.textContent = '';
+				next.hidden = true;
+				var pool = words.filter(function (w) { return w.en !== q.en; })
+					.sort(function () { return Math.random() - 0.5; }).slice(0, 3).map(function (w) { return w.en; });
+				var choices = pool.concat([q.en]).sort(function () { return Math.random() - 0.5; });
+				opts.innerHTML = '';
+				choices.forEach(function (c) {
+					var b = document.createElement('button');
+					b.type = 'button';
+					b.className = 'qopt';
+					b.textContent = c;
+					b.addEventListener('click', function () { answer(b, c === q.en, q); });
+					opts.appendChild(b);
+				});
+			}
+			function answer(btn, ok, q) {
+				if (locked) return;
+				locked = true;
+				if (ok) { score++; sc.textContent = 'Score ' + score; }
+				opts.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
+				btn.classList.add(ok ? 'ok' : 'bad');
+				fb.textContent = ok ? 'Correct!' : 'Not quite — ' + q.mr + ' means "' + q.en + '".';
+				next.hidden = false;
+			}
+			next.addEventListener('click', function () {
+				i++;
+				if (i >= order.length) {
+					document.getElementById('quiz').hidden = true;
+					done.hidden = false;
+					document.getElementById('qdone-p').textContent =
+						'You scored ' + score + '/' + order.length + '. The app schedules these words for review before you forget them.';
+				} else ask();
+			});
+			ask();
+		} catch (e) { /* quiz unavailable — word lists above still teach */ }
+	})();
+</script>
+
+<style>
+	.qmeta { font-size: 0.85rem; color: rgb(var(--gray)); }
+	.qword { font-size: 2rem; font-weight: 700; color: rgb(var(--black)); margin: 0.25em 0 0 0; }
+	.qtr { color: rgb(var(--gray)); margin-top: 0; }
+	.qopts { display: grid; gap: 0.6em; margin: 1em 0; }
+	.qopt {
+		font: inherit;
+		text-align: left;
+		background: var(--card);
+		border: var(--border);
+		border-radius: var(--radius);
+		padding: 0.8em 1em;
+		cursor: pointer;
+		color: rgb(var(--gray-dark));
+	}
+	.qopt:hover:not(:disabled) { border-color: var(--accent); }
+	.qopt:disabled { cursor: default; opacity: 0.85; }
+	.qopt.ok { border-color: var(--success, #2e7d5b); background: var(--success-bg, #e8f4ec); }
+	.qopt.bad { border-color: var(--accent); }
+	.qfb { font-weight: 600; min-height: 1.6em; }
+	.btn {
+		display: inline-block;
+		min-height: 52px;
+		line-height: 52px;
+		padding: 0 1.5em;
+		background: var(--accent);
+		color: #fff;
+		font-size: 0.95rem;
+		font-weight: 600;
+		text-decoration: none;
+		border: none;
+		border-radius: var(--radius);
+		margin-top: 0.5em;
+		cursor: pointer;
+		margin-right: 0.5em;
+	}
+	.btn.ghost {
+		background: transparent;
+		color: var(--accent);
+		border: var(--border);
+		line-height: 50px;
+	}
+</style>

@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+import { BOL_MARATHI_APP } from '../data/app';
 
 type Props = {
 	title: string;
@@ -19,6 +20,9 @@ const { title, description, ogImage, noindex, alternates, lang = 'en' } = Astro.
 <html lang={lang}>
 	<head>
 		<BaseHead title={title} description={description} imageUrl={ogImage} noindex={noindex} alternates={alternates} />
+		{BOL_MARATHI_APP.analyticsScript && (
+			<script src={BOL_MARATHI_APP.analyticsScript} defer {...BOL_MARATHI_APP.analyticsAttrs}></script>
+		)}
 	</head>
 	<body>
 		<SiteHeader />
