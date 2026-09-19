@@ -186,6 +186,7 @@ export const phraseSets: PhraseSet[] = [
     related: [
       { label: 'Beginner words', href: siteUrl('/vocabulary/beginners/') },
       { label: 'Daily conversation', href: siteUrl('/phrases/daily/') },
+      { label: 'Unit 01 — Marathi Fundamentals', href: siteUrl('/lessons/01/') },
     ],
   },
   {
@@ -197,6 +198,7 @@ export const phraseSets: PhraseSet[] = [
     related: [
       { label: 'Hindi to Marathi phrases', href: siteUrl('/hindi-to-marathi/phrases/') },
       { label: 'Essential verbs', href: siteUrl('/vocabulary/verbs/') },
+      { label: 'Unit 02 — Survival Marathi', href: siteUrl('/lessons/02/') },
     ],
   },
   {
@@ -208,6 +210,7 @@ export const phraseSets: PhraseSet[] = [
     related: [
       { label: 'Travel words', href: siteUrl('/vocabulary/travel/') },
       { label: 'Shopping words', href: siteUrl('/vocabulary/shopping/') },
+      { label: 'Unit 14 — Nature & Travel', href: siteUrl('/lessons/14/') },
     ],
   },
 ];
@@ -218,6 +221,9 @@ export type GrammarTopic = {
   description: string;
   intent: string;
   unitRefs: string[];
+  // Explicit {unit, lessons} picks — every row shown is verified to
+  // belong to the topic (no keyword guessing across note bodies).
+  picks: { unit: string; lessons: number[] }[];
   related: { label: string; href: string }[];
 };
 
@@ -228,9 +234,14 @@ export const grammarTopics: GrammarTopic[] = [
     description: 'I, you, he/she, we, they in Marathi — with Hindi comparison and example sentences from the curriculum.',
     intent: 'marathi pronouns; mi tu to in marathi',
     unitRefs: ['01', '05', '07'],
+    picks: [
+      { unit: '05', lessons: [1, 2, 3, 4, 5, 6] },
+      { unit: '01', lessons: [4] },
+    ],
     related: [
       { label: 'Family words', href: siteUrl('/vocabulary/family/') },
       { label: 'Sentence structure', href: siteUrl('/grammar/sentence-structure/') },
+      { label: 'Unit 05 — Pronouns & People', href: siteUrl('/lessons/05/') },
     ],
   },
   {
@@ -239,9 +250,15 @@ export const grammarTopics: GrammarTopic[] = [
     description: 'How Marathi verbs work — everyday verbs, continuous tense and the SOV sentence pattern, compared with Hindi.',
     intent: 'marathi verbs grammar; marathi tenses',
     unitRefs: ['01', '04', '21'],
+    picks: [
+      { unit: '04', lessons: [3, 4, 5, 6] },
+      { unit: '01', lessons: [5] },
+      { unit: '21', lessons: [5, 6] },
+    ],
     related: [
       { label: 'Essential verbs', href: siteUrl('/vocabulary/verbs/') },
       { label: 'Sentence structure', href: siteUrl('/grammar/sentence-structure/') },
+      { label: 'Unit 04 — Core Sentence Patterns', href: siteUrl('/lessons/04/') },
     ],
   },
   {
@@ -250,9 +267,15 @@ export const grammarTopics: GrammarTopic[] = [
     description: 'Marathi is Subject–Object–Verb, like Hindi. Learn the pattern with real examples and sentence-building practice.',
     intent: 'marathi sentence structure; marathi grammar',
     unitRefs: ['01', '04', '08'],
+    picks: [
+      { unit: '01', lessons: [6] },
+      { unit: '04', lessons: [1, 2] },
+      { unit: '08', lessons: [1, 2] },
+    ],
     related: [
       { label: 'Hindi to Marathi sentences', href: siteUrl('/hindi-to-marathi/phrases/') },
       { label: 'Marathi verbs', href: siteUrl('/grammar/verbs/') },
+      { label: 'Unit 01 — Marathi Fundamentals', href: siteUrl('/lessons/01/') },
     ],
   },
 ];

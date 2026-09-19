@@ -65,3 +65,29 @@ legitimate polysemy.
   Hindi cluster mirrors, Hindi CTA copy variants.
 - Post-launch: flip `playStoreUrl`, add testimonials/ratings only
   when real, consider form-based waitlist + single analytics vendor.
+
+---
+
+# FINAL PASS (same day) — what changed after the above
+
+- **Taxonomy fix:** grammar topics used keyword-regex over note bodies
+  ("Word Order" leaked onto Pronouns). Replaced with explicit
+  `{unit, lessons}` picks in `learn.ts` (U05-all + U01-L4 for
+  pronouns; U04-L3–6 + U01-L5 + U21-L5–6 verbs; U01-L6 + U04-L1–2 +
+  U08-L1–2 sentence-structure). Verified in output.
+- **CTA discipline:** max 1 contextual + 1 final panel per page
+  (subtle links removed everywhere). Spot-check: every page shows
+  exactly the intended variants, exactly one H1.
+- **Homepage:** "Who is it for" block (Hindi/English/beginners/
+  travellers/Maharashtra) + trust/methodology block.
+- **Method rewrite:** 8-step learning loop, why-bridges, progression,
+  website-vs-app split. No superlative claims.
+- **Related links:** all sets/topics now 3 links (added unit links).
+- **"Get Bol Marathi"** heading removed pre-launch.
+- **OG image:** regenerated with exact "1002 words · 156 lessons".
+- **Performance:** dist 2MB total; zero blocking JS/CSS files
+  (Astro inlines the tiny menu script; only deferred Translate widget
+  is external). Largest assets: 4 WebP shots (81–90KB each).
+- **A11y:** 1 H1/page verified; screenshot alts; labeled email input;
+  focus-visible rings; accent-on-white contrast ~7:1; lang="hi" on
+  Hindi pages; tables scroll in regions with labels.

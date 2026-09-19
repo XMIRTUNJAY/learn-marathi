@@ -23,7 +23,7 @@ const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"
 <rect x="80" y="200" width="120" height="120" rx="24" fill="#FDFBF7"/>
 <text x="140" y="288" font-size="72" text-anchor="middle" fill="#8E2D12" font-family="sans-serif" font-weight="bold">BM</text>
 <text x="240" y="250" font-size="84" fill="#FDFBF7" font-family="sans-serif" font-weight="bold">Learn Marathi</text>
-<text x="240" y="310" font-size="40" fill="#FFDBD1" font-family="sans-serif">1000+ words · 156 lessons · Bol Marathi app</text>
+<text x="240" y="310" font-size="40" fill="#FFDBD1" font-family="sans-serif">1002 words · 156 lessons · Bol Marathi app</text>
 </svg>`;
 
 await sharp(Buffer.from(ogSvg)).png().toFile(join(pubDir, 'og-default.png'));

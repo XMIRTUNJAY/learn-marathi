@@ -13,14 +13,11 @@ const { topic: slug } = Astro.params;
 const topic = grammarTopics.find((g) => g.slug === slug);
 if (!topic) throw new Error(`Unknown grammar topic: ${slug}`);
 
-// Grammar notes for this topic: matching rows from referenced units.
-const notes = topic.unitRefs.flatMap((no) => {
+// Grammar notes for this topic: explicit verified picks (see learn.ts).
+const notes = topic.picks.flatMap(({ unit: no, lessons }) => {
 	const u = getUnit(no);
-	if (slug === 'pronouns') return u.grammar.filter((g) => /मी|तू|तो|प्रश्न|सर्वनाम|pronoun|question/i.test(`${g.title} ${g.titleEn} ${g.text} ${g.textEn}`)).map((g) => ({ ...g, unit: no }));
-	if (slug === 'verbs') return u.grammar.filter((g) => /क्रिया|verb|tense|वाक्य|word order/i.test(`${g.title} ${g.titleEn} ${g.text} ${g.textEn}`)).map((g) => ({ ...g, unit: no }));
-	return u.grammar.slice(0, 2).map((g) => ({ ...g, unit: no }));
+	return u.grammar.filter((g) => lessons.includes(g.lesson)).map((g) => ({ ...g, unit: no }));
 });
-const shown = notes.length > 0 ? notes : topic.unitRefs.flatMap((no) => getUnit(no).grammar.slice(0, 2).map((g) => ({ ...g, unit: no })));
 ---
 
 <Learn
@@ -38,9 +35,7 @@ const shown = notes.length > 0 ? notes : topic.unitRefs.flatMap((no) => getUnit(
 	<h2>What you will learn</h2>
 	<p>{topic.description} Notes below come straight from the Bol Marathi lessons.</p>
 
-	<AppCTA variant="subtle" context={`grammar-${topic.slug}`} />
-
-	{shown.map((g) => (
+	{notes.map((g) => (
 		<section>
 			<h3>{g.titleEn} · <span lang="mr">{g.title}</span></h3>
 			<p lang="mr">{g.text}</p>
