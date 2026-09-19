@@ -8,15 +8,17 @@ type Props = {
 	description: string;
 	ogImage?: string;
 	noindex?: boolean;
+	alternates?: { lang: string; href: string }[];
+	lang?: string;
 };
 
-const { title, description, ogImage, noindex } = Astro.props;
+const { title, description, ogImage, noindex, alternates, lang = 'en' } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 	<head>
-		<BaseHead title={title} description={description} imageUrl={ogImage} noindex={noindex} />
+		<BaseHead title={title} description={description} imageUrl={ogImage} noindex={noindex} alternates={alternates} />
 	</head>
 	<body>
 		<SiteHeader />

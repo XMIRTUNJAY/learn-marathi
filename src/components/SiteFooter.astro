@@ -11,9 +11,29 @@ import { siteUrl } from '../lib/site';
 		<a href={siteUrl('/grammar/')}>Grammar</a>
 		<a href={siteUrl('/lessons/')}>Lessons</a>
 		<a href={siteUrl('/app/')}>App</a>
+		<a href={siteUrl('/hi/')} lang="hi">हिंदी में सीखें</a>
 	</nav>
 	<p>Learning content from the Bol Marathi curriculum. Practice listening, speaking and spaced repetition in the app.</p>
+	<div class="translate">
+		<span id="translate-label">Read in your language:</span>
+		<span id="google_translate_element" role="region" aria-labelledby="translate-label"></span>
+	</div>
 </footer>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+<script is:inline>
+	function googleTranslateElementInit() {
+		try {
+			// @ts-ignore — loaded from Google CDN above
+			new google.translate.TranslateElement(
+				{ pageLanguage: 'en', includedLanguages: 'hi,mr', autoDisplay: false },
+				'google_translate_element',
+			);
+		} catch (e) {
+			/* translate unavailable offline — footer links still work */
+		}
+	}
+</script>
 
 <style>
 	.site-footer {
@@ -42,5 +62,26 @@ import { siteUrl } from '../lib/site';
 		margin: 0;
 		font-size: 0.9rem;
 		color: rgb(var(--gray));
+	}
+	.translate {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.5em;
+		margin-top: 1em;
+		font-size: 0.85rem;
+		color: rgb(var(--gray));
+	}
+	.translate select {
+		font: inherit;
+		color: rgb(var(--gray-dark));
+		background: var(--card);
+		border: var(--border);
+		border-radius: 8px;
+		padding: 0.35em 0.6em;
+	}
+	/* Hide Google's injected top banner frame shift */
+	body {
+		top: 0 !important;
 	}
 </style>

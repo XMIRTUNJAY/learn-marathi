@@ -11,16 +11,17 @@ type Props = {
 	canonicalPath: string;
 	about?: string;
 	meta?: string[];
+	alternates?: { lang: string; href: string }[];
 };
 
-const { title, description, kicker, crumbs, canonicalPath, about, meta = [] } = Astro.props;
+const { title, description, kicker, crumbs, canonicalPath, about, meta = [], alternates } = Astro.props;
 // Absolute URLs must include the base (e.g. /learn-marathi) — Astro.url.pathname has it, Astro.site does not.
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const abs = (href: string) => new URL(href, Astro.site).toString();
 const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} alternates={alternates}>
 	<JsonLd
 		headline={title}
 		description={description}

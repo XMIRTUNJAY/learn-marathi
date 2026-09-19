@@ -17,10 +17,10 @@ export const BOL_MARATHI_APP = {
   waitlistSubject: 'Notify me — Bol Marathi launch',
   // App walkthrough in tab-flow order: Learn → Practice → Progress → Profile.
   screenshots: [
-    { src: '/screenshots/flow-learn.png', alt: 'Learn home — daily goal, continue learning and due reviews', step: '1 · Learn' },
-    { src: '/screenshots/flow-practice.png', alt: 'Practice Hub — retention stats, recommendations and practice modes', step: '2 · Practice' },
-    { src: '/screenshots/flow-progress.png', alt: 'Progress — streak, XP, weekly practice and skill map', step: '3 · Progress' },
-    { src: '/screenshots/flow-profile.png', alt: 'Profile — badges, app language and audio settings', step: '4 · Profile' },
+    { src: '/screenshots/flow-learn.webp', alt: 'Learn home — daily goal, continue learning and due reviews', step: '1 · Learn' },
+    { src: '/screenshots/flow-practice.webp', alt: 'Practice Hub — retention stats, recommendations and practice modes', step: '2 · Practice' },
+    { src: '/screenshots/flow-progress.webp', alt: 'Progress — streak, XP, weekly practice and skill map', step: '3 · Progress' },
+    { src: '/screenshots/flow-profile.webp', alt: 'Profile — badges, app language and audio settings', step: '4 · Profile' },
   ] as { src: string; alt: string; step: string }[],
   contactEmail: 'mrxubr@gmail.com',
 };

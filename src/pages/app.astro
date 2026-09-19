@@ -10,7 +10,8 @@ const description = 'Vocabulary, listening, speaking, sentence-building and spac
 const url = new URL(Astro.url.pathname, Astro.site).toString();
 const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 
-const waitlistHref = `mailto:${BOL_MARATHI_APP.contactEmail}?subject=${encodeURIComponent(BOL_MARATHI_APP.waitlistSubject)}`;
+const waitlistBody = 'Hi! Please tell me when Bol Marathi launches on the Play Store.';
+const waitlistHref = `mailto:${BOL_MARATHI_APP.contactEmail}?subject=${encodeURIComponent(BOL_MARATHI_APP.waitlistSubject)}&body=${encodeURIComponent(waitlistBody)}`;
 
 const faqs = [
 	{ question: 'Is Bol Marathi free?', answer: 'The learning content on this site is free. App pricing will be announced at launch.' },
@@ -23,7 +24,7 @@ const faqs = [
 const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? BOL_MARATHI_APP.playStoreUrl : null;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} alternates={[{ lang: 'en', href: siteUrl('/app/') }, { lang: 'hi', href: siteUrl('/hi/app/') }]}>
 	<JsonLd
 		headline={title}
 		description={description}
@@ -40,6 +41,12 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 			curriculum. {BOL_MARATHI_APP.name} turns that knowledge into usable Marathi —
 			listening, speaking, sentence-building and spaced repetition.
 		</p>
+	<div class="stats" role="list" aria-label="Bol Marathi in numbers">
+			<div role="listitem"><strong>{vocab.length}+</strong><span>words</span></div>
+			<div role="listitem"><strong>{units.length * 6}</strong><span>lessons</span></div>
+			<div role="listitem"><strong>{units.length}</strong><span>units</span></div>
+			<div role="listitem"><strong>6</strong><span>practice modes</span></div>
+		</div>
 		{storeHref ? (
 			<p><a class="btn" href={storeHref} data-app-cta data-cta-variant="app-hero">Download Bol Marathi</a></p>
 		) : (
@@ -82,6 +89,31 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 			<li><strong>Sentence building</strong> — arrange words into correct SOV Marathi sentences.</li>
 			<li><strong>Spaced repetition</strong> — reviews scheduled so words stick, with streaks and daily goals.</li>
 		</ol>
+
+		<h2>It finds your weakest words</h2>
+		<p>
+			Bol Marathi tracks every word — retention percentage, scheduled reviews,
+			mastered words — and puts your weakest words first with
+			<strong>"Recommended for you"</strong>. Reviews arrive before you forget
+			("0 words before you forget • 94% recall"), not on a fixed schedule.
+		</p>
+		<figure class="inline-shot">
+			<img src={siteUrl('/screenshots/flow-practice.webp')} alt="Practice Hub showing retention stats and weakest-word recommendations" loading="lazy" width="720" height="1568" />
+			<figcaption>Practice Hub: retention, scheduled reviews and weakest-first recommendations.</figcaption>
+		</figure>
+
+		<h2>Streaks, XP and levels keep you coming back</h2>
+		<p>
+			Daily goals, streaks with at-risk reminders, XP, levels, badges and a
+			skill map across vocabulary, listening, grammar, speaking and fluency —
+			plus six practice modes (listening, speaking, sentence building,
+			Hindi–Marathi bridge, grammar drills, mixed challenges) and custom sets
+			built from any words you choose.
+		</p>
+		<figure class="inline-shot">
+			<img src={siteUrl('/screenshots/flow-progress.webp')} alt="Progress screen with streak, XP, weekly practice and skill map" loading="lazy" width="720" height="1568" />
+			<figcaption>Progress: streak, XP, weekly goal and per-skill mastery.</figcaption>
+		</figure>
 
 		<h2>Curriculum</h2>
 		<p>
@@ -130,4 +162,48 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 		margin-top: 0.5em;
 	}
 	.btn:hover { background: var(--accent); filter: brightness(0.92); color: #fff; }
+	.stats {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0.75em;
+		margin: 1.5em 0 0.5em 0;
+	}
+	.stats div {
+		border: var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+		text-align: center;
+		padding: 0.9em 0.25em;
+	}
+	.stats strong {
+		display: block;
+		font-size: 1.4rem;
+		color: var(--accent);
+	}
+	.stats span {
+		font-size: 0.78rem;
+		color: rgb(var(--gray));
+	}
+	.inline-shot {
+		margin: 1.5em auto;
+		max-width: 320px;
+		border: var(--border);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		background: var(--card);
+	}
+	.inline-shot img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+	.inline-shot figcaption {
+		font-size: 0.85rem;
+		color: rgb(var(--gray));
+		padding: 0.75em 1em;
+		border-top: var(--border);
+	}
+	@media (max-width: 560px) {
+		.stats { grid-template-columns: repeat(2, 1fr); }
+	}
 </style>

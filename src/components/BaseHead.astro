@@ -8,11 +8,13 @@ interface Props {
 	description: string;
 	imageUrl?: string;
 	noindex?: boolean;
+	alternates?: { lang: string; href: string }[];
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, imageUrl, noindex = false } = Astro.props;
-const ogImage = imageUrl ? new URL(imageUrl, Astro.site).toString() : undefined;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const { title, description, imageUrl = `${base}/og-default.png`, noindex = false, alternates = [] } = Astro.props;
+const ogImage = new URL(imageUrl, Astro.site).toString();
 ---
 
 <!-- Global Metadata -->
@@ -25,6 +27,9 @@ const ogImage = imageUrl ? new URL(imageUrl, Astro.site).toString() : undefined;
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+{alternates.map((a) => (
+	<link rel="alternate" hreflang={a.lang} href={new URL(a.href, Astro.site).toString()} />
+))}
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -36,9 +41,11 @@ const ogImage = imageUrl ? new URL(imageUrl, Astro.site).toString() : undefined;
 <meta property="og:site_name" content={SITE_TITLE} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-{ogImage && <meta property="og:image" content={ogImage} />}
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={title} />
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={ogImage} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />

@@ -78,7 +78,9 @@ subsets of app fields. No invented translations.
 ```
 
 No per-word pages (thin-content rule). 156 lessons merged into
-26 unit pages.
+26 unit pages. Hindi mirror (`/hi/` hub, `/hi/shabd/`, `/hi/vakya/`,
+`/hi/app/`) reuses the same data with Hindi chrome + `hreflang`
+both ways; footer also offers Google Translate (hi/mr) for the rest.
 
 ## 5. SEO
 
