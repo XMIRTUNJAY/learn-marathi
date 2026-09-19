@@ -1,29 +1,68 @@
 ---
 import { siteUrl } from '../lib/site';
+import { BOL_MARATHI_APP } from '../data/app';
+
+const nextUrl = new URL(siteUrl('/app/#joined'), Astro.site).toString();
 ---
 
 <footer class="site-footer">
-	<nav aria-label="Footer">
-		<a href={siteUrl('/vocabulary/')}>Vocabulary</a>
-		<a href={siteUrl('/phrases/')}>Phrases</a>
-		<a href={siteUrl('/hindi-to-marathi/')}>Hindi → Marathi</a>
-		<a href={siteUrl('/english-to-marathi/')}>English → Marathi</a>
-		<a href={siteUrl('/grammar/')}>Grammar</a>
-		<a href={siteUrl('/lessons/')}>Lessons</a>
-		<a href={siteUrl('/app/')}>App</a>
-		<a href={siteUrl('/hi/')} lang="hi">हिंदी में सीखें</a>
-	</nav>
-	<nav aria-label="About">
-		<a href={siteUrl('/start/')}>Start here</a>
-		<a href={siteUrl('/about/')}>About</a>
-		<a href={siteUrl('/how-it-works/')}>Method</a>
-		<a href={siteUrl('/contact/')}>Contact</a>
-		<a href={siteUrl('/privacy/')}>Privacy</a>
-	</nav>
-	<p>Learning content from the Bol Marathi curriculum. Practice listening, speaking and spaced repetition in the app.</p>
-	<div class="translate">
-		<span id="translate-label">Read in your language:</span>
-		<span id="google_translate_element" role="region" aria-labelledby="translate-label"></span>
+	<div class="foot-cta">
+		<div>
+			<h2>Be first to know</h2>
+			<p>Launch updates, nothing else. One email when Bol Marathi hits the Play Store.</p>
+		</div>
+		{BOL_MARATHI_APP.waitlistFormAction ? (
+			<form class="waitlist" action={BOL_MARATHI_APP.waitlistFormAction} method="POST" data-funnel="waitlist_signup">
+				<label class="visually-hidden" for="waitlist-email">Email address</label>
+				<input id="waitlist-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+				<input type="hidden" name="_subject" value={BOL_MARATHI_APP.waitlistSubject} />
+				<input type="hidden" name="_next" value={nextUrl} />
+				<button type="submit">Notify me</button>
+			</form>
+		) : (
+			<p>
+				<a
+					class="btn"
+					href={`mailto:${BOL_MARATHI_APP.contactEmail}?subject=${encodeURIComponent(BOL_MARATHI_APP.waitlistSubject)}`}
+					data-funnel="waitlist_click"
+				>
+					Join the waitlist
+				</a>
+			</p>
+		)}
+	</div>
+
+	<div class="foot-grid">
+		<nav aria-label="Learn">
+			<h3>Learn</h3>
+			<a href={siteUrl('/start/')}>Start here</a>
+			<a href={siteUrl('/vocabulary/')}>Vocabulary</a>
+			<a href={siteUrl('/phrases/')}>Phrases</a>
+			<a href={siteUrl('/grammar/')}>Grammar</a>
+			<a href={siteUrl('/lessons/')}>Lessons</a>
+		</nav>
+		<nav aria-label="Paths">
+			<h3>Paths</h3>
+			<a href={siteUrl('/hindi-to-marathi/')}>Hindi → Marathi</a>
+			<a href={siteUrl('/english-to-marathi/')}>English → Marathi</a>
+			<a href={siteUrl('/hi/')} lang="hi">हिंदी में सीखें</a>
+		</nav>
+		<nav aria-label="Product">
+			<h3>Product</h3>
+			<a href={siteUrl('/app/')}>App</a>
+			<a href={siteUrl('/about/')}>About</a>
+			<a href={siteUrl('/how-it-works/')}>Method</a>
+			<a href={siteUrl('/contact/')}>Contact</a>
+			<a href={siteUrl('/privacy/')}>Privacy</a>
+		</nav>
+	</div>
+
+	<div class="foot-base">
+		<p>Free Marathi lessons from the Bol Marathi curriculum. The app adds listening, speaking and spaced repetition.</p>
+		<div class="translate">
+			<span id="translate-label">Read in your language:</span>
+			<span id="google_translate_element" role="region" aria-labelledby="translate-label"></span>
+		</div>
 	</div>
 </footer>
 
@@ -47,35 +86,124 @@ import { siteUrl } from '../lib/site';
 		width: var(--measure-wide);
 		max-width: calc(100% - 2em);
 		margin: auto;
-		padding: var(--space-5) 1em;
+		padding: var(--space-6) 1em var(--space-5) 1em;
 		border-top: var(--border);
 		margin-top: var(--space-6);
 	}
-	.site-footer nav {
+	.foot-cta {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1.25em;
-		margin-bottom: 0.75em;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+		border: var(--border);
+		border-radius: var(--radius);
+		background: var(--container-low);
+		padding: var(--space-5);
+		margin-bottom: var(--space-5);
 	}
-	.site-footer nav a {
+	.foot-cta h2 {
+		margin: 0 0 0.25em 0;
+		font-size: 1.25rem;
+	}
+	.foot-cta p {
+		margin: 0;
+		font-size: 0.92rem;
+		color: rgb(var(--gray));
+	}
+	.waitlist {
+		display: flex;
+		gap: 0.5em;
+		flex: 1 1 280px;
+		max-width: 420px;
+	}
+	.waitlist input[type='email'] {
+		flex: 1;
+		min-width: 0;
+		font: inherit;
+		font-size: 1rem;
+		color: rgb(var(--gray-dark));
+		background: var(--card);
+		border: var(--border);
+		border-radius: var(--radius);
+		padding: 0.7em 1em;
+		min-height: 52px;
+	}
+	.waitlist button,
+	.foot-cta .btn {
+		font: inherit;
+		font-size: 0.95rem;
+		font-weight: 600;
+		color: #fff;
+		background: var(--accent);
+		border: none;
+		border-radius: var(--radius);
+		padding: 0 1.5em;
+		min-height: 52px;
+		cursor: pointer;
+		text-decoration: none;
+		display: inline-block;
+		line-height: 52px;
+		white-space: nowrap;
+	}
+	.waitlist button:hover,
+	.foot-cta .btn:hover {
+		filter: brightness(0.92);
+		color: #fff;
+	}
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+	}
+	.foot-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+		gap: 1.5em;
+		margin-bottom: var(--space-5);
+	}
+	.foot-grid nav {
+		display: grid;
+		gap: 0.45em;
+		align-content: start;
+	}
+	.foot-grid h3 {
+		margin: 0 0 0.25em 0;
+		font-size: 0.78rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: rgb(var(--gray));
+	}
+	.foot-grid a {
 		color: rgb(var(--gray-dark));
 		text-decoration: none;
-		font-size: 0.9rem;
+		font-size: 0.92rem;
 	}
-	.site-footer nav a:hover {
+	.foot-grid a:hover {
 		color: var(--accent);
 	}
-	.site-footer p {
+	.foot-base {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75em;
+		border-top: var(--border);
+		padding-top: var(--space-4);
+	}
+	.foot-base p {
 		margin: 0;
-		font-size: 0.9rem;
+		font-size: 0.85rem;
 		color: rgb(var(--gray));
+		max-width: 36em;
 	}
 	.translate {
 		display: flex;
 		align-items: center;
-		flex-wrap: wrap;
 		gap: 0.5em;
-		margin-top: 1em;
 		font-size: 0.85rem;
 		color: rgb(var(--gray));
 	}

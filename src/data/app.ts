@@ -11,9 +11,13 @@ export const BOL_MARATHI_APP = {
   waitlistUrl: null as string | null,
   comingSoon: true,
   comingSoonNote: 'Bol Marathi is in closed testing and coming soon to Android.',
-  // Waitlist: mailto CTA on /app/ ("Join the waitlist"). Set this to a
-  // monitored inbox — every waitlist click opens an email to this address.
+  // Waitlist: footer CTA is an inline form posting here; everywhere
+  // else stays mailto (deliberate A/B split). Paste a Formspree
+  // endpoint (https://formspree.io → New Form → copy
+  // https://formspree.io/f/xxxxxx). Empty = footer shows mailto too.
+  // See README "Waitlist". Monitored inbox for mailto path:
   contactEmail: 'mrxubr@gmail.com',
+  waitlistFormAction: '',
   waitlistSubject: 'Notify me — Bol Marathi launch',
   // App walkthrough in tab-flow order: Learn → Practice → Progress → Profile.
   screenshots: [
@@ -22,5 +26,4 @@ export const BOL_MARATHI_APP = {
     { src: '/screenshots/flow-progress.webp', alt: 'Progress — streak, XP, weekly practice and skill map', step: '3 · Progress' },
     { src: '/screenshots/flow-profile.webp', alt: 'Profile — badges, app language and audio settings', step: '4 · Profile' },
   ] as { src: string; alt: string; step: string }[],
-  contactEmail: 'mrxubr@gmail.com',
 };

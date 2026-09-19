@@ -32,6 +32,18 @@ The app is **not on the Play Store yet**. Store URLs live in
 `src/data/app.ts` (`playStoreUrl: null`, `comingSoon: true`).
 When hosted, set the URL + `comingSoon: false` — every CTA updates.
 
+## Waitlist (+ built-in A/B test)
+
+- **Footer CTA = inline form.** Paste a Formspree endpoint into
+  `waitlistFormAction` in `src/data/app.ts` (Formspree → New Form →
+  copy `https://formspree.io/f/xxxxxx`). Empty = mailto fallback.
+- **Everywhere else = mailto** (`/app/` buttons, AppCTA panels).
+  This split is deliberate: compare `waitlist_signup` (footer form)
+  vs `waitlist_click` (mailto) via the `data-funnel` hooks to see
+  which converts before committing to one mechanism.
+- After submit, Formspree redirects back to `/app/#joined`, which
+  shows a confirmation note (pure CSS `:target`, no JS).
+
 ## Develop
 
 ```bash

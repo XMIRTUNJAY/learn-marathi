@@ -55,6 +55,7 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 				<p>{BOL_MARATHI_APP.comingSoonNote}</p>
 				<p><a class="btn" href={waitlistHref} data-funnel="waitlist_click" data-app-cta data-cta-variant="app-waitlist">Join the waitlist</a></p>
 				<p class="note">One email — we'll tell you the moment it's on the Play Store. No spam, ever.</p>
+				<p class="joined-note" id="joined">You're on the list — watch your inbox for launch news.</p>
 			</div>
 		)}
 	</div>
@@ -162,6 +163,15 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 		margin-top: 0.5em;
 	}
 	.btn:hover { background: var(--accent); filter: brightness(0.92); color: #fff; }
+	.joined-note {
+		display: none;
+		border: 1px solid var(--success, #2e7d5b);
+		border-radius: var(--radius);
+		background: var(--success-bg, #e8f4ec);
+		padding: 0.8em 1em;
+		font-weight: 600;
+	}
+	.joined-note:target { display: block; }
 	.stats {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
