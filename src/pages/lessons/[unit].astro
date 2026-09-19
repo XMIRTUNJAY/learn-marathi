@@ -1,0 +1,108 @@
+---
+import AppCTA from '../../components/AppCTA.astro';
+import RelatedContent from '../../components/RelatedContent.astro';
+import Learn from '../../layouts/Learn.astro';
+import { getUnit, units } from '../../lib/learn';
+import { siteUrl } from '../../lib/site';
+
+export async function getStaticPaths() {
+	return units.map((u) => ({ params: { unit: u.unit } }));
+}
+
+const { unit: no } = Astro.params;
+if (!no) throw new Error('Missing unit param');
+const unit = getUnit(no);
+const idx = units.findIndex((u) => u.unit === no);
+const prev = idx > 0 ? units[idx - 1] : null;
+const next = idx < units.length - 1 ? units[idx + 1] : null;
+---
+
+<Learn
+	title={`Unit ${unit.unit} — ${unit.titleEn}`}
+	description={`${unit.subtitleEn}: ${unit.goalsEn.join(', ')}. Six lessons with vocabulary, Hindi→Marathi bridges, speaking, listening, grammar and culture.`}
+	kicker={`Marathi Lessons · Unit ${unit.unit}`}
+	crumbs={[
+		{ label: 'Lessons', href: siteUrl('/lessons/') },
+		{ label: `Unit ${unit.unit}`, href: siteUrl(`/lessons/${unit.unit}/`) },
+	]}
+	canonicalPath={`/lessons/${unit.unit}/`}
+	about={unit.titleEn}
+	meta={[`${unit.lessons} lessons`, unit.subtitleEn]}
+>
+	<h2>What you will learn</h2>
+	<p lang="mr">{unit.intro}</p>
+	<ul>
+		{unit.goalsEn.map((g, i) => (
+			<li>{g}{unit.goals[i] && unit.goals[i] !== g ? <span lang="mr"> · {unit.goals[i]}</span> : null}</li>
+		))}
+	</ul>
+
+	<h2>Speaking practice sentences</h2>
+	<div class="table-scroll" role="region" aria-label="Speaking sentences" tabindex="0">
+		<table class="vocab">
+			<thead>
+				<tr><th scope="col">Lesson</th><th scope="col">Marathi</th><th scope="col">Hindi</th><th scope="col">English</th></tr>
+			</thead>
+			<tbody>
+				{unit.speaking.map((s) => (
+					<tr>
+						<td>{s.lesson}</td>
+						<td class="mr" lang="mr">{s.sentence}</td>
+						<td lang="hi">{s.hindi}</td>
+						<td>{s.english}</td>
+					</tr>
+				))}
+			</tbody>
+		</table>
+	</div>
+
+	<h2>Hindi → Marathi bridges</h2>
+	<ul>
+		{unit.bridge.map((b) => (
+			<li><span lang="hi">{b.hindi}</span> → <strong lang="mr">{b.marathi}</strong> — {b.grammarEn}</li>
+		))}
+	</ul>
+
+	<h2>Grammar notes</h2>
+	{unit.grammar.map((g) => (
+		<section>
+			<h3>{g.titleEn}</h3>
+			<p lang="mr">{g.text}</p>
+			<p>{g.textEn}</p>
+		</section>
+	))}
+
+	<h2>Culture notes</h2>
+	<ul>
+		{unit.cultural.map((c) => (
+			<li><strong>{c.titleEn}</strong> — {c.textEn}</li>
+		))}
+	</ul>
+
+	<AppCTA variant="lesson" context={`unit-${unit.unit}`} />
+
+	<nav class="pager" aria-label="Units">
+		{prev ? <a href={siteUrl(`/lessons/${prev.unit}/`)}>&larr; Unit {prev.unit} — {prev.titleEn}</a> : <span />}
+		{next ? <a class="next" href={siteUrl(`/lessons/${next.unit}/`)}>Unit {next.unit} — {next.titleEn} &rarr;</a> : <span />}
+	</nav>
+
+	<RelatedContent
+		links={[
+			{ label: 'All units', href: siteUrl('/lessons/') },
+			{ label: 'Marathi vocabulary', href: siteUrl('/vocabulary/') },
+			{ label: 'Daily conversation phrases', href: siteUrl('/phrases/daily/') },
+		]}
+	/>
+</Learn>
+
+<style>
+	.pager {
+		display: flex;
+		justify-content: space-between;
+		gap: 1em;
+		margin-top: 2.5em;
+		padding-top: 1.5em;
+		border-top: var(--border);
+	}
+	.pager .next { margin-left: auto; }
+</style>

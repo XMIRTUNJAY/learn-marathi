@@ -1,0 +1,52 @@
+---
+import Base from './Base.astro';
+import Breadcrumbs, { type Crumb } from '../components/Breadcrumbs.astro';
+import JsonLd from '../components/JsonLd.astro';
+
+type Props = {
+	title: string;
+	description: string;
+	kicker: string;
+	crumbs: Crumb[];
+	canonicalPath: string;
+	about?: string;
+	meta?: string[];
+};
+
+const { title, description, kicker, crumbs, canonicalPath, about, meta = [] } = Astro.props;
+// Absolute URLs must include the base (e.g. /learn-marathi) — Astro.url.pathname has it, Astro.site does not.
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const abs = (href: string) => new URL(href, Astro.site).toString();
+const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
+---
+
+<Base title={title} description={description}>
+	<JsonLd
+		headline={title}
+		description={description}
+		url={pageUrl}
+		type="LearningResource"
+		about={about}
+		breadcrumbs={[{ name: 'Learn Marathi', url: homeUrl }, ...crumbs.map((c) => ({ name: c.label, url: abs(c.href) }))]}
+	/>
+	<Breadcrumbs items={crumbs} />
+	<div class="prose">
+		<p class="kicker">{kicker}</p>
+		<h1>{title}</h1>
+		<p class="lede">{description}</p>
+		{meta.length > 0 && (
+			<p class="learn-meta">{meta.join(' · ')}</p>
+		)}
+	</div>
+	<div class="prose">
+		<slot />
+	</div>
+</Base>
+
+<style>
+	.learn-meta {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: rgb(var(--gray));
+	}
+</style>

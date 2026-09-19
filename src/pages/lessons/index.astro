@@ -1,0 +1,31 @@
+---
+import AppCTA from '../../components/AppCTA.astro';
+import Learn from '../../layouts/Learn.astro';
+import { units } from '../../lib/learn';
+import { siteUrl } from '../../lib/site';
+---
+
+<Learn
+	title="Marathi Lessons — Full Curriculum"
+	description={`All ${units.length} Bol Marathi units, ${units.length * 6} lessons: fundamentals to advanced conversation, each with vocabulary, speaking, listening, grammar and culture.`}
+	kicker="Marathi Lessons"
+	crumbs={[{ label: 'Lessons', href: siteUrl('/lessons/') }]}
+	canonicalPath="/lessons/"
+	about="marathi lessons curriculum"
+	meta={[`${units.length} units`, `${units.length * 6} lessons`]}
+>
+	<p>The full Bol Marathi curriculum as standalone study pages — each unit page is useful on its own, with speaking sentences, Hindi bridges, grammar and culture notes.</p>
+
+	<ul class="card-grid">
+		{units.map((u) => (
+			<li>
+				<a class="card" href={siteUrl(`/lessons/${u.unit}/`)}>
+					<h3>Unit {u.unit} — {u.titleEn}</h3>
+					<p>{u.subtitleEn} · {u.goalsEn.slice(0, 2).join(' · ')}</p>
+				</a>
+			</li>
+		))}
+	</ul>
+
+	<AppCTA variant="soft" context="lessons-index" />
+</Learn>

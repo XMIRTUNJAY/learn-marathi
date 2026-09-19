@@ -1,0 +1,53 @@
+---
+import AppCTA from '../../components/AppCTA.astro';
+import RelatedContent from '../../components/RelatedContent.astro';
+import VocabTable from '../../components/VocabTable.astro';
+import Learn from '../../layouts/Learn.astro';
+import { clusters, wordsByCategory } from '../../lib/learn';
+import { siteUrl } from '../../lib/site';
+
+export async function getStaticPaths() {
+	return clusters.map((c) => ({ params: { cluster: c.slug } }));
+}
+
+const { cluster: slug } = Astro.params;
+const cluster = clusters.find((c) => c.slug === slug);
+if (!cluster) throw new Error(`Unknown cluster: ${slug}`);
+const words = wordsByCategory(cluster.categories);
+---
+
+<Learn
+	title={`${cluster.title} (with Hindi & English)`}
+	description={cluster.description}
+	kicker="Marathi Vocabulary"
+	crumbs={[
+		{ label: 'Vocabulary', href: siteUrl('/vocabulary/') },
+		{ label: cluster.title, href: siteUrl(`/vocabulary/${cluster.slug}/`) },
+	]}
+	canonicalPath={`/vocabulary/${cluster.slug}/`}
+	about={cluster.intent}
+	meta={[`${words.length} words`, `Units ${cluster.unitRefs.join(', ')}`]}
+>
+	<h2>What you will learn</h2>
+	<p>
+		{words.length} everyday Marathi words
+		({cluster.categories.join(', ').toLowerCase()}) — each with Hindi meaning,
+		English meaning, pronunciation and a real example sentence from the
+		Bol Marathi curriculum.
+	</p>
+
+	<VocabTable words={words} caption={cluster.title} />
+
+	<h2>How to use these words</h2>
+	<p>
+		Read the Marathi word aloud, check the Hindi meaning, then say the
+		example sentence. Words stick when you hear and speak them — that is
+		what the listening and speaking practice in Bol Marathi is for.
+	</p>
+
+	<AppCTA variant="soft" context={`vocabulary-${cluster.slug}`} />
+
+	<RelatedContent links={cluster.related} />
+
+	<AppCTA variant="strong" context={`vocabulary-${cluster.slug}-end`} />
+</Learn>

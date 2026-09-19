@@ -1,0 +1,113 @@
+---
+import AppCTA from '../components/AppCTA.astro';
+import Base from '../layouts/Base.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { clusters, phraseSets, grammarTopics, units, vocab } from '../lib/learn';
+import { siteUrl } from '../lib/site';
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
+const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
+const sections = [
+	{ kicker: 'Vocabulary', title: 'Words grouped the way you use them', href: siteUrl('/vocabulary/'), items: clusters.map((c) => ({ label: c.title, href: siteUrl(`/vocabulary/${c.slug}/`) })) },
+	{ kicker: 'Phrases', title: 'Say it in Marathi', href: siteUrl('/phrases/'), items: phraseSets.map((p) => ({ label: p.title, href: siteUrl(`/phrases/${p.slug}/`) })) },
+	{ kicker: 'Grammar', title: 'Patterns, not rules', href: siteUrl('/grammar/'), items: grammarTopics.map((g) => ({ label: g.title, href: siteUrl(`/grammar/${g.slug}/`) })) },
+];
+---
+
+<Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<JsonLd
+		headline={SITE_TITLE}
+		description={SITE_DESCRIPTION}
+		url={homeUrl}
+		type="WebPage"
+		breadcrumbs={[]}
+	/>
+	<div class="prose">
+		<p class="kicker">Bol Marathi · Learn Marathi</p>
+		<h1>Learn Marathi from Hindi and English.</h1>
+		<p class="lede">
+			Everyday words, phrases and grammar from the real Bol Marathi curriculum —
+			{units.length} units, {units.length * 6} lessons and {vocab.length} words with Hindi
+			meanings, pronunciation and examples. Useful on its own; practice it in the app.
+		</p>
+		<div class="hub-cta">
+			<a class="btn" href={siteUrl('/vocabulary/beginners/')}>Start with beginner words</a>
+			<a class="btn ghost" href={siteUrl('/hindi-to-marathi/')}>Hindi → Marathi</a>
+			<a class="btn ghost" href={siteUrl('/app/')}>About the app</a>
+		</div>
+	</div>
+
+	{sections.map((s) => (
+		<section>
+			<div class="section-head">
+				<div>
+					<p class="kicker">{s.kicker}</p>
+					<h2>{s.title}</h2>
+				</div>
+				<a href={s.href}>All &rarr;</a>
+			</div>
+			<ul class="card-grid">
+				{s.items.map((i) => (
+					<li><a class="card" href={i.href}><h3>{i.label}</h3></a></li>
+				))}
+			</ul>
+		</section>
+	))}
+
+	<section>
+		<div class="section-head">
+			<div>
+				<p class="kicker">Lessons</p>
+				<h2>Follow the curriculum</h2>
+			</div>
+			<a href={siteUrl('/lessons/')}>All {units.length} units &rarr;</a>
+		</div>
+		<ul class="card-grid">
+			{units.slice(0, 6).map((u) => (
+				<li>
+					<a class="card" href={siteUrl(`/lessons/${u.unit}/`)}>
+						<h3>Unit {u.unit} — {u.titleEn}</h3>
+						<p>{u.goalsEn.slice(0, 2).join(' · ')}</p>
+					</a>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<div class="prose">
+		<AppCTA variant="strong" context="hub" />
+	</div>
+</Base>
+
+<style>
+	.hub-cta { display: flex; flex-wrap: wrap; gap: 0.75em; margin: 1.5em 0; }
+	.hub-cta .btn {
+		display: inline-block;
+		background: var(--accent);
+		color: #fff;
+		font-weight: 700;
+		text-decoration: none;
+		padding: 0.7em 1.4em;
+		border-radius: var(--radius);
+	}
+	.hub-cta .btn:hover { background: var(--accent-dark); color: #fff; }
+	.hub-cta .btn.ghost {
+		background: transparent;
+		color: var(--accent);
+		border: 1px solid var(--accent);
+	}
+	section { margin-top: var(--space-5); }
+	.section-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 1em;
+		border-bottom: var(--border);
+		padding-bottom: 0.5em;
+		margin-bottom: 0.25em;
+	}
+	.section-head h2 { font-size: 1.4rem; margin: 0; }
+	.section-head a { font-size: 0.9rem; white-space: nowrap; }
+	.card-grid h3 { font-size: 1.05rem; }
+</style>

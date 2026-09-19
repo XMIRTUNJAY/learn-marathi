@@ -1,0 +1,38 @@
+---
+import { siteUrl } from '../lib/site';
+import { BOL_MARATHI_APP } from '../data/app';
+
+type Props = {
+	variant?: 'soft' | 'strong' | 'lesson';
+	context?: string;
+};
+
+const { variant = 'soft', context = '' } = Astro.props;
+
+const copy = {
+	soft: {
+		heading: 'Want to practice these words?',
+		body: `Listen, speak, build sentences and review them with spaced repetition in ${BOL_MARATHI_APP.name}.`,
+		cta: 'Practice in Bol Marathi',
+	},
+	strong: {
+		heading: 'Learn Marathi beyond reading',
+		body: `${BOL_MARATHI_APP.name} combines vocabulary, listening, speaking and sentence-building practice so you can actually use the language.`,
+		cta: 'Download Bol Marathi',
+	},
+	lesson: {
+		heading: 'Finished this lesson?',
+		body: `Continue your Marathi practice in ${BOL_MARATHI_APP.name}.`,
+		cta: 'Continue Learning →',
+	},
+}[variant];
+
+const href = BOL_MARATHI_APP.comingSoon || !BOL_MARATHI_APP.playStoreUrl ? siteUrl('/app/') : BOL_MARATHI_APP.playStoreUrl;
+---
+
+<aside class="cta" data-cta={variant} data-cta-context={context} aria-label="Bol Marathi app">
+	<h2>{copy.heading}</h2>
+	<p>{copy.body}</p>
+	<a class="btn" href={href} data-app-cta data-cta-variant={variant}>{BOL_MARATHI_APP.comingSoon ? 'Get Bol Marathi' : copy.cta}</a>
+	{BOL_MARATHI_APP.comingSoon && <p class="note">{BOL_MARATHI_APP.comingSoonNote}</p>}
+</aside>

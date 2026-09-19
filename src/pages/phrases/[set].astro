@@ -1,0 +1,65 @@
+---
+import AppCTA from '../../components/AppCTA.astro';
+import RelatedContent from '../../components/RelatedContent.astro';
+import Learn from '../../layouts/Learn.astro';
+import { phraseSets, phrasesFor } from '../../lib/learn';
+import { siteUrl } from '../../lib/site';
+
+export async function getStaticPaths() {
+	return phraseSets.map((p) => ({ params: { set: p.slug } }));
+}
+
+const { set: slug } = Astro.params;
+const set = phraseSets.find((p) => p.slug === slug);
+if (!set) throw new Error(`Unknown phrase set: ${slug}`);
+const phrases = phrasesFor(set);
+---
+
+<Learn
+	title={`${set.title} (with Hindi & English)`}
+	description={set.description}
+	kicker="Marathi Phrases"
+	crumbs={[
+		{ label: 'Phrases', href: siteUrl('/phrases/') },
+		{ label: set.title, href: siteUrl(`/phrases/${set.slug}/`) },
+	]}
+	canonicalPath={`/phrases/${set.slug}/`}
+	about={set.intent}
+	meta={[`${phrases.length} phrases`, `Units ${set.unitRefs.join(', ')}`]}
+>
+	<h2>What you will learn</h2>
+	<p>
+		{phrases.length} real Marathi sentences from the Bol Marathi curriculum —
+		each with its Hindi meaning, English meaning and a speaking tip.
+		Say each one aloud before moving on.
+	</p>
+
+	<div class="table-scroll" role="region" aria-label={set.title} tabindex="0">
+		<table class="vocab">
+			<thead>
+				<tr>
+					<th scope="col">Marathi</th>
+					<th scope="col">Hindi</th>
+					<th scope="col">English</th>
+					<th scope="col">Tip</th>
+				</tr>
+			</thead>
+			<tbody>
+				{phrases.map((p) => (
+					<tr>
+						<td class="mr" lang="mr">{p.sentence}</td>
+						<td lang="hi">{p.hindi}</td>
+						<td>{p.english}</td>
+						<td>{p.tip}</td>
+					</tr>
+				))}
+			</tbody>
+		</table>
+	</div>
+
+	<AppCTA variant="soft" context={`phrases-${set.slug}`} />
+
+	<RelatedContent links={set.related} />
+
+	<AppCTA variant="strong" context={`phrases-${set.slug}-end`} />
+</Learn>

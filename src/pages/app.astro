@@ -1,0 +1,109 @@
+---
+import Base from '../layouts/Base.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { BOL_MARATHI_APP } from '../data/app';
+import { units, vocab } from '../lib/learn';
+import { siteUrl } from '../lib/site';
+
+const title = `${BOL_MARATHI_APP.name} — Learn Marathi from Hindi`;
+const description = 'Vocabulary, listening, speaking, sentence-building and spaced repetition — the Bol Marathi app turns these free lessons into usable Marathi.';
+const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
+const url = new URL(Astro.url.pathname, Astro.site).toString();
+const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
+
+const faqs = [
+	{ question: 'Is Bol Marathi free?', answer: 'The learning content on this site is free. App pricing will be announced at launch.' },
+	{ question: 'I speak Hindi. Is Marathi hard for me?', answer: 'Hindi speakers have a head start: Marathi shares the subject–object–verb order and many words. The Hindi → Marathi bridges on this site show the exact patterns.' },
+	{ question: 'How is the app different from this website?', answer: 'This site teaches reading knowledge. The app adds listening practice, speaking practice with feedback, sentence-building exercises and spaced repetition so you remember words.' },
+	{ question: 'When does the app launch?', answer: BOL_MARATHI_APP.comingSoonNote },
+];
+
+const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? BOL_MARATHI_APP.playStoreUrl : null;
+---
+
+<Base title={title} description={description}>
+	<JsonLd
+		headline={title}
+		description={description}
+		url={url}
+		type="FAQPage"
+		faq={faqs}
+		breadcrumbs={[{ name: 'Learn Marathi', url: homeUrl }, { name: 'App', url }]}
+	/>
+	<div class="prose">
+		<p class="kicker">Bol Marathi · The App</p>
+		<h1>Learn Marathi beyond reading.</h1>
+		<p class="lede">
+			This site gives you {vocab.length} words and {units.length * 6} lessons of real
+			curriculum. {BOL_MARATHI_APP.name} turns that knowledge into usable Marathi —
+			listening, speaking, sentence-building and spaced repetition.
+		</p>
+		{storeHref ? (
+			<p><a class="btn" href={storeHref} data-app-cta data-cta-variant="app-hero">Download Bol Marathi</a></p>
+		) : (
+			<div class="cta">
+				<h2>Get Bol Marathi</h2>
+				<p>{BOL_MARATHI_APP.comingSoonNote}</p>
+				<p class="note">This page will show the Play Store link the moment the app is hosted — no other changes needed.</p>
+			</div>
+		)}
+	</div>
+
+	<div class="prose">
+		<h2>Who it is for</h2>
+		<ul>
+			<li>Hindi speakers who want to learn Marathi fast through comparison.</li>
+			<li>Beginners starting from greetings and the alphabet.</li>
+			<li>Travellers, shoppers and workers who need usable daily Marathi.</li>
+		</ul>
+
+		<h2>How learning works</h2>
+		<ol>
+			<li><strong>Vocabulary</strong> — {vocab.length} words with Hindi meanings, pronunciation and examples.</li>
+			<li><strong>Listening</strong> — audio-backed listening scripts for every lesson.</li>
+			<li><strong>Speaking</strong> — say real sentences with tips and feedback in the app.</li>
+			<li><strong>Sentence building</strong> — arrange words into correct SOV Marathi sentences.</li>
+			<li><strong>Spaced repetition</strong> — reviews scheduled so words stick.</li>
+		</ol>
+
+		<h2>Curriculum</h2>
+		<p>
+			{units.length} units from Marathi Fundamentals to Advanced Conversation and a
+			final assessment — <a href={siteUrl('/lessons/')}>browse all units</a> free on this site.
+		</p>
+
+		<h2>Example lesson</h2>
+		<p>
+			Try <a href={siteUrl('/lessons/01/')}>Unit 01 — Marathi Fundamentals</a>:
+			greetings, first words, Hindi bridges and sentence order. Then continue in the app.
+		</p>
+
+		<h2>FAQ</h2>
+		{faqs.map((f) => (
+			<section>
+				<h3>{f.question}</h3>
+				<p>{f.answer}</p>
+			</section>
+		))}
+
+		<div class="cta">
+			<h2>{storeHref ? 'Download Bol Marathi' : 'Be first to know'}</h2>
+			<p>{storeHref ? 'Start practicing today.' : BOL_MARATHI_APP.comingSoonNote}</p>
+			{storeHref && <a class="btn" href={storeHref} data-app-cta data-cta-variant="app-end">Download Bol Marathi</a>}
+		</div>
+	</div>
+</Base>
+
+<style>
+	.btn {
+		display: inline-block;
+		background: var(--accent);
+		color: #fff;
+		font-weight: 700;
+		text-decoration: none;
+		padding: 0.8em 1.6em;
+		border-radius: var(--radius);
+		margin-top: 0.5em;
+	}
+	.btn:hover { background: var(--accent-dark); color: #fff; }
+</style>

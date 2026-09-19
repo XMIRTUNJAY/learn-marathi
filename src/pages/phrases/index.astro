@@ -1,0 +1,30 @@
+---
+import AppCTA from '../../components/AppCTA.astro';
+import Learn from '../../layouts/Learn.astro';
+import { phraseSets, phrasesFor } from '../../lib/learn';
+import { siteUrl } from '../../lib/site';
+---
+
+<Learn
+	title="Marathi Phrases for Real Life"
+	description="Greetings, daily conversation and travel phrases in Marathi — each with Hindi and English meanings, from the Bol Marathi curriculum."
+	kicker="Marathi Phrases"
+	crumbs={[{ label: 'Phrases', href: siteUrl('/phrases/') }]}
+	canonicalPath="/phrases/"
+	about="marathi phrases with hindi and english"
+>
+	<p>Phrases you can actually use — every one comes with its Hindi meaning, so Hindi speakers feel the pattern, not just the translation.</p>
+
+	<ul class="card-grid">
+		{phraseSets.map((p) => (
+			<li>
+				<a class="card" href={siteUrl(`/phrases/${p.slug}/`)}>
+					<h3>{p.title}</h3>
+					<p>{phrasesFor(p).length} phrases · {p.description}</p>
+				</a>
+			</li>
+		))}
+	</ul>
+
+	<AppCTA variant="soft" context="phrases-index" />
+</Learn>

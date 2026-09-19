@@ -1,0 +1,45 @@
+---
+import { siteUrl } from '../lib/site';
+---
+
+<footer class="site-footer">
+	<nav aria-label="Footer">
+		<a href={siteUrl('/vocabulary/')}>Vocabulary</a>
+		<a href={siteUrl('/phrases/')}>Phrases</a>
+		<a href={siteUrl('/hindi-to-marathi/')}>Hindi → Marathi</a>
+		<a href={siteUrl('/grammar/')}>Grammar</a>
+		<a href={siteUrl('/lessons/')}>Lessons</a>
+		<a href={siteUrl('/app/')}>App</a>
+	</nav>
+	<p>Learning content from the Bol Marathi curriculum. Practice listening, speaking and spaced repetition in the app.</p>
+</footer>
+
+<style>
+	.site-footer {
+		width: var(--measure-wide);
+		max-width: calc(100% - 2em);
+		margin: auto;
+		padding: var(--space-5) 1em;
+		border-top: var(--border);
+		margin-top: var(--space-6);
+	}
+	.site-footer nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25em;
+		margin-bottom: 0.75em;
+	}
+	.site-footer nav a {
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+		font-size: 0.9rem;
+	}
+	.site-footer nav a:hover {
+		color: var(--accent);
+	}
+	.site-footer p {
+		margin: 0;
+		font-size: 0.9rem;
+		color: rgb(var(--gray));
+	}
+</style>

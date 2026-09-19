@@ -1,0 +1,35 @@
+---
+import type { Word } from '../lib/learn';
+
+type Props = { words: Word[]; caption?: string };
+const { words, caption } = Astro.props;
+---
+
+<div class="table-scroll" role="region" aria-label={caption ?? 'Vocabulary'} tabindex="0">
+	<table class="vocab">
+		<thead>
+			<tr>
+				<th scope="col">Marathi</th>
+				<th scope="col">Pronunciation</th>
+				<th scope="col">Hindi</th>
+				<th scope="col">English</th>
+				<th scope="col">Example</th>
+			</tr>
+		</thead>
+		<tbody>
+			{words.map((w) => (
+				<tr>
+					<td class="mr" lang="mr">{w.marathi}</td>
+					<td class="tr">{w.transliteration}</td>
+					<td lang="hi">{w.hindi}</td>
+					<td>{w.english}</td>
+					<td>
+						<span lang="mr">{w.exampleMarathi}</span>
+						<br />
+						<small>{w.exampleEnglish}</small>
+					</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+</div>

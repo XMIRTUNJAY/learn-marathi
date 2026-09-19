@@ -1,0 +1,30 @@
+---
+import AppCTA from '../../components/AppCTA.astro';
+import Learn from '../../layouts/Learn.astro';
+import { clusters, wordsByCategory } from '../../lib/learn';
+import { siteUrl } from '../../lib/site';
+---
+
+<Learn
+	title="Marathi Vocabulary by Topic"
+	description="Learn Marathi words by topic — beginners, food, family, travel, verbs and daily life — each with Hindi and English meanings, pronunciation and examples."
+	kicker="Marathi Vocabulary"
+	crumbs={[{ label: 'Vocabulary', href: siteUrl('/vocabulary/') }]}
+	canonicalPath="/vocabulary/"
+	about="marathi vocabulary by topic"
+>
+	<p>Pick a topic. Every list comes from the real Bol Marathi curriculum — no filler, no invented words.</p>
+
+	<ul class="card-grid">
+		{clusters.map((c) => (
+			<li>
+				<a class="card" href={siteUrl(`/vocabulary/${c.slug}/`)}>
+					<h3>{c.title}</h3>
+					<p>{wordsByCategory(c.categories).length} words · {c.description}</p>
+				</a>
+			</li>
+		))}
+	</ul>
+
+	<AppCTA variant="soft" context="vocabulary-index" />
+</Learn>

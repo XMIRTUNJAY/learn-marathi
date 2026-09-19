@@ -1,0 +1,208 @@
+/*
+  Learn Marathi design system.
+  Reference: engineering-notebook tokens and restraint, but its own
+  lightweight identity — warm, approachable, Devanagari-friendly.
+  Content readability first; no decorative gradients or animations.
+*/
+
+:root {
+	--font-display: Georgia, 'Times New Roman', 'Noto Serif Devanagari', serif;
+	--font-body: 'Noto Sans Devanagari', 'Mukta', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+
+	--accent: #b34700;
+	--accent-dark: #7e3200;
+	--black: 32, 24, 18;
+	--gray: 110, 100, 92;
+	--gray-light: 235, 228, 220;
+	--gray-dark: 52, 42, 34;
+	--paper: #fdfbf7;
+	--card: #ffffff;
+	--code-bg: #f5efe6;
+	--box-shadow: 0 1px 2px rgba(var(--black), 8%);
+
+	--measure: 720px;
+	--measure-wide: 1024px;
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 1rem;
+	--space-4: 1.5rem;
+	--space-5: 2.5rem;
+	--space-6: 4rem;
+
+	--radius: 8px;
+	--border: 1px solid rgb(var(--gray-light));
+}
+
+[data-theme='dark'] {
+	--accent: #f0a35e;
+	--accent-dark: #f7c489;
+	--black: 242, 235, 226;
+	--gray: 170, 158, 145;
+	--gray-light: 52, 44, 36;
+	--gray-dark: 232, 222, 210;
+	--paper: #171310;
+	--card: #201a15;
+	--code-bg: #241d16;
+	--box-shadow: 0 1px 2px rgba(0, 0, 0, 40%);
+}
+
+body {
+	font-family: var(--font-body);
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	background: var(--paper);
+	color: rgb(var(--gray-dark));
+	font-size: 18px;
+	line-height: 1.7;
+	-webkit-font-smoothing: antialiased;
+}
+
+main {
+	width: var(--measure-wide);
+	max-width: calc(100% - 2em);
+	margin: auto;
+	padding: var(--space-5) 1em;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: var(--font-display);
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	margin: 0 0 0.5rem 0;
+	color: rgb(var(--black));
+	line-height: 1.25;
+}
+h1 { font-size: 2.4rem; }
+h2 { font-size: 1.8rem; margin-top: 2.5rem; }
+h3 { font-size: 1.35rem; margin-top: 2rem; }
+h4 { font-size: 1.1rem; }
+
+p { margin-bottom: 1.25em; }
+
+a {
+	color: var(--accent);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+}
+a:hover { color: var(--accent-dark); }
+
+strong, b { font-weight: 700; }
+
+hr {
+	border: none;
+	border-top: var(--border);
+	margin: 2.5em 0;
+}
+
+.prose {
+	width: var(--measure);
+	max-width: 100%;
+}
+
+.kicker {
+	font-family: var(--font-mono);
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--accent);
+	font-weight: 700;
+	margin: 0 0 0.5em 0;
+}
+
+.lede {
+	font-size: 1.15em;
+	color: rgb(var(--gray-dark));
+	line-height: 1.6;
+}
+
+/* Vocabulary / phrase tables: horizontally scrollable on mobile. */
+.table-scroll {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	border: var(--border);
+	border-radius: var(--radius);
+	background: var(--card);
+	margin: 1.5em 0;
+}
+table.vocab {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.95rem;
+	min-width: 560px;
+}
+table.vocab th,
+table.vocab td {
+	text-align: left;
+	padding: 0.6em 0.8em;
+	border-bottom: var(--border);
+	vertical-align: top;
+}
+table.vocab th {
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: rgb(var(--gray));
+	background: var(--code-bg);
+}
+table.vocab tr:last-child td { border-bottom: none; }
+table.vocab .mr { font-size: 1.1em; }
+table.vocab .tr { font-family: var(--font-mono); font-size: 0.85em; color: rgb(var(--gray)); }
+
+/* CTA panel */
+.cta {
+	border: var(--border);
+	border-left: 4px solid var(--accent);
+	border-radius: var(--radius);
+	background: var(--card);
+	padding: var(--space-4);
+	margin: var(--space-5) 0;
+}
+.cta h2, .cta h3 { margin-top: 0; }
+.cta .btn {
+	display: inline-block;
+	background: var(--accent);
+	color: #fff;
+	font-weight: 700;
+	text-decoration: none;
+	padding: 0.7em 1.4em;
+	border-radius: var(--radius);
+	margin-top: 0.5em;
+}
+.cta .btn:hover { background: var(--accent-dark); color: #fff; }
+.cta .note { font-size: 0.9rem; color: rgb(var(--gray)); margin: 0.75em 0 0 0; }
+
+/* Card grid for hub / indexes */
+.card-grid {
+	list-style: none;
+	margin: 1.5em 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 1em;
+}
+.card-grid a.card {
+	display: block;
+	border: var(--border);
+	border-radius: var(--radius);
+	background: var(--card);
+	padding: 1.1em 1.2em;
+	text-decoration: none;
+	color: inherit;
+}
+.card-grid a.card:hover { border-color: var(--accent); }
+.card-grid .card h3 { margin: 0 0 0.3em 0; font-size: 1.15rem; }
+.card-grid .card p { margin: 0; font-size: 0.92rem; color: rgb(var(--gray)); }
+
+.crumbs {
+	font-family: var(--font-mono);
+	font-size: 0.78rem;
+	color: rgb(var(--gray));
+	margin-bottom: 1.5em;
+}
+.crumbs a { color: rgb(var(--gray)); }
