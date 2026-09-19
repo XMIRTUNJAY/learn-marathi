@@ -17,7 +17,7 @@ export const BOL_MARATHI_APP = {
   // https://formspree.io/f/xxxxxx). Empty = footer shows mailto too.
   // See README "Waitlist". Monitored inbox for mailto path:
   contactEmail: 'mrxubr@gmail.com',
-  waitlistFormAction: '',
+  waitlistFormAction: 'https://formspree.io/f/xqpaeejw',
   waitlistSubject: 'Notify me — Bol Marathi launch',
   // App walkthrough in tab-flow order: Learn → Practice → Progress → Profile.
   screenshots: [
