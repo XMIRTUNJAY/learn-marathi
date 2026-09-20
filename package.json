@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync": "node ./tools/sync-learn-marathi.mjs"
+    "sync": "node ./tools/sync-learn-marathi.mjs",
+    "qa": "node ./tools/qa.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.0",

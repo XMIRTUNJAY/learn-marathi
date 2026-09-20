@@ -3,6 +3,7 @@ import AppCTA from '../../components/AppCTA.astro';
 import RelatedContent from '../../components/RelatedContent.astro';
 import Learn from '../../layouts/Learn.astro';
 import { vocab } from '../../lib/learn';
+import { simpleRespelling } from '../../lib/simple';
 import { siteUrl } from '../../lib/site';
 
 // Even spread across all 1002 words (~59) so every category is represented.
@@ -43,7 +44,7 @@ const sample = vocab.filter((_, i) => i % 17 === 0);
 					<tr>
 						<td>{w.english}</td>
 						<td class="mr" lang="mr">{w.marathi}</td>
-						<td class="tr">{w.transliteration}</td>
+						<td class="tr">{simpleRespelling(w.transliteration)}</td>
 						<td lang="hi">{w.hindi}</td>
 						<td>
 							<span lang="mr">{w.exampleMarathi}</span>

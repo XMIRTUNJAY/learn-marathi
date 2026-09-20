@@ -34,6 +34,8 @@ const phrases = phrasesFor(set);
 		each with its Hindi meaning, English meaning and a speaking tip.
 		Say each one aloud before moving on.
 	</p>
+	<p>{set.intro}</p>
+	{set.tip && <p class="tip"><strong>Tip:</strong> {set.tip}</p>}
 
 	<div class="table-scroll" role="region" aria-label={set.title} tabindex="0">
 		<table class="vocab">

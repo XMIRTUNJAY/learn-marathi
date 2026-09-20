@@ -55,6 +55,11 @@ export type Cluster = {
   intent: string;
   categories: string[];
   unitRefs: string[];
+  // Hand-written category intro (100–150 words, strictly descriptive of
+  // the data: counts, units, contents, how to use). No linguistic claims
+  // beyond the source. Optional practical tip, same rule.
+  intro: string;
+  tip?: string;
   related: { label: string; href: string }[];
 };
 
@@ -68,6 +73,9 @@ export const clusters: Cluster[] = [
     intent: 'learn marathi for beginners; marathi words for beginners',
     categories: ['Greetings', 'Phrases', 'Numbers', 'Colors'],
     unitRefs: ['01', '02'],
+    intro:
+      'Start here. This list gathers the first words every Marathi learner needs: respectful greetings like नमस्कार, yes and no, please and sorry, the numbers 1–20, and basic colors — each with Hindi meaning, English meaning, pronunciation and a real example sentence from Units 01–02 of the Bol Marathi course. Many entries (नमस्कार, धन्यवाद, कृपया) match their Hindi counterparts exactly, so Hindi speakers will recognize a head start. Work down the table saying each word aloud, check it against the Hindi you know, then try the example sentence. When the list feels familiar, greetings phrases and Unit 01 turn recognition into real sentences.',
+    tip: 'Say each word aloud before moving on — hearing yourself matters more than re-reading.',
     related: [
       { label: 'Marathi greetings & daily phrases', href: siteUrl('/phrases/greetings/') },
       { label: 'Hindi to Marathi words', href: siteUrl('/hindi-to-marathi/words/') },
@@ -81,6 +89,9 @@ export const clusters: Cluster[] = [
     intent: 'marathi colors; marathi colour names',
     categories: ['Colors'],
     unitRefs: ['01', '20'],
+    intro:
+      'Thirteen Marathi color words with Hindi meanings, pronunciation and examples. Small list, quick win — colors attach to nouns you already know (सफरचंद is लाल, literally in its example sentence), making them ideal first adjectives. Also folded into the beginner list.',
+    tip: 'Point at five objects around you and name their colors in Marathi.',
     related: [
       { label: 'Beginner words', href: siteUrl('/vocabulary/beginners/') },
       { label: 'Daily-use Marathi words', href: siteUrl('/vocabulary/daily-life/') },
@@ -94,6 +105,9 @@ export const clusters: Cluster[] = [
     intent: 'marathi food words; marathi food vocabulary',
     categories: ['Food'],
     unitRefs: ['03'],
+    intro:
+      'Eighty-four Marathi food words from Unit 03 (Everyday Vocabulary): grains and staples like भात (cooked rice) and भाकरी, vegetables and fruits, spices from हळद to मोहरी, dairy, sweets like मोदक and पुरणपोळी, snacks like चिवडा and चकली, and restaurant words like बिल and थाळी. Every entry carries Hindi and English meanings, pronunciation and an example sentence drawn from real cooking and eating situations. Food vocabulary pulls double duty: it names what is on your plate and supplies the nouns your first Marathi sentences are built from.',
+    tip: 'Learn these in kitchen order — grains, vegetables, spices, sweets — instead of alphabetically.',
     related: [
       { label: 'Daily-use Marathi words', href: siteUrl('/vocabulary/daily-life/') },
       { label: 'Daily conversation phrases', href: siteUrl('/phrases/daily/') },
@@ -107,6 +121,9 @@ export const clusters: Cluster[] = [
     intent: 'marathi family words; marathi relations',
     categories: ['Family', 'People', 'Pronouns'],
     unitRefs: ['03', '05'],
+    intro:
+      'The words for the people around you: family members, everyday people-words and the pronouns that point at them (मी, तू, तो and friends), drawn from Units 03 and 05. Each entry has Hindi and English meanings, pronunciation and an example. Family words are high-frequency by nature — you will use them in nearly every conversation — and they pair directly with the pronouns grammar topic, which explains the full paradigm these words appear with.',
+    tip: 'Learn each family word together with its pronoun: माझा भाऊ, माझी बहीण.',
     related: [
       { label: 'Marathi pronouns (grammar)', href: siteUrl('/grammar/pronouns/') },
       { label: 'Beginner words', href: siteUrl('/vocabulary/beginners/') },
@@ -120,6 +137,9 @@ export const clusters: Cluster[] = [
     intent: 'marathi travel words; marathi travel phrases',
     categories: ['Travel', 'Directions'],
     unitRefs: ['14', '15'],
+    intro:
+      'Sixty-six Marathi travel words from Units 14–15: transport and tickets, stations and stays, directions like वर (on) and खाली (under), and the places of Maharashtra from the Sahyadri to the Konkan coast. Every entry has Hindi and English meanings, pronunciation and an example sentence — many drawn from ticket counters, platforms and roads. Pair this list with the travel phrases: words name the things, phrases get you there.',
+    tip: 'Learn direction words in opposite pairs: वर/खाली, मागे/पुढे.',
     related: [
       { label: 'Travel phrases', href: siteUrl('/phrases/travel/') },
       { label: 'Shopping & market words', href: siteUrl('/vocabulary/shopping/') },
@@ -133,6 +153,9 @@ export const clusters: Cluster[] = [
     intent: 'marathi shopping words; marathi market phrases',
     categories: ['Shopping', 'Numbers'],
     unitRefs: ['09'],
+    intro:
+      'Marathi for the market, from Unit 09: shopping and bargaining words together with the numbers that make prices work. Each entry carries Hindi and English meanings, pronunciation and an example — many set at stalls and counters. Small category, high leverage: a dozen shopping words plus numbers cover most market conversations. Practice by pricing everything you see.',
+    tip: 'Combine a number with a shopping word out loud: barely a sentence, already useful.',
     related: [
       { label: 'Numbers & time', href: siteUrl('/vocabulary/numbers-time/') },
       { label: 'Travel words', href: siteUrl('/vocabulary/travel/') },
@@ -146,6 +169,9 @@ export const clusters: Cluster[] = [
     intent: 'marathi numbers; marathi time; marathi days',
     categories: ['Numbers', 'Time'],
     unitRefs: ['01', '16'],
+    intro:
+      'Count and tell time in Marathi: numbers 1–20, the tens to 90, 100 and ordinals, plus clock time, days, weeks, months and seasons from Units 01 and 16. Every entry has Hindi and English meanings, pronunciation and an example sentence. Numbers unlock prices, times and dates; time words unlock plans. The dedicated numbers page covers counting in depth, and the days-and-months page covers the calendar.',
+    tip: 'Read clocks and price tags in Marathi for a week — passive exposure that sticks.',
     related: [
       { label: 'Shopping words (prices)', href: siteUrl('/vocabulary/shopping/') },
       { label: 'Beginner words', href: siteUrl('/vocabulary/beginners/') },
@@ -159,6 +185,9 @@ export const clusters: Cluster[] = [
     intent: 'marathi verbs; marathi action words',
     categories: ['Verbs'],
     unitRefs: ['02', '04'],
+    intro:
+      'One hundred and five Marathi verbs — the engine room of the language. Eat, drink, go, come, do, and a hundred more, each with Hindi and English meanings, pronunciation and an example sentence from Units 02 and 04. Verbs are where Marathi diverges most visibly from English: they sit at the end of the sentence, so every verb you learn here slots straight into the sentence-structure pattern. Learn them with their examples, not alone.',
+    tip: 'For each verb, say its example sentence — the ending is the lesson.',
     related: [
       { label: 'Marathi verbs (grammar)', href: siteUrl('/grammar/verbs/') },
       { label: 'Sentence structure', href: siteUrl('/grammar/sentence-structure/') },
@@ -172,6 +201,9 @@ export const clusters: Cluster[] = [
     intent: 'marathi daily use words; marathi home words',
     categories: ['Home', 'Routine', 'Body', 'Adjectives', 'Adverbs'],
     unitRefs: ['03', '10'],
+    intro:
+      'The vocabulary of an ordinary day: home and household objects, daily routine, body parts, and the describing words (adjectives) and how-words (adverbs) that flesh out sentences — from Units 03 and 10. Each entry has Hindi and English meanings, pronunciation and an example. This is the largest cluster because daily life needs the most words; adjectives and adverbs are included here since they modify exactly these nouns and verbs.',
+    tip: 'Narrate your routine in Marathi as you do it — brushing, cooking, leaving.',
     related: [
       { label: 'Food words', href: siteUrl('/vocabulary/food/') },
       { label: 'Daily conversation phrases', href: siteUrl('/phrases/daily/') },
@@ -186,6 +218,8 @@ export type PhraseSet = {
   description: string;
   intent: string;
   unitRefs: string[];
+  intro: string;
+  tip?: string;
   related: { label: string; href: string }[];
 };
 
@@ -196,6 +230,9 @@ export const phraseSets: PhraseSet[] = [
     description: 'How to greet, thank, apologise and be polite in Marathi — with Hindi and English meanings.',
     intent: 'marathi greetings; namaskar in marathi',
     unitRefs: ['01'],
+    intro:
+      'The phrases that open doors: नमस्कार for hello, धन्यवाद for thanks, माफ करा for sorry and excuse-me — each with Hindi and English meanings, a speaking tip and the Unit 01 sentences they come from. Politeness travels well: these three phrases cover most first-contact situations. Say each aloud twice before moving on.',
+    tip: 'नमस्कार works any time of day; add शुभ सकाळ mornings and शुभ रात्री nights.',
     related: [
       { label: 'Beginner words', href: siteUrl('/vocabulary/beginners/') },
       { label: 'Daily conversation', href: siteUrl('/phrases/daily/') },
@@ -208,6 +245,9 @@ export const phraseSets: PhraseSet[] = [
     description: 'Everyday Marathi sentences — introductions, needs, feelings — mapped from Hindi so Hindi speakers get them instantly.',
     intent: 'marathi daily conversation; daily use marathi sentences',
     unitRefs: ['01', '02'],
+    intro:
+      'Everyday Marathi sentences from Units 01–02: introductions (माझं नाव…), needs (मला पाणी पाहिजे), states (मी ठीक आहे) — each with Hindi and English meanings plus a tip that unpacks the grammar inside. These are complete thoughts, not word lists: memorize five and you can survive small talk. Each one also appears as a bridge lesson showing exactly how the Hindi equivalent maps over.',
+    tip: 'Pick three sentences and use them today, even talking to yourself.',
     related: [
       { label: 'Hindi to Marathi phrases', href: siteUrl('/hindi-to-marathi/phrases/') },
       { label: 'Essential verbs', href: siteUrl('/vocabulary/verbs/') },
@@ -220,6 +260,9 @@ export const phraseSets: PhraseSet[] = [
     description: 'Tickets, stations, stays and directions — the Marathi phrases travellers need, with Hindi meanings.',
     intent: 'marathi travel phrases',
     unitRefs: ['14', '15'],
+    intro:
+      'Tickets, stations, stays and directions from Units 14–15: the Marathi sentences travellers actually say, each with Hindi and English meanings and a speaking tip. Learn the ten you need for your next trip rather than the whole list — then let the travel vocabulary fill in the nouns.',
+    tip: 'Before a trip, memorize the transport and stay sentences first.',
     related: [
       { label: 'Travel words', href: siteUrl('/vocabulary/travel/') },
       { label: 'Shopping words', href: siteUrl('/vocabulary/shopping/') },
@@ -237,6 +280,8 @@ export type GrammarTopic = {
   // Explicit {unit, lessons} picks — every row shown is verified to
   // belong to the topic (no keyword guessing across note bodies).
   picks: { unit: string; lessons: number[] }[];
+  intro: string;
+  tip?: string;
   related: { label: string; href: string }[];
 };
 
@@ -251,6 +296,9 @@ export const grammarTopics: GrammarTopic[] = [
       { unit: '05', lessons: [1, 2, 3, 4, 5, 6] },
       { unit: '01', lessons: [4] },
     ],
+    intro:
+      'I, you, he, she, we, they — the full Marathi pronoun paradigm from Unit 05, plus demonstratives, interrogatives, reflexives, honorifics and kinship terms, with the introductory मी lesson from Unit 01. Each note carries Marathi explanation and English meaning. Pronouns are small, frequent and load-bearing: get them right and every sentence you build stands straighter.',
+    tip: 'Master मी, तू/तुम्ही and तो/ती first — the rest is refinement.',
     related: [
       { label: 'Family words', href: siteUrl('/vocabulary/family/') },
       { label: 'Sentence structure', href: siteUrl('/grammar/sentence-structure/') },
@@ -268,6 +316,9 @@ export const grammarTopics: GrammarTopic[] = [
       { unit: '01', lessons: [5] },
       { unit: '21', lessons: [5, 6] },
     ],
+    intro:
+      'How Marathi verbs work: movement and compound verbs, ability and obligation forms, the introductory verbs lesson from Unit 01, and advanced passive and causative voice from Unit 21. Each note has Marathi explanation and English meaning. Since Marathi verbs close every sentence, this topic pairs naturally with sentence structure and the essential-verbs word list.',
+    tip: 'Read every example to its last word — the verb is the point.',
     related: [
       { label: 'Essential verbs', href: siteUrl('/vocabulary/verbs/') },
       { label: 'Sentence structure', href: siteUrl('/grammar/sentence-structure/') },
@@ -285,6 +336,9 @@ export const grammarTopics: GrammarTopic[] = [
       { unit: '04', lessons: [1, 2] },
       { unit: '08', lessons: [1, 2] },
     ],
+    intro:
+      'Marathi runs subject–object–verb — like Hindi, unlike English. These notes trace the pattern from its first statement (Unit 01) through objects and dative constructions (Unit 04) to the postpositions that anchor location and relation (Unit 08: मध्ये, वर and friends). With Hindi comparison and English meanings throughout. Internalize this one pattern and the sentence-builder exercises start feeling obvious.',
+    tip: 'Take any English sentence, move the verb to the end, and check against the examples.',
     related: [
       { label: 'Hindi to Marathi sentences', href: siteUrl('/hindi-to-marathi/phrases/') },
       { label: 'Marathi verbs', href: siteUrl('/grammar/verbs/') },

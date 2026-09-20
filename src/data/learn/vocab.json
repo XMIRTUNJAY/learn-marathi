@@ -7365,8 +7365,8 @@
     "transliteration": "masālā",
     "category": "Food",
     "exampleMarathi": "गोडा मसाला घाल.",
-    "exampleHindi": "गरम मसाला डालो।",
-    "exampleEnglish": "Add garam masala.",
+    "exampleHindi": "गोडा मसाला डालो।",
+    "exampleEnglish": "Add goda masala (Maharashtrian sweet-spice blend).",
     "note": "दोन्ही भाषांत समान.",
     "noteEn": "Same in both languages."
   },
@@ -7706,7 +7706,7 @@
     "exampleHindi": "बारिश में प्याज के पकौड़े खाओ।",
     "exampleEnglish": "Eat onion fritters in the rain.",
     "note": "पावसाळी पदार्थ.",
-    "noteEn": "Monsoon snack."
+    "noteEn": "Monsoon snack. Fritters in general — compare कांदा भजी (onion fritters)."
   },
   {
     "id": "v-spi-29",
@@ -12659,7 +12659,7 @@
     "exampleHindi": "बरसात में प्याज के पकौड़े खाते हैं।",
     "exampleEnglish": "Onion fritters are eaten in monsoon.",
     "note": "पावसाळी पदार्थ.",
-    "noteEn": "Monsoon snack."
+    "noteEn": "Monsoon snack. Specifically onion fritters — compare भजी (fritters in general)."
   },
   {
     "id": "v-snk-08",
@@ -12685,7 +12685,7 @@
     "exampleHindi": "नाश्ते में इडली सांभर।",
     "exampleEnglish": "Idli-sambar for breakfast.",
     "note": "दोन्ही भाषांत समान.",
-    "noteEn": "Same in both languages."
+    "noteEn": "Same in both languages. South Indian dish name commonly used in Marathi."
   },
   {
     "id": "v-snk-10",
@@ -12698,7 +12698,7 @@
     "exampleHindi": "मसाला डोसा मँगवाओ।",
     "exampleEnglish": "Order a masala dosa.",
     "note": "दोन्ही भाषांत समान.",
-    "noteEn": "Same in both languages."
+    "noteEn": "Same in both languages. South Indian dish name commonly used in Marathi."
   },
   {
     "id": "v-snk-11",

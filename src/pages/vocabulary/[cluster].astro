@@ -36,12 +36,8 @@ const words = wordsByCategory(cluster.categories);
 		English meaning, pronunciation and a real example sentence from the
 		Bol Marathi curriculum.
 	</p>
-	<p>
-		These words come from {cluster.unitRefs.length > 1 ? `Units ${cluster.unitRefs.join(' and ')}` : `Unit ${cluster.unitRefs[0]}`} of
-		the course, where they appear with listening, speaking and
-		sentence-building practice. Learn to recognize them here; the app
-		makes sure you remember them.
-	</p>
+	<p>{cluster.intro}</p>
+	{cluster.tip && <p class="tip"><strong>Tip:</strong> {cluster.tip}</p>}
 
 	<VocabTable words={words} caption={cluster.title} />
 

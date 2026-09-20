@@ -1,16 +1,33 @@
 ---
 import type { Word } from '../lib/learn';
+import { simpleRespelling } from '../lib/simple';
 
-type Props = { words: Word[]; caption?: string };
-const { words, caption } = Astro.props;
+type Props = {
+	words: Word[];
+	caption?: string;
+	// Pronunciation column: 'diacritic' (precise, default) | 'simple'
+	// (plain respelling) | 'none' (hidden — Hindi path reads Devanagari).
+	// toggle=true adds a CSS-only checkbox switching simple ↔ precise.
+	roman?: 'diacritic' | 'simple' | 'none';
+	toggle?: boolean;
+	context?: string;
+};
+const { words, caption, roman = 'diacritic', toggle = roman !== 'none', context = 'vocab' } = Astro.props;
+const showSimpleFirst = roman === 'simple';
 ---
 
 <div class="table-scroll" role="region" aria-label={caption ?? 'Vocabulary'} tabindex="0">
+	{toggle && (
+		<label class="roman-toggle">
+			<input type="checkbox" class={`roman-check-${context}`} />
+			Show precise pronunciation
+		</label>
+	)}
 	<table class="vocab">
 		<thead>
 			<tr>
 				<th scope="col">Marathi</th>
-				<th scope="col">Pronunciation</th>
+				{roman !== 'none' && <th scope="col">Pronunciation</th>}
 				<th scope="col">Hindi</th>
 				<th scope="col">English</th>
 				<th scope="col">Example</th>
@@ -23,7 +40,14 @@ const { words, caption } = Astro.props;
 						{w.marathi}
 						<button type="button" class="say" data-say={w.marathi} aria-label={`Listen: ${w.marathi}`}>🔊</button>
 					</td>
-					<td class="tr">{w.transliteration}</td>
+					{roman !== 'none' && (
+						<td class="tr">
+							<span class="r-a">{showSimpleFirst ? simpleRespelling(w.transliteration) : w.transliteration}</span>
+							{toggle && (
+								<span class="r-b">{showSimpleFirst ? w.transliteration : simpleRespelling(w.transliteration)}</span>
+							)}
+						</td>
+					)}
 					<td lang="hi">{w.hindi}</td>
 					<td>{w.english}</td>
 					<td>
@@ -86,6 +110,23 @@ const { words, caption } = Astro.props;
 </script>
 
 <style>
+	.roman-toggle {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4em;
+		font-size: 0.82rem;
+		color: rgb(var(--gray));
+		margin-bottom: 0.6em;
+		cursor: pointer;
+	}
+	.roman-toggle input {
+		width: 1em;
+		height: 1em;
+		accent-color: var(--accent);
+	}
+	.r-b { display: none; }
+	.roman-toggle:has(input:checked) ~ table .r-a { display: none; }
+	.roman-toggle:has(input:checked) ~ table .r-b { display: inline; }
 	.say {
 		background: transparent;
 		border: none;

@@ -139,6 +139,13 @@ hr {
 	line-height: 1.65;
 }
 
+.tip {
+	border-left: 4px solid var(--success, #2e7d5b);
+	background: var(--success-bg, #e8f4ec);
+	border-radius: 0 var(--radius) var(--radius) 0;
+	padding: 0.8em 1.1em;
+}
+
 /* Vocabulary / phrase tables: horizontally scrollable on mobile. */
 .table-scroll {
 	overflow-x: auto;
