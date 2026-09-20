@@ -28,6 +28,10 @@ const words = wordsByCategory(cluster.categories);
 	canonicalPath={`/vocabulary/${cluster.slug}/`}
 	about={cluster.intent}
 	meta={[`${words.length} words`, cluster.unitRefs.length > 1 ? `Units ${cluster.unitRefs.join(', ')}` : `Unit ${cluster.unitRefs[0]}`]}
+	faq={[
+		{ question: `How many words are on this page?`, answer: `${words.length} ${cluster.categories.join(', ').toLowerCase()} words, each with Hindi and English meanings, pronunciation and an example sentence.` },
+		{ question: 'How do I remember these words?', answer: 'Read them here, then practise listening, speaking and spaced repetition in the Bol Marathi app — it schedules reviews before you forget.' },
+	]}
 >
 	<h2>What you will learn</h2>
 	<p>
@@ -51,4 +55,29 @@ const words = wordsByCategory(cluster.categories);
 	</p>
 
 	<RelatedContent links={[...cluster.related, { label: `Quiz yourself: ${cluster.title}`, href: siteUrl(`/quiz/${cluster.slug}/`) }]} />
+
+	<h2>Common questions</h2>
+	<details>
+		<summary>How many words are on this page?</summary>
+		<p>{words.length} {cluster.categories.join(', ').toLowerCase()} words, each with Hindi and English meanings, pronunciation and an example sentence.</p>
+	</details>
+	<details>
+		<summary>How do I remember these words?</summary>
+		<p>Read them here, then practise listening, speaking and spaced repetition in the Bol Marathi app — it schedules reviews before you forget.</p>
+	</details>
 </Learn>
+
+<style>
+	details {
+		border: var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+		padding: 0.9em 1.1em;
+		margin-bottom: 0.6em;
+	}
+	details summary {
+		font-weight: 600;
+		cursor: pointer;
+	}
+	details p { margin: 0.6em 0 0.2em 0; }
+</style>

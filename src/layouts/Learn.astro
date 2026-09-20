@@ -17,9 +17,10 @@ type Props = {
 	alternates?: { lang: string; href: string }[];
 	h1?: string;
 	items?: { name: string; url: string }[];
+	faq?: { question: string; answer: string }[];
 };
 
-const { title, description, kicker, crumbs, canonicalPath, about, meta = [], alternates, h1, items } = Astro.props;
+const { title, description, kicker, crumbs, canonicalPath, about, meta = [], alternates, h1, items, faq = [] } = Astro.props;
 // Absolute URLs must include the base (e.g. /learn-marathi) — Astro.url.pathname has it, Astro.site does not.
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const abs = (href: string) => new URL(href, Astro.site).toString();
@@ -36,6 +37,16 @@ const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 		items={items}
 		breadcrumbs={[{ name: 'Learn Marathi', url: homeUrl }, ...crumbs.map((c) => ({ name: c.label, url: abs(c.href) }))]}
 	/>
+	{faq.length > 0 && (
+		<JsonLd
+			headline={title}
+			description={description}
+			url={pageUrl}
+			type="FAQPage"
+			faq={faq}
+			breadcrumbs={[]}
+		/>
+	)}
 	<Breadcrumbs items={crumbs} />
 	<figure class="hero-figure">
 		<img src={pageArt(canonicalPath.replace(/^\//, '').replace(/\/$/, ''))} alt="" loading="lazy" width="1200" height="630" />
