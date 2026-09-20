@@ -125,3 +125,6 @@ documented as gap, not invented.
   notes; "Units 03" singular/plural fixed.
 - **Deferred honestly:** simple romanization respelling (needs native
   review with LM-0004); per-word pages; testimonials; monetization.
+- **Drafts resolved:** alphabet + vs-Hindi finalized (only verified
+  content kept; आपण section cut); "I love you" page DELETED (noun
+  प्रेम verified but sentence unwarranted — rebuild when covered).

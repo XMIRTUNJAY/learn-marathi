@@ -21,6 +21,8 @@ without ≥1 real curriculum source; no two pages for one intent.
 | marathi quiz / practice test | — | /quiz/ + /quiz/\<cluster\>/ ✅ BUILT — 10-question engagement pages (practice-loop sample, not thin SEO) | app CTA | Engagement |
 | marathi anki deck | — | /downloads/ ✅ BUILT — top-100 + full-1002 TSV from real data | waitlist | Lead magnet |
 | marathi pronunciation | /lessons/06/ ✅ (unit page) | /marathi-pronunciation/ ✅ BUILT — repackaged Unit 06 notes | grammar | Beginner |
+| how to say good morning | — | /how-to-say-good-morning-in-marathi/ ✅ BUILT (शुभ सकाळ + शुभ रात्री verified) | phrase | Conversation |
+| how to say I love you | — | ❌ REMOVED — curriculum has only the noun प्रेम; sentence unwarranted. Rebuild when covered. | — | Deferred |
 
 ## Content gaps (ranked)
 

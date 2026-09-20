@@ -2,42 +2,31 @@
 import AppCTA from '../components/AppCTA.astro';
 import Learn from '../layouts/Learn.astro';
 import RelatedContent from '../components/RelatedContent.astro';
-import ReviewNote from '../components/ReviewNote.astro';
 import VocabTable from '../components/VocabTable.astro';
 import { vocab } from '../lib/learn';
 import { siteUrl } from '../lib/site';
 
-// DRAFT (needsReview): काल/उद्या pair and हा/ही/हे neuter row are verified
-// curriculum data; the आपण/आम्ही inclusive-exclusive paradigm is flagged,
-// not stated as fact.
+// काल/उद्या split and हा/ही/हे neuter row are verified curriculum data.
 const kal = vocab.find((w) => w.id === 'v-time-03');
 const udya = vocab.find((w) => w.id === 'v-time-02');
 const ha = vocab.find((w) => w.marathi === 'हा');
 const hi = vocab.find((w) => w.marathi === 'ही');
 const he = vocab.find((w) => w.marathi === 'हे');
-const aamhi = vocab.find((w) => w.id === 'v-pron-07');
-if (!kal || !udya || !ha || !hi || !he || !aamhi) throw new Error('vs-hindi data missing');
+if (!kal || !udya || !ha || !hi || !he) throw new Error('vs-hindi data missing');
 ---
 
 <Learn
-	title="Marathi vs Hindi: 3 Differences That Matter (Draft)"
-	description="Three Marathi–Hindi differences from real curriculum data: काल vs उद्या, neuter हा/ही/हे, and the inclusive-exclusive 'we'. Draft pending review."
+	title="Marathi vs Hindi: काल/उद्या & Three Genders"
+	description="Two Marathi–Hindi differences from real data: काल vs उद्या split, and neuter हा/ही/हे Hindi lacks."
 	kicker="Marathi Guide"
 	crumbs={[
 		{ label: 'Grammar', href: siteUrl('/grammar/') },
-		{ label: 'Marathi vs Hindi (draft)', href: siteUrl('/marathi-vs-hindi/') },
+		{ label: 'Marathi vs Hindi', href: siteUrl('/marathi-vs-hindi/') },
 	]}
 	canonicalPath="/marathi-vs-hindi/"
-	about="marathi vs hindi differences draft"
-	meta={['Draft · needs native review']}
+	about="marathi vs hindi differences"
+	meta={['2 differences', 'With examples']}
 >
-	<ReviewNote
-		items={[
-			'The आपण vs आम्ही (inclusive vs exclusive "we") distinction needs a native speaker to confirm forms and usage — it is flagged here, not taught as fact.',
-			'Neuter-gender examples beyond हा/ही/हे need verification.',
-		]}
-	/>
-
 	<h2>1. काल means only yesterday</h2>
 	<p>
 		Hindi कल covers both yesterday and tomorrow. Marathi splits them —
@@ -53,18 +42,6 @@ if (!kal || !udya || !ha || !hi || !he || !aamhi) throw new Error('vs-hindi data
 	<VocabTable words={[ha, hi, he]} caption="हा ही हे" />
 
 	<AppCTA variant="grammar" context="marathi-vs-hindi" />
-
-	<h2>3. Two kinds of "we" (pending review)</h2>
-	<p>
-		Marathi distinguishes inclusive and exclusive "we" (आपण vs आम्ही).
-		The curriculum verifies आम्ही:
-	</p>
-	<VocabTable words={[aamhi]} caption="आम्ही" />
-	<p>
-		The full inclusive/exclusive paradigm and usage rules are awaiting
-		native-speaker confirmation — learn आम्ही confidently, treat the rest
-		as preview.
-	</p>
 
 	<RelatedContent
 		links={[

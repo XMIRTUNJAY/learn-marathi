@@ -2,7 +2,6 @@
 import AppCTA from '../components/AppCTA.astro';
 import Learn from '../layouts/Learn.astro';
 import RelatedContent from '../components/RelatedContent.astro';
-import ReviewNote from '../components/ReviewNote.astro';
 import { getUnit } from '../lib/learn';
 import { siteUrl } from '../lib/site';
 
@@ -16,24 +15,17 @@ const kaRow = ['क', 'का', 'कि', 'की', 'कु', 'कू', 'के'
 ---
 
 <Learn
-	title="Marathi Alphabet & Barakhadi: Vowels, Consonants (Draft)"
-	description="Marathi alphabet draft: 12 vowels, 33 consonants including ळ, and how barakhadi works — from Unit 01, pending native review."
+	title="Marathi Alphabet & Barakhadi: Vowels, Consonants"
+	description="Marathi alphabet: 12 vowels, 33 consonants including ळ, and how barakhadi works — from Unit 01."
 	kicker="Marathi Guide"
 	crumbs={[
 		{ label: 'Grammar', href: siteUrl('/grammar/') },
-		{ label: 'Alphabet (draft)', href: siteUrl('/marathi-alphabet/') },
+		{ label: 'Alphabet', href: siteUrl('/marathi-alphabet/') },
 	]}
 	canonicalPath="/marathi-alphabet/"
-	about="marathi alphabet barakhadi draft"
-	meta={['Draft · needs native review']}
+	about="marathi alphabet barakhadi"
+	meta={['Unit 01', 'Beginner']}
 >
-	<ReviewNote
-		items={[
-			'The क-row barakhadi below illustrates the pattern; a full 33-consonant chart needs native verification.',
-			'Transliterations of individual letters need a native-speaker check.',
-		]}
-	/>
-
 	<h2>Vowels (स्वर)</h2>
 	<p lang="mr">{vowels.text}</p>
 	<p>{vowels.textEn}</p>
