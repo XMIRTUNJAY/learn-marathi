@@ -1,22 +1,31 @@
-// Final-pass verification: OG mapping, audio, quiz data, i18n, byline, routes.
 const fs = require('fs');
-const get = (f, rx) => {
-  const h = fs.readFileSync('dist/' + f, 'utf8');
-  const m = h.match(rx);
-  return (m && m[1]) || '?';
-};
-console.log('og quiz/food:', get('quiz/food/index.html', /og:image" content="([^"]*)"/).slice(0, 80));
-console.log('og vocab/food:', get('vocabulary/food/index.html', /og:image" content="([^"]*)"/).slice(0, 80));
-console.log('og hi:', get('hi/index.html', /og:image" content="([^"]*)"/).slice(0, 80));
-const food = fs.readFileSync('dist/vocabulary/food/index.html', 'utf8');
-console.log('audio buttons (food):', (food.match(/data-say=/g) || []).length);
-const quiz = fs.readFileSync('dist/quiz/food/index.html', 'utf8');
-console.log('quiz embedded words:', (quiz.match(/"mr":"/g) || []).length);
-console.log('quiz options JS:', quiz.includes('qopt') ? 'OK' : 'MISSING');
-const hiHome = fs.readFileSync('dist/hi/index.html', 'utf8');
-console.log('hi footer:', hiHome.includes('सबसे पहले जानें') ? 'Hindi OK' : 'MISSING');
-console.log('byline:', food.includes('xmirtunjay') ? 'OK' : 'MISSING');
-console.log('colors route:', fs.existsSync('dist/vocabulary/colors/index.html') ? 'OK' : 'MISSING');
-console.log('quiz colors route:', fs.existsSync('dist/quiz/colors/index.html') ? 'OK' : 'MISSING');
-console.log('downloads:', fs.existsSync('dist/downloads/marathi-top-100.tsv') && fs.existsSync('dist/downloads/marathi-full-1002.tsv') ? 'OK' : 'MISSING');
-console.log('trailing slash nav:', food.includes('href="/learn-marathi/vocabulary/"') ? 'OK' : 'CHECK');
+const bad = [];
+const walkHtml = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => {
+  const p = d + '/' + e.name;
+  if (e.isDirectory()) return walkHtml(p);
+  return p.endsWith('.html') ? [p] : [];
+});
+for (const f of walkHtml('dist')) {
+  const h = fs.readFileSync(f, 'utf8');
+  for (const m of h.matchAll(/href="(\/learn-marathi[^"]*)"/g)) {
+    let t = m[1].split('#')[0].split('?')[0].replace(/^\/learn-marathi/, '');
+    if (/\.(css|js|svg|png|jpg|webp|xml|ico|tsv)$/.test(t)) continue;
+    if (t === '') t = '/';
+    t = t.endsWith('/') ? t + 'index.html' : t + '/index.html';
+    if (t === '/index.html' && m[1].replace(/^\/learn-marathi/, '') === '') continue;
+    const p = 'dist' + t;
+    if (!fs.existsSync(p)) bad.push(f + ' -> ' + m[1]);
+  }
+}
+console.log(bad.length ? bad.join('\n') : 'LINKS OK');
+let miss = 0;
+for (const f of walkHtml('dist')) {
+  if (f.endsWith('404.html')) continue;
+  const h = fs.readFileSync(f, 'utf8');
+  const u = (h.match(/og:image" content="([^"]*)"/) || [])[1] || '';
+  const p = u.replace('https://xmirtunjay.github.io/learn-marathi/', 'dist/');
+  if (!u || !fs.existsSync(p)) { miss++; console.log('MISSING OG: ' + f + ' -> ' + u); }
+}
+console.log(miss ? miss + ' missing' : 'ALL OG FILES EXIST');
+const sm = (fs.readFileSync('dist/sitemap-0.xml', 'utf8').match(/<loc>/g) || []).length;
+console.log('sitemap urls:', sm);

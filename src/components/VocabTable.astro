@@ -1,6 +1,8 @@
 ---
 import type { Word } from '../lib/learn';
 import { simpleRespelling } from '../lib/simple';
+import audioManifest from '../data/audio-manifest.json';
+import { siteUrl } from '../lib/site';
 
 type Props = {
 	words: Word[];
@@ -14,6 +16,10 @@ type Props = {
 };
 const { words, caption, roman = 'diacritic', toggle = roman !== 'none', context = 'vocab' } = Astro.props;
 const showSimpleFirst = roman === 'simple';
+// Pre-generated TTS clips (tools/gen-audio) win; otherwise device TTS.
+// Manifest: { files: { <vocabId>: { word, example? } } }.
+const files = (audioManifest as { files?: Record<string, { word?: string }> }).files ?? {};
+const audioFor = (id: string): string | null => (files[id]?.word ? siteUrl(`/audio/${files[id].word}`) : null);
 ---
 
 <div class="table-scroll" role="region" aria-label={caption ?? 'Vocabulary'} tabindex="0">
@@ -38,7 +44,11 @@ const showSimpleFirst = roman === 'simple';
 				<tr>
 					<td class="mr" lang="mr">
 						{w.marathi}
-						<button type="button" class="say" data-say={w.marathi} aria-label={`Listen: ${w.marathi}`}>🔊</button>
+						{audioFor(w.id) ? (
+							<button type="button" class="say" data-audio={audioFor(w.id)} aria-label={`Listen: ${w.marathi}`}>🔊</button>
+						) : (
+							<button type="button" class="say" data-say={w.marathi} aria-label={`Listen: ${w.marathi}`}>🔊</button>
+						)}
 					</td>
 					{roman !== 'none' && (
 						<td class="tr">
@@ -88,8 +98,21 @@ const showSimpleFirst = roman === 'simple';
 			window.speechSynthesis.onvoiceschanged = pickVoice;
 		}
 		document.addEventListener('click', (e) => {
-			var btn = e.target.closest ? e.target.closest('[data-say]') : null;
+			var btn = e.target.closest ? e.target.closest('[data-say],[data-audio]') : null;
 			if (!btn) return;
+			// Pre-generated clip (lazy: created on first tap, then cached).
+			var src = btn.getAttribute('data-audio');
+			if (src) {
+				try {
+					if (!btn._player) {
+						btn._player = new Audio(src);
+						btn._player.preload = 'none';
+					}
+					btn._player.currentTime = 0;
+					btn._player.play().catch(() => {});
+				} catch (err) {}
+				return;
+			}
 			try {
 				window.speechSynthesis.cancel();
 				var u = new SpeechSynthesisUtterance(btn.getAttribute('data-say') || '');
