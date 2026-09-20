@@ -3,6 +3,7 @@ import Base from './Base.astro';
 import Breadcrumbs, { type Crumb } from '../components/Breadcrumbs.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { BRAND, REVIEWER } from '../data/brand';
+import { pageArt } from '../lib/art';
 import { siteUrl } from '../lib/site';
 
 type Props = {
@@ -36,6 +37,9 @@ const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 		breadcrumbs={[{ name: 'Learn Marathi', url: homeUrl }, ...crumbs.map((c) => ({ name: c.label, url: abs(c.href) }))]}
 	/>
 	<Breadcrumbs items={crumbs} />
+	<figure class="hero-figure">
+		<img src={pageArt(canonicalPath.replace(/^\//, '').replace(/\/$/, ''))} alt="" loading="lazy" width="1200" height="630" />
+	</figure>
 	<div class="prose">
 		<p class="kicker">{kicker}</p>
 		<h1>{h1 ?? title}</h1>

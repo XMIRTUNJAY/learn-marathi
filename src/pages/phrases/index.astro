@@ -2,6 +2,7 @@
 import AppCTA from '../../components/AppCTA.astro';
 import Learn from '../../layouts/Learn.astro';
 import { phraseSets, phrasesFor } from '../../lib/learn';
+import { pageArt } from '../../lib/art';
 import { siteUrl } from '../../lib/site';
 ---
 
@@ -19,6 +20,7 @@ import { siteUrl } from '../../lib/site';
 		{phraseSets.map((p) => (
 			<li>
 				<a class="card" href={siteUrl(`/phrases/${p.slug}/`)}>
+					<img src={pageArt(`phrases/${p.slug}`)} alt="" loading="lazy" width="1200" height="630" />
 					<h3>{p.title}</h3>
 					<p>{phrasesFor(p).length} phrases · {p.description}</p>
 				</a>

@@ -2,6 +2,7 @@
 import AppCTA from '../../components/AppCTA.astro';
 import Learn from '../../layouts/Learn.astro';
 import { units } from '../../lib/learn';
+import { pageArt } from '../../lib/art';
 import { siteUrl } from '../../lib/site';
 ---
 
@@ -21,6 +22,7 @@ import { siteUrl } from '../../lib/site';
 		{units.map((u) => (
 			<li>
 				<a class="card" href={siteUrl(`/lessons/${u.unit}/`)}>
+					<img src={pageArt(`lessons/${u.unit}`)} alt="" loading="lazy" width="1200" height="630" />
 					<h3>Unit {u.unit} — {u.titleEn}</h3>
 					<p>{u.subtitleEn} · {u.goalsEn.slice(0, 2).join(' · ')}</p>
 				</a>

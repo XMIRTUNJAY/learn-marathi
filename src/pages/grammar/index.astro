@@ -2,6 +2,7 @@
 import AppCTA from '../../components/AppCTA.astro';
 import Learn from '../../layouts/Learn.astro';
 import { grammarTopics } from '../../lib/learn';
+import { pageArt } from '../../lib/art';
 import { siteUrl } from '../../lib/site';
 ---
 
@@ -19,6 +20,7 @@ import { siteUrl } from '../../lib/site';
 		{grammarTopics.map((g) => (
 			<li>
 				<a class="card" href={siteUrl(`/grammar/${g.slug}/`)}>
+					<img src={pageArt(`grammar/${g.slug}`)} alt="" loading="lazy" width="1200" height="630" />
 					<h3>{g.title}</h3>
 					<p>{g.description}</p>
 				</a>

@@ -2,6 +2,7 @@
 import AppCTA from '../../components/AppCTA.astro';
 import Learn from '../../layouts/Learn.astro';
 import { clusters, wordsByCategory } from '../../lib/learn';
+import { pageArt } from '../../lib/art';
 import { siteUrl } from '../../lib/site';
 ---
 
@@ -20,6 +21,7 @@ import { siteUrl } from '../../lib/site';
 		{clusters.map((c) => (
 			<li>
 				<a class="card" href={siteUrl(`/vocabulary/${c.slug}/`)}>
+					<img src={pageArt(`vocabulary/${c.slug}`)} alt="" loading="lazy" width="1200" height="630" />
 					<h3>{c.title}</h3>
 					<p>{wordsByCategory(c.categories).length} words · {c.description}</p>
 				</a>

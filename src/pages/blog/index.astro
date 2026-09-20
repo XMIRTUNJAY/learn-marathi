@@ -1,6 +1,7 @@
 ---
 import AppCTA from '../../components/AppCTA.astro';
 import Base from '../../layouts/Base.astro';
+import { pageArt } from '../../lib/art';
 import { siteUrl } from '../../lib/site';
 
 const title = 'Real-Life Marathi: Situational Guides';
@@ -47,6 +48,7 @@ const posts = [
 			{posts.map(([href, label, sub]) => (
 				<li>
 					<a class="card" href={siteUrl(href)} data-funnel="path_click">
+						<img src={pageArt(href.replace(/^\//, '').replace(/\/$/, ''))} alt="" loading="lazy" width="1200" height="630" />
 						<h3>{label}</h3>
 						<p>{sub}</p>
 					</a>

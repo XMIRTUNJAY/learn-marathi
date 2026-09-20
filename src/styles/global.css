@@ -233,6 +233,30 @@ table.vocab .tr { font-family: var(--font-mono); font-size: 0.85em; color: rgb(v
 .card-grid a.card:hover { border-color: var(--accent); }
 .card-grid .card h3 { margin: 0 0 0.3em 0; font-size: 1.1rem; }
 .card-grid .card p { margin: 0; font-size: 0.88rem; line-height: 1.6; color: rgb(var(--gray)); }
+.card-grid .card img {
+	display: block;
+	width: calc(100% + 2.5em);
+	max-width: none;
+	height: auto;
+	aspect-ratio: 1200 / 630;
+	object-fit: cover;
+	margin: -1.25em -1.25em 0.8em -1.25em;
+	border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
+	border-bottom: var(--border);
+	background: var(--container-low);
+}
+.hero-figure {
+	margin: 0 0 1.5em 0;
+	border: var(--border);
+	border-radius: var(--radius);
+	overflow: hidden;
+	background: var(--card);
+}
+.hero-figure img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
 
 .crumbs {
 	font-size: 0.78rem;
