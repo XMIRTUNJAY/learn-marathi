@@ -60,6 +60,40 @@ const renames = {
   'og_hindi_to_marathi_words.png_1': 'og-hindi-to-marathi-words',
 };
 
+// Round 2: true-landscape replacements for letterboxed art (new folder in
+// "Downloads/stitch_bol_marathi_mascot_animations (1)"). Winners chosen by
+// visual inspection: _fixed beats plain (no baked "1600x840" text),
+// landscape beats portrait. Portrait-named-but-portrait folders are
+// deliberately absent here — their letterboxed versions stand.
+const SRC2 = 'C:\\Users\\kumar\\Downloads\\stitch_bol_marathi_mascot_animations (1)\\stitch_bol_marathi_mascot_animations';
+const round2 = {
+  'og_about_1600x840': 'og-about',
+  'og_contact_1600x840': 'og-contact',
+  'og_privacy_1600x840': 'og-privacy',
+  'og_how_it_works.png_fixed': 'og-how-it-works',
+  'og_hi_app.png_fixed': 'og-hi-app',
+  'og_marathi_pronunciation.png_fixed': 'og-marathi-pronunciation',
+  'bol_marathi_app_1600x840_landscape': 'og-app',
+  'how_to_say_good_morning_in_marathi_1600x840_scene': 'og-how-to-say-good-morning-in-marathi',
+  'how_to_say_hello_in_marathi_1600x840_scene': 'og-how-to-say-hello-in-marathi',
+  'how_to_say_sorry_in_marathi_1600x840_scene': 'og-how-to-say-sorry-in-marathi',
+  'how_to_say_thank_you_in_marathi_1600x840_scene': 'og-how-to-say-thank-you-in-marathi',
+  'marathi_at_the_doctor_1600x840_landscape': 'og-blog-at-the-doctor',
+  'marathi_autorickshaw_taxi_1600x840_landscape': 'og-blog-autorickshaw-taxi',
+  'emotions_feelings_1600x840_scene': 'og-blog-emotions-feelings',
+  'festival_greetings_1600x840_scene': 'og-blog-festival-greetings',
+  'first_day_at_work_1600x840_scene': 'og-blog-first-day-work',
+  'marathi_grocery_shopping_1600x840_landscape': 'og-blog-grocery-shopping',
+  'hindi_speaker_traps_1600x840_scene': 'og-blog-hindi-speaker-traps',
+  'money_prices_bargaining_1600x840_scene': 'og-blog-money-prices',
+  'marathi_ordering_food_1600x840_landscape': 'og-blog-ordering-food',
+  'polite_marathi_honorifics_1600x840_scene': 'og-blog-polite-marathi',
+  'pune_newcomer_words_1600x840_scene': 'og-blog-pune-newcomer-words',
+  'school_education_1600x840_scene': 'og-blog-school-talk',
+  'marathi_small_talk_scene_1600x840_landscape': 'og-blog-small-talk-intro',
+  'weather_talk_1600x840_landscape': 'og-blog-weather-talk',
+};
+
 let ok = 0, missing = [];
 const jobs = [...direct.map((d) => [d, d.replace(/_/g, '-').replace(/^og-/, 'og-')]), ...Object.entries(renames)];
 for (const [folder, target] of jobs) {
@@ -78,3 +112,13 @@ for (const [folder, target] of jobs) {
   ok++;
 }
 console.log(`import-og-art: ${ok} imported, missing: ${missing.join(', ') || 'none'}`);
+
+let ok2 = 0;
+const missing2 = [];
+for (const [folder, target] of Object.entries(round2)) {
+  const src = join(SRC2, folder, 'screen.png');
+  if (!existsSync(src)) { missing2.push(folder); continue; }
+  await sharp(src).resize(1200, 630, { fit: 'fill' }).png().toFile(join(outDir, `${target}.png`));
+  ok2++;
+}
+console.log(`import-og-art round2: ${ok2} replaced, missing: ${missing2.join(', ') || 'none'}`);
