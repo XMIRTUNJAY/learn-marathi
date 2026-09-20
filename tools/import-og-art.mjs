@@ -122,3 +122,28 @@ for (const [folder, target] of Object.entries(round2)) {
   ok2++;
 }
 console.log(`import-og-art round2: ${ok2} replaced, missing: ${missing2.join(', ') || 'none'}`);
+
+// Round 3: exact-name folders (e.g. `og_blog_index.png/screen.png`) in the
+// "(2)" set — all verified 1600x840 by dimension check.
+const SRC3 = 'C:\\Users\\kumar\\Downloads\\stitch_bol_marathi_mascot_animations (2)\\stitch_bol_marathi_mascot_animations';
+const round3 = [
+  'og_blog_index.png',
+  'og_lessons_02.png', 'og_lessons_03.png', 'og_lessons_05.png',
+  'og_lessons_06.png', 'og_lessons_07.png', 'og_lessons_10.png',
+  'og_lessons_13.png', 'og_lessons_15.png',
+  'og_english_to_marathi_words.png', 'og_english_to_marathi_phrases.png',
+  'og_hindi_to_marathi_phrases.png',
+  'og_hi_shabd.png', 'og_hi_vakya.png',
+  'og_marathi_alphabet.png', 'og_marathi_days_months.png',
+  'og_marathi_numbers.png', 'og_marathi_vs_hindi.png',
+];
+let ok3 = 0;
+const missing3 = [];
+for (const folder of round3) {
+  const src = join(SRC3, folder, 'screen.png');
+  if (!existsSync(src)) { missing3.push(folder); continue; }
+  const target = folder.replace(/\.png$/, '').replace(/_/g, '-');
+  await sharp(src).resize(1200, 630, { fit: 'fill' }).png().toFile(join(outDir, `${target}.png`));
+  ok3++;
+}
+console.log(`import-og-art round3: ${ok3} replaced, missing: ${missing3.join(', ') || 'none'}`);
