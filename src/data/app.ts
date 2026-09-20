@@ -11,19 +11,16 @@ export const BOL_MARATHI_APP = {
   waitlistUrl: null as string | null,
   comingSoon: true,
   comingSoonNote: 'Bol Marathi is in closed testing and coming soon to Android.',
+  // Closed-beta opt-in link (e.g. Play Console tester URL). When set,
+  // primary CTAs read "Join the beta" and link here; otherwise they
+  // show the waitlist form. Null = waitlist only.
+  betaOptInUrl: null as string | null,
   // Waitlist: footer CTA is an inline form posting here; everywhere
   // else stays mailto (deliberate A/B split). Paste a Formspree
   // endpoint (https://formspree.io → New Form → copy
   // https://formspree.io/f/xxxxxx). Empty = footer shows mailto too.
-  // See README "Waitlist". Monitored inbox for mailto path:
-  contactEmail: 'mrxubr@gmail.com',
+  // See README "Waitlist".
   waitlistFormAction: 'https://formspree.io/f/xqpaeejw',
-  // Privacy-friendly analytics (Plausible/Umami): paste the tracker
-  // script URL here (e.g. https://plausible.io/js/script.js). Empty =
-  // no tracker loads. Extra attributes (data-domain / data-website-id)
-  // go in analyticsAttrs.
-  analyticsScript: '',
-  analyticsAttrs: {} as Record<string, string>,
   waitlistSubject: 'Notify me — Bol Marathi launch',
   // App walkthrough in tab-flow order: Learn → Practice → Progress → Profile.
   screenshots: [

@@ -16,7 +16,8 @@ const phrases = phrasesFor(set);
 ---
 
 <Learn
-	title={`${set.title} (with Hindi & English)`}
+	title={`${set.title}: Free Lesson`}
+	h1={`${set.title} (with Hindi & English)`}
 	description={set.description}
 	kicker="Marathi Phrases"
 	crumbs={[
@@ -33,6 +34,8 @@ const phrases = phrasesFor(set);
 		each with its Hindi meaning, English meaning and a speaking tip.
 		Say each one aloud before moving on.
 	</p>
+	<p>{set.intro}</p>
+	{set.tip && <p class="tip"><strong>Tip:</strong> {set.tip}</p>}
 
 	<div class="table-scroll" role="region" aria-label={set.title} tabindex="0">
 		<table class="vocab">
@@ -60,6 +63,4 @@ const phrases = phrasesFor(set);
 	<AppCTA variant="phrase" context={`phrases-${set.slug}`} />
 
 	<RelatedContent links={set.related} />
-
-	<AppCTA variant="general" context={`phrases-${set.slug}-end`} />
 </Learn>

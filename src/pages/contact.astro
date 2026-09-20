@@ -1,21 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
-import { BOL_MARATHI_APP } from '../data/app';
+import WaitlistForm from '../components/WaitlistForm.astro';
+import { siteUrl } from '../lib/site';
 
 const title = 'Contact Bol Marathi';
 const description = 'Contact Bol Marathi: corrections, native-speaker review, and launch waitlist.';
-const mailto = `mailto:${BOL_MARATHI_APP.contactEmail}`;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} crumbs={[{ label: 'Learn Marathi', href: siteUrl('/') }, { label: 'Contact', href: siteUrl('/contact/') }]}>
 	<div class="prose">
 		<p class="kicker">Contact</p>
 		<h1>Contact</h1>
-		<ul>
-			<li><strong>Corrections:</strong> found a wrong word or translation? <a href={`${mailto}?subject=${encodeURIComponent('Correction: ')}`}>email a correction</a> — include the page URL.</li>
-			<li><strong>Native review:</strong> Marathi/Hindi speaker willing to review content? <a href={`${mailto}?subject=${encodeURIComponent('Native review offer')}`}>get in touch</a>.</li>
-			<li><strong>Launch waitlist:</strong> <a href={`${mailto}?subject=${encodeURIComponent(BOL_MARATHI_APP.waitlistSubject)}`}>join the Android waitlist</a>.</li>
-		</ul>
-		<p>Email: <a href={mailto}>{BOL_MARATHI_APP.contactEmail}</a></p>
+		<p>
+			Corrections, native-speaker review offers and waitlist signups —
+			all through one form. Tell us which page you mean and what you saw.
+		</p>
+		<WaitlistForm context="contact" layout="stacked" showMessage={true} buttonLabel="Send" />
+		<p class="note">Corrections go to the curriculum maintainers. Waitlist mail goes nowhere else — ever.</p>
 	</div>
 </Base>
+
+<style>
+	.note {
+		font-size: 0.9rem;
+		color: rgb(var(--gray));
+	}
+</style>

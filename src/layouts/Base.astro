@@ -2,7 +2,21 @@
 import BaseHead from '../components/BaseHead.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
-import { BOL_MARATHI_APP } from '../data/app';
+import { BRAND } from '../data/brand';
+
+// Optional privacy-friendly analytics (Plausible/Umami) via env:
+// PUBLIC_ANALYTICS_SRC=https://plausible.io/js/script.js
+// PUBLIC_ANALYTICS_DOMAIN=example.com (or data-website-id for Umami
+// via PUBLIC_ANALYTICS_ATTRS='{"data-website-id":"..."}').
+// Unset = no tracker loads.
+const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC as string | undefined;
+const analyticsDomain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN as string | undefined;
+let analyticsAttrs: Record<string, string> = {};
+try {
+	analyticsAttrs = JSON.parse((import.meta.env.PUBLIC_ANALYTICS_ATTRS as string | undefined) ?? '{}');
+} catch {
+	analyticsAttrs = {};
+}
 
 type Props = {
 	title: string;
@@ -11,18 +25,48 @@ type Props = {
 	noindex?: boolean;
 	alternates?: { lang: string; href: string }[];
 	lang?: string;
+	crumbs?: { label: string; href: string }[];
 };
 
-const { title, description, ogImage, noindex, alternates, lang = 'en' } = Astro.props;
+const { title, description, ogImage, noindex, alternates, lang = 'en', crumbs = [] } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={lang}>
 	<head>
 		<BaseHead title={title} description={description} imageUrl={ogImage} noindex={noindex} alternates={alternates} />
-		{BOL_MARATHI_APP.analyticsScript && (
-			<script src={BOL_MARATHI_APP.analyticsScript} defer {...BOL_MARATHI_APP.analyticsAttrs}></script>
+		{analyticsSrc && (
+			<script src={analyticsSrc} defer data-domain={analyticsDomain} {...analyticsAttrs}></script>
 		)}
+		<script type="application/ld+json" set:html={JSON.stringify([
+			{
+				'@context': 'https://schema.org',
+				'@type': 'WebSite',
+				name: `${BRAND.siteName} — ${BRAND.brandName}`,
+				url: new URL(import.meta.env.BASE_URL, Astro.site).toString(),
+				inLanguage: ['en', 'mr', 'hi'],
+			},
+			{
+				'@context': 'https://schema.org',
+				'@type': 'Organization',
+				name: BRAND.brandName,
+				url: new URL(import.meta.env.BASE_URL, Astro.site).toString(),
+			},
+			...(crumbs.length > 0
+				? [
+						{
+							'@context': 'https://schema.org',
+							'@type': 'BreadcrumbList',
+							itemListElement: crumbs.map((c, i) => ({
+								'@type': 'ListItem',
+								position: i + 1,
+								name: c.label,
+								item: new URL(c.href, Astro.site).toString(),
+							})),
+						},
+					]
+				: []),
+		])} />
 	</head>
 	<body>
 		<SiteHeader />

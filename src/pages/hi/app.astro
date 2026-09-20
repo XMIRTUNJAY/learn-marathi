@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import JsonLd from '../../components/JsonLd.astro';
+import WaitlistForm from '../../components/WaitlistForm.astro';
 import { BOL_MARATHI_APP } from '../../data/app';
 import { units, vocab } from '../../lib/learn';
 import { siteUrl } from '../../lib/site';
@@ -10,8 +11,8 @@ const description = 'शब्दावली, सुनना, बोलना,
 const url = new URL(Astro.url.pathname, Astro.site).toString();
 const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 
-const waitlistBody = 'नमस्ते! बोल मराठी Play Store पर आते ही मुझे बताएँ।';
-const waitlistHref = `mailto:${BOL_MARATHI_APP.contactEmail}?subject=${encodeURIComponent('बोल मराठी लॉन्च की सूचना दें')}&body=${encodeURIComponent(waitlistBody)}`;
+const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? BOL_MARATHI_APP.playStoreUrl : null;
+const betaHref = BOL_MARATHI_APP.betaOptInUrl;
 
 const faqs = [
 	{ question: 'क्या बोल मराठी मुफ़्त है?', answer: 'इस साइट की सारी सामग्री मुफ़्त है। ऐप की कीमत लॉन्च पर बताई जाएगी।' },
@@ -19,10 +20,9 @@ const faqs = [
 	{ question: 'ऐप कैसे मिलेगा?', answer: `${BOL_MARATHI_APP.comingSoonNote} नीचे वेटलिस्ट से जुड़ें — सबसे पहले आपको ख़बर मिलेगी।` },
 ];
 
-const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? BOL_MARATHI_APP.playStoreUrl : null;
 ---
 
-<Base title={title} description={description} lang="hi" alternates={[{ lang: 'en', href: siteUrl('/app/') }, { lang: 'hi', href: siteUrl('/hi/app/') }]}>
+<Base title={title} description={description} lang="hi" alternates={[{ lang: 'x-default', href: siteUrl('/app/') }, { lang: 'en', href: siteUrl('/app/') }, { lang: 'hi', href: siteUrl('/hi/app/') }]}>
 	<JsonLd
 		headline={title}
 		description={description}
@@ -41,11 +41,13 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 		</p>
 		{storeHref ? (
 			<p><a class="btn" href={storeHref} data-funnel="download_click" data-app-cta data-cta-variant="hi-app-hero">बोल मराठी डाउनलोड करें</a></p>
+		) : betaHref ? (
+			<p><a class="btn" href={betaHref} data-funnel="beta_click" data-app-cta data-cta-variant="hi-app-hero">बीटा से जुड़ें</a></p>
 		) : (
 			<div class="cta">
 				<h2>बोल मराठी पाएँ</h2>
 				<p>{BOL_MARATHI_APP.comingSoonNote}</p>
-				<p><a class="btn" href={waitlistHref} data-funnel="waitlist_click" data-app-cta data-cta-variant="hi-app-waitlist">वेटलिस्ट से जुड़ें</a></p>
+				<WaitlistForm context="hi-app-hero" locale="hi" />
 				<p class="note">सिर्फ़ एक ईमेल — Play Store पर आते ही सबसे पहले आपको ख़बर।</p>
 			</div>
 		)}
@@ -76,7 +78,8 @@ const storeHref = !BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl ? 
 		<div class="cta">
 			<h2>सबसे पहले जानें</h2>
 			<p>{BOL_MARATHI_APP.comingSoonNote}</p>
-			{!storeHref && <p><a class="btn" href={waitlistHref} data-funnel="waitlist_click" data-app-cta data-cta-variant="hi-app-end-waitlist">वेटलिस्ट से जुड़ें</a></p>}
+			{!storeHref && !betaHref && <WaitlistForm context="hi-app-end" locale="hi" />}
+			{betaHref && !storeHref && <p><a class="btn" href={betaHref} data-funnel="beta_click" data-app-cta data-cta-variant="hi-app-end">बीटा से जुड़ें</a></p>}
 		</div>
 	</div>
 </Base>

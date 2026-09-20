@@ -13,6 +13,7 @@ import { siteUrl } from '../../lib/site';
 	canonicalPath="/lessons/"
 	about="marathi lessons curriculum"
 	meta={[`${units.length} units`, `${units.length * 6} lessons`]}
+	items={units.map((u) => ({ name: `Unit ${u.unit} — ${u.titleEn}`, url: new URL(siteUrl(`/lessons/${u.unit}/`), Astro.site).toString() }))}
 >
 	<p>The full Bol Marathi curriculum as standalone study pages — each unit page is useful on its own, with speaking sentences, Hindi bridges, grammar and culture notes.</p>
 

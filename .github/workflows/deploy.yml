@@ -14,7 +14,23 @@ permissions:
   id-token: write
 
 jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v7
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Content QA gate (fails before build on bad data)
+        run: npm run qa
+
   build:
+    needs: qa
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git

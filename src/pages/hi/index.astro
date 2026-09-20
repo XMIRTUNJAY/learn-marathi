@@ -11,7 +11,7 @@ const url = new URL(Astro.url.pathname, Astro.site).toString();
 const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 ---
 
-<Base title={title} description={description} lang="hi" alternates={[{ lang: 'en', href: siteUrl('/') }, { lang: 'hi', href: siteUrl('/hi/') }]}>
+<Base title={title} description={description} lang="hi" alternates={[{ lang: 'x-default', href: siteUrl('/') }, { lang: 'en', href: siteUrl('/') }, { lang: 'hi', href: siteUrl('/hi/') }]}>
 	<JsonLd
 		headline={title}
 		description={description}

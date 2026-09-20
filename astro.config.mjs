@@ -10,5 +10,6 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
 	site: 'https://xmirtunjay.github.io',
 	base: '/learn-marathi',
+	trailingSlash: 'always',
 	integrations: [mdx(), sitemap()],
 });

@@ -17,7 +17,8 @@ const words = wordsByCategory(cluster.categories);
 ---
 
 <Learn
-	title={`${cluster.title} (with Hindi & English)`}
+	title={`${cluster.title} | Free Lesson`}
+	h1={`${cluster.title} (with Hindi & English)`}
 	description={cluster.description}
 	kicker="Marathi Vocabulary"
 	crumbs={[
@@ -35,12 +36,8 @@ const words = wordsByCategory(cluster.categories);
 		English meaning, pronunciation and a real example sentence from the
 		Bol Marathi curriculum.
 	</p>
-	<p>
-		These words come from {cluster.unitRefs.length > 1 ? `Units ${cluster.unitRefs.join(' and ')}` : `Unit ${cluster.unitRefs[0]}`} of
-		the course, where they appear with listening, speaking and
-		sentence-building practice. Learn to recognize them here; the app
-		makes sure you remember them.
-	</p>
+	<p>{cluster.intro}</p>
+	{cluster.tip && <p class="tip"><strong>Tip:</strong> {cluster.tip}</p>}
 
 	<VocabTable words={words} caption={cluster.title} />
 
@@ -54,6 +51,4 @@ const words = wordsByCategory(cluster.categories);
 	</p>
 
 	<RelatedContent links={[...cluster.related, { label: `Quiz yourself: ${cluster.title}`, href: siteUrl(`/quiz/${cluster.slug}/`) }]} />
-
-	<AppCTA variant="general" context={`vocabulary-${cluster.slug}-end`} />
 </Learn>

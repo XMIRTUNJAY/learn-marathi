@@ -24,7 +24,7 @@ const faqs = [
 ];
 ---
 
-<Base title="Learn Marathi from Hindi or English: Free Words, Phrases & Lessons | Bol Marathi" description={SITE_DESCRIPTION} alternates={[{ lang: 'en', href: siteUrl('/') }, { lang: 'hi', href: siteUrl('/hi/') }]}>
+<Base title="Learn Marathi from Hindi or English | Bol Marathi" description={SITE_DESCRIPTION} alternates={[{ lang: 'x-default', href: siteUrl('/') }, { lang: 'en', href: siteUrl('/') }, { lang: 'hi', href: siteUrl('/hi/') }]}>
 	<JsonLd
 		headline={SITE_TITLE}
 		description={SITE_DESCRIPTION}
@@ -40,14 +40,6 @@ const faqs = [
 		faq={faqs.map((f) => ({ question: f.q, answer: f.a }))}
 		breadcrumbs={[]}
 	/>
-	<JsonLd
-		headline="Learn Marathi"
-		description={SITE_DESCRIPTION}
-		url={homeUrl}
-		type="WebSite"
-		siteName="Learn Marathi — Bol Marathi"
-		breadcrumbs={[]}
-	/>
 	<div class="prose">
 		<p class="kicker">Bol Marathi · Learn Marathi</p>
 		<h1>Learn Marathi from Hindi or English.</h1>
@@ -57,8 +49,8 @@ const faqs = [
 			Bol Marathi curriculum of {units.length} units and {vocab.length} words.
 		</p>
 		<div class="hub-cta">
-			<a class="btn" href={siteUrl('/app/')} data-funnel="app_cta_click" data-app-cta data-cta-variant="hub-hero">{BOL_MARATHI_APP.comingSoon ? 'Join the Android Waitlist' : 'Download Bol Marathi'}</a>
-			<a class="btn ghost" href={siteUrl('/start/')} data-funnel="path_click">Start Learning Free</a>
+			<a class="btn" href={siteUrl('/start/')} data-funnel="path_click">Start Learning Free</a>
+			<a class="btn ghost" href={siteUrl('/app/')} data-funnel="app_cta_click" data-app-cta data-cta-variant="hub-hero">{BOL_MARATHI_APP.comingSoon ? 'Join the Android Waitlist' : 'Download Bol Marathi'}</a>
 		</div>
 		<p class="byline">Curated by Bol Marathi · <a href={siteUrl('/how-it-works/')}>how the curriculum works</a></p>
 	</div>

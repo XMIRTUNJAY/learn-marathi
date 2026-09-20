@@ -75,6 +75,27 @@ if (bad.length > 0) fail(`${bad.length} vocab entries missing required fields (e
 const byCategory = {};
 for (const v of vocab) (byCategory[v.category] ??= []).push(v.id);
 
+// Website-only override layer (src/data/overrides.json). Synced files
+// are never hand-edited; corrections land here, get logged, and must
+// also be fixed upstream in bol_marathi/ (see REPORT.md).
+let applied = [];
+try {
+  const ov = JSON.parse(readFileSync(join(siteRoot, 'src', 'data', 'overrides.json'), 'utf8'));
+  for (const [id, patch] of Object.entries(ov.vocab ?? {})) {
+    const w = vocab.find((x) => x.id === id);
+    if (!w) fail(`override target missing: ${id}`);
+    const { needsReview, reason, ...fields } = patch;
+    for (const [k, val] of Object.entries(fields)) {
+      if (!(k in w)) fail(`override field unknown: ${id}.${k}`);
+      w[k] = val;
+    }
+    applied.push(`${id} (${Object.keys(fields).join(', ')})${needsReview ? ' [needsReview]' : ''} — ${reason ?? ''}`);
+  }
+} catch (e) {
+  if (e instanceof Error && e.message.startsWith('override')) throw e;
+  fail(`cannot apply overrides: ${e.message}`);
+}
+
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, 'units.json'), JSON.stringify(units, null, 2) + '\n');
 writeFileSync(join(outDir, 'vocab.json'), JSON.stringify(vocab, null, 2) + '\n');
@@ -84,3 +105,7 @@ writeFileSync(
 );
 
 console.log(`sync-learn-marathi: ${units.length} units, ${vocab.length} words, ${Object.keys(byCategory).length} categories → src/data/learn/`);
+if (applied.length) {
+  console.log(`overrides applied (${applied.length}):`);
+  for (const a of applied) console.log(`  - ${a}`);
+}

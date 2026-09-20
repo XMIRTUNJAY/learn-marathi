@@ -1,19 +1,22 @@
 ---
 import { siteUrl } from '../lib/site';
+import { HI_NAV } from '../i18n/hi';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const current = Astro.url.pathname.replace(import.meta.env.BASE_URL, '').replace(/\/$/, '');
+const hi = Astro.url.pathname.includes('/hi/');
 
-const links = [
-	{ href: `${base}/vocabulary`, label: 'Vocabulary', match: 'vocabulary' },
-	{ href: `${base}/phrases`, label: 'Phrases', match: 'phrases' },
-	{ href: `${base}/hindi-to-marathi`, label: 'Hindi → Marathi', match: 'hindi-to-marathi' },
-	{ href: `${base}/english-to-marathi`, label: 'English → Marathi', match: 'english-to-marathi' },
-	{ href: `${base}/grammar`, label: 'Grammar', match: 'grammar' },
-	{ href: `${base}/lessons`, label: 'Lessons', match: 'lessons' },
-	{ href: `${base}/quiz`, label: 'Quiz', match: 'quiz' },
-	{ href: `${base}/app`, label: 'App', match: 'app' },
-];
+const links = hi
+	? HI_NAV.map((l) => ({ href: siteUrl(l.href), label: l.label, match: l.href.replace(/\//g, '') }))
+	: [
+			{ href: siteUrl('/vocabulary/'), label: 'Vocabulary', match: 'vocabulary' },
+			{ href: siteUrl('/phrases/'), label: 'Phrases', match: 'phrases' },
+			{ href: siteUrl('/hindi-to-marathi/'), label: 'Hindi → Marathi', match: 'hindi-to-marathi' },
+			{ href: siteUrl('/english-to-marathi/'), label: 'English → Marathi', match: 'english-to-marathi' },
+			{ href: siteUrl('/grammar/'), label: 'Grammar', match: 'grammar' },
+			{ href: siteUrl('/lessons/'), label: 'Lessons', match: 'lessons' },
+			{ href: siteUrl('/quiz/'), label: 'Quiz', match: 'quiz' },
+			{ href: siteUrl('/app/'), label: 'App', match: 'app' },
+		];
 ---
 
 <header class="site-header">

@@ -1,7 +1,9 @@
 ---
 // BaseHead: global metadata (Notebook pattern, standalone version).
 import '../styles/global.css';
-import { SITE_TITLE } from '../consts';
+import { BRAND } from '../data/brand';
+import ogManifest from '../data/og-manifest.json';
+import { siteUrl } from '../lib/site';
 
 interface Props {
 	title: string;
@@ -14,19 +16,26 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { title, description, imageUrl, noindex = false, alternates = [] } = Astro.props;
-// Per-section share cards (public/og-<section>.png); explicit imageUrl
-// wins; otherwise map the first URL segment, else the default card.
-const section = Astro.url.pathname.replace(base || '/', '').split('/').filter(Boolean)[0] ?? '';
+// Per-page share cards (public/og/<route>.png via tools/make-og-pages,
+// manifest in src/data/og-manifest.json); explicit imageUrl wins, else
+// route match, else section card, else the default card.
+const segs = Astro.url.pathname.replace(base || '/', '').split('/').filter(Boolean);
+const section = segs[0] ?? '';
+const route = segs.join('/');
 const sectionImages = ['vocabulary', 'phrases', 'grammar', 'lessons', 'quiz', 'hindi-to-marathi', 'english-to-marathi', 'hi', 'app', 'start', 'downloads'];
-const resolvedImage = imageUrl ?? (sectionImages.includes(section) ? `${base}/og-${section}.png` : `${base}/og-default.png`);
+const manifestRoutes = (ogManifest as { routes: string[] }).routes;
+const resolvedImage =
+	imageUrl ??
+	(manifestRoutes.includes(route) ? `${base}/og/og-${route === '' ? 'home' : route.replace(/\//g, '-')}.png` : null) ??
+	(sectionImages.includes(section) ? `${base}/og-${section}.png` : `${base}/og-default.png`);
 const ogImage = new URL(resolvedImage, Astro.site).toString();
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="icon" type="image/svg+xml" href={siteUrl('/favicon.svg')} />
+<link rel="sitemap" href={siteUrl('/sitemap-index.xml')} />
 <meta name="generator" content={Astro.generator} />
 <meta name="google-site-verification" content="7RAq3l4Nmd6Oj-HBCFbjzJLIM-4NveQQ6KkbGkSVPyk" />
 {noindex && <meta name="robots" content="noindex, follow" />}
@@ -44,7 +53,7 @@ const ogImage = new URL(resolvedImage, Astro.site).toString();
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
-<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:site_name" content={`${BRAND.siteName} — ${BRAND.brandName}`} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />

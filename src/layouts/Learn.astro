@@ -2,6 +2,7 @@
 import Base from './Base.astro';
 import Breadcrumbs, { type Crumb } from '../components/Breadcrumbs.astro';
 import JsonLd from '../components/JsonLd.astro';
+import { BRAND, REVIEWER } from '../data/brand';
 import { siteUrl } from '../lib/site';
 
 type Props = {
@@ -14,9 +15,10 @@ type Props = {
 	meta?: string[];
 	alternates?: { lang: string; href: string }[];
 	h1?: string;
+	items?: { name: string; url: string }[];
 };
 
-const { title, description, kicker, crumbs, canonicalPath, about, meta = [], alternates, h1 } = Astro.props;
+const { title, description, kicker, crumbs, canonicalPath, about, meta = [], alternates, h1, items } = Astro.props;
 // Absolute URLs must include the base (e.g. /learn-marathi) — Astro.url.pathname has it, Astro.site does not.
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const abs = (href: string) => new URL(href, Astro.site).toString();
@@ -30,6 +32,7 @@ const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 		url={pageUrl}
 		type="LearningResource"
 		about={about}
+		items={items}
 		breadcrumbs={[{ name: 'Learn Marathi', url: homeUrl }, ...crumbs.map((c) => ({ name: c.label, url: abs(c.href) }))]}
 	/>
 	<Breadcrumbs items={crumbs} />
@@ -40,7 +43,11 @@ const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 		{meta.length > 0 && (
 			<p class="learn-meta">{meta.join(' · ')}</p>
 		)}
-		<p class="byline">Curated by <a href="https://github.com/xmirtunjay" target="_blank" rel="noopener">xmirtunjay</a> for Bol Marathi · <a href={siteUrl('/how-it-works/')}>how the curriculum works</a></p>
+		<p class="byline">
+			Curated by <a href={BRAND.github} target="_blank" rel="noopener">xmirtunjay</a> for {BRAND.brandName} ·
+			{REVIEWER.name ? `Reviewed by ${REVIEWER.name}${REVIEWER.role ? ` (${REVIEWER.role})` : ''}` : 'Reviewer: pending native-speaker review'} ·
+			<a href={siteUrl('/how-it-works/')}>how the curriculum works</a>
+		</p>
 	</div>
 	<div class="prose">
 		<slot />

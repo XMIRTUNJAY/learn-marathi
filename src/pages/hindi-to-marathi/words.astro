@@ -24,7 +24,7 @@ const bridgeHighlights = bridgesFor(['01', '02']);
 	canonicalPath="/hindi-to-marathi/words/"
 	about="hindi to marathi words"
 	meta={[`${differing.length} word pairs in curriculum`]}
-	alternates={[{ lang: 'en', href: siteUrl('/hindi-to-marathi/words/') }, { lang: 'hi', href: siteUrl('/hi/shabd/') }]}
+	alternates={[{ lang: 'x-default', href: siteUrl('/hindi-to-marathi/words/') }, { lang: 'en', href: siteUrl('/hindi-to-marathi/words/') }, { lang: 'hi', href: siteUrl('/hi/shabd/') }]}
 >
 	<h2>What you will learn</h2>
 	<p>
@@ -34,7 +34,7 @@ const bridgeHighlights = bridgesFor(['01', '02']);
 		each with pronunciation and an example sentence.
 	</p>
 
-	<VocabTable words={sample} caption="Hindi to Marathi words" />
+	<VocabTable words={sample} caption="Hindi to Marathi words" roman="none" />
 
 	<h2>Patterns to notice</h2>
 	<ul>
@@ -56,5 +56,4 @@ const bridgeHighlights = bridgesFor(['01', '02']);
 		]}
 	/>
 
-	<AppCTA variant="general" context="hindi-words-end" />
 </Learn>
