@@ -2,7 +2,20 @@
 import BaseHead from '../components/BaseHead.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
-import { BOL_MARATHI_APP } from '../data/app';
+
+// Optional privacy-friendly analytics (Plausible/Umami) via env:
+// PUBLIC_ANALYTICS_SRC=https://plausible.io/js/script.js
+// PUBLIC_ANALYTICS_DOMAIN=example.com (or data-website-id for Umami
+// via PUBLIC_ANALYTICS_ATTRS='{"data-website-id":"..."}').
+// Unset = no tracker loads.
+const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC as string | undefined;
+const analyticsDomain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN as string | undefined;
+let analyticsAttrs: Record<string, string> = {};
+try {
+	analyticsAttrs = JSON.parse((import.meta.env.PUBLIC_ANALYTICS_ATTRS as string | undefined) ?? '{}');
+} catch {
+	analyticsAttrs = {};
+}
 
 type Props = {
 	title: string;
@@ -20,8 +33,8 @@ const { title, description, ogImage, noindex, alternates, lang = 'en' } = Astro.
 <html lang={lang}>
 	<head>
 		<BaseHead title={title} description={description} imageUrl={ogImage} noindex={noindex} alternates={alternates} />
-		{BOL_MARATHI_APP.analyticsScript && (
-			<script src={BOL_MARATHI_APP.analyticsScript} defer {...BOL_MARATHI_APP.analyticsAttrs}></script>
+		{analyticsSrc && (
+			<script src={analyticsSrc} defer data-domain={analyticsDomain} {...analyticsAttrs}></script>
 		)}
 	</head>
 	<body>

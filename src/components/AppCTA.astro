@@ -1,119 +1,99 @@
 ---
-import { siteUrl } from '../lib/site';
 import { BOL_MARATHI_APP } from '../data/app';
+import WaitlistForm from './WaitlistForm.astro';
 
-// Contextual CTA engine. Copy follows the conversion principle:
-// name the missing capability (remembering/using), never fake urgency.
-// Labels are honest about product state: pre-launch every CTA reads
-// "Join the Android Waitlist" and routes to /app/ (waitlist); once
-// `playStoreUrl` is set, variant-specific labels route to the store.
+// Contextual CTA engine — ONE panel per content page. States:
+// beta (betaOptInUrl set) → "Join the beta" button;
+// live (playStoreUrl set) → variant-specific store button;
+// otherwise → shared WaitlistForm (no mailto anywhere).
 type Props = {
-	variant?: 'vocabulary' | 'phrase' | 'grammar' | 'lesson' | 'general' | 'subtle';
+	variant?: 'vocabulary' | 'phrase' | 'grammar' | 'lesson' | 'general';
 	context?: string;
 	locale?: 'en' | 'hi';
 };
 
 const { variant = 'general', context = '', locale = 'en' } = Astro.props;
 
+const beta = BOL_MARATHI_APP.betaOptInUrl;
 const live = !BOL_MARATHI_APP.comingSoon && !!BOL_MARATHI_APP.playStoreUrl;
-const href = live ? (BOL_MARATHI_APP.playStoreUrl as string) : siteUrl('/app/');
-const joinLabel = locale === 'hi' ? 'Android वेटलिस्ट से जुड़ें' : 'Join the Android Waitlist';
 
 type Copy = { heading: string; body: string; cta: string };
-const enCopy: Record<string, Copy> = {
+const enCopy: Record<Exclude<Props['variant'], undefined>, Copy> = {
 	vocabulary: {
 		heading: 'Know the words. Now remember them.',
-		body: `You can learn these words here. ${BOL_MARATHI_APP.name} helps you remember and use them through listening, speaking and spaced repetition.`,
-		cta: live ? 'Practice These Words' : joinLabel,
+		body: `Learn these words here. Practise listening and speaking in the app, and review them before you forget.`,
+		cta: 'Practice These Words',
 	},
 	phrase: {
 		heading: 'Reading the phrase is easy. Using it takes practice.',
 		body: `Say these phrases aloud, get feedback, and review them before you forget — in ${BOL_MARATHI_APP.name}.`,
-		cta: live ? 'Practice These Phrases' : joinLabel,
+		cta: 'Practice These Phrases',
 	},
 	grammar: {
 		heading: 'Understand the pattern. Then build sentences.',
 		body: `This page teaches the rule. ${BOL_MARATHI_APP.name} turns it into sentence-building practice with instant feedback.`,
-		cta: live ? 'Practice Sentence Building' : joinLabel,
+		cta: 'Practice Sentence Building',
 	},
 	lesson: {
 		heading: 'Finished reading? Now practice it.',
 		body: `Continue this lesson with listening, speaking and interactive practice in ${BOL_MARATHI_APP.name}.`,
-		cta: live ? 'Continue in Bol Marathi' : joinLabel,
+		cta: 'Continue in Bol Marathi',
 	},
 	general: {
 		heading: 'Want to go beyond reading?',
-		body: `The website gives you the knowledge. The app gives you the practice loop — listen, speak, build, review, remember.`,
-		cta: live ? 'Explore the Bol Marathi App' : joinLabel,
+		body: `Learn the words here. Practise listening and speaking in the app — listen, speak, build, review, remember.`,
+		cta: 'Explore the Bol Marathi App',
 	},
-	subtle: { heading: '', body: '', cta: '' },
 };
 
-const hiCopy: Record<string, Copy> = {
+const hiCopy: Record<Exclude<Props['variant'], undefined>, Copy> = {
 	vocabulary: {
 		heading: 'शब्द याद रखें, सिर्फ़ पढ़ें नहीं।',
-		body: `ये शब्द आप यहाँ सीख सकते हैं। ${BOL_MARATHI_APP.name} में सुनकर, बोलकर और दोहराव से इन्हें याद रखें।`,
-		cta: live ? 'इन शब्दों का अभ्यास करें' : joinLabel,
+		body: `ये शब्द यहाँ सीखें। ऐप में सुनकर, बोलकर अभ्यास करें और भूलने से पहले दोहराएँ।`,
+		cta: 'इन शब्दों का अभ्यास करें',
 	},
 	phrase: {
 		heading: 'वाक्य पढ़ना आसान है, बोलना अभ्यास से आता है।',
 		body: `इन वाक्यों को बोलें, फीडबैक पाएँ और भूलने से पहले दोहराएँ — ${BOL_MARATHI_APP.name} में।`,
-		cta: live ? 'इन वाक्यों का अभ्यास करें' : joinLabel,
+		cta: 'इन वाक्यों का अभ्यास करें',
 	},
 	grammar: {
 		heading: 'नियम समझें, फिर वाक्य बनाएँ।',
 		body: `यह पन्ना नियम सिखाता है। ${BOL_MARATHI_APP.name} में तुरंत फीडबैक के साथ वाक्य बनाने का अभ्यास करें।`,
-		cta: live ? 'वाक्य बनाना सीखें' : joinLabel,
+		cta: 'वाक्य बनाना सीखें',
 	},
 	lesson: {
 		heading: 'पढ़ लिया? अब अभ्यास करें।',
 		body: `इस पाठ को ${BOL_MARATHI_APP.name} में सुनने, बोलने और इंटरैक्टिव अभ्यास के साथ आगे बढ़ाएँ।`,
-		cta: live ? 'बोल मराठी में जारी रखें' : joinLabel,
+		cta: 'बोल मराठी में जारी रखें',
 	},
 	general: {
 		heading: 'सिर्फ़ पढ़ने से आगे बढ़ें?',
-		body: `वेबसाइट ज्ञान देती है। ऐप अभ्यास देता है — सुनें, बोलें, बनाएँ, दोहराएँ, याद रखें।`,
-		cta: live ? 'बोल मराठी ऐप देखें' : joinLabel,
+		body: `शब्द यहाँ सीखें। ऐप में सुनना-बोलना अभ्यास करें — सुनें, बोलें, बनाएँ, दोहराएँ, याद रखें।`,
+		cta: 'बोल मराठी ऐप देखें',
 	},
-	subtle: { heading: '', body: '', cta: '' },
 };
 
-const copy = locale === 'hi' ? hiCopy : enCopy;
-const subtleLabel =
-	locale === 'hi'
-		? live
-			? 'इसे ऐप में अभ्यास करें →'
-			: 'ऐप में अभ्यास के लिए Android वेटलिस्ट से जुड़ें →'
-		: live
-			? 'Practice this in the app →'
-			: 'Join the Android waitlist to practice this in the app →';
+const copy = (locale === 'hi' ? hiCopy : enCopy)[variant];
+const betaLabel = locale === 'hi' ? 'बीटा से जुड़ें' : 'Join the beta';
 ---
 
-{variant === 'subtle' ? (
-	<p class="cta-subtle" data-cta="subtle" data-cta-context={context}>
-		<a href={href} data-funnel="app_cta_click" data-app-cta data-cta-variant="subtle">
-			{subtleLabel}
-		</a>
-	</p>
-) : (
-	<aside class="cta" data-cta={variant} data-cta-context={context} aria-label="Bol Marathi app">
-		<h2>{copy[variant].heading}</h2>
-		<p>{copy[variant].body}</p>
-		<a class="btn" href={href} data-funnel="app_cta_click" data-app-cta data-cta-variant={variant}>{copy[variant].cta}</a>
-		{BOL_MARATHI_APP.comingSoon && (
-			<p class="note">
-				{BOL_MARATHI_APP.comingSoonNote}{' '}
-				{locale === 'hi'
-					? 'मुफ़्त पाठ मुफ़्त रहेंगे — ऐप अभ्यास जोड़ता है।'
-					: 'Free lessons stay free — the app adds the practice loop.'}
-			</p>
-		)}
-	</aside>
-)}
-
-<style>
-	.cta-subtle {
-		margin: 1.25em 0;
-		font-size: 0.95rem;
-	}
-</style>
+<aside class="cta" data-cta={variant} data-cta-context={context} aria-label="Bol Marathi app">
+	<h2>{copy.heading}</h2>
+	<p>{copy.body}</p>
+	{beta ? (
+		<a class="btn" href={beta} data-funnel="beta_click" data-app-cta data-cta-variant={variant}>{betaLabel}</a>
+	) : live ? (
+		<a class="btn" href={BOL_MARATHI_APP.playStoreUrl as string} data-funnel="download_click" data-app-cta data-cta-variant={variant}>{copy.cta}</a>
+	) : (
+		<WaitlistForm context={context} locale={locale} />
+	)}
+	{BOL_MARATHI_APP.comingSoon && !beta && (
+		<p class="note">
+			{BOL_MARATHI_APP.comingSoonNote}{' '}
+			{locale === 'hi'
+				? 'मुफ़्त पाठ मुफ़्त रहेंगे — ऐप अभ्यास जोड़ता है।'
+				: 'Free lessons stay free — the app adds the practice loop.'}
+		</p>
+	)}
+</aside>

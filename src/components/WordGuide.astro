@@ -19,8 +19,6 @@ const { word: w, answer, usage, faq, related, context } = Astro.props;
 <p class="answer" lang="mr">{w.marathi} <span class="tr">({w.transliteration})</span></p>
 <p>{answer}</p>
 
-<AppCTA variant="subtle" context={context} />
-
 <h2>What you'll learn</h2>
 <ul>
 	<li>Say it: <span lang="mr">{w.marathi}</span> ({w.transliteration})</li>
@@ -74,8 +72,6 @@ const { word: w, answer, usage, faq, related, context } = Astro.props;
 ))}
 
 <RelatedContent links={related} />
-
-<AppCTA variant="general" context={`${context}-end`} />
 
 <style>
 	.answer {

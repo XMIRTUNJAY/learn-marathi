@@ -1,8 +1,7 @@
 ---
 import { siteUrl } from '../lib/site';
-import { BOL_MARATHI_APP } from '../data/app';
+import WaitlistForm from './WaitlistForm.astro';
 
-const nextUrl = new URL(siteUrl('/app/#joined'), Astro.site).toString();
 // Hindi pages get a Hindi footer; everything else stays English.
 const hi = Astro.url.pathname.includes('/hi/');
 const t = hi
@@ -36,25 +35,7 @@ const t = hi
 			<h2>{t.heading}</h2>
 			<p>{t.sub}</p>
 		</div>
-		{BOL_MARATHI_APP.waitlistFormAction ? (
-			<form class="waitlist" action={BOL_MARATHI_APP.waitlistFormAction} method="POST" data-funnel="waitlist_signup">
-				<label class="visually-hidden" for="waitlist-email">Email address</label>
-				<input id="waitlist-email" type="email" name="email" placeholder={t.placeholder} required autocomplete="email" />
-				<input type="hidden" name="_subject" value={BOL_MARATHI_APP.waitlistSubject} />
-				<input type="hidden" name="_next" value={nextUrl} />
-				<button type="submit">{t.button}</button>
-			</form>
-		) : (
-			<p>
-				<a
-					class="btn"
-					href={`mailto:${BOL_MARATHI_APP.contactEmail}?subject=${encodeURIComponent(BOL_MARATHI_APP.waitlistSubject)}`}
-					data-funnel="waitlist_click"
-				>
-					Join the waitlist
-				</a>
-			</p>
-		)}
+		<WaitlistForm context="footer" locale={hi ? 'hi' : 'en'} />
 	</div>
 
 	<div class="foot-grid">
