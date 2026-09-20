@@ -61,6 +61,14 @@ for (const f of readdirSync(join(root, 'src', 'pages')).filter((f) => f.endsWith
     if (!pages.has(route)) pages.set(route, t[1] ?? t[2]);
   }
 }
+for (const f of readdirSync(join(root, 'src', 'pages', 'blog')).filter((f) => f.endsWith('.astro'))) {
+  const src = readFileSync(join(root, 'src', 'pages', 'blog', f), 'utf8');
+  const t = src.match(/^\ttitle="([^"]+)"|^title="([^"]+)"/m) ?? src.match(/const title = '([^']+)'/);
+  if (t) {
+    const route = `blog/${f.replace(/\.astro$/, '')}`;
+    if (!pages.has(route)) pages.set(route, t[1] ?? t[2]);
+  }
+}
 // Subdirectory pages with dynamic titles (verified literals).
 pages.set('hindi-to-marathi/words', 'Hindi to Marathi Words');
 pages.set('hindi-to-marathi/phrases', 'Hindi to Marathi Phrases');

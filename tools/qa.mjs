@@ -53,8 +53,8 @@ const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => {
 });
 for (const f of [...walk(join(root, 'src/pages')), ...walk(join(root, 'src/components'))]) {
   const src = readFileSync(f, 'utf8');
-  const m = src.match(/Units\s+0\d/);
-  if (m) fail(`pluralisation typo in ${f}: "${m[0]}"`);
+  const m = src.match(/Units\s+0\d(?!\s*,)/);
+  if (m) fail(`pluralisation typo in ${f}: "${m[0]}" (did you mean singular "Unit"?)`);
 }
 
 // Override targets must exist (sync already enforces; double-check here).

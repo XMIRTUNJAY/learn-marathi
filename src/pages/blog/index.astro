@@ -1,0 +1,58 @@
+---
+import AppCTA from '../../components/AppCTA.astro';
+import Base from '../../layouts/Base.astro';
+import { siteUrl } from '../../lib/site';
+
+const title = 'Real-Life Marathi: Situational Guides';
+const description = 'Real-life Marathi guides: autos, markets, doctors, offices, festivals and more — every word verified from the curriculum.';
+const url = new URL(Astro.url.pathname, Astro.site).toString();
+const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
+
+const posts = [
+	['/blog/autorickshaw-taxi/', 'Marathi for Autorickshaw & Taxi Rides', 'Directions, stop/go, fares.'],
+	['/blog/grocery-shopping/', 'Grocery Shopping in Marathi', 'Staples plus bargaining sentences.'],
+	['/blog/ordering-food/', 'Ordering Food in Marathi', 'Thali, bill and the sentences that order.'],
+	['/blog/at-the-doctor/', 'At the Doctor in Marathi', 'Symptoms and the Unit 10 sentences.'],
+	['/blog/first-day-work/', 'Marathi for Work: First Day', 'Twelve office words.'],
+	['/blog/small-talk-intro/', 'Marathi Small Talk', 'Name, city and two rescue lines.'],
+	['/blog/festival-greetings/', 'Festival Greetings', 'Six festivals plus शुभेच्छा.'],
+	['/blog/weather-talk/', 'Talking About Weather', 'Rain, seasons and sky words.'],
+	['/blog/emotions-feelings/', 'Say How You Feel', 'Twenty emotion words.'],
+	['/blog/school-talk/', 'Marathi for School', 'Class, exam, homework talk.'],
+	['/blog/pune-newcomer-words/', 'New in Pune? 12 Words', 'The survival starter pack.'],
+	['/blog/hindi-speaker-traps/', '5 Traps for Hindi Speakers', 'काल, genders and friends.'],
+	['/blog/money-prices/', 'Money & Prices', 'Numbers 1–10 plus market words.'],
+	['/blog/polite-marathi/', 'Polite Marathi', 'Please, thanks, sorry — used right.'],
+];
+---
+
+<Base
+	title={title}
+	description={description}
+	alternates={[{ lang: 'en', href: siteUrl('/blog/') }]}
+	crumbs={[
+		{ label: 'Learn Marathi', href: siteUrl('/') },
+		{ label: 'Blog', href: siteUrl('/blog/') },
+	]}
+>
+	<div class="prose">
+		<p class="kicker">Real-life Marathi</p>
+		<h1>Situations, not chapters</h1>
+		<p class="lede">
+			Fourteen guides for real moments — autos, markets, doctors, offices,
+			festivals. Every word and sentence verified from the Bol Marathi
+			curriculum; nothing invented.
+		</p>
+		<ul class="card-grid">
+			{posts.map(([href, label, sub]) => (
+				<li>
+					<a class="card" href={siteUrl(href)} data-funnel="path_click">
+						<h3>{label}</h3>
+						<p>{sub}</p>
+					</a>
+				</li>
+			))}
+		</ul>
+		<AppCTA variant="general" context="blog-index" />
+	</div>
+</Base>

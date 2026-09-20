@@ -21,7 +21,8 @@ const notes = topic.picks.flatMap(({ unit: no, lessons }) => {
 ---
 
 <Learn
-	title={`${topic.title} (with Examples)`}
+	title={topic.title}
+	h1={`${topic.title} (with Examples)`}
 	description={topic.description}
 	kicker="Marathi Grammar"
 	crumbs={[
@@ -30,7 +31,7 @@ const notes = topic.picks.flatMap(({ unit: no, lessons }) => {
 	]}
 	canonicalPath={`/grammar/${topic.slug}/`}
 	about={topic.intent}
-	meta={[`Units ${topic.unitRefs.join(', ')}`]}
+	meta={[topic.unitRefs.length > 1 ? `Units ${topic.unitRefs.join(', ')}` : `Unit ${topic.unitRefs[0]}`]}
 >
 	<h2>What you will learn</h2>
 	<p>{topic.description} Notes below come straight from the Bol Marathi lessons.</p>

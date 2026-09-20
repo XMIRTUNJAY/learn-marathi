@@ -48,6 +48,15 @@ export const vocab = vocabData as Word[];
 export const wordsByCategory = (categories: string[]): Word[] =>
   vocab.filter((w) => categories.includes(w.category));
 
+// Ordered lookup by Marathi headword. Throws at build time if an entry
+// is missing — blog posts fail loudly rather than shipping thin.
+export const wordsByMarathi = (list: string[]): Word[] =>
+  list.map((m) => {
+    const w = vocab.find((x) => x.marathi === m);
+    if (!w) throw new Error(`wordsByMarathi: missing "${m}"`);
+    return w;
+  });
+
 export type Cluster = {
   slug: string;
   title: string;
@@ -269,6 +278,21 @@ export const phraseSets: PhraseSet[] = [
       { label: 'Unit 14 — Nature & Travel', href: siteUrl('/lessons/14/') },
     ],
   },
+  {
+    slug: 'shopping',
+    title: 'Marathi Shopping Phrases',
+    description: 'Bargain in Marathi: how much, reduce a little, bill please — real Unit 09 sentences with Hindi and English meanings.',
+    intent: 'marathi shopping phrases; bargaining in marathi',
+    unitRefs: ['09'],
+    intro:
+      'Six sentences from Unit 09 (Shopping & Market) that cover a whole market trip: asking the price, naming a quantity, bargaining politely, accepting, paying online and asking for the bill. Each has Hindi and English meanings plus a speaking tip. Memorize these six before your next market visit.',
+    tip: 'थोडं कमी करा, कृपया — polite bargaining in one line.',
+    related: [
+      { label: 'Shopping & market words', href: siteUrl('/vocabulary/shopping/') },
+      { label: 'Daily conversation', href: siteUrl('/phrases/daily/') },
+      { label: 'Unit 09 — Shopping & Market', href: siteUrl('/lessons/09/') },
+    ],
+  },
 ];
 
 export type GrammarTopic = {
@@ -343,6 +367,38 @@ export const grammarTopics: GrammarTopic[] = [
       { label: 'Hindi to Marathi sentences', href: siteUrl('/hindi-to-marathi/phrases/') },
       { label: 'Marathi verbs', href: siteUrl('/grammar/verbs/') },
       { label: 'Unit 01 — Marathi Fundamentals', href: siteUrl('/lessons/01/') },
+    ],
+  },
+  {
+    slug: 'questions',
+    title: 'Marathi Question Words: What, Where, When, How, Who, Why',
+    description: 'Ask anything in Marathi: काय, कुठे, कधी, कसे, कोण, का — all six question words with examples from Unit 07.',
+    intent: 'marathi question words; how to ask questions in marathi',
+    unitRefs: ['07'],
+    picks: [{ unit: '07', lessons: [1, 2, 3, 4, 5, 6] }],
+    intro:
+      'All six Marathi question words from Unit 07 — काय (what), कुठे (where), कधी (when), कसे (how), कोण (who), का (why) — each as a full lesson note with Marathi explanation and English meaning. Questions unlock every conversation: with these six plus the verbs list, you can ask about anything.',
+    tip: 'Learn them as a set of six, then attach each to a verb you know.',
+    related: [
+      { label: 'Essential verbs', href: siteUrl('/vocabulary/verbs/') },
+      { label: 'Marathi pronouns', href: siteUrl('/grammar/pronouns/') },
+      { label: 'Unit 07 — Questions & Inquiry', href: siteUrl('/lessons/07/') },
+    ],
+  },
+  {
+    slug: 'postpositions',
+    title: 'Marathi Postpositions: In, On, Under, Near & More',
+    description: 'Marathi location words — मध्ये, वर, खाली, शेजारी and more — with examples from Unit 08.',
+    intent: 'marathi postpositions; location words in marathi',
+    unitRefs: ['08'],
+    picks: [{ unit: '08', lessons: [1, 2, 3, 4, 5, 6] }],
+    intro:
+      'Where things are: all six Unit 08 postposition lessons — in/inside, on/above, under/below, near/beside, behind/ahead, from/until — with Marathi explanations and English meanings. Postpositions follow the noun (unlike English prepositions), which is exactly why they pair with the sentence-structure pattern.',
+    tip: 'Practice each with one noun: घरात, घरावर, घराखाली.',
+    related: [
+      { label: 'Sentence structure', href: siteUrl('/grammar/sentence-structure/') },
+      { label: 'Marathi verbs', href: siteUrl('/grammar/verbs/') },
+      { label: 'Unit 08 — Postpositions', href: siteUrl('/lessons/08/') },
     ],
   },
 ];
