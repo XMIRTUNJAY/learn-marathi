@@ -174,6 +174,7 @@ const description = `A free Marathi quiz on ${cluster.title.toLowerCase()}: 10 w
 				if (i >= total) finish('words', score, total);
 				else ask();
 			});
+			restartWords();
 
 			/* ---------- mode 2: arrange sentences ---------- */
 			var apane = document.getElementById('arrange');
@@ -316,42 +317,63 @@ const description = `A free Marathi quiz on ${cluster.title.toLowerCase()}: 10 w
 		transition: width 0.25s ease;
 	}
 	.qmeta { font-size: 0.85rem; color: rgb(var(--gray)); }
-	.qword { font-size: 2.1rem; font-weight: 700; color: rgb(var(--black)); margin: 0.25em 0 0 0; line-height: 1.5; }
-	.qtr { color: rgb(var(--gray)); margin-top: 0; }
+	.qword {
+		font-size: 2.2rem;
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin: 0.35em 0 0 0;
+		line-height: 1.5;
+		background: var(--card);
+		border: var(--border);
+		border-radius: var(--radius);
+		padding: 0.6em 0.8em 0.5em 0.8em;
+		text-align: center;
+	}
+	.qtr { color: rgb(var(--gray)); margin: 0.4em 0 0 0; text-align: center; }
 	.aprompt { font-size: 1.25rem; font-weight: 700; color: rgb(var(--black)); margin-bottom: 0; }
-	.qopts { display: grid; gap: 0.6em; margin: 1em 0; }
+	.qopts { display: grid; gap: 0.7em; margin: 1.25em 0; }
 	.qopt {
 		font: inherit;
 		display: flex;
 		align-items: center;
-		gap: 0.8em;
+		gap: 0.9em;
 		text-align: left;
 		background: var(--card);
-		border: var(--border);
+		border: 2px solid rgb(var(--gray-light));
 		border-radius: var(--radius);
-		padding: 0.85em 1em;
+		padding: 0.9em 1em;
 		cursor: pointer;
 		color: rgb(var(--gray-dark));
+		font-size: 1.02rem;
+		transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
 	}
-	.qopt:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-1px); }
+	.qopt:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-2px); }
 	.qopt:disabled { cursor: default; }
+	.qopt:not(.ok):not(.bad):disabled { opacity: 0.55; }
 	.qopt .k {
 		flex: none;
-		width: 1.9em;
-		height: 1.9em;
+		width: 2em;
+		height: 2em;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		border-radius: var(--radius-full);
-		background: var(--container);
-		font-size: 0.85rem;
+		background: var(--accent-fixed);
+		font-size: 0.9rem;
 		font-weight: 700;
-		color: rgb(var(--gray));
+		color: var(--accent-on-fixed);
 	}
 	.qopt.ok { border-color: var(--success, #2e7d5b); background: var(--success-bg, #e8f4ec); }
 	.qopt.ok .k { background: var(--success, #2e7d5b); color: #fff; }
 	.qopt.bad { border-color: var(--accent); background: var(--accent-fixed); }
+	.qopt.bad .k { background: var(--accent); color: #fff; }
 	.qfb { font-weight: 600; min-height: 1.6em; }
+	.qfb:not(:empty) {
+		background: var(--container-low);
+		border: var(--border);
+		border-radius: var(--radius);
+		padding: 0.7em 1em;
+	}
 	.abuild, .abank {
 		display: flex;
 		flex-wrap: wrap;
