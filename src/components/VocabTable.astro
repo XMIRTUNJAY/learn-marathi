@@ -40,25 +40,48 @@ const { words, caption } = Astro.props;
 <script is:inline>
 	(function () {
 		// Device text-to-speech for Marathi headwords. No network, no keys —
-		// uses the visitor's own voices. Buttons remove themselves if speech
-		// synthesis is unavailable, so nothing looks broken.
+		// uses the visitor's own voices. Prefers a Marathi voice, falls back
+		// to Hindi (same script, closest phonetics), then system default.
+		// Buttons remove themselves if speech synthesis is unavailable.
+		if (window.__sayInit) return;
+		window.__sayInit = true;
 		if (!('speechSynthesis' in window)) {
 			document.querySelectorAll('.say').forEach((b) => b.remove());
 			return;
 		}
+		var voice = null;
+		function pickVoice() {
+			try {
+				var voices = window.speechSynthesis.getVoices() || [];
+				voice =
+					voices.find(function (v) { return (v.lang || '').toLowerCase().indexOf('mr') === 0; }) ||
+					voices.find(function (v) { return (v.lang || '').toLowerCase().indexOf('hi') === 0; }) ||
+					null;
+			} catch (err) { voice = null; }
+		}
+		pickVoice();
+		if ('onvoiceschanged' in window.speechSynthesis) {
+			window.speechSynthesis.onvoiceschanged = pickVoice;
+		}
 		document.addEventListener('click', (e) => {
-			const btn = e.target.closest('[data-say]');
+			var btn = e.target.closest ? e.target.closest('[data-say]') : null;
 			if (!btn) return;
 			try {
 				window.speechSynthesis.cancel();
-				const u = new SpeechSynthesisUtterance(btn.getAttribute('data-say') || '');
+				var u = new SpeechSynthesisUtterance(btn.getAttribute('data-say') || '');
 				u.lang = 'mr-IN';
 				u.rate = 0.85;
+				if (voice) u.voice = voice;
 				window.speechSynthesis.speak(u);
 			} catch (err) {
 				/* voice missing — table content still fully usable */
 			}
 		});
+		if (document.hidden !== undefined) {
+			document.addEventListener('visibilitychange', () => {
+				if (document.hidden) { try { window.speechSynthesis.cancel(); } catch (err) {} }
+			});
+		}
 	})();
 </script>
 

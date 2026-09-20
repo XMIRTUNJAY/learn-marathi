@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { clusters, wordsByCategory } from '../../lib/learn';
+import { clusters, getUnit, wordsByCategory } from '../../lib/learn';
 import { siteUrl } from '../../lib/site';
 
 export async function getStaticPaths() {
@@ -16,25 +16,64 @@ const words = wordsByCategory(cluster.categories).map((w) => ({
 	hi: w.hindi,
 	tr: w.transliteration,
 }));
-const dataJson = JSON.stringify(words);
+const builders = cluster.unitRefs.flatMap((no) =>
+	getUnit(no).sentenceBuilder.map((b) => ({
+		tokens: b.tokens,
+		answer: b.answer,
+		prompt: b.promptEn || b.prompt,
+		hindi: b.hindi,
+	})),
+).slice(0, 10);
+const dataJson = JSON.stringify({ words, builders });
 
-const title = `Marathi Quiz: ${cluster.title}`;
-const description = `A free 10-question Marathi quiz on ${cluster.title.toLowerCase()} — pick the right meaning, then continue with spaced repetition in the app.`;
+const title = `Marathi Quiz: ${cluster.title} — Words & Sentence Building`;
+const description = `A free Marathi quiz on ${cluster.title.toLowerCase()}: 10 word-meaning questions in English or Hindi, plus sentence-arrangement practice. Instant feedback, then continue in the app.`;
 ---
 
 <Base title={title} description={description}>
 	<div class="prose">
 		<p class="kicker">Marathi Quiz</p>
-		<h1>{cluster.title}: 10-question quiz</h1>
-		<p class="lede">Read the Marathi word, pick the English meaning. 10 questions, instant feedback — a free sample of the practice loop.</p>
-		<div id="quiz" data-funnel="quiz_start">
-			<p class="qmeta"><span id="qpos">Question 1/10</span> · <span id="qscore">Score 0</span></p>
-			<p class="qword" id="qword" lang="mr">…</p>
-			<p class="qtr" id="qtr">…</p>
-			<div class="qopts" id="qopts" role="group" aria-label="Answer options"></div>
-			<p class="qfb" id="qfb" aria-live="polite"></p>
-			<p><button class="btn" id="qnext" type="button" hidden>Next →</button></p>
+		<h1>{cluster.title}: quiz</h1>
+		<p class="lede">Two ways to test yourself — pick word meanings, then arrange real Marathi sentences. Free, instant feedback.</p>
+
+		<div class="modes" role="tablist" aria-label="Quiz modes">
+			<button type="button" class="mode on" id="tab-words" role="tab" aria-selected="true" aria-controls="pane-words">1 · Word meanings</button>
+			<button type="button" class="mode" id="tab-arrange" role="tab" aria-selected="false" aria-controls="pane-arrange">2 · Arrange sentences</button>
 		</div>
+
+		<section id="pane-words" role="tabpanel" aria-labelledby="tab-words">
+			<div class="dir" role="group" aria-label="Answer language">
+				<span>Answers in:</span>
+				<button type="button" class="chip on" id="dir-en">English</button>
+				<button type="button" class="chip" id="dir-hi" lang="hi">हिंदी</button>
+			</div>
+			<div id="quiz" data-funnel="quiz_start">
+				<div class="progress" aria-hidden="true"><span id="qbar"></span></div>
+				<p class="qmeta"><span id="qpos">Question 1/10</span> · <span id="qscore">Score 0</span></p>
+				<p class="qword" id="qword" lang="mr">…</p>
+				<p class="qtr" id="qtr">…</p>
+				<div class="qopts" id="qopts" role="group" aria-label="Answer options"></div>
+				<p class="qfb" id="qfb" aria-live="polite"></p>
+				<p><button class="btn" id="qnext" type="button" hidden>Next →</button></p>
+			</div>
+		</section>
+
+		<section id="pane-arrange" role="tabpanel" aria-labelledby="tab-arrange" hidden>
+			<div id="arrange" data-funnel="quiz_arrange_start">
+				<div class="progress" aria-hidden="true"><span id="abar"></span></div>
+				<p class="qmeta"><span id="apos">Sentence 1</span> · <span id="ascore">Score 0</span></p>
+				<p class="aprompt" id="aprompt">…</p>
+				<p class="qtr" id="ahindi" lang="hi">…</p>
+				<div class="abuild" id="aanswer" aria-label="Your sentence"></div>
+				<div class="abank" id="abank" aria-label="Available words"></div>
+				<p class="qfb" id="afb" aria-live="polite"></p>
+				<p>
+					<button class="btn" id="acheck" type="button">Check</button>
+					<button class="btn ghost" id="anext" type="button" hidden>Next →</button>
+				</p>
+			</div>
+		</section>
+
 		<div id="qdone" hidden>
 			<h2 id="qdone-h">Round complete</h2>
 			<p id="qdone-p"></p>
@@ -50,32 +89,73 @@ const description = `A free 10-question Marathi quiz on ${cluster.title.toLowerC
 <script is:inline>
 	(function () {
 		try {
-			var words = JSON.parse(document.getElementById('quiz-data').textContent || '[]');
+			var data = JSON.parse(document.getElementById('quiz-data').textContent || '{"words":[],"builders":[]}');
+			var words = data.words || [];
+			var builders = data.builders || [];
 			if (!words.length) return;
-			var order = words.slice().sort(function () { return Math.random() - 0.5; }).slice(0, 10);
-			var i = 0, score = 0, locked = false;
-			var pos = document.getElementById('qpos'), sc = document.getElementById('qscore');
+
+			/* ---------- tabs ---------- */
+			var tabW = document.getElementById('tab-words'), tabA = document.getElementById('tab-arrange');
+			var paneW = document.getElementById('pane-words'), paneA = document.getElementById('pane-arrange');
+			function show(which) {
+				var w = which === 'words';
+				tabW.classList.toggle('on', w); tabA.classList.toggle('on', !w);
+				tabW.setAttribute('aria-selected', String(w)); tabA.setAttribute('aria-selected', String(!w));
+				paneW.hidden = !w; paneA.hidden = w;
+			}
+			tabW.addEventListener('click', function () { show('words'); });
+			tabA.addEventListener('click', function () { show('arrange'); });
+
+			/* ---------- mode 1: word meanings ---------- */
+			var dirEn = document.getElementById('dir-en'), dirHi = document.getElementById('dir-hi');
+			var lang = 'en';
+			function setDir(l) {
+				lang = l;
+				dirEn.classList.toggle('on', l === 'en'); dirHi.classList.toggle('on', l === 'hi');
+				restartWords();
+			}
+			dirEn.addEventListener('click', function () { setDir('en'); });
+			dirHi.addEventListener('click', function () { setDir('hi'); });
+
+			var order = [], i = 0, score = 0, locked = false, total = 0;
+			var pos = document.getElementById('qpos'), sc = document.getElementById('qscore'), bar = document.getElementById('qbar');
 			var qw = document.getElementById('qword'), qt = document.getElementById('qtr');
 			var opts = document.getElementById('qopts'), fb = document.getElementById('qfb');
-			var next = document.getElementById('qnext'), done = document.getElementById('qdone');
+			var next = document.getElementById('qnext');
+			function meaning(w) { return lang === 'hi' ? w.hi : w.en; }
+			function shuffle(a) { return a.sort(function () { return Math.random() - 0.5; }); }
+			function restartWords() {
+				order = shuffle(words.slice()).slice(0, 10);
+				total = order.length; i = 0; score = 0;
+				sc.textContent = 'Score 0';
+				document.getElementById('quiz').hidden = false;
+				document.getElementById('qdone').hidden = true;
+				ask();
+			}
 			function ask() {
 				locked = false;
 				var q = order[i];
-				pos.textContent = 'Question ' + (i + 1) + '/' + order.length;
+				pos.textContent = 'Question ' + (i + 1) + '/' + total;
+				bar.style.width = (i / total * 100) + '%';
 				qw.textContent = q.mr;
-				qt.textContent = q.tr + ' · ' + q.hi;
+				qt.textContent = q.tr;
 				fb.textContent = '';
 				next.hidden = true;
-				var pool = words.filter(function (w) { return w.en !== q.en; })
-					.sort(function () { return Math.random() - 0.5; }).slice(0, 3).map(function (w) { return w.en; });
-				var choices = pool.concat([q.en]).sort(function () { return Math.random() - 0.5; });
+				var pool = shuffle(words.filter(function (w) { return meaning(w) !== meaning(q); }))
+					.slice(0, 3).map(meaning);
+				var seen = {};
+				var choices = shuffle(pool.concat([meaning(q)]).filter(function (c) {
+					if (seen[c]) return false; seen[c] = true; return true;
+				})).slice(0, 4);
 				opts.innerHTML = '';
-				choices.forEach(function (c) {
+				choices.forEach(function (c, n) {
 					var b = document.createElement('button');
 					b.type = 'button';
 					b.className = 'qopt';
-					b.textContent = c;
-					b.addEventListener('click', function () { answer(b, c === q.en, q); });
+					b.innerHTML = '<span class="k">' + 'ABCD'[n] + '</span><span></span>';
+					b.lastChild.textContent = c;
+					if (lang === 'hi') b.lastChild.lang = 'hi';
+					b.addEventListener('click', function () { answer(b, c === meaning(q), q); });
 					opts.appendChild(b);
 				});
 			}
@@ -85,43 +165,218 @@ const description = `A free 10-question Marathi quiz on ${cluster.title.toLowerC
 				if (ok) { score++; sc.textContent = 'Score ' + score; }
 				opts.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
 				btn.classList.add(ok ? 'ok' : 'bad');
-				fb.textContent = ok ? 'Correct!' : 'Not quite — ' + q.mr + ' means "' + q.en + '".';
+				fb.textContent = ok ? 'Correct!' : 'Not quite — ' + q.mr + ' means "' + meaning(q) + '".';
+				if (i === total - 1) next.textContent = 'See results →'; else next.textContent = 'Next →';
 				next.hidden = false;
 			}
 			next.addEventListener('click', function () {
 				i++;
-				if (i >= order.length) {
-					document.getElementById('quiz').hidden = true;
-					done.hidden = false;
-					document.getElementById('qdone-p').textContent =
-						'You scored ' + score + '/' + order.length + '. The app schedules these words for review before you forget them.';
-				} else ask();
+				if (i >= total) finish('words', score, total);
+				else ask();
 			});
-			ask();
-		} catch (e) { /* quiz unavailable — word lists above still teach */ }
+
+			/* ---------- mode 2: arrange sentences ---------- */
+			var apane = document.getElementById('arrange');
+			if (!builders.length) {
+				tabA.disabled = true;
+				tabA.textContent = '2 · Arrange sentences (coming soon)';
+			}
+			var bi = 0, ascore = 0, btotal = builders.length;
+			var apos = document.getElementById('apos'), asc = document.getElementById('ascore'), abar = document.getElementById('abar');
+			var aprompt = document.getElementById('aprompt'), ahindi = document.getElementById('ahindi');
+			var aanswer = document.getElementById('aanswer'), abank = document.getElementById('abank');
+			var afb = document.getElementById('afb'), acheck = document.getElementById('acheck'), anext = document.getElementById('anext');
+			var picked = [];
+			function bstep() {
+				var b = builders[bi];
+				apos.textContent = 'Sentence ' + (bi + 1) + '/' + btotal;
+				abar.style.width = (bi / btotal * 100) + '%';
+				aprompt.textContent = b.prompt;
+				ahindi.textContent = b.hindi;
+				afb.textContent = '';
+				acheck.hidden = false; anext.hidden = true;
+				picked = [];
+				renderBank(shuffle(b.tokens.slice()), b);
+			}
+			function tokenBtn(t, inAnswer) {
+				var btn = document.createElement('button');
+				btn.type = 'button';
+				btn.className = 'tok';
+				btn.textContent = t;
+				btn.lang = 'mr';
+				btn.addEventListener('click', function () {
+					if (anext.hidden === false) return;
+					btn.remove();
+					if (inAnswer) {
+						var idx = picked.indexOf(t);
+						if (idx >= 0) picked.splice(idx, 1);
+						abank.appendChild(tokenBtn(t, false));
+					} else {
+						picked.push(t);
+						aanswer.appendChild(tokenBtn(t, true));
+					}
+					afb.textContent = '';
+					renderState();
+				});
+				return btn;
+			}
+			function renderBank(tokens) {
+				aanswer.innerHTML = '';
+				abank.innerHTML = '';
+				tokens.forEach(function (t) { abank.appendChild(tokenBtn(t, false)); });
+				renderState();
+			}
+			function renderState() {
+				var ph = aanswer.querySelector('.ph');
+				if (ph && picked.length) ph.remove();
+				if (!picked.length && !aanswer.children.length) {
+					var ph2 = document.createElement('span');
+					ph2.className = 'ph';
+					ph2.textContent = 'Tap words below in order…';
+					aanswer.appendChild(ph2);
+				}
+			}
+			acheck.addEventListener('click', function () {
+				var b = builders[bi];
+				var ok = picked.length === b.answer.length && picked.every(function (t, n) { return t === b.answer[n]; });
+				if (ok) { ascore++; asc.textContent = 'Score ' + ascore; }
+				afb.textContent = ok ? 'Correct! ' + b.answer.join(' ') : 'Not quite — correct order: ' + b.answer.join(' ');
+				acheck.hidden = true; anext.hidden = false;
+			});
+			anext.addEventListener('click', function () {
+				bi++;
+				if (bi >= btotal) finish('arrange', ascore, btotal);
+				else bstep();
+			});
+			function finish(mode, s, t) {
+				document.getElementById('quiz').hidden = true;
+				apane.hidden = true;
+				var done = document.getElementById('qdone');
+				done.hidden = false;
+				document.getElementById('qdone-p').textContent =
+					(mode === 'words' ? 'Word meanings' : 'Sentence building') +
+					': you scored ' + s + '/' + t + '. The app schedules these for review before you forget them.';
+				var bar2 = mode === 'words' ? bar : abar;
+				bar2.style.width = '100%';
+			}
+			if (builders.length) bstep();
+		} catch (e) { /* quiz unavailable — word lists still teach */ }
 	})();
 </script>
 
 <style>
+	.modes { display: flex; gap: 0.5em; margin: 1.5em 0 0 0; }
+	.mode {
+		font: inherit;
+		font-size: 0.95rem;
+		font-weight: 600;
+		padding: 0.7em 1.2em;
+		border-radius: var(--radius-full);
+		border: var(--border);
+		background: var(--card);
+		color: rgb(var(--gray-dark));
+		cursor: pointer;
+	}
+	.mode.on {
+		background: var(--accent-fixed);
+		border-color: var(--accent);
+		color: var(--accent-on-fixed);
+	}
+	.mode:disabled { opacity: 0.55; cursor: default; }
+	.dir { display: flex; align-items: center; gap: 0.5em; margin: 1.25em 0 0 0; font-size: 0.9rem; color: rgb(var(--gray)); }
+	.chip {
+		font: inherit;
+		font-size: 0.85rem;
+		font-weight: 600;
+		padding: 0.45em 1em;
+		border-radius: var(--radius-full);
+		border: var(--border);
+		background: var(--card);
+		cursor: pointer;
+		color: rgb(var(--gray-dark));
+	}
+	.chip.on {
+		background: var(--accent);
+		border-color: var(--accent);
+		color: #fff;
+	}
+	.progress {
+		height: 8px;
+		border-radius: var(--radius-full);
+		background: var(--container);
+		margin: 1.25em 0 0.25em 0;
+		overflow: hidden;
+	}
+	.progress span {
+		display: block;
+		height: 100%;
+		width: 0;
+		border-radius: var(--radius-full);
+		background: var(--accent);
+		transition: width 0.25s ease;
+	}
 	.qmeta { font-size: 0.85rem; color: rgb(var(--gray)); }
-	.qword { font-size: 2rem; font-weight: 700; color: rgb(var(--black)); margin: 0.25em 0 0 0; }
+	.qword { font-size: 2.1rem; font-weight: 700; color: rgb(var(--black)); margin: 0.25em 0 0 0; line-height: 1.5; }
 	.qtr { color: rgb(var(--gray)); margin-top: 0; }
+	.aprompt { font-size: 1.25rem; font-weight: 700; color: rgb(var(--black)); margin-bottom: 0; }
 	.qopts { display: grid; gap: 0.6em; margin: 1em 0; }
 	.qopt {
 		font: inherit;
+		display: flex;
+		align-items: center;
+		gap: 0.8em;
 		text-align: left;
 		background: var(--card);
 		border: var(--border);
 		border-radius: var(--radius);
-		padding: 0.8em 1em;
+		padding: 0.85em 1em;
 		cursor: pointer;
 		color: rgb(var(--gray-dark));
 	}
-	.qopt:hover:not(:disabled) { border-color: var(--accent); }
-	.qopt:disabled { cursor: default; opacity: 0.85; }
+	.qopt:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-1px); }
+	.qopt:disabled { cursor: default; }
+	.qopt .k {
+		flex: none;
+		width: 1.9em;
+		height: 1.9em;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--radius-full);
+		background: var(--container);
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: rgb(var(--gray));
+	}
 	.qopt.ok { border-color: var(--success, #2e7d5b); background: var(--success-bg, #e8f4ec); }
-	.qopt.bad { border-color: var(--accent); }
+	.qopt.ok .k { background: var(--success, #2e7d5b); color: #fff; }
+	.qopt.bad { border-color: var(--accent); background: var(--accent-fixed); }
 	.qfb { font-weight: 600; min-height: 1.6em; }
+	.abuild, .abank {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em;
+		min-height: 3.2em;
+		border: var(--border);
+		border-radius: var(--radius);
+		padding: 0.7em;
+		margin: 0.6em 0;
+	}
+	.abuild { background: var(--card); }
+	.abank { background: var(--container-low); border-style: dashed; }
+	.abuild .ph { color: rgb(var(--gray)); font-size: 0.9rem; align-self: center; }
+	.tok {
+		font: inherit;
+		font-size: 1.05rem;
+		background: var(--card);
+		border: var(--border);
+		border-radius: 12px;
+		padding: 0.5em 0.9em;
+		cursor: pointer;
+		color: rgb(var(--gray-dark));
+		line-height: 1.6;
+	}
+	.tok:hover { border-color: var(--accent); }
 	.btn {
 		display: inline-block;
 		min-height: 52px;
@@ -143,5 +398,9 @@ const description = `A free 10-question Marathi quiz on ${cluster.title.toLowerC
 		color: var(--accent);
 		border: var(--border);
 		line-height: 50px;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.progress span { transition: none; }
+		.qopt:hover:not(:disabled) { transform: none; }
 	}
 </style>
