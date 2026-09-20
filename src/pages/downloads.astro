@@ -1,6 +1,7 @@
 ---
 import AppCTA from '../components/AppCTA.astro';
 import Base from '../layouts/Base.astro';
+import { pageArt } from '../lib/art';
 import { siteUrl } from '../lib/site';
 
 const title = 'Free Marathi Anki Decks: Top 100 Words + Full 1002';
@@ -18,12 +19,14 @@ const description = 'Download free Anki-ready Marathi vocabulary decks from the 
 		<ul class="card-grid">
 			<li>
 				<a class="card" href={siteUrl('/downloads/marathi-top-100.tsv')} download data-funnel="deck_download">
+					<img src={pageArt('vocabulary/beginners')} alt="" loading="lazy" width="1200" height="630" />
 					<h3>Top 100 starter words</h3>
 					<p>Greetings, phrases and numbers — the fastest first deck.</p>
 				</a>
 			</li>
 			<li>
 				<a class="card" href={siteUrl('/downloads/marathi-full-1002.tsv')} download data-funnel="deck_download">
+					<img src={pageArt('vocabulary')} alt="" loading="lazy" width="1200" height="630" />
 					<h3>Full 1002-word set</h3>
 					<p>Every word in the curriculum, one file.</p>
 				</a>
