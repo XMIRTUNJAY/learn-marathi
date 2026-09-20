@@ -1,4 +1,6 @@
 ---
+import { BRAND } from '../data/brand';
+
 type Props = {
 	headline: string;
 	description: string;
@@ -10,9 +12,10 @@ type Props = {
 	siteName?: string;
 	faq?: { question: string; answer: string }[];
 	breadcrumbs?: { name: string; url: string }[];
+	items?: { name: string; url: string }[];
 };
 
-const { headline, description, datePublished, dateModified, url, type = 'LearningResource', about, siteName, faq = [], breadcrumbs = [] } = Astro.props;
+const { headline, description, datePublished, dateModified, url, type = 'LearningResource', about, siteName, faq = [], breadcrumbs = [], items = [] } = Astro.props;
 
 const main: Record<string, unknown> =
 	type === 'WebSite'
@@ -32,7 +35,7 @@ const main: Record<string, unknown> =
 				inLanguage: ['en', 'mr', 'hi'],
 				...(datePublished ? { datePublished } : {}),
 				...(dateModified ? { dateModified } : {}),
-				author: { '@type': 'Organization', name: 'Bol Marathi' },
+				author: { '@type': 'Organization', name: BRAND.brandName },
 				...(about ? { about } : {}),
 				mainEntityOfPage: { '@type': 'WebPage', '@id': url },
 				...(type === 'FAQPage'
@@ -41,6 +44,19 @@ const main: Record<string, unknown> =
 			};
 
 const nodes: Record<string, unknown>[] = [main];
+
+if (items.length > 0) {
+	nodes.push({
+		'@context': 'https://schema.org',
+		'@type': 'ItemList',
+		itemListElement: items.map((it, i) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			name: it.name,
+			url: it.url,
+		})),
+	});
+}
 
 if (breadcrumbs.length > 0) {
 	nodes.push({

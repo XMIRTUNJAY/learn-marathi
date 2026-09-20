@@ -24,7 +24,7 @@ const faqs = [
 ];
 ---
 
-<Base title="Learn Marathi from Hindi or English: Free Words, Phrases & Lessons | Bol Marathi" description={SITE_DESCRIPTION} alternates={[{ lang: 'en', href: siteUrl('/') }, { lang: 'hi', href: siteUrl('/hi/') }]}>
+<Base title="Learn Marathi from Hindi or English | Bol Marathi" description={SITE_DESCRIPTION} alternates={[{ lang: 'x-default', href: siteUrl('/') }, { lang: 'en', href: siteUrl('/') }, { lang: 'hi', href: siteUrl('/hi/') }]}>
 	<JsonLd
 		headline={SITE_TITLE}
 		description={SITE_DESCRIPTION}
@@ -38,14 +38,6 @@ const faqs = [
 		url={homeUrl}
 		type="FAQPage"
 		faq={faqs.map((f) => ({ question: f.q, answer: f.a }))}
-		breadcrumbs={[]}
-	/>
-	<JsonLd
-		headline="Learn Marathi"
-		description={SITE_DESCRIPTION}
-		url={homeUrl}
-		type="WebSite"
-		siteName="Learn Marathi — Bol Marathi"
 		breadcrumbs={[]}
 	/>
 	<div class="prose">

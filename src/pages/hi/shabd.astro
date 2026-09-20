@@ -16,7 +16,7 @@ const differing = vocab.filter((w) => w.hindi.trim() !== w.marathi.trim());
 const sample = differing.slice(0, 60);
 ---
 
-<Base title={title} description={description} lang="hi" alternates={[{ lang: 'en', href: siteUrl('/hindi-to-marathi/words/') }, { lang: 'hi', href: siteUrl('/hi/shabd/') }]}>
+<Base title={title} description={description} lang="hi" alternates={[{ lang: 'x-default', href: siteUrl('/hindi-to-marathi/words/') }, { lang: 'en', href: siteUrl('/hindi-to-marathi/words/') }, { lang: 'hi', href: siteUrl('/hi/shabd/') }]}>
 	<JsonLd
 		headline={title}
 		description={description}

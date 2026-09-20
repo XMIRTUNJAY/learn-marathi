@@ -26,11 +26,12 @@ const builders = cluster.unitRefs.flatMap((no) =>
 ).slice(0, 10);
 const dataJson = JSON.stringify({ words, builders });
 
-const title = `Marathi Quiz: ${cluster.title} — Words & Sentence Building`;
-const description = `A free Marathi quiz on ${cluster.title.toLowerCase()}: 10 word-meaning questions in English or Hindi, plus sentence-arrangement practice. Instant feedback, then continue in the app.`;
+const cap = (s: string) => s.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+const title = `Marathi Quiz: ${cap(slug ?? '')} | Bol Marathi`;
+const description = `10 questions on ${cluster.title.toLowerCase()} with instant feedback, plus sentence building. Free Marathi quiz.`;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} crumbs={[{ label: 'Learn Marathi', href: siteUrl('/') }, { label: 'Quizzes', href: siteUrl('/quiz/') }, { label: cluster.title, href: siteUrl(`/quiz/${cluster.slug}/`) }]}>
 	<div class="prose">
 		<p class="kicker">Marathi Quiz</p>
 		<h1>{cluster.title}: quiz</h1>

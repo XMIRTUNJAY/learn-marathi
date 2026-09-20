@@ -24,7 +24,7 @@ const faqs = [
 
 ---
 
-<Base title={title} description={description} alternates={[{ lang: 'en', href: siteUrl('/app/') }, { lang: 'hi', href: siteUrl('/hi/app/') }]}>
+<Base title={title} description={description} alternates={[{ lang: 'x-default', href: siteUrl('/app/') }, { lang: 'en', href: siteUrl('/app/') }, { lang: 'hi', href: siteUrl('/hi/app/') }]}>
 	<JsonLd
 		headline={title}
 		description={description}
@@ -33,6 +33,17 @@ const faqs = [
 		faq={faqs}
 		breadcrumbs={[{ name: 'Learn Marathi', url: homeUrl }, { name: 'App', url }]}
 	/>
+	{!BOL_MARATHI_APP.comingSoon && BOL_MARATHI_APP.playStoreUrl && (
+		<script type="application/ld+json" set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'MobileApplication',
+			name: BOL_MARATHI_APP.name,
+			operatingSystem: 'Android',
+			applicationCategory: 'EducationalApplication',
+			offers: { '@type': 'Offer', price: '0' },
+			installUrl: BOL_MARATHI_APP.playStoreUrl,
+		})} />
+	)}
 	<div class="prose">
 		<p class="kicker">Bol Marathi · The App</p>
 		<h1>Learn Marathi beyond reading.</h1>

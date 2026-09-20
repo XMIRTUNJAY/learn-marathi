@@ -53,7 +53,11 @@ const t = hi
 			<h3>{t.paths}</h3>
 			<a href={siteUrl('/hindi-to-marathi/')}>Hindi → Marathi</a>
 			<a href={siteUrl('/english-to-marathi/')}>English → Marathi</a>
-			<a href={siteUrl('/hi/')} lang="hi">हिंदी में सीखें</a>
+			{hi ? (
+				<a href={siteUrl('/')} lang="en">Read in English</a>
+			) : (
+				<a href={siteUrl('/hi/')} lang="hi">हिंदी में सीखें</a>
+			)}
 		</nav>
 		<nav aria-label="Product">
 			<h3>{t.product}</h3>

@@ -19,7 +19,7 @@ const steps = [
 ];
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} crumbs={[{ label: 'Learn Marathi', href: siteUrl('/') }, { label: 'Start here', href: siteUrl('/start/') }]}>
 	<JsonLd
 		headline={title}
 		description={description}

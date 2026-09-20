@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
+import { siteUrl } from '../lib/site';
 
 const title = 'Privacy — Bol Marathi Website';
 const description = 'Privacy notes for the Bol Marathi learning website: no accounts, no tracking of your learning.';
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} crumbs={[{ label: 'Learn Marathi', href: siteUrl('/') }, { label: 'Privacy', href: siteUrl('/privacy/') }]}>
 	<div class="prose">
 		<p class="kicker">Privacy</p>
 		<h1>Privacy</h1>

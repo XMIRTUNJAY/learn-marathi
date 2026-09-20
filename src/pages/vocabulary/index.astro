@@ -12,6 +12,7 @@ import { siteUrl } from '../../lib/site';
 	crumbs={[{ label: 'Vocabulary', href: siteUrl('/vocabulary/') }]}
 	canonicalPath="/vocabulary/"
 	about="marathi vocabulary by topic"
+	items={clusters.map((c) => ({ name: c.title, url: new URL(siteUrl(`/vocabulary/${c.slug}/`), Astro.site).toString() }))}
 >
 	<p>Pick a topic. Every list comes from the real Bol Marathi curriculum — no filler, no invented words. Prefer a test? <a href={siteUrl('/quiz/')}>Try a 10-question quiz</a>.</p>
 
