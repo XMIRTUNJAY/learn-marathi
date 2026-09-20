@@ -84,10 +84,16 @@ const card = (label) => `<svg xmlns="http://www.w3.org/2000/svg" width="1200" he
 </svg>`;
 
 const manifest = [];
+const regen = process.argv.includes('--regen');
 for (const [route, title] of pages) {
   const label = latin(title).replace(/&/g, '&amp;').replace(/</g, '&lt;');
   if (!label) continue;
   const file = `og-${route === '' ? 'home' : route.replace(/\//g, '-')}.png`;
+  // Never overwrite human-made art: skip existing files unless --regen.
+  if (!regen && existsSync(join(outDir, file))) {
+    manifest.push(route);
+    continue;
+  }
   await sharp(Buffer.from(card(label))).png().toFile(join(outDir, file));
   manifest.push(route);
 }
