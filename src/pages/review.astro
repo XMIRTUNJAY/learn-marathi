@@ -1,0 +1,198 @@
+---
+import AppCTA from '../components/AppCTA.astro';
+import Base from '../layouts/Base.astro';
+import { siteUrl } from '../lib/site';
+
+export async function getStaticPaths() {
+	return [{ params: { review: 'index' } }];
+}
+---
+
+<Base title="Review Before You Forget | Bol Marathi" description="Spaced repetition review: weakest-word practice scheduled before you forget." crumbs={[{ label: 'Learn Marathi', href: siteUrl('/') }, { label: 'Review', href: siteUrl('/review/') }]}>
+	<div class="prose">
+		<p class="kicker">Spaced Repetition</p>
+		<h1>Review before you forget</h1>
+		<p class="lede">Your weakest words, scheduled for review. Grade each one — the app adjusts the schedule automatically.</p>
+
+		<div class="review-header">
+			<p><strong>0</strong> words due for review</p>
+		</div>
+
+		<div id="review-cards-container"></div>
+
+		<div class="review-empty" hidden>
+			<p>All caught up! No words due for review right now.</p>
+			<p>Come back after your next practice session, or start a quiz to build new weak words.</p>
+			<p><a href={siteUrl('/quiz/beginners/')} class="btn">Take a Beginner Quiz</a></p>
+		</div>
+
+		<AppCTA variant="general" context="review" />
+	</div>
+</Base>
+
+<script is:inline>
+	// Global constants
+	const STORAGE_KEY = 'bol-marathi-progress';
+	const WEAK_KEY = 'bol-marathi-weak-words';
+	const STREAK_KEY = 'bol-marathi-streak-date';
+	const STREAK_COUNT_KEY = 'bol-marathi-streak-count';
+
+	function loadDueWords() {
+		try {
+			const progress = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+			const weakIds = new Set(JSON.parse(localStorage.getItem(WEAK_KEY) || '[]'));
+
+			const dueIds = [];
+			Object.keys(progress).forEach(id => {
+				if (!progress[id]?.completed) dueIds.push(id);
+			});
+			weakIds.forEach(id => { if (!dueIds.includes(id)) dueIds.push(id); });
+
+			const headerEl = document.querySelector('.review-header');
+			const cardsContainer = document.getElementById('review-cards-container');
+			const emptyEl = document.querySelector('.review-empty');
+
+			function renderCards(ids) {
+				if (!cardsContainer) return;
+				if (ids.length === 0) {
+					cardsContainer.innerHTML = '';
+					if (emptyEl) emptyEl.hidden = false;
+					if (headerEl) headerEl.querySelector('p strong').textContent = '0';
+					return;
+				}
+				if (emptyEl) emptyEl.hidden = true;
+
+				cardsContainer.innerHTML = ids.map(id => {
+					const p = progress[id] || {};
+					const dueStr = p.completedAt ? new Date(p.completedAt + 7 * 864e5).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Today';
+					return `<div class="review-card" data-word-id="${id}">
+						<div class="review-word">${id}</div>
+						<div class="review-meta">
+							<p>Due: <span>${dueStr}</span></p>
+							<p>Reps: ${p.repetitions || 0} · Ease: ${(p.easeFactor || 2.5).toFixed(2)}</p>
+						</div>
+						<div class="review-buttons">
+							<button class="btn" onclick="recordReview('${id}', 'again')">Again</button>
+							<button class="btn ghost" onclick="recordReview('${id}', 'hard')">Hard</button>
+							<button class="btn ghost" onclick="recordReview('${id}', 'good')">Good</button>
+							<button class="btn" onclick="recordReview('${id}', 'easy')">Easy</button>
+						</div>
+					</div>`;
+				}).join('');
+
+				if (headerEl) headerEl.querySelector('p strong').textContent = ids.length;
+			}
+
+			if (cardsContainer) renderCards(dueIds);
+		} catch (e) {
+			console.warn('Review load failed:', e);
+		}
+	}
+
+	loadDueWords();
+</script>
+
+<script is:inline>
+	function recordReview(id, grade) {
+		try {
+			const progress = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+			progress[id] = { completed: true, completedAt: Date.now() };
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+
+			const today = new Date().toDateString();
+			const last = localStorage.getItem('bol-marathi-streak-date');
+			let count = parseInt(localStorage.getItem('bol-marathi-streak-count') || '0', 10);
+			if (last !== today) {
+				const yesterday = new Date(Date.now() - 864e5).toDateString();
+				count = last === yesterday ? count + 1 : 1;
+				localStorage.setItem('bol-marathi-streak-date', today);
+				localStorage.setItem('bol-marathi-streak-count', String(count));
+			}
+
+			if (grade === 'hard' || grade === 'again') {
+				const w = new Set(JSON.parse(localStorage.getItem(WEAK_KEY) || '[]'));
+				w.add(id);
+				localStorage.setItem(WEAK_KEY, JSON.stringify([...w]));
+			}
+
+			const card = document.querySelector('[data-word-id="' + id + '"]');
+			if (card) {
+				card.style.transition = 'opacity 0.3s ease';
+				card.style.opacity = '0.2';
+				setTimeout(function () { card.remove(); }, 300);
+			}
+
+			const headerEl = document.querySelector('.review-header');
+			if (headerEl) {
+				const cards = document.querySelectorAll('.review-card');
+				headerEl.querySelector('p strong').textContent = cards.length;
+			}
+
+			setTimeout(function () { window.location.reload(); }, 400);
+		} catch (e) { console.warn('Record review failed:', e); }
+	}
+
+	window.recordReview = recordReview;
+</script>
+
+<style>
+	.review-header {
+		border-bottom: var(--border);
+		padding-bottom: 1em;
+		margin-bottom: 1.5em;
+	}
+	.review-header p {
+		margin: 0;
+		font-size: 1.05rem;
+		color: rgb(var(--gray-dark));
+	}
+	.review-empty {
+		background: var(--container-low);
+		border: var(--border);
+		border-radius: var(--radius);
+		padding: 2em 1.5em;
+		text-align: center;
+		margin: 2em 0;
+	}
+	.review-empty p:first-of-type {
+		font-weight: 600;
+		margin-bottom: 0.5em;
+	}
+	.review-empty p { color: rgb(var(--gray)); }
+	.review-cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+		gap: 1em;
+	}
+	.review-card {
+		border: var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+		padding: 1.25em 1.25em 1em 1.25em;
+		transition: opacity 0.3s ease;
+	}
+	.review-word {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin-bottom: 0.5em;
+	}
+	.review-meta {
+		font-size: 0.82rem;
+		color: rgb(var(--gray));
+		margin-bottom: 0.75em;
+	}
+	.review-meta p { margin: 0.2em 0; }
+	.review-buttons {
+		display: flex;
+		gap: 0.5em;
+		flex-wrap: wrap;
+	}
+	.review-buttons .btn {
+		min-height: 40px;
+		line-height: 40px;
+		padding: 0 0.75em;
+		font-size: 0.85rem;
+		margin-top: 0;
+	}
+</style>
