@@ -1,6 +1,7 @@
 ---
 import AppCTA from '../../components/AppCTA.astro';
 import RelatedContent from '../../components/RelatedContent.astro';
+import SayScript from '../../components/SayScript.astro';
 import Learn from '../../layouts/Learn.astro';
 import { getUnit, units, unitSeo } from '../../lib/learn';
 import { siteUrl } from '../../lib/site';
@@ -16,6 +17,7 @@ const seo = unitSeo[no] ?? { h1: `Unit ${no} — ${unit.titleEn}`, blurb: unit.s
 const idx = units.findIndex((u) => u.unit === no);
 const prev = idx > 0 ? units[idx - 1] : null;
 const next = idx < units.length - 1 ? units[idx + 1] : null;
+const lessonNos = [...new Set(unit.speaking.map((s) => s.lesson))].sort((a, b) => a - b);
 ---
 
 <Learn
@@ -41,21 +43,32 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 	</ul>
 
 	<h2>Speaking practice sentences</h2>
+	<nav class="lesson-rail" aria-label="Lessons in this unit">
+		<span class="lesson-rail-label">Lessons in this unit:</span>
+		{lessonNos.map((n) => (
+			<a href={`#lesson-${n}`}>Lesson {n}</a>
+		))}
+	</nav>
 	<div class="table-scroll" role="region" aria-label="Speaking sentences" tabindex="0">
 		<table class="vocab">
 			<thead>
 				<tr><th scope="col">Lesson</th><th scope="col">Marathi</th><th scope="col">Hindi</th><th scope="col">English</th></tr>
 			</thead>
-			<tbody>
-				{unit.speaking.map((s) => (
-					<tr>
-						<td>{s.lesson}</td>
-						<td class="mr" lang="mr">{s.sentence}</td>
-						<td lang="hi">{s.hindi}</td>
-						<td>{s.english}</td>
-					</tr>
-				))}
-			</tbody>
+			{lessonNos.map((n) => (
+				<tbody id={`lesson-${n}`}>
+					{unit.speaking.filter((s) => s.lesson === n).map((s) => (
+						<tr>
+							<td>{s.lesson}</td>
+							<td class="mr" lang="mr">
+								{s.sentence}
+								<button type="button" class="say" data-say={s.sentence} aria-label={`Listen: ${s.sentence}`}>🔊</button>
+							</td>
+							<td lang="hi">{s.hindi}</td>
+							<td>{s.english}</td>
+						</tr>
+					))}
+				</tbody>
+			))}
 		</table>
 	</div>
 
@@ -105,6 +118,8 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 		]}
 	/>
 
+	<SayScript />
+
 </Learn>
 
 <style>
@@ -112,6 +127,31 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 		font-size: 1.05em;
 		color: rgb(var(--gray));
 		margin: -0.5em 0 1.5em 0;
+	}
+	.lesson-rail {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4em;
+		margin: 0 0 0.75em 0;
+	}
+	.lesson-rail-label {
+		font-size: 0.8rem;
+		color: rgb(var(--gray));
+		margin-right: 0.25em;
+	}
+	.lesson-rail a {
+		font-size: 0.8rem;
+		font-weight: 600;
+		text-decoration: none;
+		background: var(--accent-fixed);
+		color: var(--accent-on-fixed);
+		padding: 0.3em 0.75em;
+		border-radius: var(--radius-full);
+	}
+	.lesson-rail a:hover {
+		background: var(--accent);
+		color: #fff;
 	}
 	.pager {
 		display: flex;
