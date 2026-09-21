@@ -40,6 +40,11 @@ const showSimpleFirst = roman === 'simple';
 			{audioSrc && (
 				<button class="say" data-audio={audioSrc} aria-label={`Listen: ${word.marathi}`}>🔊</button>
 			)}
+			<div class="vocab-srs" data-srs-actions={word.id}>
+				<button type="button" class="srs-btn" data-srs-grade="again" aria-label={`Review ${word.marathi} later`}>↻ Review</button>
+				<button type="button" class="srs-btn" data-srs-grade="easy" aria-label={`I know ${word.marathi}`}>✓ Know it</button>
+				<span class="srs-fb" aria-live="polite" hidden>Saved!</span>
+			</div>
 		</div>
 	</div>
 </article>
@@ -141,20 +146,74 @@ const showSimpleFirst = roman === 'simple';
 		outline: 2px solid var(--accent);
 		outline-offset: 2px;
 	}
+	.vocab-srs {
+		display: flex;
+		align-items: center;
+		gap: 0.4em;
+		margin-top: 0.3em;
+	}
+	.srs-btn {
+		font: inherit;
+		font-size: 0.72rem;
+		font-weight: 600;
+		padding: 0.35em 0.7em;
+		border-radius: var(--radius-full);
+		border: var(--border);
+		background: var(--container-low);
+		color: rgb(var(--gray-dark));
+		cursor: pointer;
+	}
+	.srs-btn:hover { border-color: var(--accent); color: var(--accent); }
+	.srs-fb { font-size: 0.72rem; color: var(--success); font-weight: 600; }
 	@media (prefers-reduced-motion: reduce) {
 		.vocab-card-inner { transition: none; }
 	}
 </style>
 
 <script>
+	import { addWord } from '../lib/srs';
+	import { AnalyticsEvents } from '../lib/analytics';
+
 	// Flip on click/Enter/Space
-	document.querySelectorAll('.vocab-card').forEach(card => {
-		card.addEventListener('click', () => card.classList.toggle('flipped'));
-		card.addEventListener('keydown', (e) => {
-			if (e.key === 'Enter' || e.key === ' ') {
-				e.preventDefault();
-				card.classList.toggle('flipped');
+	function initVocabCards() {
+		document.querySelectorAll('.vocab-card:not([data-flip-init])').forEach(card => {
+			card.setAttribute('data-flip-init', 'true');
+			function flip() {
+				const nowFlipped = card.classList.toggle('flipped');
+				if (nowFlipped) {
+					try {
+						const label = card.getAttribute('aria-label') || 'word';
+						AnalyticsEvents.vocabFlipCard(label.replace('Flip to see meaning of ', '').slice(0, 50));
+					} catch { /* ignore */ }
+				}
 			}
+			card.addEventListener('click', flip);
+			card.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					flip();
+				}
+			});
 		});
-	});
+		// SRS grading buttons (don't flip the card when pressed)
+		document.querySelectorAll('[data-srs-actions]:not([data-srs-init])').forEach(zone => {
+			zone.setAttribute('data-srs-init', 'true');
+			const wordId = zone.getAttribute('data-srs-actions');
+			if (!wordId) return;
+			zone.querySelectorAll('[data-srs-grade]').forEach(btn => {
+				btn.addEventListener('click', (e) => {
+					e.stopPropagation();
+					const grade = btn.getAttribute('data-srs-grade') as 'again' | 'easy';
+					addWord(wordId, grade === 'easy' ? 'easy' : 'again').catch(() => {});
+					const fb = zone.querySelector('.srs-fb');
+					if (fb) {
+						fb.removeAttribute('hidden');
+						window.setTimeout(() => fb.setAttribute('hidden', ''), 2000);
+					}
+				});
+			});
+		});
+	}
+	initVocabCards();
+	document.addEventListener('astro:page-load', initVocabCards);
 </script>

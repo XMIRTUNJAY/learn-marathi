@@ -12,7 +12,7 @@ const dataJson = JSON.stringify(builders.slice(0, 5));
 ---
 <section class="sentence-builder" aria-label="Sentence practice">
 	<h3>Build sentences with these words</h3>
-	<div id="sb-arrange">
+	<div id="sb-arrange" data-builders={dataJson}>
 		<div class="progress"><span id="sb-bar"></span></div>
 		<p class="qmeta"><span id="sb-pos">Sentence 1/5</span></p>
 		<p class="aprompt" id="sb-prompt">…</p>

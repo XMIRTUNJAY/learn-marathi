@@ -1,4 +1,7 @@
 // Progress tracking — localStorage API for unit completion, streak, weak words
+// With offline queue via IndexedDB sync
+import { queueMutation } from './sync';
+
 const STORAGE_KEY = 'bol-marathi-progress';
 const STREAK_KEY = 'bol-marathi-streak-date';
 const STREAK_COUNT_KEY = 'bol-marathi-streak-count';
@@ -33,12 +36,18 @@ export function getUnitProgress(unit: string): UnitProgress {
 	return getProgress()[unit] ?? { completed: false };
 }
 
-export function setUnitComplete(unit: string): void {
+export async function setUnitComplete(unit: string): Promise<void> {
 	const p = getProgress();
 	if (!p[unit]?.completed) {
-		p[unit] = { completed: true, completedAt: Date.now() };
+		const completedAt = Date.now();
+		p[unit] = { completed: true, completedAt };
 		setProgress(p);
 		updateStreak();
+
+		// Queue for offline sync
+		try {
+			await queueMutation('progress', { unit, completed: true, completedAt });
+		} catch { /* ignore if sync unavailable */ }
 	}
 }
 
@@ -46,7 +55,7 @@ export function getAllProgress(): ProgressData {
 	return getProgress();
 }
 
-function updateStreak(): void {
+async function updateStreak(): Promise<void> {
 	const today = new Date().toDateString();
 	const last = localStorage.getItem(STREAK_KEY);
 	let count = parseInt(localStorage.getItem(STREAK_COUNT_KEY) || '0', 10);
@@ -55,6 +64,11 @@ function updateStreak(): void {
 		count = last === yesterday ? count + 1 : 1;
 		localStorage.setItem(STREAK_KEY, today);
 		localStorage.setItem(STREAK_COUNT_KEY, String(count));
+
+		// Queue streak update
+		try {
+			await queueMutation('streak', { date: today, count });
+		} catch { /* ignore */ }
 	}
 }
 

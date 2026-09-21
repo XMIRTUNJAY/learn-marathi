@@ -2,6 +2,8 @@
 import { BOL_MARATHI_APP } from '../data/app';
 import WaitlistForm from './WaitlistForm.astro';
 
+const deepLinkBase = BOL_MARATHI_APP.deepLinkBase || 'bolmarathi://practice';
+
 // Contextual CTA engine — ONE panel per content page. States:
 // beta (betaOptInUrl set) → "Join the beta" button;
 // live (playStoreUrl set) → variant-specific store button;
@@ -95,12 +97,12 @@ const betaLabel = locale === 'hi' ? 'बीटा से जुड़ें' : '
 		<a class="btn" href={beta} data-funnel="beta_click" data-app-cta data-cta-variant={variant}>{betaLabel}</a>
 	) : live ? (
 		<a class="btn" href={BOL_MARATHI_APP.playStoreUrl as string} data-funnel="download_click" data-app-cta data-cta-variant={variant}>{copy.cta}</a>
-	) : variant === 'unit-practice' ? (
-		<a class="btn" href={`bolmarathi://practice/unit/${context.replace('unit-', '')}`} data-funnel="deeplink_click" data-app-cta data-cta-variant={variant}>{copy.cta}</a>
+	) : variant === 'unit-practice' && (live || beta) ? (
+		<a class="btn" href={`${deepLinkBase}/unit/${context.replace('unit-', '')}`} data-funnel="deeplink_click" data-app-cta data-cta-variant={variant}>{copy.cta}</a>
 	) : (
 		<WaitlistForm context={context} locale={locale} />
 	)}
-	{BOL_MARATHI_APP.comingSoon && !beta && variant !== 'unit-practice' && (
+	{BOL_MARATHI_APP.comingSoon && !beta && (
 		<p class="note">
 			{BOL_MARATHI_APP.comingSoonNote}{' '}
 			{locale === 'hi'

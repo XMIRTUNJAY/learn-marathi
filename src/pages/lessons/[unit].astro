@@ -114,7 +114,7 @@ const progress = getUnitProgress(no);
 		<p class="completion-note">Progress saved locally — syncs across devices when you sign in.</p>
 	</div>
 
-	<AppCTA variant="lesson" context={`unit-${unit.unit}`} />
+	<AppCTA variant="unit-practice" context={`unit-${unit.unit}`} />
 
 	<nav class="pager" aria-label="Units">
 		{prev ? <a href={siteUrl(`/lessons/${prev.unit}/`)}>&larr; Unit {prev.unit} — {prev.titleEn}</a> : <span />}
@@ -194,6 +194,35 @@ const progress = getUnitProgress(no);
 		.completion-toggle { flex-direction: column; align-items: flex-start; }
 	}
 </style>
+
+<script>
+	import { AnalyticsEvents } from '../../lib/analytics';
+
+	// Track lesson start + unit completion events
+	function initLessonAnalytics() {
+		if ((window as unknown as { __lessonAnalyticsInit?: boolean }).__lessonAnalyticsInit) return;
+		(window as unknown as { __lessonAnalyticsInit?: boolean }).__lessonAnalyticsInit = true;
+		const btn = document.getElementById('mark-complete');
+		const unit = btn?.getAttribute('data-unit') || window.location.pathname.split('/').filter(Boolean).pop() || 'unknown';
+		try { AnalyticsEvents.lessonStart(unit); } catch { /* ignore */ }
+		btn?.addEventListener('click', () => {
+			try { AnalyticsEvents.unitComplete(unit, 0); } catch { /* ignore */ }
+			try { AnalyticsEvents.lessonComplete(unit, Math.round(performance.now())); } catch { /* ignore */ }
+		});
+		// Audio plays on this page
+		document.addEventListener('click', (e) => {
+			const say = (e.target as HTMLElement).closest?.('.say');
+			if (say) {
+				try { AnalyticsEvents.vocabAudioPlay((say.getAttribute('data-say') || 'lesson-audio').slice(0, 50)); } catch { /* ignore */ }
+			}
+		});
+	}
+	initLessonAnalytics();
+	document.addEventListener('astro:page-load', () => {
+		(window as unknown as { __lessonAnalyticsInit?: boolean }).__lessonAnalyticsInit = false;
+		initLessonAnalytics();
+	});
+</script>
 
 <script>
 	// Mark unit complete (uses same localStorage format as progress.ts)

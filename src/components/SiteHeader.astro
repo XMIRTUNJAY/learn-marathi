@@ -1,5 +1,6 @@
 ---
-import ProgressRing from './ProgressRing.astro';
+import Search from './Search.astro';
+import Preferences from './Preferences.astro';
 import { siteUrl } from '../lib/site';
 import { HI_NAV } from '../i18n/hi';
 
@@ -23,35 +24,51 @@ const links = hi
 ---
 
 <header class="site-header" transition:name="header" transition:persist>
-	<nav aria-label="Primary" transition:name="nav" transition:persist>
-		<div class="brand-group" transition:name="brand-group" transition:persist>
+	<div class="topbar" transition:name="nav" transition:persist>
+		<div class="brand-group" transition:name="brand-group" transition:persist">
 			<a class="brand" href={siteUrl('/')} aria-label="Learn Marathi home"><span class="brand-mr">म</span> Learn Marathi</a>
 			<div id="streak-ring" aria-label="Streak"></div>
 		</div>
-		<button class="menu-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
-			<span aria-hidden="true"></span>
-			<span aria-hidden="true"></span>
-		</button>
-		<div class="nav-links" id="site-nav">
-			{links.map((link) => (
-				<a
-					href={link.href}
-					aria-current={current === link.match || current.startsWith(link.match + '/') ? 'page' : undefined}
-				>
-					{link.label}
-				</a>
-			))}
+		<div class="topbar-search">
+			<Search />
 		</div>
+		<div class="topbar-actions">
+			<Preferences />
+			<div id="online-status" class="online-status" role="status" aria-live="polite" aria-atomic="true" title="Connection status"></div>
+		</div>
+	</div>
+	<nav class="nav-strip" aria-label="Primary">
+		{links.map((link) => (
+			<a
+				href={link.href}
+				aria-current={current === link.match || current.startsWith(link.match + '/') ? 'page' : undefined}
+			>
+				{link.label}
+			</a>
+		))}
 	</nav>
 </header>
 
 <script>
-	const btn = document.querySelector('.menu-btn');
-	const nav = document.querySelector('#site-nav');
-	btn?.addEventListener('click', () => {
-		const open = nav?.classList.toggle('open');
-		btn.setAttribute('aria-expanded', String(!!open));
-	});
+	import { AnalyticsEvents } from '../lib/analytics';
+	import { getPendingCount } from '../lib/sync';
+
+	// Connectivity analytics (offline detected / back online + pending sync)
+	function initConnectivityAnalytics() {
+		if ((window as unknown as { __connAnalyticsInit?: boolean }).__connAnalyticsInit) return;
+		(window as unknown as { __connAnalyticsInit?: boolean }).__connAnalyticsInit = true;
+		window.addEventListener('offline', () => {
+			try { AnalyticsEvents.offlineDetected(); } catch { /* ignore */ }
+		});
+		window.addEventListener('online', async () => {
+			try {
+				const pending = await getPendingCount().catch(() => 0);
+				AnalyticsEvents.onlineRestored(pending);
+			} catch { /* ignore */ }
+		});
+	}
+	initConnectivityAnalytics();
+	document.addEventListener('astro:page-load', initConnectivityAnalytics);
 
 	// Render streak ring client-side
 	(function () {
@@ -79,6 +96,23 @@ const links = hi
 		// Update on storage change (other tabs)
 		window.addEventListener('storage', render);
 	})();
+
+	// Online/offline status indicator (dot-only; text for screen readers)
+	(function () {
+		const statusEl = document.getElementById('online-status');
+		if (!statusEl) return;
+
+		function updateStatus() {
+			const online = navigator.onLine;
+			statusEl.innerHTML = `<span class="status-dot ${online ? 'online' : 'offline'}" aria-hidden="true"></span><span class="sr-only">${online ? 'Online' : 'Offline'}</span>`;
+			statusEl.classList.toggle('offline', !online);
+			statusEl.setAttribute('title', online ? 'Online' : 'Offline — progress will sync when you reconnect');
+		}
+
+		window.addEventListener('online', updateStatus);
+		window.addEventListener('offline', updateStatus);
+		updateStatus();
+	})();
 </script>
 
 <style>
@@ -89,18 +123,16 @@ const links = hi
 		top: 0;
 		z-index: 50;
 	}
-	.site-header nav {
+	.topbar {
 		width: var(--measure-wide);
 		max-width: calc(100% - 2em);
 		margin: auto;
-		padding: 0 1em;
+		padding: 0.5em 1em;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		min-height: 60px;
-		gap: 1em;
+		gap: 0.75em;
 	}
-.brand {
+	.brand {
 		font-weight: 700;
 		font-size: 1.2rem;
 		color: rgb(var(--black));
@@ -123,63 +155,93 @@ const links = hi
 	.brand-group {
 		display: flex;
 		align-items: center;
-		gap: 0.75em;
+		gap: 0.5em;
+		flex-shrink: 0;
 	}
-	.nav-links {
+	#streak-ring {
 		display: flex;
 		align-items: center;
-		gap: 0.25em;
+		margin-left: 0.25em;
 	}
-	.nav-links a {
+	.streak-count {
+		font-size: 0.7rem;
+		font-weight: 700;
+		color: var(--accent);
+		line-height: 1;
+	}
+	.topbar-search {
+		flex: 1 1 auto;
+		min-width: 0;
+		max-width: 24rem;
+		margin-left: auto;
+	}
+	.topbar-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+		flex-shrink: 0;
+	}
+	.online-status {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+	}
+	.status-dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+	}
+	.status-dot.online { background: var(--success); box-shadow: 0 0 0 3px var(--success-bg); }
+	.status-dot.offline { background: #dc2626; box-shadow: 0 0 0 3px #fee2e2; }
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+	.nav-strip {
+		width: var(--measure-wide);
+		max-width: 100%;
+		margin: auto;
+		padding: 0 1em 0.5em 1em;
+		display: flex;
+		align-items: center;
+		justify-content: safe center;
+		gap: 0.15em;
+		overflow-x: auto;
+		scrollbar-width: thin;
+		-webkit-overflow-scrolling: touch;
+	}
+	.nav-strip a {
 		color: rgb(var(--gray-dark));
 		text-decoration: none;
-		font-size: 0.92rem;
-		padding: 0.4em 0.7em;
+		font-size: 0.9rem;
+		padding: 0.45em 0.75em;
 		border-radius: 6px;
+		white-space: nowrap;
+		flex-shrink: 0;
 	}
-	.nav-links a:hover {
+	.nav-strip a:hover {
 		color: rgb(var(--black));
 		background: rgb(var(--gray-light));
 	}
-	.nav-links a[aria-current='page'] {
+	.nav-strip a[aria-current='page'] {
 		color: rgb(var(--black));
 		font-weight: 700;
-	}
-	.menu-btn {
-		display: none;
-		flex-direction: column;
-		gap: 5px;
-		background: transparent;
-		border: var(--border);
-		border-radius: 6px;
-		padding: 0.6em 0.7em;
-		cursor: pointer;
-	}
-	.menu-btn span {
-		display: block;
-		width: 18px;
-		height: 2px;
-		background: rgb(var(--black));
+		background: var(--accent-fixed);
 	}
 	@media (max-width: 860px) {
-		.menu-btn { display: flex; }
-		.nav-links {
-			display: none;
-			position: absolute;
-			top: 60px;
-			left: 0;
-			right: 0;
-			flex-direction: column;
-			align-items: stretch;
-			background: var(--paper);
-			border-bottom: var(--border);
-			padding: 0.5em 1em 1em 1em;
-			gap: 0;
-		}
-		.nav-links.open { display: flex; }
-		.nav-links a {
-			padding: 0.7em 0.5em;
-			text-align: left;
-		}
+		.topbar { gap: 0.5em; padding: 0.5em 0.75em; }
+		.brand { font-size: 1.05rem; }
+		.topbar-actions .preferences-wrapper { display: none; }
+		.topbar-search { max-width: none; }
+		.nav-strip { padding: 0 0.75em 0.5em 0.75em; }
 	}
 </style>

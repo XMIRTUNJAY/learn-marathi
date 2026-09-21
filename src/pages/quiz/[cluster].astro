@@ -11,6 +11,7 @@ const { cluster: slug } = Astro.params;
 const cluster = clusters.find((c) => c.slug === slug);
 if (!cluster) throw new Error(`Unknown cluster: ${slug}`);
 const words = wordsByCategory(cluster.categories).map((w) => ({
+	id: w.id,
 	mr: w.marathi,
 	en: w.english,
 	hi: w.hindi,
@@ -168,6 +169,12 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 				opts.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
 				btn.classList.add(ok ? 'ok' : 'bad');
 				fb.textContent = ok ? 'Correct!' : 'Not quite — ' + q.mr + ' means "' + meaning(q) + '".';
+				try {
+					if (!ok && q && q.id) {
+						document.dispatchEvent(new CustomEvent('srs-add', { detail: { wordId: q.id, grade: 'again' } }));
+					}
+					document.dispatchEvent(new CustomEvent('quiz-answer', { detail: { ok: !!ok } }));
+				} catch (e) { /* listeners optional */ }
 				if (i === total - 1) next.textContent = 'See results →'; else next.textContent = 'Next →';
 				next.hidden = false;
 			}
@@ -261,10 +268,53 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 					': you scored ' + s + '/' + t + '. The app schedules these for review before you forget them.';
 				var bar2 = mode === 'words' ? bar : abar;
 				bar2.style.width = '100%';
+				try {
+					document.dispatchEvent(new CustomEvent('quiz-complete', { detail: { mode: mode, score: s, total: t } }));
+				} catch (e) { /* listeners optional */ }
 			}
 			if (builders.length) bstep();
 		} catch (e) { /* quiz unavailable — word lists still teach */ }
 	})();
+</script>
+
+<script>
+	import { addWord } from '../../lib/srs';
+	import { AnalyticsEvents } from '../../lib/analytics';
+
+	// Feed wrong answers into SRS + track quiz events (listeners for
+	// CustomEvents dispatched by the inline quiz engine above).
+	function initQuizIntegrations() {
+		if ((window as unknown as { __quizIntegInit?: boolean }).__quizIntegInit) return;
+		(window as unknown as { __quizIntegInit?: boolean }).__quizIntegInit = true;
+
+		document.addEventListener('srs-add', (e) => {
+			const d = (e as CustomEvent).detail as { wordId: string; grade: 'again' | 'hard' | 'good' | 'easy' };
+			if (!d?.wordId) return;
+			addWord(d.wordId, d.grade || 'again').catch(() => {});
+		});
+
+		const slug = window.location.pathname.split('/').filter(Boolean).pop() || 'unknown';
+		let started = false;
+		function ensureStart() {
+			if (started) return;
+			started = true;
+			try {
+				const data = JSON.parse(document.getElementById('quiz-data')?.textContent || '{"words":[]}');
+				AnalyticsEvents.quizStart(slug, (data.words || []).length);
+			} catch { /* ignore */ }
+		}
+		ensureStart();
+
+		document.addEventListener('quiz-complete', (e) => {
+			const d = (e as CustomEvent).detail as { mode: string; score: number; total: number };
+			if (!d) return;
+			let timeMs = 0;
+			try { timeMs = Math.round(performance.now()); } catch { /* ignore */ }
+			AnalyticsEvents.quizComplete(`${slug}:${d.mode}`, d.score, d.total, timeMs);
+		});
+	}
+	initQuizIntegrations();
+	document.addEventListener('astro:page-load', initQuizIntegrations);
 </script>
 
 <style>

@@ -2,6 +2,7 @@
 import AppCTA from '../components/AppCTA.astro';
 import Base from '../layouts/Base.astro';
 import JsonLd from '../components/JsonLd.astro';
+import Mascot from '../components/Mascot.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { BOL_MARATHI_APP } from '../data/app';
 import { clusters, phraseSets, grammarTopics, units, vocab } from '../lib/learn';
@@ -64,15 +65,22 @@ const faqs = [
 	/>
 	<div class="prose">
 		<p class="kicker">Bol Marathi · Learn Marathi</p>
-		<h1>Learn Marathi from Hindi or English.</h1>
-		<p class="lede">
-			Build practical Marathi vocabulary, understand everyday phrases, and
-			practice listening, speaking and sentence building — from the real
-			Bol Marathi curriculum of {units.length} units and {vocab.length} words.
-		</p>
-		<div class="hub-cta">
-			<a class="btn" href={siteUrl('/start/')} data-funnel="path_click">Start Learning Free</a>
-			<a class="btn ghost" href={siteUrl('/lessons/')} data-funnel="path_click">Explore {units.length * 6} Lessons</a>
+		<div class="hero-row">
+			<div class="hero-text">
+				<h1>Learn Marathi from Hindi or English.</h1>
+				<p class="lede">
+					Build practical Marathi vocabulary, understand everyday phrases, and
+					practice listening, speaking and sentence building — from the real
+					Bol Marathi curriculum of {units.length} units and {vocab.length} words.
+				</p>
+				<div class="hub-cta">
+					<a class="btn" href={siteUrl('/start/')} data-funnel="path_click">Start Learning Free</a>
+					<a class="btn ghost" href={siteUrl('/lessons/')} data-funnel="path_click">Explore {units.length * 6} Lessons</a>
+				</div>
+			</div>
+			<div class="hero-mascot">
+				<Mascot pose="wave" size="lg" ariaLabel="Mascot welcoming you to learn Marathi" />
+			</div>
 		</div>
 		<ul class="stat-strip" aria-label="Free content included">
 			<li><strong>{units.length}</strong> units</li>
@@ -265,6 +273,31 @@ const faqs = [
 </Base>
 
 <style>
+	.hero-row {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 2rem;
+		flex-wrap: wrap;
+		margin: 1.5rem 0 1rem 0;
+	}
+	.hero-text { flex: 1; min-width: 280px; }
+	.hero-mascot {
+		flex-shrink: 0;
+		align-self: flex-start;
+	}
+	.hero-mascot .mascot-svg {
+		animation: mascot-wave 2s ease-in-out infinite;
+	}
+	@media (max-width: 760px) {
+		.hero-row { flex-direction: column; align-items: center; text-align: center; }
+		.hero-mascot { order: -1; margin-bottom: 1rem; }
+		.hero-text h1 { font-size: 1.75rem; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.hero-mascot .mascot-svg { animation: none; }
+	}
+
 	.hub-cta { display: flex; flex-wrap: wrap; gap: 0.75em; margin: 1.5em 0 0.5em 0; }
 	.hub-cta .btn {
 		display: inline-block;

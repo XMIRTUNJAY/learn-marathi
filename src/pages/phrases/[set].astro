@@ -28,6 +28,15 @@ const phrases = phrasesFor(set);
 	about={set.intent}
 	meta={[`${phrases.length} phrases`, set.unitRefs.length > 1 ? `Units ${set.unitRefs.join(', ')}` : `Unit ${set.unitRefs[0]}`]}
 >
+	<script>
+		import { AnalyticsEvents } from '../../lib/analytics';
+		try {
+			const slug = window.location.pathname.split('/').filter(Boolean).pop() || 'unknown';
+			const count = document.querySelectorAll('table.vocab tbody tr').length;
+			AnalyticsEvents.phraseView(slug, count);
+		} catch { /* ignore */ }
+	</script>
+
 	<h2>What you will learn</h2>
 	<p>
 		{phrases.length} real Marathi sentences from the Bol Marathi curriculum —

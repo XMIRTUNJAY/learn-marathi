@@ -50,6 +50,10 @@
 	--radius-lg: 24px;
 	--radius-full: 9999px;
 	--border: 1px solid rgb(var(--gray-light));
+
+	/* User preferences (overridden by Preferences component) */
+	--font-size-base: 17px;
+	--line-height-base: 1.65;
 }
 
 body {
@@ -59,8 +63,8 @@ body {
 	text-align: left;
 	background: var(--paper);
 	color: rgb(var(--gray-dark));
-	font-size: 17px;
-	line-height: 1.65;
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-base);
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -457,16 +461,20 @@ html::view-transition-new(root) { animation: vt-fade-in 0.3s ease-out; }
 }
 
 /* ===== Image Loading States ===== */
+/* Fade-in only when JS runs (html.js) — images stay visible if scripts fail. */
 .card-grid .card img,
 .hero-figure img {
 	background: var(--container-low);
 }
-.card-grid .card img[loading="lazy"] {
+html.js .card-grid .card img[loading="lazy"] {
 	opacity: 0;
 	transition: opacity 0.3s ease;
 }
-.card-grid .card img[loading="lazy"].loaded {
+html.js .card-grid .card img[loading="lazy"].loaded {
 	opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+	html.js .card-grid .card img[loading="lazy"] { transition: none; }
 }
 
 /* ===== Focus Enhancement for Interactive Elements ===== */
@@ -479,4 +487,468 @@ html::view-transition-new(root) { animation: vt-fade-in 0.3s ease-out; }
 	outline: 2px solid var(--accent);
 	outline-offset: 2px;
 	border-radius: 4px;
+}
+
+/* ===== Reading Mode ===== */
+.reading-mode {
+	--font-size-base: 20px;
+	--line-height-base: 1.85;
+}
+
+.reading-mode main {
+	max-width: 680px !important;
+	padding: 2.5rem 1.5rem !important;
+}
+
+.reading-mode .site-header,
+.reading-mode .site-footer,
+.reading-mode .hero-figure,
+.reading-mode .shots,
+.reading-mode .flow,
+.reading-mode .card-grid,
+.reading-mode .cta,
+.reading-mode .preferences-wrapper,
+.reading-mode .search-wrapper,
+.reading-mode .related-content,
+.reading-mode .view-toggle,
+.reading-mode .review-header,
+.reading-mode .review-empty,
+.reading-mode .review-cards,
+.reading-mode #toc,
+.reading-mode .toc,
+.reading-mode [class*="share"],
+.reading-mode [class*="social"] {
+	display: none !important;
+}
+
+.reading-mode body {
+	background: #faf8f5;
+}
+
+.reading-mode .prose,
+.reading-mode article,
+.reading-mode .vocab-cards-grid,
+.reading-mode .table-scroll {
+	max-width: 100% !important;
+}
+
+.reading-mode h1,
+.reading-mode h2,
+.reading-mode h3,
+.reading-mode h4 {
+	font-size: 1.4em;
+	line-height: 1.4;
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+}
+
+.reading-mode h1 { font-size: 2em; }
+
+.reading-mode p {
+	font-size: 1.05em;
+	line-height: 1.9;
+	margin-bottom: 1.5em;
+}
+
+.reading-mode a {
+	color: var(--accent);
+	text-decoration: underline;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 4px;
+}
+
+.reading-mode blockquote {
+	border-left: 4px solid var(--accent);
+	padding-left: 1.5rem;
+	margin: 1.5rem 0;
+	font-style: italic;
+	color: rgb(var(--gray-dark));
+}
+
+.reading-mode code,
+.reading-mode pre {
+	font-size: 0.95em;
+}
+
+.reading-mode table.vocab {
+	font-size: 1rem;
+	min-width: 0;
+}
+
+.reading-mode table.vocab th,
+.reading-mode table.vocab td {
+	padding: 0.85em 1em;
+}
+
+.reading-mode .vocab-card {
+	padding: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.reading-mode * { transition: none !important; }
+}
+
+/* ===== Global Buttons (.btn) ===== */
+/* Single source of truth — lesson completion, review grading, sentence
+   builder, modal and empty-state buttons all share this. */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5em;
+	min-height: 52px;
+	line-height: 1.2;
+	padding: 0.7em 1.5em;
+	background: var(--accent);
+	color: #fff;
+	font: inherit;
+	font-size: 0.95rem;
+	font-weight: 600;
+	text-decoration: none;
+	border: none;
+	border-radius: var(--radius);
+	margin-top: 0.5em;
+	cursor: pointer;
+	transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+	box-shadow: 0 2px 6px rgb(142 45 18 / 0.2);
+}
+a.btn:hover { color: #fff; }
+.btn:hover {
+	filter: brightness(0.93);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 14px rgb(142 45 18 / 0.25);
+}
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: 0.55; cursor: default; transform: none; }
+.btn.ghost {
+	background: transparent;
+	color: var(--accent);
+	border: 2px solid var(--accent);
+	box-shadow: none;
+}
+.btn.ghost:hover {
+	background: var(--accent-fixed);
+	color: var(--accent-on-fixed);
+	filter: none;
+	transform: none;
+	box-shadow: none;
+}
+.btn.ghost:disabled { opacity: 0.6; }
+@media (prefers-reduced-motion: reduce) {
+	.btn { transition: none; }
+	.btn:hover { transform: none; }
+}
+
+/* ===== Sentence Builder (vocab pages + quiz) ===== */
+.sentence-builder {
+	border: var(--border);
+	border-radius: var(--radius-lg, var(--radius));
+	background: var(--card);
+	padding: 1.5em 1.5em 1.25em 1.5em;
+	margin: 2em 0;
+	box-shadow: 0 1px 3px rgb(45 27 21 / 0.05), 0 8px 24px rgb(45 27 21 / 0.06);
+}
+.sentence-builder > h3 {
+	margin: 0 0 0.75em 0;
+	font-size: 1.1rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+}
+.sentence-builder > h3::before {
+	content: '🧩';
+	font-size: 1.2em;
+}
+.sentence-builder .progress {
+	height: 10px;
+	border-radius: var(--radius-full);
+	background: var(--container);
+	margin: 0 0 0.75em 0;
+	overflow: hidden;
+}
+.sentence-builder .progress span {
+	display: block;
+	height: 100%;
+	width: 0;
+	border-radius: var(--radius-full);
+	background: linear-gradient(90deg, var(--accent), var(--accent-container));
+	transition: width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.sentence-builder .qmeta {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.82rem;
+	color: rgb(var(--gray));
+	margin: 0 0 0.75em 0;
+	font-weight: 500;
+}
+.sentence-builder .aprompt {
+	font-size: 1.05rem;
+	font-weight: 600;
+	color: rgb(var(--black));
+	margin: 0 0 0.25em 0;
+}
+.sentence-builder .qtr {
+	color: rgb(var(--gray));
+	margin: 0 0 0.75em 0;
+	font-size: 0.95rem;
+}
+.abuild, .abank {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	min-height: 3.6em;
+	border: var(--border);
+	border-radius: var(--radius);
+	padding: 0.85em;
+	margin: 0.75em 0;
+	align-content: flex-start;
+}
+.abuild { background: var(--paper); border-style: solid; }
+.abank { background: var(--container-low); border-style: dashed; }
+.abuild .ph {
+	color: rgb(var(--gray));
+	font-size: 0.9rem;
+	align-self: center;
+}
+.sentence-builder .tok {
+	font: inherit;
+	font-size: 1rem;
+	background: var(--card);
+	border: 2px solid rgb(223 192 183 / 0.6);
+	border-radius: 10px;
+	padding: 0.5em 0.85em;
+	cursor: pointer;
+	color: rgb(var(--gray-dark));
+	line-height: 1.6;
+	transition: border-color 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+	box-shadow: 0 1px 2px rgb(45 27 21 / 0.05);
+}
+.sentence-builder .tok:hover,
+.sentence-builder .tok.in-answer:hover {
+	border-color: var(--accent);
+	transform: translateY(-1px);
+	box-shadow: 0 3px 8px rgb(142 45 18 / 0.1);
+}
+.sentence-builder .tok:active { transform: scale(0.98); }
+.sentence-builder .tok.in-answer {
+	background: var(--accent-fixed);
+	border-color: var(--accent);
+	color: var(--accent-on-fixed);
+}
+.sentence-builder .qfb {
+	font-weight: 600;
+	font-size: 0.95rem;
+	min-height: 1.6em;
+	margin: 0.75em 0 0 0;
+}
+.sentence-builder .qfb:not(:empty) {
+	background: var(--container-low);
+	border: var(--border);
+	border-radius: var(--radius);
+	padding: 0.85em 1.1em;
+}
+@media (prefers-reduced-motion: reduce) {
+	.sentence-builder .progress span,
+	.sentence-builder .tok { transition: none; }
+}
+
+/* ===== Quiz runtime (unscoped) ===== */
+/* Quiz option/token buttons are created by JS at runtime, so Astro's scoped
+   page styles never match them. These global rules are the real styling. */
+.qopts {
+	display: grid;
+	gap: 0.65em;
+	margin: 1.1em 0 0.75em 0;
+}
+.qopt {
+	font: inherit;
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	text-align: left;
+	background: var(--card);
+	border: 2px solid rgb(223 192 183 / 0.5);
+	border-radius: var(--radius);
+	padding: 1em 1.25em;
+	cursor: pointer;
+	color: rgb(var(--gray-dark));
+	font-size: 1.02rem;
+	transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+	position: relative;
+	overflow: hidden;
+}
+.qopt:hover:not(:disabled) {
+	border-color: var(--accent);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgb(142 45 18 / 0.08);
+}
+.qopt:disabled { cursor: default; }
+.qopt:not(.ok):not(.bad):disabled { opacity: 0.55; }
+.qopt .k {
+	flex: none;
+	width: 2.4em;
+	height: 2.4em;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--radius);
+	background: var(--accent-fixed);
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: var(--accent-on-fixed);
+}
+.qopt-text { flex: 1; line-height: 1.6; font-weight: 500; }
+.qopt.ok { border-color: var(--success); background: var(--success-bg); animation: opt-pop 0.25s ease-out; }
+.qopt.ok .k { background: var(--success); color: #fff; }
+.qopt.bad { border-color: var(--accent); background: var(--accent-fixed); animation: opt-shake 0.35s ease-out; }
+.qopt.bad .k { background: var(--accent); color: #fff; }
+@keyframes opt-pop {
+	0% { transform: scale(0.98); }
+	50% { transform: scale(1.01); }
+	100% { transform: none; }
+}
+@keyframes opt-shake {
+	0%, 100% { transform: translateX(0); }
+	20% { transform: translateX(-4px); }
+	40% { transform: translateX(4px); }
+	60% { transform: translateX(-3px); }
+	80% { transform: translateX(3px); }
+}
+.qfb {
+	font-weight: 600;
+	font-size: 0.95rem;
+	min-height: 1.6em;
+	margin-top: 0.75em;
+}
+.qfb:not(:empty) {
+	background: var(--container-low);
+	border: var(--border);
+	border-radius: var(--radius);
+	padding: 0.85em 1.1em;
+}
+/* Quiz arrange-mode tokens (also runtime-created) */
+#arrange .tok {
+	font: inherit;
+	font-size: 1.02rem;
+	background: var(--card);
+	border: 2px solid rgb(223 192 183 / 0.6);
+	border-radius: 10px;
+	padding: 0.5em 0.85em;
+	cursor: pointer;
+	color: rgb(var(--gray-dark));
+	line-height: 1.6;
+	transition: border-color 0.12s ease, transform 0.12s ease;
+	box-shadow: 0 1px 2px rgb(45 27 21 / 0.04);
+}
+#arrange .tok:hover { border-color: var(--accent); transform: translateY(-1px); }
+#arrange .tok:active { transform: scale(0.98); }
+#arrange .abuild .ph {
+	color: rgb(var(--gray));
+	font-size: 0.9rem;
+	align-self: center;
+}
+@media (prefers-reduced-motion: reduce) {
+	.qopt, .qopt.ok, .qopt.bad { transition: none; animation: none; }
+	#arrange .tok { transition: none; }
+}
+
+/* ===== Runtime-injected DOM (unscoped) ===== */
+/* Search dropdown items, milestone toasts, streak ring and status dots are
+   injected by JS at runtime without Astro scope attributes, so component
+   scoped styles never match them. These global rules are the real styling. */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+#streak-ring .streak-count {
+	font-size: 0.7rem;
+	font-weight: 700;
+	color: var(--accent);
+	line-height: 1;
+}
+#online-status .status-dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	display: inline-block;
+}
+#online-status .status-dot.online { background: var(--success); box-shadow: 0 0 0 3px var(--success-bg); }
+#online-status .status-dot.offline { background: #dc2626; box-shadow: 0 0 0 3px #fee2e2; }
+
+/* Search results dropdown */
+.search-result-item {
+	display: block;
+	padding: 0.75rem 0.8rem;
+	border-radius: calc(var(--radius) * 0.7);
+	cursor: pointer;
+}
+.search-result-item + .search-result-item { margin-top: 2px; }
+.search-result-item:hover,
+.search-result-item.highlighted { background: var(--accent-fixed); }
+.search-result-item:active { transform: scale(0.99); }
+.search-result-title { font-weight: 650; line-height: 1.35; color: rgb(var(--black)); }
+.search-result-title mark { background: transparent; color: var(--accent); font-weight: 750; }
+.search-result-meta { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem; }
+.search-result-type { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); }
+.search-result-desc { margin-top: 0.25rem; font-size: 0.82rem; line-height: 1.45; color: rgb(var(--gray)); }
+.search-empty, .search-loading, .search-error { padding: 1.1rem 0.9rem; text-align: center; font-size: 0.85rem; color: rgb(var(--gray)); }
+.search-empty strong { color: rgb(var(--black)); }
+.search-error { color: var(--accent); }
+
+/* Milestone celebration toasts */
+.milestone-toast {
+	pointer-events: auto;
+	display: flex;
+	align-items: flex-start;
+	gap: 1rem;
+	padding: 1rem 1.25rem;
+	background: var(--card);
+	border: var(--border);
+	border-radius: var(--radius);
+	box-shadow: 0 16px 40px rgb(45 27 21 / 0.18), 0 4px 12px rgb(45 27 21 / 0.1);
+	animation: toast-slide-in 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+	transform-origin: bottom right;
+	position: relative;
+}
+.milestone-toast.hiding { animation: toast-slide-out 0.3s ease-in forwards; }
+@keyframes toast-slide-in {
+	from { opacity: 0; transform: translateX(120%) scale(0.95); }
+	to { opacity: 1; transform: none; }
+}
+@keyframes toast-slide-out {
+	from { opacity: 1; transform: none; }
+	to { opacity: 0; transform: translateX(120%) scale(0.95); }
+}
+.milestone-toast .toast-icon { font-size: 2.5rem; line-height: 1; flex-shrink: 0; }
+.milestone-toast .toast-content { flex: 1; min-width: 0; }
+.milestone-toast .toast-title { font-weight: 700; font-size: 1rem; color: rgb(var(--black)); margin: 0 0 0.25rem 0; }
+.milestone-toast .toast-message { font-size: 0.88rem; line-height: 1.5; color: rgb(var(--gray)); margin: 0; }
+.milestone-toast .toast-close {
+	flex-shrink: 0;
+	width: 28px;
+	height: 28px;
+	display: grid;
+	place-items: center;
+	border: none;
+	background: transparent;
+	color: rgb(var(--gray));
+	font-size: 1.25rem;
+	line-height: 1;
+	cursor: pointer;
+	border-radius: 50%;
+	margin-top: -0.25rem;
+	margin-right: -0.5rem;
+}
+.milestone-toast .toast-close:hover { background: var(--accent-fixed); color: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+	.milestone-toast, .milestone-toast.hiding { animation: none; }
+	.milestone-toast.hiding { display: none; }
 }

@@ -1,6 +1,9 @@
 // Spaced Repetition System — SM-2 algorithm, IndexedDB persistence
 // Uses `idb` package (3kb) for cross-tab persistence
-import { openDB, DBSchema } from 'idb';
+// With offline queue via sync.ts
+import { openDB } from 'idb';
+import type { DBSchema } from 'idb';
+import { queueMutation } from './sync';
 
 export interface WeakWord {
 	id: string;
@@ -74,6 +77,11 @@ export async function addWord(wordId: string, grade: 'again' | 'hard' | 'good' |
 		easeFactor,
 		interval,
 	}, wordId);
+
+	// Queue for offline sync
+	try {
+		await queueMutation('srs', { wordId, grade });
+	} catch { /* ignore if sync unavailable */ }
 }
 
 export async function getDueWords(): Promise<WeakWord[]> {

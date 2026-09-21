@@ -15,6 +15,10 @@ export const BOL_MARATHI_APP = {
   // primary CTAs read "Join the beta" and link here; otherwise they
   // show the waitlist form. Null = waitlist only.
   betaOptInUrl: null as string | null,
+  // Deep-link base for the future native app (unit practice links).
+  // Used only when the app is live or in beta; otherwise pages fall
+  // back to the waitlist form.
+  deepLinkBase: 'bolmarathi://practice',
   // Waitlist: footer CTA is an inline form posting here; everywhere
   // else stays mailto (deliberate A/B split). Paste a Formspree
   // endpoint (https://formspree.io → New Form → copy
