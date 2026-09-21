@@ -2,6 +2,7 @@
 import AppCTA from '../components/AppCTA.astro';
 import Learn from '../layouts/Learn.astro';
 import RelatedContent from '../components/RelatedContent.astro';
+import PronunciationViz from '../components/PronunciationViz.astro';
 import { getUnit } from '../lib/learn';
 import { siteUrl } from '../lib/site';
 
@@ -37,6 +38,8 @@ const unit = getUnit('06');
 			{g.note && <p><em>Note:</em> {g.note}</p>}
 		</section>
 	))}
+
+	<PronunciationViz audioSrc="/learn-marathi/audio/namaste.mp3" waveform={[0.1,0.3,0.6,0.8,0.5,0.2,0.1]} pitch={[120,130,140,135,125,115,110]} />
 
 	<AppCTA variant="grammar" context="marathi-pronunciation" />
 

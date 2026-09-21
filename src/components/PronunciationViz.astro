@@ -1,0 +1,94 @@
+---
+interface Props {
+	waveform?: number[];
+	pitch?: number[];
+	audioSrc?: string;
+}
+const { waveform = [], pitch = [], audioSrc } = Astro.props;
+const waveJson = JSON.stringify(waveform);
+const pitchJson = JSON.stringify(pitch);
+---
+<div class="pronunciation-viz" data-audio={audioSrc} data-waveform={waveJson} data-pitch={pitchJson}>
+	<canvas class="waveform-canvas" aria-label="Waveform visualization"></canvas>
+	<canvas class="pitch-canvas" aria-label="Pitch contour"></canvas>
+	<div class="viz-controls">
+		<button class="btn" id="viz-play" aria-label="Play">▶</button>
+		<input type="range" id="viz-speed" min="0.5" max="2" step="0.25" value="1" aria-label="Playback speed">
+	</div>
+</div>
+
+<style>
+	.pronunciation-viz { display: flex; flex-direction: column; gap: 0.75em; margin: 1.5em 0; }
+	.waveform-canvas, .pitch-canvas { width: 100%; height: 80px; background: var(--container-low); border-radius: var(--radius); border: var(--border); }
+	.viz-controls { display: flex; align-items: center; gap: 1em; }
+	#viz-speed { flex: 1; max-width: 200px; }
+</style>
+
+<script>
+	(function () {
+		document.querySelectorAll('.pronunciation-viz').forEach(function (viz) {
+			var audioSrc = viz.getAttribute('data-audio');
+			var waveform = JSON.parse(viz.getAttribute('data-waveform') || '[]');
+			var pitch = JSON.parse(viz.getAttribute('data-pitch') || '[]');
+			var waveCanvas = viz.querySelector('.waveform-canvas');
+			var pitchCanvas = viz.querySelector('.pitch-canvas');
+			var playBtn = viz.querySelector('#viz-play');
+			var speedInput = viz.querySelector('#viz-speed');
+			if (!audioSrc || !waveCanvas || !pitchCanvas) return;
+
+			var audio = new Audio(audioSrc);
+			var waveCtx = waveCanvas.getContext('2d');
+			var pitchCtx = pitchCanvas.getContext('2d');
+
+			function resize() {
+				var w = waveCanvas.parentElement.clientWidth;
+				waveCanvas.width = w; waveCanvas.height = 80;
+				pitchCanvas.width = w; pitchCanvas.height = 80;
+				drawWave(); drawPitch();
+			}
+			function drawWave() {
+				waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+				if (!waveform.length) return;
+				var cx = waveCanvas.getContext('2d');
+				var mid = waveCanvas.height / 2;
+				cx.beginPath();
+				for (var i = 0; i < waveform.length; i++) {
+					var x = (i / waveform.length) * waveCanvas.width;
+					var y = mid - waveform[i] * mid * 0.8;
+					if (i === 0) cx.moveTo(x, y); else cx.lineTo(x, y);
+				}
+				cx.strokeStyle = 'var(--accent)';
+				cx.lineWidth = 2;
+				cx.stroke();
+			}
+			function drawPitch() {
+				pitchCtx.clearRect(0, 0, pitchCanvas.width, pitchCanvas.height);
+				if (!pitch.length) return;
+				var cx = pitchCanvas.getContext('2d');
+				cx.beginPath();
+				for (var i = 0; i < pitch.length; i++) {
+					var x = (i / pitch.length) * pitchCanvas.width;
+					var y = pitchCanvas.height - (pitch[i] / 500) * pitchCanvas.height * 0.8;
+					if (i === 0) cx.moveTo(x, y); else cx.lineTo(x, y);
+				}
+				cx.strokeStyle = 'var(--success)';
+				cx.lineWidth = 2;
+				cx.stroke();
+			}
+			playBtn?.addEventListener('click', function () {
+				if (audio.paused) {
+					audio.playbackRate = parseFloat(speedInput.value);
+					audio.play();
+					playBtn.textContent = '⏸';
+				} else {
+					audio.pause();
+					playBtn.textContent = '▶';
+				}
+			});
+			audio.addEventListener('ended', function () { playBtn.textContent = '▶'; });
+			speedInput?.addEventListener('input', function () { audio.playbackRate = parseFloat(this.value); });
+			window.addEventListener('resize', resize);
+			resize();
+		});
+	})();
+</script>

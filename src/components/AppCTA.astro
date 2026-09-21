@@ -7,7 +7,7 @@ import WaitlistForm from './WaitlistForm.astro';
 // live (playStoreUrl set) → variant-specific store button;
 // otherwise → shared WaitlistForm (no mailto anywhere).
 type Props = {
-	variant?: 'vocabulary' | 'phrase' | 'grammar' | 'lesson' | 'general';
+	variant?: 'vocabulary' | 'phrase' | 'grammar' | 'lesson' | 'general' | 'unit-practice';
 	context?: string;
 	locale?: 'en' | 'hi';
 };
@@ -39,6 +39,11 @@ const enCopy: Record<Exclude<Props['variant'], undefined>, Copy> = {
 		body: `Continue this lesson with listening, speaking and interactive practice in ${BOL_MARATHI_APP.name}.`,
 		cta: 'Continue in Bol Marathi',
 	},
+	'unit-practice': {
+		heading: 'Ready to practice this unit?',
+		body: `Open the unit in the app for listening, speaking, sentence building and spaced repetition.`,
+		cta: 'Practice This Unit',
+	},
 	general: {
 		heading: 'Want to go beyond reading?',
 		body: `Learn the words here. Practise listening and speaking in the app — listen, speak, build, review, remember.`,
@@ -59,13 +64,18 @@ const hiCopy: Record<Exclude<Props['variant'], undefined>, Copy> = {
 	},
 	grammar: {
 		heading: 'नियम समझें, फिर वाक्य बनाएँ।',
-		body: `यह पन्ना नियम सिखाता है। ${BOL_MARATHI_APP.name} में तुरंत फीडबैक के साथ वाक्य बनाने का अभ्यास करें।`,
+		body: `यह पन्ना नियम सिखाता है। ${BOL_MARATHI_APP.name} में तुरंत फीड백 के साथ वाक्य बनाने का अभ्यास करें।`,
 		cta: 'वाक्य बनाना सीखें',
 	},
 	lesson: {
 		heading: 'पढ़ लिया? अब अभ्यास करें।',
 		body: `इस पाठ को ${BOL_MARATHI_APP.name} में सुनने, बोलने और इंटरैक्टिव अभ्यास के साथ आगे बढ़ाएँ।`,
 		cta: 'बोल मराठी में जारी रखें',
+	},
+	'unit-practice': {
+		heading: 'इस यूनिट का अभ्यास करने के लिए तैयार?',
+		body: `ऐप में यूनिट खोलें — सुनना, बोलना, वाक्य बनाना और दोहराव।`,
+		cta: 'यह यूनिट अभ्यास करें',
 	},
 	general: {
 		heading: 'सिर्फ़ पढ़ने से आगे बढ़ें?',
@@ -85,10 +95,12 @@ const betaLabel = locale === 'hi' ? 'बीटा से जुड़ें' : '
 		<a class="btn" href={beta} data-funnel="beta_click" data-app-cta data-cta-variant={variant}>{betaLabel}</a>
 	) : live ? (
 		<a class="btn" href={BOL_MARATHI_APP.playStoreUrl as string} data-funnel="download_click" data-app-cta data-cta-variant={variant}>{copy.cta}</a>
+	) : variant === 'unit-practice' ? (
+		<a class="btn" href={`bolmarathi://practice/unit/${context.replace('unit-', '')}`} data-funnel="deeplink_click" data-app-cta data-cta-variant={variant}>{copy.cta}</a>
 	) : (
 		<WaitlistForm context={context} locale={locale} />
 	)}
-	{BOL_MARATHI_APP.comingSoon && !beta && (
+	{BOL_MARATHI_APP.comingSoon && !beta && variant !== 'unit-practice' && (
 		<p class="note">
 			{BOL_MARATHI_APP.comingSoonNote}{' '}
 			{locale === 'hi'

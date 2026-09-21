@@ -5,29 +5,29 @@ import JsonLd from '../components/JsonLd.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { BOL_MARATHI_APP } from '../data/app';
 import { clusters, phraseSets, grammarTopics, units, vocab } from '../lib/learn';
-import { pageArt } from '../lib/art';
+import { pageArt, pageLQIP } from '../lib/art';
 import { siteUrl } from '../lib/site';
 
 const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 const sections = [
-	{ kicker: 'Vocabulary', title: 'Words grouped the way you use them', href: siteUrl('/vocabulary/'), items: clusters.map((c) => ({ label: c.title, href: siteUrl(`/vocabulary/${c.slug}/`), art: pageArt(`vocabulary/${c.slug}`) })) },
-	{ kicker: 'Phrases', title: 'Say it in Marathi', href: siteUrl('/phrases/'), items: phraseSets.map((p) => ({ label: p.title, href: siteUrl(`/phrases/${p.slug}/`), art: pageArt(`phrases/${p.slug}`) })) },
-	{ kicker: 'Grammar', title: 'Patterns, not rules', href: siteUrl('/grammar/'), items: grammarTopics.map((g) => ({ label: g.title, href: siteUrl(`/grammar/${g.slug}/`), art: pageArt(`grammar/${g.slug}`) })) },
+	{ kicker: 'Vocabulary', title: 'Words grouped the way you use them', href: siteUrl('/vocabulary/'), items: clusters.map((c) => ({ label: c.title, href: siteUrl(`/vocabulary/${c.slug}/`), art: pageArt(`vocabulary/${c.slug}`), lqip: pageLQIP(`vocabulary/${c.slug}`) })) },
+	{ kicker: 'Phrases', title: 'Say it in Marathi', href: siteUrl('/phrases/'), items: phraseSets.map((p) => ({ label: p.title, href: siteUrl(`/phrases/${p.slug}/`), art: pageArt(`phrases/${p.slug}`), lqip: pageLQIP(`phrases/${p.slug}`) })) },
+	{ kicker: 'Grammar', title: 'Patterns, not rules', href: siteUrl('/grammar/'), items: grammarTopics.map((g) => ({ label: g.title, href: siteUrl(`/grammar/${g.slug}/`), art: pageArt(`grammar/${g.slug}`), lqip: pageLQIP(`grammar/${g.slug}`) })) },
 ];
 
 const paths = [
-	{ href: siteUrl('/start/'), label: 'New to Marathi? Start here', desc: 'Six steps: words → greetings → sentences → bridges → your first lesson.', art: pageArt('start') },
-	{ href: siteUrl('/hindi-to-marathi/'), label: 'Learn from Hindi', desc: 'Word pairs and sentence bridges mapped from Hindi you already know.', art: pageArt('hindi-to-marathi') },
-	{ href: siteUrl('/english-to-marathi/'), label: 'Learn from English', desc: 'Everyday words and sentences with English meanings and pronunciation.', art: pageArt('english-to-marathi') },
-	{ href: siteUrl('/hi/'), label: 'हिंदी में सीखें', desc: 'पूरा शुरुआती खंड हिंदी में — शब्द, वाक्य और ऐप।', art: pageArt('hi'), lang: 'hi' },
-	{ href: siteUrl('/quiz/'), label: 'Test yourself', desc: '10-question quizzes with instant feedback.', art: pageArt('quiz') },
-	{ href: siteUrl('/downloads/'), label: 'Free Anki decks', desc: 'Top 100 words or the full 1002-word set.', art: pageArt('downloads') },
+	{ href: siteUrl('/start/'), label: 'New to Marathi? Start here', desc: 'Six steps: words → greetings → sentences → bridges → your first lesson.', art: pageArt('start'), lqip: pageLQIP('start') },
+	{ href: siteUrl('/hindi-to-marathi/'), label: 'Learn from Hindi', desc: 'Word pairs and sentence bridges mapped from Hindi you already know.', art: pageArt('hindi-to-marathi'), lqip: pageLQIP('hindi-to-marathi') },
+	{ href: siteUrl('/english-to-marathi/'), label: 'Learn from English', desc: 'Everyday words and sentences with English meanings and pronunciation.', art: pageArt('english-to-marathi'), lqip: pageLQIP('english-to-marathi') },
+	{ href: siteUrl('/hi/'), label: 'हिंदी में सीखें', desc: 'पूरा शुरुआती खंड हिंदी में — शब्द, वाक्य और ऐप।', art: pageArt('hi'), lqip: pageLQIP('hi'), lang: 'hi' },
+	{ href: siteUrl('/quiz/'), label: 'Test yourself', desc: '10-question quizzes with instant feedback.', art: pageArt('quiz'), lqip: pageLQIP('quiz') },
+	{ href: siteUrl('/downloads/'), label: 'Free Anki decks', desc: 'Top 100 words or the full 1002-word set.', art: pageArt('downloads'), lqip: pageLQIP('downloads') },
 ];
 
 const popular = [
-	{ href: siteUrl('/marathi-numbers/'), label: 'Numbers 1–20', desc: 'Count, prices and time.', art: pageArt('marathi-numbers') },
-	{ href: siteUrl('/marathi-days-months/'), label: 'Days & months', desc: 'Weeks, months, parts of day.', art: pageArt('marathi-days-months') },
-	{ href: siteUrl('/marathi-pronunciation/'), label: 'Pronunciation', desc: 'Sounds Hindi speakers must learn.', art: pageArt('marathi-pronunciation') },
+	{ href: siteUrl('/marathi-numbers/'), label: 'Numbers 1–20', desc: 'Count, prices and time.', art: pageArt('marathi-numbers'), lqip: pageLQIP('marathi-numbers') },
+	{ href: siteUrl('/marathi-days-months/'), label: 'Days & months', desc: 'Weeks, months, parts of day.', art: pageArt('marathi-days-months'), lqip: pageLQIP('marathi-days-months') },
+	{ href: siteUrl('/marathi-pronunciation/'), label: 'Pronunciation', desc: 'Sounds Hindi speakers must learn.', art: pageArt('marathi-pronunciation'), lqip: pageLQIP('marathi-pronunciation') },
 ];
 
 const method = [
@@ -94,7 +94,7 @@ const faqs = [
 			{paths.map((p, i) => (
 				<li class={`reveal reveal-delay-${i + 1}`}>
 					<a class="card" href={p.href} data-funnel="path_click" lang={p.lang}>
-						<img src={p.art} alt="" loading="lazy" width="1200" height="630" />
+						<img src={p.art} alt="" loading="lazy" width="1200" height="630" style={`background-image: url('${p.lqip}'); background-size: cover;`} onload="this.style.backgroundImage=''" />
 						<h3>{p.label}</h3>
 						<p>{p.desc}</p>
 					</a>
@@ -153,7 +153,7 @@ const faqs = [
 			{popular.map((p, i) => (
 				<li class={`reveal reveal-delay-${i + 1}`}>
 					<a class="card" href={p.href}>
-						<img src={p.art} alt="" loading="lazy" width="1200" height="630" />
+						<img src={p.art} alt="" loading="lazy" width="1200" height="630" style={`background-image: url('${p.lqip}'); background-size: cover;`} onload="this.style.backgroundImage=''" />
 						<h3>{p.label}</h3>
 						<p>{p.desc}</p>
 					</a>
@@ -175,7 +175,7 @@ const faqs = [
 				{s.items.map((i, idx) => (
 					<li class={`reveal reveal-delay-${(idx % 6) + 1}`}>
 						<a class="card" href={i.href}>
-							<img src={i.art} alt="" loading="lazy" width="1200" height="630" />
+							<img src={i.art} alt="" loading="lazy" width="1200" height="630" style={`background-image: url('${i.lqip}'); background-size: cover;`} onload="this.style.backgroundImage=''" />
 							<h3>{i.label}</h3>
 						</a>
 					</li>

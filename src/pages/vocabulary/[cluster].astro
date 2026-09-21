@@ -2,8 +2,10 @@
 import AppCTA from '../../components/AppCTA.astro';
 import RelatedContent from '../../components/RelatedContent.astro';
 import VocabTable from '../../components/VocabTable.astro';
+import VocabCard from '../../components/VocabCard.astro';
+import SentenceBuilder from '../../components/SentenceBuilder.astro';
 import Learn from '../../layouts/Learn.astro';
-import { clusters, wordsByCategory } from '../../lib/learn';
+import { clusters, wordsByCategory, getUnit } from '../../lib/learn';
 import { siteUrl } from '../../lib/site';
 
 export async function getStaticPaths() {
@@ -14,6 +16,14 @@ const { cluster: slug } = Astro.params;
 const cluster = clusters.find((c) => c.slug === slug);
 if (!cluster) throw new Error(`Unknown cluster: ${slug}`);
 const words = wordsByCategory(cluster.categories);
+const builders = cluster.unitRefs.flatMap((no) =>
+	getUnit(no).sentenceBuilder.map((b) => ({
+		tokens: b.tokens,
+		answer: b.answer,
+		prompt: b.promptEn || b.prompt,
+		hindi: b.hindi,
+	}))
+).slice(0, 5);
 ---
 
 <Learn
@@ -45,6 +55,27 @@ const words = wordsByCategory(cluster.categories);
 
 	<VocabTable words={words} caption={cluster.title} />
 
+	<div class="view-toggle" role="tablist" aria-label="View mode">
+		<button type="button" class="view-btn active" role="tab" aria-selected="true" data-view="table">Table</button>
+		<button type="button" class="view-btn" role="tab" aria-selected="false" data-view="cards">Flip Cards</button>
+	</div>
+
+	<div id="vocab-table" role="tabpanel" aria-labelledby="table-tab">
+		<VocabTable words={words} caption={cluster.title} />
+	</div>
+
+	<div id="vocab-cards" role="tabpanel" aria-labelledby="cards-tab" hidden>
+		<div class="vocab-cards-grid">
+			{words.map((word) => (
+				<VocabCard word={word} />
+			))}
+		</div>
+	</div>
+
+	{builders.length > 0 && (
+		<SentenceBuilder builders={builders} />
+	)}
+
 	<AppCTA variant="vocabulary" context={`vocabulary-${cluster.slug}`} />
 
 	<h2>How to use these words</h2>
@@ -67,6 +98,28 @@ const words = wordsByCategory(cluster.categories);
 	</details>
 </Learn>
 
+<script>
+	// View toggle: Table / Flip Cards
+	(function () {
+		const tableBtn = document.querySelector('[data-view="table"]');
+		const cardsBtn = document.querySelector('[data-view="cards"]');
+		const tablePanel = document.getElementById('vocab-table');
+		const cardsPanel = document.getElementById('vocab-cards');
+		if (!tableBtn || !cardsBtn || !tablePanel || !cardsPanel) return;
+		function show(view) {
+			const isCards = view === 'cards';
+			tableBtn.classList.toggle('active', !isCards);
+			cardsBtn.classList.toggle('active', isCards);
+			tableBtn.setAttribute('aria-selected', String(!isCards));
+			cardsBtn.setAttribute('aria-selected', String(isCards));
+			tablePanel.hidden = isCards;
+			cardsPanel.hidden = !isCards;
+		}
+		tableBtn.addEventListener('click', () => show('table'));
+		cardsBtn.addEventListener('click', () => show('cards'));
+	})();
+</script>
+
 <style>
 	details {
 		border: var(--border);
@@ -80,4 +133,40 @@ const words = wordsByCategory(cluster.categories);
 		cursor: pointer;
 	}
 	details p { margin: 0.6em 0 0.2em 0; }
+
+	.view-toggle {
+		display: flex;
+		gap: 0.5em;
+		margin: 1.5em 0;
+		background: var(--container);
+		border-radius: var(--radius-full);
+		padding: 0.25em;
+	}
+	.view-btn {
+		font: inherit;
+		font-size: 0.9rem;
+		font-weight: 600;
+		padding: 0.6em 1.1em;
+		border-radius: var(--radius-full);
+		border: none;
+		background: transparent;
+		color: rgb(var(--gray));
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+	.view-btn.active {
+		background: var(--accent);
+		color: #fff;
+		box-shadow: 0 2px 8px rgb(142 45 18 / 0.25);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.view-btn { transition: none; }
+	}
+
+	.vocab-cards-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 1em;
+		margin: 1.5em 0;
+	}
 </style>

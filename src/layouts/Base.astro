@@ -117,5 +117,32 @@ const { title, description, ogImage, noindex, alternates, lang = 'en', crumbs = 
 				else img.addEventListener('load', function () { img.classList.add('loaded'); }, { once: true });
 			});
 		})();
+
+		/* Service Worker registration */
+		(function () {
+			if ('serviceWorker' in navigator) {
+				window.addEventListener('load', function () {
+					navigator.serviceWorker.register('/learn-marathi/sw.js', { scope: '/learn-marathi/' })
+						.catch(function () { /* fail silently */ });
+				});
+			}
+		})();
+
+		/* Keyboard shortcuts */
+		(function () {
+			var shortcuts = {
+				'/': function () { var s = document.querySelector('[data-search-input]'); if (s) s.focus(); },
+				'?': function () { alert('Shortcuts: / = search, ←/→ = prev/next lesson, Space = play audio, R = reading mode, ? = help'); },
+				' ': function (e) { var a = document.querySelector('.say:not([hidden])'); if (a && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') { e.preventDefault(); a.click(); } },
+				'ArrowLeft': function () { var l = document.querySelector('.pager a:not(.next)'); if (l) l.click(); },
+				'ArrowRight': function () { var n = document.querySelector('.pager a.next'); if (n) n.click(); },
+				'r': function () { document.body.classList.toggle('reading-mode'); },
+			};
+			document.addEventListener('keydown', function (e) {
+				if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+				var action = shortcuts[e.key];
+				if (action) action(e);
+			});
+		})();
 	</script>
 </html>

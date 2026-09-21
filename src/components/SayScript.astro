@@ -14,6 +14,7 @@
 			return;
 		}
 		var voice = null;
+		var saySpeed = parseFloat(localStorage.getItem('bol-say-speed') || '1');
 		function pickVoice() {
 			try {
 				var voices = window.speechSynthesis.getVoices() || [];
@@ -27,6 +28,30 @@
 		if ('onvoiceschanged' in window.speechSynthesis) {
 			window.speechSynthesis.onvoiceschanged = pickVoice;
 		}
+
+		// Speed selector UI (injected once near first .say button)
+		function injectSpeedControl() {
+			if (document.getElementById('say-speed-control')) return;
+			var firstSay = document.querySelector('.say');
+			if (!firstSay) return;
+			var wrapper = document.createElement('div');
+			wrapper.id = 'say-speed-control';
+			wrapper.style.cssText = 'display:inline-flex;align-items:center;gap:0.5em;margin-left:0.5em;font-size:0.75rem;color:rgb(var(--gray));';
+			wrapper.innerHTML = '<label>Speed: <select id="say-speed-select" style="font:inherit;padding:0.2em 0.5em;border:var(--border);border-radius:4px;background:var(--card);"><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.25">1.25×</option></select></label>';
+			wrapper.querySelector('select').value = String(saySpeed);
+			wrapper.querySelector('select').addEventListener('change', function (e) {
+				saySpeed = parseFloat(e.target.value);
+				localStorage.setItem('bol-say-speed', String(saySpeed));
+			});
+			firstSay.parentNode.insertBefore(wrapper, firstSay.nextSibling);
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', injectSpeedControl);
+		} else {
+			injectSpeedControl();
+		}
+
 		document.addEventListener('click', (e) => {
 			var btn = e.target.closest ? e.target.closest('[data-say],[data-audio]') : null;
 			if (!btn) return;
@@ -39,6 +64,7 @@
 						btn._player.preload = 'none';
 					}
 					btn._player.currentTime = 0;
+					btn._player.playbackRate = saySpeed;
 					btn._player.play().catch(() => {});
 				} catch (err) {}
 				return;
@@ -47,7 +73,7 @@
 				window.speechSynthesis.cancel();
 				var u = new SpeechSynthesisUtterance(btn.getAttribute('data-say') || '');
 				u.lang = 'mr-IN';
-				u.rate = 0.85;
+				u.rate = 0.85 * saySpeed;
 				if (voice) u.voice = voice;
 				window.speechSynthesis.speak(u);
 			} catch (err) {
