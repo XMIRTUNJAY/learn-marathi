@@ -2,38 +2,39 @@
 import AppCTA from '../components/AppCTA.astro';
 import Base from '../layouts/Base.astro';
 import JsonLd from '../components/JsonLd.astro';
+import Mascot from '../components/Mascot.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { BOL_MARATHI_APP } from '../data/app';
 import { clusters, phraseSets, grammarTopics, units, vocab } from '../lib/learn';
-import { pageArt } from '../lib/art';
+import { pageArt, pageLQIP } from '../lib/art';
 import { siteUrl } from '../lib/site';
 
 const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
 const sections = [
-	{ kicker: 'Vocabulary', title: 'Words grouped the way you use them', href: siteUrl('/vocabulary/'), items: clusters.map((c) => ({ label: c.title, href: siteUrl(`/vocabulary/${c.slug}/`), art: pageArt(`vocabulary/${c.slug}`) })) },
-	{ kicker: 'Phrases', title: 'Say it in Marathi', href: siteUrl('/phrases/'), items: phraseSets.map((p) => ({ label: p.title, href: siteUrl(`/phrases/${p.slug}/`), art: pageArt(`phrases/${p.slug}`) })) },
-	{ kicker: 'Grammar', title: 'Patterns, not rules', href: siteUrl('/grammar/'), items: grammarTopics.map((g) => ({ label: g.title, href: siteUrl(`/grammar/${g.slug}/`), art: pageArt(`grammar/${g.slug}`) })) },
+	{ kicker: 'Vocabulary', title: 'Words grouped the way you use them', href: siteUrl('/vocabulary/'), items: clusters.map((c) => ({ label: c.title, href: siteUrl(`/vocabulary/${c.slug}/`), art: pageArt(`vocabulary/${c.slug}`), lqip: pageLQIP(`vocabulary/${c.slug}`) })) },
+	{ kicker: 'Phrases', title: 'Say it in Marathi', href: siteUrl('/phrases/'), items: phraseSets.map((p) => ({ label: p.title, href: siteUrl(`/phrases/${p.slug}/`), art: pageArt(`phrases/${p.slug}`), lqip: pageLQIP(`phrases/${p.slug}`) })) },
+	{ kicker: 'Grammar', title: 'Patterns, not rules', href: siteUrl('/grammar/'), items: grammarTopics.map((g) => ({ label: g.title, href: siteUrl(`/grammar/${g.slug}/`), art: pageArt(`grammar/${g.slug}`), lqip: pageLQIP(`grammar/${g.slug}`) })) },
 ];
 
 const paths = [
-	{ href: siteUrl('/start/'), label: 'New to Marathi? Start here', desc: 'Six steps: words → greetings → sentences → bridges → your first lesson.', art: pageArt('start') },
-	{ href: siteUrl('/hindi-to-marathi/'), label: 'Learn from Hindi', desc: 'Word pairs and sentence bridges mapped from Hindi you already know.', art: pageArt('hindi-to-marathi') },
-	{ href: siteUrl('/english-to-marathi/'), label: 'Learn from English', desc: 'Everyday words and sentences with English meanings and pronunciation.', art: pageArt('english-to-marathi') },
-	{ href: siteUrl('/hi/'), label: 'हिंदी में सीखें', desc: 'पूरा शुरुआती खंड हिंदी में — शब्द, वाक्य और ऐप।', art: pageArt('hi'), lang: 'hi' },
-	{ href: siteUrl('/quiz/'), label: 'Test yourself', desc: '10-question quizzes with instant feedback.', art: pageArt('quiz') },
-	{ href: siteUrl('/downloads/'), label: 'Free Anki decks', desc: 'Top 100 words or the full 1002-word set.', art: pageArt('downloads') },
+	{ href: siteUrl('/start/'), label: 'New to Marathi? Start here', desc: 'Six steps: words → greetings → sentences → bridges → your first lesson.', art: pageArt('start'), lqip: pageLQIP('start') },
+	{ href: siteUrl('/hindi-to-marathi/'), label: 'Learn from Hindi', desc: 'Word pairs and sentence bridges mapped from Hindi you already know.', art: pageArt('hindi-to-marathi'), lqip: pageLQIP('hindi-to-marathi') },
+	{ href: siteUrl('/english-to-marathi/'), label: 'Learn from English', desc: 'Everyday words and sentences with English meanings and pronunciation.', art: pageArt('english-to-marathi'), lqip: pageLQIP('english-to-marathi') },
+	{ href: siteUrl('/hi/'), label: 'हिंदी में सीखें', desc: 'पूरा शुरुआती खंड हिंदी में — शब्द, वाक्य और ऐप।', art: pageArt('hi'), lqip: pageLQIP('hi'), lang: 'hi' },
+	{ href: siteUrl('/quiz/'), label: 'Test yourself', desc: '10-question quizzes with instant feedback.', art: pageArt('quiz'), lqip: pageLQIP('quiz') },
+	{ href: siteUrl('/downloads/'), label: 'Free Anki decks', desc: 'Top 100 words or the full 1002-word set.', art: pageArt('downloads'), lqip: pageLQIP('downloads') },
 ];
 
 const popular = [
-	{ href: siteUrl('/phrases/greetings/'), label: 'Greetings', desc: 'Hello, thank you, sorry — first phrases.', art: pageArt('phrases/greetings') },
-	{ href: siteUrl('/vocabulary/family/'), label: 'Family words', desc: 'Relations and people around you.', art: pageArt('vocabulary/family') },
-	{ href: siteUrl('/vocabulary/food/'), label: 'Food words', desc: '84 words for eating and cooking.', art: pageArt('vocabulary/food') },
-	{ href: siteUrl('/vocabulary/travel/'), label: 'Travel words', desc: 'Tickets, stations, directions.', art: pageArt('vocabulary/travel') },
-	{ href: siteUrl('/vocabulary/numbers-time/'), label: 'Numbers & time', desc: 'Count, tell time, name days.', art: pageArt('vocabulary/numbers-time') },
-	{ href: siteUrl('/phrases/daily/'), label: 'Daily conversation', desc: 'Sentences for everyday life.', art: pageArt('phrases/daily') },
-	{ href: siteUrl('/marathi-numbers/'), label: 'Numbers 1–20', desc: 'Count, prices and time.', art: pageArt('marathi-numbers') },
-	{ href: siteUrl('/marathi-days-months/'), label: 'Days & months', desc: 'Weeks, months, parts of day.', art: pageArt('marathi-days-months') },
-	{ href: siteUrl('/marathi-pronunciation/'), label: 'Pronunciation', desc: 'Sounds Hindi speakers must learn.', art: pageArt('marathi-pronunciation') },
+	{ href: siteUrl('/marathi-numbers/'), label: 'Numbers 1–20', desc: 'Count, prices and time.', art: pageArt('marathi-numbers'), lqip: pageLQIP('marathi-numbers') },
+	{ href: siteUrl('/marathi-days-months/'), label: 'Days & months', desc: 'Weeks, months, parts of day.', art: pageArt('marathi-days-months'), lqip: pageLQIP('marathi-days-months') },
+	{ href: siteUrl('/marathi-pronunciation/'), label: 'Pronunciation', desc: 'Sounds Hindi speakers must learn.', art: pageArt('marathi-pronunciation'), lqip: pageLQIP('marathi-pronunciation') },
+];
+
+const method = [
+	{ n: '1 · Learn', title: 'Read real words', body: 'Words and sentences from the curriculum — every one with Hindi and English meanings.', href: siteUrl('/vocabulary/'), cta: 'Browse vocabulary' },
+	{ n: '2 · Practice', title: 'Say it, test it', body: 'Listen to each word, say it aloud, take a 10-question quiz with instant feedback.', href: siteUrl('/quiz/'), cta: 'Take a quiz' },
+	{ n: '3 · Remember', title: 'Review before you forget', body: 'Weakest-word-first practice and spaced repetition — the app\u2019s review loop.', href: siteUrl('/app/'), cta: 'See the practice loop' },
 ];
 
 const faqs = [
@@ -64,16 +65,29 @@ const faqs = [
 	/>
 	<div class="prose">
 		<p class="kicker">Bol Marathi · Learn Marathi</p>
-		<h1>Learn Marathi from Hindi or English.</h1>
-		<p class="lede">
-			Build practical Marathi vocabulary, understand everyday phrases, and
-			practice listening, speaking and sentence building — from the real
-			Bol Marathi curriculum of {units.length} units and {vocab.length} words.
-		</p>
-		<div class="hub-cta">
-			<a class="btn" href={siteUrl('/start/')} data-funnel="path_click">Start Learning Free</a>
-			<a class="btn ghost" href={siteUrl('/app/')} data-funnel="app_cta_click" data-app-cta data-cta-variant="hub-hero">{BOL_MARATHI_APP.comingSoon ? 'Join the Android Waitlist' : 'Download Bol Marathi'}</a>
+		<div class="hero-row">
+			<div class="hero-text">
+				<h1>Learn Marathi from Hindi or English.</h1>
+				<p class="lede">
+					Build practical Marathi vocabulary, understand everyday phrases, and
+					practice listening, speaking and sentence building — from the real
+					Bol Marathi curriculum of {units.length} units and {vocab.length} words.
+				</p>
+				<div class="hub-cta">
+					<a class="btn" href={siteUrl('/start/')} data-funnel="path_click">Start Learning Free</a>
+					<a class="btn ghost" href={siteUrl('/lessons/')} data-funnel="path_click">Explore {units.length * 6} Lessons</a>
+				</div>
+			</div>
+			<div class="hero-mascot">
+				<Mascot pose="wave" size="lg" ariaLabel="Mascot welcoming you to learn Marathi" />
+			</div>
 		</div>
+		<ul class="stat-strip" aria-label="Free content included">
+			<li><strong>{units.length}</strong> units</li>
+			<li><strong>{units.length * 6}</strong> lessons</li>
+			<li><strong>{vocab.length.toLocaleString('en-IN')}</strong> words</li>
+			<li class="stat-free"><strong>Free</strong> no signup</li>
+		</ul>
 		<p class="byline">Curated by Bol Marathi · <a href={siteUrl('/how-it-works/')}>how the curriculum works</a></p>
 	</div>
 
@@ -85,12 +99,33 @@ const faqs = [
 			</div>
 		</div>
 		<ul class="card-grid">
-			{paths.map((p) => (
-				<li>
+			{paths.map((p, i) => (
+				<li class={`reveal reveal-delay-${i + 1}`}>
 					<a class="card" href={p.href} data-funnel="path_click" lang={p.lang}>
-						<img src={p.art} alt="" loading="lazy" width="1200" height="630" />
+						<img src={p.art} alt="" loading="lazy" width="1200" height="630" style={`background-image: url('${p.lqip}'); background-size: cover;`} onload="this.style.backgroundImage=''" />
 						<h3>{p.label}</h3>
 						<p>{p.desc}</p>
+					</a>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<section>
+		<div class="section-head">
+			<div>
+				<p class="kicker">The method</p>
+				<h2>Learn → Practice → Remember</h2>
+			</div>
+		</div>
+		<ul class="card-grid method-grid">
+			{method.map((m, i) => (
+				<li class={`reveal reveal-delay-${i + 1}`}>
+					<a class="card" href={m.href} data-funnel="method_click">
+						<p class="kicker">{m.n}</p>
+						<h3>{m.title}</h3>
+						<p>{m.body}</p>
+						<span class="method-cta">{m.cta} &rarr;</span>
 					</a>
 				</li>
 			))}
@@ -123,10 +158,10 @@ const faqs = [
 			</div>
 		</div>
 		<ul class="card-grid">
-			{popular.map((p) => (
-				<li>
+			{popular.map((p, i) => (
+				<li class={`reveal reveal-delay-${i + 1}`}>
 					<a class="card" href={p.href}>
-						<img src={p.art} alt="" loading="lazy" width="1200" height="630" />
+						<img src={p.art} alt="" loading="lazy" width="1200" height="630" style={`background-image: url('${p.lqip}'); background-size: cover;`} onload="this.style.backgroundImage=''" />
 						<h3>{p.label}</h3>
 						<p>{p.desc}</p>
 					</a>
@@ -145,10 +180,10 @@ const faqs = [
 				<a href={s.href}>All &rarr;</a>
 			</div>
 			<ul class="card-grid">
-				{s.items.map((i) => (
-					<li>
+				{s.items.map((i, idx) => (
+					<li class={`reveal reveal-delay-${(idx % 6) + 1}`}>
 						<a class="card" href={i.href}>
-							<img src={i.art} alt="" loading="lazy" width="1200" height="630" />
+							<img src={i.art} alt="" loading="lazy" width="1200" height="630" style={`background-image: url('${i.lqip}'); background-size: cover;`} onload="this.style.backgroundImage=''" />
 							<h3>{i.label}</h3>
 						</a>
 					</li>
@@ -238,6 +273,31 @@ const faqs = [
 </Base>
 
 <style>
+	.hero-row {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 2rem;
+		flex-wrap: wrap;
+		margin: 1.5rem 0 1rem 0;
+	}
+	.hero-text { flex: 1; min-width: 280px; }
+	.hero-mascot {
+		flex-shrink: 0;
+		align-self: flex-start;
+	}
+	.hero-mascot .mascot-svg {
+		animation: mascot-wave 2s ease-in-out infinite;
+	}
+	@media (max-width: 760px) {
+		.hero-row { flex-direction: column; align-items: center; text-align: center; }
+		.hero-mascot { order: -1; margin-bottom: 1rem; }
+		.hero-text h1 { font-size: 1.75rem; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.hero-mascot .mascot-svg { animation: none; }
+	}
+
 	.hub-cta { display: flex; flex-wrap: wrap; gap: 0.75em; margin: 1.5em 0 0.5em 0; }
 	.hub-cta .btn {
 		display: inline-block;
@@ -259,6 +319,39 @@ const faqs = [
 		line-height: 50px;
 	}
 	.byline { font-size: 0.85rem; color: rgb(var(--gray)); }
+	.stat-strip {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em 1.5em;
+		margin: 1.25em 0 0.75em 0;
+		padding: 0.75em 1.25em;
+		border: var(--border);
+		border-radius: var(--radius);
+		background: var(--accent-fixed);
+		width: fit-content;
+		max-width: 100%;
+	}
+	.stat-strip li {
+		font-size: 0.88rem;
+		color: var(--accent-on-fixed);
+		white-space: nowrap;
+	}
+	.stat-strip strong { font-size: 1.05rem; font-weight: 700; }
+	.stat-strip li + li { border-left: 1px solid rgb(195 79 44 / 0.35); padding-left: 1.5em; }
+	.method-grid { grid-template-columns: repeat(3, 1fr); }
+	@media (max-width: 860px) {
+		.method-grid { grid-template-columns: 1fr; }
+	}
+	.method-grid .card .kicker { margin-bottom: 0.3em; }
+	.method-cta {
+		display: inline-block;
+		margin-top: 0.4em;
+		font-size: 0.88rem;
+		font-weight: 600;
+		color: var(--accent);
+	}
+	.method-grid .card:hover .method-cta { color: var(--accent-container); }
 	section { margin-top: var(--space-5); }
 	.section-head {
 		display: flex;

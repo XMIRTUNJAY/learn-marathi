@@ -1,9 +1,11 @@
 ---
 import AppCTA from '../../components/AppCTA.astro';
 import RelatedContent from '../../components/RelatedContent.astro';
+import SayScript from '../../components/SayScript.astro';
 import Learn from '../../layouts/Learn.astro';
 import { getUnit, units, unitSeo } from '../../lib/learn';
 import { siteUrl } from '../../lib/site';
+import { getUnitProgress, setUnitComplete } from '../../lib/progress';
 
 export async function getStaticPaths() {
 	return units.map((u) => ({ params: { unit: u.unit } }));
@@ -16,6 +18,8 @@ const seo = unitSeo[no] ?? { h1: `Unit ${no} — ${unit.titleEn}`, blurb: unit.s
 const idx = units.findIndex((u) => u.unit === no);
 const prev = idx > 0 ? units[idx - 1] : null;
 const next = idx < units.length - 1 ? units[idx + 1] : null;
+const lessonNos = [...new Set(unit.speaking.map((s) => s.lesson))].sort((a, b) => a - b);
+const progress = getUnitProgress(no);
 ---
 
 <Learn
@@ -41,21 +45,32 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 	</ul>
 
 	<h2>Speaking practice sentences</h2>
+	<nav class="lesson-rail" aria-label="Lessons in this unit">
+		<span class="lesson-rail-label">Lessons in this unit:</span>
+		{lessonNos.map((n) => (
+			<a href={`#lesson-${n}`}>Lesson {n}</a>
+		))}
+	</nav>
 	<div class="table-scroll" role="region" aria-label="Speaking sentences" tabindex="0">
 		<table class="vocab">
 			<thead>
 				<tr><th scope="col">Lesson</th><th scope="col">Marathi</th><th scope="col">Hindi</th><th scope="col">English</th></tr>
 			</thead>
-			<tbody>
-				{unit.speaking.map((s) => (
-					<tr>
-						<td>{s.lesson}</td>
-						<td class="mr" lang="mr">{s.sentence}</td>
-						<td lang="hi">{s.hindi}</td>
-						<td>{s.english}</td>
-					</tr>
-				))}
-			</tbody>
+			{lessonNos.map((n) => (
+				<tbody id={`lesson-${n}`}>
+					{unit.speaking.filter((s) => s.lesson === n).map((s) => (
+						<tr>
+							<td>{s.lesson}</td>
+							<td class="mr" lang="mr">
+								{s.sentence}
+								<button type="button" class="say" data-say={s.sentence} aria-label={`Listen: ${s.sentence}`}>🔊</button>
+							</td>
+							<td lang="hi">{s.hindi}</td>
+							<td>{s.english}</td>
+						</tr>
+					))}
+				</tbody>
+			))}
 		</table>
 	</div>
 
@@ -90,7 +105,16 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 		review before you forget.
 	</p>
 
-	<AppCTA variant="lesson" context={`unit-${unit.unit}`} />
+	<div class="completion-toggle" aria-label="Unit completion">
+		{progress.completed ? (
+			<button class="btn ghost" disabled>✓ Unit {unit.unit} completed</button>
+		) : (
+			<button class="btn" id="mark-complete" data-unit={no}>Mark Unit {unit.unit} Complete</button>
+		)}
+		<p class="completion-note">Progress saved locally — syncs across devices when you sign in.</p>
+	</div>
+
+	<AppCTA variant="unit-practice" context={`unit-${unit.unit}`} />
 
 	<nav class="pager" aria-label="Units">
 		{prev ? <a href={siteUrl(`/lessons/${prev.unit}/`)}>&larr; Unit {prev.unit} — {prev.titleEn}</a> : <span />}
@@ -105,6 +129,8 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 		]}
 	/>
 
+	<SayScript />
+
 </Learn>
 
 <style>
@@ -112,6 +138,31 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 		font-size: 1.05em;
 		color: rgb(var(--gray));
 		margin: -0.5em 0 1.5em 0;
+	}
+	.lesson-rail {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4em;
+		margin: 0 0 0.75em 0;
+	}
+	.lesson-rail-label {
+		font-size: 0.8rem;
+		color: rgb(var(--gray));
+		margin-right: 0.25em;
+	}
+	.lesson-rail a {
+		font-size: 0.8rem;
+		font-weight: 600;
+		text-decoration: none;
+		background: var(--accent-fixed);
+		color: var(--accent-on-fixed);
+		padding: 0.3em 0.75em;
+		border-radius: var(--radius-full);
+	}
+	.lesson-rail a:hover {
+		background: var(--accent);
+		color: #fff;
 	}
 	.pager {
 		display: flex;
@@ -122,4 +173,88 @@ const next = idx < units.length - 1 ? units[idx + 1] : null;
 		border-top: var(--border);
 	}
 	.pager .next { margin-left: auto; }
+
+	.completion-toggle {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		flex-wrap: wrap;
+		margin: 1.5em 0;
+		padding: 1em;
+		border: var(--border);
+		border-radius: var(--radius);
+		background: var(--container-low);
+	}
+	.completion-note {
+		font-size: 0.8rem;
+		color: rgb(var(--gray));
+		margin: 0;
+	}
+	@media (max-width: 600px) {
+		.completion-toggle { flex-direction: column; align-items: flex-start; }
+	}
 </style>
+
+<script>
+	import { AnalyticsEvents } from '../../lib/analytics';
+
+	// Track lesson start + unit completion events
+	function initLessonAnalytics() {
+		if ((window as unknown as { __lessonAnalyticsInit?: boolean }).__lessonAnalyticsInit) return;
+		(window as unknown as { __lessonAnalyticsInit?: boolean }).__lessonAnalyticsInit = true;
+		const btn = document.getElementById('mark-complete');
+		const unit = btn?.getAttribute('data-unit') || window.location.pathname.split('/').filter(Boolean).pop() || 'unknown';
+		try { AnalyticsEvents.lessonStart(unit); } catch { /* ignore */ }
+		btn?.addEventListener('click', () => {
+			try { AnalyticsEvents.unitComplete(unit, 0); } catch { /* ignore */ }
+			try { AnalyticsEvents.lessonComplete(unit, Math.round(performance.now())); } catch { /* ignore */ }
+		});
+		// Audio plays on this page
+		document.addEventListener('click', (e) => {
+			const say = (e.target as HTMLElement).closest?.('.say');
+			if (say) {
+				try { AnalyticsEvents.vocabAudioPlay((say.getAttribute('data-say') || 'lesson-audio').slice(0, 50)); } catch { /* ignore */ }
+			}
+		});
+	}
+	initLessonAnalytics();
+	document.addEventListener('astro:page-load', () => {
+		(window as unknown as { __lessonAnalyticsInit?: boolean }).__lessonAnalyticsInit = false;
+		initLessonAnalytics();
+	});
+</script>
+
+<script>
+	// Mark unit complete (uses same localStorage format as progress.ts)
+	const btn = document.getElementById('mark-complete');
+	if (btn) {
+		btn.addEventListener('click', function () {
+			const unit = this.getAttribute('data-unit');
+			if (!unit) return;
+			try {
+				const STORAGE_KEY = 'bol-marathi-progress';
+				const STREAK_KEY = 'bol-marathi-streak-date';
+				const STREAK_COUNT_KEY = 'bol-marathi-streak-count';
+				const progress = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+				if (!progress[unit]?.completed) {
+					progress[unit] = { completed: true, completedAt: Date.now() };
+					localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+					// Update streak
+					const today = new Date().toDateString();
+					const last = localStorage.getItem(STREAK_KEY);
+					let count = parseInt(localStorage.getItem('bol-marathi-streak-count') || '0', 10);
+					if (last !== today) {
+						const yesterday = new Date(Date.now() - 864e5).toDateString();
+						count = last === yesterday ? count + 1 : 1;
+						localStorage.setItem(STREAK_KEY, today);
+						localStorage.setItem('bol-marathi-streak-count', String(count));
+					}
+					this.disabled = true;
+					this.textContent = '✓ Unit ' + unit + ' completed';
+					this.classList.remove('btn');
+					this.classList.add('btn', 'ghost');
+				}
+			} catch (e) { /* ignore */ }
+		});
+	}
+</script>

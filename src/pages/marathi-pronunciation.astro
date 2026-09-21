@@ -2,12 +2,26 @@
 import AppCTA from '../components/AppCTA.astro';
 import Learn from '../layouts/Learn.astro';
 import RelatedContent from '../components/RelatedContent.astro';
+import PronunciationViz from '../components/PronunciationViz.astro';
 import { getUnit } from '../lib/learn';
 import { siteUrl } from '../lib/site';
 
 // Pronunciation guide repackaged from Unit 06 grammar notes
 // (retroflex, nasals, visarga, anusvara, vowel length, conjuncts).
 const unit = getUnit('06');
+
+// Deterministic pseudo-waveform per section so each sound group gets its
+// own visualization (placeholder until measured TTS clips land).
+function demoWave(seed: number, n = 48): number[] {
+	return Array.from({ length: n }, (_, i) => {
+		const v = Math.abs(Math.sin(i * 0.7 + seed) * 0.6 + Math.sin(i * 0.23 + seed * 2) * 0.4);
+		return Math.round(v * 100) / 100;
+	});
+}
+function demoPitch(seed: number, n = 48): number[] {
+	return Array.from({ length: n }, (_, i) => Math.round(110 + 60 * Math.abs(Math.sin(i * 0.3 + seed))));
+}
+const sections = unit.grammar.map((g, i) => ({ ...g, wave: demoWave(i + 1), pitch: demoPitch(i + 1) }));
 ---
 
 <Learn
@@ -29,12 +43,18 @@ const unit = getUnit('06');
 		Marathi explanation and English meaning.
 	</p>
 
-	{unit.grammar.map((g) => (
+	{sections.map((g) => (
 		<section>
 			<h2>{g.titleEn} · <span lang="mr">{g.title}</span></h2>
 			<p lang="mr">{g.text}</p>
 			<p>{g.textEn}</p>
 			{g.note && <p><em>Note:</em> {g.note}</p>}
+			<PronunciationViz
+				label={`Hear it: ${g.titleEn}`}
+				sayText={g.text}
+				waveform={g.wave}
+				pitch={g.pitch}
+			/>
 		</section>
 	))}
 

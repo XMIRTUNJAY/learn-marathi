@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import JsonLd from '../components/JsonLd.astro';
 import WaitlistForm from '../components/WaitlistForm.astro';
+import ProgressCard from '../components/ProgressCard.astro';
 import { BOL_MARATHI_APP } from '../data/app';
 import { units, vocab } from '../lib/learn';
 import { siteUrl } from '../lib/site';
@@ -150,17 +151,19 @@ const faqs = [
 			</section>
 		))}
 
-		<div class="cta">
-			<h2>{storeHref ? 'Download Bol Marathi' : betaHref ? 'Join the beta' : 'Join the waitlist'}</h2>
-			<p>{storeHref ? 'Start practicing today.' : BOL_MARATHI_APP.comingSoonNote}</p>
-			{storeHref ? (
-				<a class="btn" href={storeHref} data-funnel="download_click" data-app-cta data-cta-variant="app-end">Download Bol Marathi</a>
-			) : betaHref ? (
-				<a class="btn" href={betaHref} data-funnel="beta_click" data-app-cta data-cta-variant="app-end">Join the beta</a>
-			) : (
-				<WaitlistForm context="app-end" />
-			)}
-		</div>
+<div class="cta">
+				<h2>{storeHref ? 'Download Bol Marathi' : betaHref ? 'Join the beta' : 'Join the waitlist'}</h2>
+				<p>{storeHref ? 'Start practicing today.' : BOL_MARATHI_APP.comingSoonNote}</p>
+				{storeHref ? (
+					<a class="btn" href={storeHref} data-funnel="download_click" data-app-cta data-cta-variant="app-end">Download Bol Marathi</a>
+				) : betaHref ? (
+					<a class="btn" href={betaHref} data-funnel="beta_click" data-app-cta data-cta-variant="app-end">Join the beta</a>
+				) : (
+					<WaitlistForm context="app-end" />
+				)}
+			</div>
+
+		<ProgressCard variant="app" />
 	</div>
 </Base>
 

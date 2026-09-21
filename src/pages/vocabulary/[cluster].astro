@@ -2,8 +2,11 @@
 import AppCTA from '../../components/AppCTA.astro';
 import RelatedContent from '../../components/RelatedContent.astro';
 import VocabTable from '../../components/VocabTable.astro';
+import VocabCard from '../../components/VocabCard.astro';
+import SentenceBuilder from '../../components/SentenceBuilder.astro';
+import Mascot from '../../components/Mascot.astro';
 import Learn from '../../layouts/Learn.astro';
-import { clusters, wordsByCategory } from '../../lib/learn';
+import { clusters, wordsByCategory, getUnit } from '../../lib/learn';
 import { siteUrl } from '../../lib/site';
 
 export async function getStaticPaths() {
@@ -14,6 +17,14 @@ const { cluster: slug } = Astro.params;
 const cluster = clusters.find((c) => c.slug === slug);
 if (!cluster) throw new Error(`Unknown cluster: ${slug}`);
 const words = wordsByCategory(cluster.categories);
+const builders = cluster.unitRefs.flatMap((no) =>
+	getUnit(no).sentenceBuilder.map((b) => ({
+		tokens: b.tokens,
+		answer: b.answer,
+		prompt: b.promptEn || b.prompt,
+		hindi: b.hindi,
+	}))
+).slice(0, 5);
 ---
 
 <Learn
@@ -34,16 +45,42 @@ const words = wordsByCategory(cluster.categories);
 	]}
 >
 	<h2>What you will learn</h2>
-	<p>
-		{words.length} everyday Marathi words
-		({cluster.categories.join(', ').toLowerCase()}) — each with Hindi meaning,
-		English meaning, pronunciation and a real example sentence from the
-		Bol Marathi curriculum.
-	</p>
-	<p>{cluster.intro}</p>
-	{cluster.tip && <p class="tip"><strong>Tip:</strong> {cluster.tip}</p>}
+	<div class="vocab-intro">
+		<div class="vocab-intro-text">
+			<p>
+				{words.length} everyday Marathi words
+				({cluster.categories.join(', ').toLowerCase()}) — each with Hindi meaning,
+				English meaning, pronunciation and a real example sentence from the
+				Bol Marathi curriculum.
+			</p>
+			<p>{cluster.intro}</p>
+			{cluster.tip && <p class="tip"><strong>Tip:</strong> {cluster.tip}</p>}
+		</div>
+		<div class="vocab-intro-mascot">
+			<Mascot pose="read" size="md" ariaLabel="Mascot reading Marathi vocabulary" />
+		</div>
+	</div>
 
-	<VocabTable words={words} caption={cluster.title} />
+	<div class="view-toggle" role="tablist" aria-label="View mode">
+		<button type="button" class="view-btn active" role="tab" aria-selected="true" data-view="table">Table</button>
+		<button type="button" class="view-btn" role="tab" aria-selected="false" data-view="cards">Flip Cards</button>
+	</div>
+
+	<div id="vocab-table" role="tabpanel" aria-labelledby="table-tab">
+		<VocabTable words={words} caption={cluster.title} />
+	</div>
+
+	<div id="vocab-cards" role="tabpanel" aria-labelledby="cards-tab" hidden>
+		<div class="vocab-cards-grid">
+			{words.map((word) => (
+				<VocabCard word={word} />
+			))}
+		</div>
+	</div>
+
+	{builders.length > 0 && (
+		<SentenceBuilder builders={builders} />
+	)}
 
 	<AppCTA variant="vocabulary" context={`vocabulary-${cluster.slug}`} />
 
@@ -67,6 +104,57 @@ const words = wordsByCategory(cluster.categories);
 	</details>
 </Learn>
 
+<script>
+	import { AnalyticsEvents } from '../../lib/analytics';
+
+	// View toggle: Table / Flip Cards (preference persisted; mobile defaults to cards)
+	const VOCAB_VIEW_KEY = 'bol-vocab-view';
+	function initVocabView() {
+		const tableBtn = document.querySelector('[data-view="table"]');
+		const cardsBtn = document.querySelector('[data-view="cards"]');
+		const tablePanel = document.getElementById('vocab-table');
+		const cardsPanel = document.getElementById('vocab-cards');
+		if (!tableBtn || !cardsBtn || !tablePanel || !cardsPanel) return;
+		if (tableBtn.hasAttribute('data-view-init')) return;
+		tableBtn.setAttribute('data-view-init', 'true');
+		function getPreferred(): 'table' | 'cards' {
+			try {
+				const saved = localStorage.getItem(VOCAB_VIEW_KEY);
+				if (saved === 'table' || saved === 'cards') return saved;
+			} catch { /* ignore */ }
+			return window.matchMedia('(max-width: 760px)').matches ? 'cards' : 'table';
+		}
+		function show(view: 'table' | 'cards') {
+			const isCards = view === 'cards';
+			tableBtn!.classList.toggle('active', !isCards);
+			cardsBtn!.classList.toggle('active', isCards);
+			tableBtn!.setAttribute('aria-selected', String(!isCards));
+			cardsBtn!.setAttribute('aria-selected', String(isCards));
+			(tablePanel as HTMLElement).hidden = isCards;
+			(cardsPanel as HTMLElement).hidden = !isCards;
+			try { localStorage.setItem(VOCAB_VIEW_KEY, view); } catch { /* ignore */ }
+		}
+		tableBtn.addEventListener('click', () => show('table'));
+		cardsBtn.addEventListener('click', () => {
+			show('cards');
+			try {
+				const slug = window.location.pathname.split('/').filter(Boolean).pop() || 'unknown';
+				const count = document.querySelectorAll('.vocab-card').length;
+				AnalyticsEvents.vocabView(slug, count);
+			} catch { /* ignore */ }
+		});
+		show(getPreferred());
+		// Track initial vocab view
+		try {
+			const slug = window.location.pathname.split('/').filter(Boolean).pop() || 'unknown';
+			const count = (document.querySelector('table.vocab tbody')?.querySelectorAll('tr').length) || 0;
+			AnalyticsEvents.vocabView(slug, count);
+		} catch { /* ignore */ }
+	}
+	initVocabView();
+	document.addEventListener('astro:page-load', initVocabView);
+</script>
+
 <style>
 	details {
 		border: var(--border);
@@ -80,4 +168,55 @@ const words = wordsByCategory(cluster.categories);
 		cursor: pointer;
 	}
 	details p { margin: 0.6em 0 0.2em 0; }
+
+	.view-toggle {
+		display: flex;
+		gap: 0.5em;
+		margin: 1.5em 0;
+		background: var(--container);
+		border-radius: var(--radius-full);
+		padding: 0.25em;
+	}
+	.view-btn {
+		font: inherit;
+		font-size: 0.9rem;
+		font-weight: 600;
+		padding: 0.6em 1.1em;
+		border-radius: var(--radius-full);
+		border: none;
+		background: transparent;
+		color: rgb(var(--gray));
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+	.view-btn.active {
+		background: var(--accent);
+		color: #fff;
+		box-shadow: 0 2px 8px rgb(142 45 18 / 0.25);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.view-btn { transition: none; }
+	}
+
+	.vocab-cards-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 1em;
+		margin: 1.5em 0;
+	}
+
+	.vocab-intro {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 2rem;
+		flex-wrap: wrap;
+		margin: 1rem 0 1.5rem 0;
+	}
+	.vocab-intro-text { flex: 1; min-width: 260px; }
+	.vocab-intro-mascot { flex-shrink: 0; }
+	@media (max-width: 760px) {
+		.vocab-intro { flex-direction: column; align-items: center; text-align: center; }
+		.vocab-intro-mascot { order: -1; margin-bottom: 1rem; }
+	}
 </style>

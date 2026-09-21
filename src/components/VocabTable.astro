@@ -2,6 +2,7 @@
 import type { Word } from '../lib/learn';
 import { simpleRespelling } from '../lib/simple';
 import audioManifest from '../data/audio-manifest.json';
+import SayScript from './SayScript.astro';
 import { siteUrl } from '../lib/site';
 
 type Props = {
@@ -71,66 +72,7 @@ const audioFor = (id: string): string | null => (files[id]?.word ? siteUrl(`/aud
 	</table>
 </div>
 
-<script is:inline>
-	(function () {
-		// Device text-to-speech for Marathi headwords. No network, no keys —
-		// uses the visitor's own voices. Prefers a Marathi voice, falls back
-		// to Hindi (same script, closest phonetics), then system default.
-		// Buttons remove themselves if speech synthesis is unavailable.
-		if (window.__sayInit) return;
-		window.__sayInit = true;
-		if (!('speechSynthesis' in window)) {
-			document.querySelectorAll('.say').forEach((b) => b.remove());
-			return;
-		}
-		var voice = null;
-		function pickVoice() {
-			try {
-				var voices = window.speechSynthesis.getVoices() || [];
-				voice =
-					voices.find(function (v) { return (v.lang || '').toLowerCase().indexOf('mr') === 0; }) ||
-					voices.find(function (v) { return (v.lang || '').toLowerCase().indexOf('hi') === 0; }) ||
-					null;
-			} catch (err) { voice = null; }
-		}
-		pickVoice();
-		if ('onvoiceschanged' in window.speechSynthesis) {
-			window.speechSynthesis.onvoiceschanged = pickVoice;
-		}
-		document.addEventListener('click', (e) => {
-			var btn = e.target.closest ? e.target.closest('[data-say],[data-audio]') : null;
-			if (!btn) return;
-			// Pre-generated clip (lazy: created on first tap, then cached).
-			var src = btn.getAttribute('data-audio');
-			if (src) {
-				try {
-					if (!btn._player) {
-						btn._player = new Audio(src);
-						btn._player.preload = 'none';
-					}
-					btn._player.currentTime = 0;
-					btn._player.play().catch(() => {});
-				} catch (err) {}
-				return;
-			}
-			try {
-				window.speechSynthesis.cancel();
-				var u = new SpeechSynthesisUtterance(btn.getAttribute('data-say') || '');
-				u.lang = 'mr-IN';
-				u.rate = 0.85;
-				if (voice) u.voice = voice;
-				window.speechSynthesis.speak(u);
-			} catch (err) {
-				/* voice missing — table content still fully usable */
-			}
-		});
-		if (document.hidden !== undefined) {
-			document.addEventListener('visibilitychange', () => {
-				if (document.hidden) { try { window.speechSynthesis.cancel(); } catch (err) {} }
-			});
-		}
-	})();
-</script>
+<SayScript />
 
 <style>
 	.roman-toggle {
@@ -150,16 +92,4 @@ const audioFor = (id: string): string | null => (files[id]?.word ? siteUrl(`/aud
 	.r-b { display: none; }
 	.roman-toggle:has(input:checked) ~ table .r-a { display: none; }
 	.roman-toggle:has(input:checked) ~ table .r-b { display: inline; }
-	.say {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		font-size: 0.9em;
-		padding: 0.1em 0.2em;
-		margin-left: 0.25em;
-		line-height: 1;
-	}
-	.say:hover {
-		filter: brightness(0.85);
-	}
 </style>
