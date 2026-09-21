@@ -12,4 +12,5 @@ export default defineConfig({
 	base: '/learn-marathi',
 	trailingSlash: 'always',
 	integrations: [mdx(), sitemap()],
+	viewTransitions: true,
 });

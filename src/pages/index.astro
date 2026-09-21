@@ -91,8 +91,8 @@ const faqs = [
 			</div>
 		</div>
 		<ul class="card-grid">
-			{paths.map((p) => (
-				<li>
+			{paths.map((p, i) => (
+				<li class={`reveal reveal-delay-${i + 1}`}>
 					<a class="card" href={p.href} data-funnel="path_click" lang={p.lang}>
 						<img src={p.art} alt="" loading="lazy" width="1200" height="630" />
 						<h3>{p.label}</h3>
@@ -111,8 +111,8 @@ const faqs = [
 			</div>
 		</div>
 		<ul class="card-grid method-grid">
-			{method.map((m) => (
-				<li>
+			{method.map((m, i) => (
+				<li class={`reveal reveal-delay-${i + 1}`}>
 					<a class="card" href={m.href} data-funnel="method_click">
 						<p class="kicker">{m.n}</p>
 						<h3>{m.title}</h3>
@@ -150,8 +150,8 @@ const faqs = [
 			</div>
 		</div>
 		<ul class="card-grid">
-			{popular.map((p) => (
-				<li>
+			{popular.map((p, i) => (
+				<li class={`reveal reveal-delay-${i + 1}`}>
 					<a class="card" href={p.href}>
 						<img src={p.art} alt="" loading="lazy" width="1200" height="630" />
 						<h3>{p.label}</h3>
@@ -172,8 +172,8 @@ const faqs = [
 				<a href={s.href}>All &rarr;</a>
 			</div>
 			<ul class="card-grid">
-				{s.items.map((i) => (
-					<li>
+				{s.items.map((i, idx) => (
+					<li class={`reveal reveal-delay-${(idx % 6) + 1}`}>
 						<a class="card" href={i.href}>
 							<img src={i.art} alt="" loading="lazy" width="1200" height="630" />
 							<h3>{i.label}</h3>
