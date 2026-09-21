@@ -153,9 +153,10 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 					var b = document.createElement('button');
 					b.type = 'button';
 					b.className = 'qopt';
-					b.innerHTML = '<span class="k">' + 'ABCD'[n] + '</span><span></span>';
-					b.lastChild.textContent = c;
-					if (lang === 'hi') b.lastChild.lang = 'hi';
+					var label = 'ABCD'[n];
+					b.innerHTML = '<span class="k">' + label + '.</span><span class="qopt-text"></span>';
+					b.querySelector('.qopt-text').textContent = c;
+					if (lang === 'hi') b.querySelector('.qopt-text').lang = 'hi';
 					b.addEventListener('click', function () { answer(b, c === meaning(q), q); });
 					opts.appendChild(b);
 				});
@@ -424,15 +425,15 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 		font: inherit;
 		display: flex;
 		align-items: center;
-		gap: 0.85em;
+		gap: 1em;
 		text-align: left;
 		background: var(--card);
 		border: 2px solid rgb(223 192 183 / 0.5);
 		border-radius: var(--radius);
-		padding: 0.85em 1em;
+		padding: 1em 1.25em;
 		cursor: pointer;
 		color: rgb(var(--gray-dark));
-		font-size: 1rem;
+		font-size: 1.02rem;
 		transition: all 0.15s ease;
 		position: relative;
 		overflow: hidden;
@@ -459,17 +460,23 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 	.qopt:not(.ok):not(.bad):disabled { opacity: 0.55; }
 	.qopt .k {
 		flex: none;
-		width: 2.1em;
-		height: 2.1em;
+		width: 2.4em;
+		height: 2.4em;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		border-radius: var(--radius-full);
+		border-radius: var(--radius);
 		background: var(--accent-fixed);
-		font-size: 0.85rem;
+		font-size: 0.9rem;
 		font-weight: 700;
 		color: var(--accent-on-fixed);
 		transition: all 0.15s ease;
+		font-variant-numeric: tabular-nums;
+	}
+	.qopt-text {
+		flex: 1;
+		line-height: 1.6;
+		font-weight: 500;
 	}
 	.qopt.ok {
 		border-color: var(--success);
@@ -489,6 +496,10 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 	.qopt.bad .k {
 		background: var(--accent);
 		color: #fff;
+	}
+	.qopt.ok .qopt-text,
+	.qopt.bad .qopt-text {
+		color: inherit;
 	}
 	@keyframes opt-pop {
 		0% { transform: scale(0.98); }
