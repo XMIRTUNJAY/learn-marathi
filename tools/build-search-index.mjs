@@ -3,74 +3,14 @@
 // and extracts inline clusters/phraseSets/grammarTopics from src/lib/learn.ts
 // with a balanced-bracket scanner (regex alone breaks on nested braces).
 import fs from 'fs';
-
-function extractArrayBody(source, declName) {
-	const marker = `export const ${declName}`;
-	const start = source.indexOf(marker);
-	if (start === -1) return '';
-	const bracket = source.indexOf('[', start);
-	let depth = 0;
-	let inStr = null;
-	let escaped = false;
-	for (let i = bracket; i < source.length; i++) {
-		const ch = source[i];
-		if (inStr) {
-			if (escaped) escaped = false;
-			else if (ch === '\\') escaped = true;
-			else if (ch === inStr) inStr = null;
-			continue;
-		}
-		if (ch === "'" || ch === '"' || ch === '`') inStr = ch;
-		else if (ch === '[') depth++;
-		else if (ch === ']') {
-			depth--;
-			if (depth === 0) return source.slice(bracket + 1, i);
-		}
-	}
-	return '';
-}
-
-function splitTopLevelObjects(body) {
-	const blocks = [];
-	let depth = 0;
-	let inStr = null;
-	let escaped = false;
-	let current = -1;
-	for (let i = 0; i < body.length; i++) {
-		const ch = body[i];
-		if (inStr) {
-			if (escaped) escaped = false;
-			else if (ch === '\\') escaped = true;
-			else if (ch === inStr) inStr = null;
-			if (current >= 0) blocks[current] += ch;
-			continue;
-		}
-		if (ch === "'" || ch === '"' || ch === '`') inStr = ch;
-		else if (ch === '{') {
-			if (depth === 0) {
-				current = blocks.length;
-				blocks.push('');
-			}
-			depth++;
-		} else if (ch === '}') {
-			depth--;
-		}
-		if (current >= 0) blocks[current] += ch;
-		if (depth === 0 && current >= 0 && ch === '}') current = -1;
-	}
-	return blocks.filter((b) => b.trim().startsWith('{'));
-}
-
-function field(block, name) {
-	const m = block.match(new RegExp(`${name}:\\s*'([^']*)'`, 's'));
-	return m ? m[1] : '';
-}
-
-function strArray(block, name) {
-	const m = block.match(new RegExp(`${name}:\\s*\\[([^\\]]*)\\]`, 's'));
-	if (!m) return [];
-	return [...m[1].matchAll(/'([^']+)'/g)].map((x) => x[1]);
-}
+import {
+	extractArrayBody,
+	splitTopLevelObjects,
+	field,
+	strArray,
+	loadSeoPages,
+	FAMILY_BASE,
+} from './lib/content-lib.mjs';
 
 function buildIndex() {
 	const learnTs = fs.readFileSync('src/lib/learn.ts', 'utf8');
@@ -124,6 +64,21 @@ function buildIndex() {
 			url: `/learn-marathi/grammar/${slug}/`,
 			description: field(block, 'description'),
 			keywords: [title, field(block, 'intent'), 'grammar', 'rules'].join(' ').toLowerCase(),
+		});
+	}
+
+	// SEO content-engine pages (JSON datasets — no TS parsing needed).
+	// Only published pages are searchable.
+	const typeFor = { vocabulary: 'vocabulary', phrases: 'phrases', grammar: 'grammar', 'hindi-bridge': 'hindi-to-marathi', 'english-path': 'english-to-marathi' };
+	for (const p of loadSeoPages()) {
+		if (p.status !== 'published') continue;
+		index.push({
+			id: `seo-${p.family}-${p.slug}`,
+			title: p.title,
+			type: typeFor[p.family] ?? 'vocabulary',
+			url: `/learn-marathi${FAMILY_BASE[p.family]}${p.slug}/`,
+			description: p.description,
+			keywords: [p.title, p.primaryKeyword, ...(p.secondaryKeywords ?? []), ...(p.topics ?? [])].join(' ').toLowerCase(),
 		});
 	}
 

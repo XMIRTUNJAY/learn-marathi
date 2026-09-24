@@ -1,5 +1,6 @@
 ---
 import AppCTA from '../../components/AppCTA.astro';
+import SeoCards from '../../components/SeoCards.astro';
 import Learn from '../../layouts/Learn.astro';
 import { clusters, wordsByCategory } from '../../lib/learn';
 import { pageArt } from '../../lib/art';
@@ -28,6 +29,8 @@ import { siteUrl } from '../../lib/site';
 			</li>
 		))}
 	</ul>
+
+	<SeoCards family="vocabulary" heading="More vocabulary topics" />
 
 	<AppCTA variant="general" context="vocabulary-index" />
 </Learn>

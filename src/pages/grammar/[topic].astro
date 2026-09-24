@@ -2,24 +2,34 @@
 import AppCTA from '../../components/AppCTA.astro';
 import RelatedContent from '../../components/RelatedContent.astro';
 import Learn from '../../layouts/Learn.astro';
+import GrammarTopicPage from '../../components/GrammarTopicPage.astro';
 import { getUnit, grammarTopics } from '../../lib/learn';
+import { seoPagesByFamily } from '../../lib/seo';
 import { siteUrl } from '../../lib/site';
 
 export async function getStaticPaths() {
-	return grammarTopics.map((g) => ({ params: { topic: g.slug } }));
+	return [
+		...grammarTopics.map((g) => ({ params: { topic: g.slug } })),
+		// Data-driven grammar pages (src/data/seo/grammar-pages.json)
+		...seoPagesByFamily('grammar').map((p) => ({ params: { topic: p.slug }, props: { seoPage: p } })),
+	];
 }
 
 const { topic: slug } = Astro.params;
+const seoPage = Astro.props.seoPage as import('../../lib/seo').SeoPage | undefined;
 const topic = grammarTopics.find((g) => g.slug === slug);
-if (!topic) throw new Error(`Unknown grammar topic: ${slug}`);
+if (!topic && !seoPage) throw new Error(`Unknown grammar topic: ${slug}`);
 
 // Grammar notes for this topic: explicit verified picks (see learn.ts).
-const notes = topic.picks.flatMap(({ unit: no, lessons }) => {
+const notes = topic ? topic.picks.flatMap(({ unit: no, lessons }) => {
 	const u = getUnit(no);
 	return u.grammar.filter((g) => lessons.includes(g.lesson)).map((g) => ({ ...g, unit: no }));
-});
+}) : [];
 ---
 
+{seoPage ? (
+	<GrammarTopicPage page={seoPage} />
+) : topic && (
 <Learn
 	title={topic.title}
 	h1={`${topic.title} (with Examples)`}
@@ -52,3 +62,4 @@ const notes = topic.picks.flatMap(({ unit: no, lessons }) => {
 
 	<RelatedContent links={topic.related} />
 </Learn>
+)}

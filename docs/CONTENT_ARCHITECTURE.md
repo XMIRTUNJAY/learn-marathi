@@ -132,3 +132,40 @@ content if clusters proliferate (size gate); fake store links
 
 V1 (here): read-only sync. V2: shared content location for
 both consumers. V3 (optional): audio + search index, static.
+
+## 12. SEO content engine (added 2026-09 — feature/seo-content-engine)
+
+A data-driven layer for scaling to 100+ learning pages without
+thin or duplicated content. Full docs: `docs/CONTENT_GENERATION.md`,
+`docs/CONTENT_PLAN.md`, `docs/SEO_STRATEGY.md`, `docs/INTERNAL_LINKING.md`.
+
+```text
+src/data/seo/*.json          page datasets (5 families, status: draft|published)
+src/lib/seo.ts               typed loader + resolvers + auto related links
+src/components/              VocabTopicPage / PhraseTopicPage / GrammarTopicPage /
+                             QuickPractice / MistakeTable / PhraseTable / SeoCards
+tools/validate-content.mjs   prebuild QA gate (npm run content:qa)
+tools/content-manifest.mjs   → content-manifest.json (all pages, all statuses)
+tools/content-report.mjs     → docs/CONTENT_QA.md (links, orphans, stats)
+tools/make-og-pages.mjs      extended to render OG cards for dataset pages
+tools/build-search-index.mjs extended to index published dataset pages
+```
+
+Route mapping (existing section routes extended, no URL changes):
+
+```text
+/vocabulary/<slug>/          clusters (learn.ts) + vocab-topics.json pages
+/phrases/<slug>/             phraseSets (learn.ts) + phrase-pages.json pages
+/grammar/<slug>/             grammarTopics (learn.ts) + grammar-pages.json pages
+/hindi-to-marathi/<slug>/    hindi-bridges.json (bridge-row pages)
+/english-to-marathi/<slug>/  english-paths.json (English-first pages)
+```
+
+Hard rule: rendered words/phrases/notes resolve from
+`vocab.json`/`units.json` at build time and **throw** on bad references.
+Published pages require ≥10 words / ≥8 phrases / ≥5 bridges / ≥1 grammar
+note, ≥3 practice items and ≥2 mistakes — enforced by the validator.
+
+Header navigation groups into Learn / Practice / Explore dropdowns
+(zero-JS `<details>` + close-on-outside-click enhancement); Hindi pages
+keep the flat `HI_NAV` strip.

@@ -99,6 +99,22 @@
     "hindi-to-marathi/words",
     "hindi-to-marathi/phrases",
     "english-to-marathi/words",
-    "english-to-marathi/phrases"
+    "english-to-marathi/phrases",
+    "vocabulary/animals",
+    "vocabulary/weather",
+    "vocabulary/clothing",
+    "vocabulary/emotions",
+    "vocabulary/body-parts",
+    "phrases/family-talk",
+    "phrases/office-work",
+    "grammar/negation",
+    "grammar/commands-polite",
+    "grammar/possessives",
+    "hindi-to-marathi/greetings",
+    "hindi-to-marathi/daily-conversation",
+    "hindi-to-marathi/questions",
+    "hindi-to-marathi/travel",
+    "english-to-marathi/greetings",
+    "english-to-marathi/asking-questions"
   ]
 }

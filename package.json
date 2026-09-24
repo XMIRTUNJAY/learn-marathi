@@ -7,12 +7,16 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node ./tools/build-search-index.mjs",
+    "prebuild": "node ./tools/validate-content.mjs && node ./tools/build-search-index.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "sync": "node ./tools/sync-learn-marathi.mjs",
-    "qa": "node ./tools/qa.mjs"
+    "qa": "node ./tools/qa.mjs",
+    "content:qa": "node ./tools/validate-content.mjs",
+    "content:manifest": "node ./tools/content-manifest.mjs",
+    "content:og": "node ./tools/make-og-pages.mjs",
+    "content:report": "node ./tools/content-report.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.0",

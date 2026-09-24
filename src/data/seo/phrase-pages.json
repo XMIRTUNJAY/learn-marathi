@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "family-talk",
+    "title": "Marathi Family Phrases: Talk About People & Home",
+    "description": "12 real Marathi sentences for talking about family and people — with Hindi and English meanings and speaking tips from the Bol Marathi curriculum.",
+    "h1": "Marathi Phrases for Talking About Family & People",
+    "searchIntent": "conversation",
+    "level": "beginner",
+    "languagePaths": ["hindi", "english"],
+    "topics": ["family", "conversation", "daily-life"],
+    "primaryKeyword": "marathi family phrases",
+    "secondaryKeywords": ["talk about family in marathi", "marathi sentences for family", "introduce family in marathi"],
+    "intro": [
+      "Twelve complete Marathi sentences from Units 03 and 05 for the most common small-talk subject there is: your family and the people around you. Each phrase carries its Hindi meaning, English meaning and a speaking tip — these are real curriculum sentences, not word-list fragments.",
+      "Read each Marathi sentence aloud, compare it with the Hindi column, and notice the pattern: माझं कुटुंब मोठं आहे maps almost word-for-word on मेरा परिवार बड़ा है — but the possessive and the verb ending are where Marathi does its own thing."
+    ],
+    "tip": "Pick the three sentences that are true about your own family and memorize those first.",
+    "speakingUnits": ["03", "05"],
+    "units": ["03", "05"],
+    "sections": [
+      {
+        "heading": "What these phrases teach",
+        "paragraphs": [
+          "Two patterns carry most family talk: possession with माझा/माझी/माझं agreeing with the thing owned (माझी बहीण, माझं कुटुंब), and having-family with माझ्याकडे … आहेत (माझ्याकडे पाच भाऊ आहेत — I have five brothers). Hindi speakers know the logic; the endings are the new part.",
+          "Unit 05 supplies the people-words and pronouns these phrases point at; Unit 03 supplies the family nouns themselves. Both units are linked below."
+        ]
+      }
+    ],
+    "mistakes": [
+      { "wrong": "माझा कुटुंब for “my family”", "right": "माझं कुटुंब — कुटुंब is neuter", "why": "Marathi possessives agree with the noun’s gender, and Marathi has a neuter gender Hindi lacks." },
+      { "wrong": "मेरे पास for “I have (brothers)”", "right": "माझ्याकडे पाच भाऊ आहेत", "why": "Having family/money uses -कडे, not a literal पास translation." }
+    ],
+    "practice": {
+      "mcq": [
+        { "question": "कोण आला आहे? means…", "options": ["Where has he gone?", "Who has come?", "When will you come?", "What happened?"], "answer": 1, "explanation": "कोण = who. From Unit 05." }
+      ],
+      "translate": [
+        { "source": "My family is big.", "answer": "माझं कुटुंब मोठं आहे.", "note": "Neuter possessive माझं — the classic three-gender checkpoint." },
+        { "source": "This is my sister.", "answer": "ही माझी बहीण आहे.", "note": "Feminine: ही … माझी बहीण." }
+      ]
+    },
+    "relatedPages": ["/vocabulary/family/", "/lessons/03/", "/lessons/05/"],
+    "faq": [
+      { "question": "How do you introduce your family in Marathi?", "answer": "Start with माझं कुटुंब मोठं आहे (my family is big) and ही माझी बहीण आहे (this is my sister) — the 12 sentences above cover introductions, counts and where relatives live." },
+      { "question": "Are these phrases formal or casual?", "answer": "Everyday spoken Marathi. For elders and strangers, add the polite forms — Unit 05 covers honorifics like राव, कसे आहात?" }
+    ],
+    "appCtaVariant": "phrase",
+    "status": "published"
+  },
+  {
+    "slug": "office-work",
+    "title": "Marathi Office Phrases for Work & Daily Use",
+    "description": "9 Marathi workplace sentences — meetings, interviews, projects and promotions — with Hindi and English meanings and speaking tips.",
+    "h1": "Marathi Phrases for the Office & Work",
+    "searchIntent": "conversation",
+    "level": "intermediate",
+    "languagePaths": ["hindi", "english"],
+    "topics": ["work", "conversation", "office"],
+    "primaryKeyword": "marathi office phrases",
+    "secondaryKeywords": ["marathi work phrases", "office marathi sentences", "marathi for workplace"],
+    "intro": [
+      "Nine Marathi sentences for working life, drawn from Unit 19 (Work & Career) and Unit 11 (Education & Work): meetings and deadlines, interviews, projects finishing, promotions arriving. Each has Hindi and English meanings plus a speaking tip.",
+      "Notice how English loanwords do the heavy lifting in office Marathi — मीटिंग, इंटरव्हू, प्रोजेक्ट, प्रमोशन. The Marathi you supply is the grammar around them: उद्या मीटिंग आहे, तयार राहा."
+    ],
+    "tip": "Learn the frame, swap the loanword: उद्या ___ आहे works for मीटिंग, इंटरव्हू, प्रेझेंटेशन alike.",
+    "speakingUnits": ["19"],
+    "speakingPicks": [{ "unit": "11", "lessons": [2, 3, 4] }],
+    "units": ["11", "19"],
+    "sections": [
+      {
+        "heading": "Loanwords + Marathi grammar = office Marathi",
+        "paragraphs": [
+          "Workplace Marathi in Maharashtra’s cities runs on English nouns inside Marathi sentence frames. मी ऑफिसमध्ये काम करतो keeps the verb-final order; प्रोजेक्ट पूर्ण झालं uses the past with झालं. Learn the frames on this page and any English job-word slots in.",
+          "For interviews and applications, the unit sentences cover the arc: मी नोकरीसाठी अर्ज केला (I applied) → माझं इंटरव्हू उद्या आहे (interview tomorrow) → मला प्रमोशन मिळालं (I got promoted)."
+        ]
+      }
+    ],
+    "mistakes": [
+      { "wrong": "Dropping postpositions around loanwords", "right": "ऑफिसमध्ये, नोकरीसाठी, मीटिंगमध्ये", "why": "Loanwords still take Marathi postpositions: -मध्ये (in), -साठी (for)." },
+      { "wrong": "मला प्रमोशन केला", "right": "मला प्रमोशन मिळालं", "why": "Promotions are received (मिळालं), not done. Hindi speakers calque करना too often." }
+    ],
+    "practice": {
+      "translate": [
+        { "source": "Meeting tomorrow, stay ready.", "answer": "उद्या मीटिंग आहे, तयार राहा.", "note": "From Unit 19 — notice the verb-final राहा." },
+        { "source": "I work in an office.", "answer": "मी ऑफिसमध्ये काम करतो.", "note": "From Unit 11 — ऑफिस + मध्ये." }
+      ],
+      "fill": [
+        { "sentence": "मला ___ मिळालं. (I got a promotion.)", "answer": "प्रमोशन", "hint": "From Unit 19 — received, so मिळालं." }
+      ]
+    },
+    "relatedPages": ["/blog/first-day-work/", "/lessons/19/", "/lessons/11/"],
+    "faq": [
+      { "question": "Do I need “pure” Marathi at the office?", "answer": "No — workplace Marathi freely uses loanwords (मीटिंग, प्रोजेक्ट, प्रमोशन). What marks your Marathi is the grammar: verb-final order and postpositions like -साठी and -मध्ये." },
+      { "question": "Where do these phrases come from?", "answer": "Units 11 and 19 of the Bol Marathi curriculum — each row is a real lesson sentence with Hindi and English meanings." }
+    ],
+    "appCtaVariant": "phrase",
+    "status": "published"
+  }
+]
