@@ -30,7 +30,6 @@ const groups = [
 			{ href: siteUrl('/quiz/'), label: 'Quizzes', match: 'quiz' },
 			{ href: siteUrl('/review/'), label: 'Review (SRS)', match: 'review' },
 			{ href: siteUrl('/downloads/'), label: 'Anki decks', match: 'downloads' },
-			{ href: siteUrl('/app/'), label: 'App', match: 'app' },
 		],
 	},
 	{
@@ -39,10 +38,15 @@ const groups = [
 		links: [
 			{ href: siteUrl('/hindi-to-marathi/'), label: 'Hindi → Marathi', match: 'hindi-to-marathi' },
 			{ href: siteUrl('/english-to-marathi/'), label: 'English → Marathi', match: 'english-to-marathi' },
-			{ href: siteUrl('/blog/'), label: 'Guides & blog', match: 'blog' },
 			{ href: siteUrl('/hi/'), label: 'हिंदी में सीखें', match: 'hi' },
 		],
 	},
+];
+
+// Top-level items rendered outside the dropdowns (visible without a tap).
+const directLinks = [
+	{ href: siteUrl('/blog/'), label: 'Blog', match: 'blog' },
+	{ href: siteUrl('/app/'), label: 'App', match: 'app' },
 ];
 
 const links = hi
@@ -75,7 +79,8 @@ const links = hi
 				</a>
 			))
 		) : (
-			groups.map((group) => {
+			<>
+			{groups.map((group) => {
 				const active = group.links.some((l) => current === l.match || current.startsWith(l.match + '/'));
 				return (
 					<details class="nav-group">
@@ -92,7 +97,16 @@ const links = hi
 						</div>
 					</details>
 				);
-			})
+			})}
+			{directLinks.map((link) => (
+				<a
+					href={link.href}
+					aria-current={current === link.match || current.startsWith(link.match + '/') ? 'page' : undefined}
+				>
+					{link.label}
+				</a>
+			))}
+			</>
 		)}
 	</nav>
 </header>
