@@ -1,0 +1,220 @@
+[
+  {
+    "slug": "greetings",
+    "title": "Hindi to Marathi Greetings & First Sentences",
+    "description": "Bridge your Hindi into Marathi greetings and first sentences: नमस्ते→नमस्कार, मेरा नाम→माझं नाव, मुझे चाहिए→मला पाहिजे — mapping by mapping.",
+    "h1": "Hindi → Marathi: Greetings & Your First Sentences",
+    "searchIntent": "comparison",
+    "level": "beginner",
+    "languagePaths": ["hindi"],
+    "topics": ["greetings", "conversation", "daily-life"],
+    "primaryKeyword": "hindi to marathi greetings",
+    "secondaryKeywords": ["namaste in marathi", "hindi to marathi translation sentences", "learn marathi from hindi"],
+    "intro": [
+      "If you know Hindi, your first Marathi sentences are closer than you think — but not identical. This page maps the greeting-and-introduction bridge row by row: what carries over, what shifts sound, and what changes shape entirely.",
+      "Each row shows the Hindi you know, the Marathi that matches, the English meaning, and the one grammar note that matters for that pair. These are Unit 01 bridge lessons from the Bol Marathi course."
+    ],
+    "tip": "Read each pair aloud, Hindi then Marathi — your ear already knows how close they are.",
+    "bridgeUnits": ["01"],
+    "units": ["01"],
+    "sections": [
+      {
+        "heading": "What carries over directly",
+        "paragraphs": [
+          "नमस्ते → नमस्कार, and it works any time of day. Sentence skeletons carry over too: both languages put the verb last, so the shape of आप कैसे हैं? and तू कसा आहेस? is the same shape."
+        ]
+      },
+      {
+        "heading": "Where Hindi and Marathi part ways",
+        "paragraphs": [
+          "Three splits to know on day one: possession (मेरा नाम → माझं नाव — Marathi नाव is neuter), need (मुझे चाहिए → मला पाहिजे — one fused expression), and the continuous tense (खा रहा हूँ → खातो आहे — verb + तो + आहे instead of रहा/रही).",
+          "None of these require new grammar concepts; they are Hindi logic wearing Marathi endings — which is exactly what the bridge rows below drill."
+        ]
+      }
+    ],
+    "mistakes": [
+      { "wrong": "मेरा नाम राहुल है", "right": "माझं नाव राहुल आहे", "why": "नाव is neuter in Marathi, so the possessive is माझं, not माझा (and not Hindi मेरा)." },
+      { "wrong": "मी खा रहा आहे", "right": "मी खातो आहे", "why": "Marathi continuous = verb + तो + आहे. रहा never appears." },
+      { "wrong": "मुझे पानी चाहिए", "right": "मला पाणी पाहिजे", "why": "चाहिए has no Marathi life; the fused form is मला … पाहिजे." }
+    ],
+    "practice": {
+      "mcq": [
+        { "question": "“मुझे चाहिए” in Marathi is…", "options": ["मला हवे", "मला पाहिजे", "मी घेतो", "माझं आहे"], "answer": 1, "explanation": "मला पाहिजे — the fused need-expression from Unit 01." },
+        { "question": "“How are you?” (to a male friend) in Marathi?", "options": ["तू कशी आहेस?", "तुम्ही कसे आहात?", "तू कसा आहेस?", "तो कसा आहे?"], "answer": 2, "explanation": "कसा agrees with the person addressed: masculine कसा, feminine कशी." }
+      ],
+      "translate": [
+        { "source": "मेरा नाम राहुल है।", "sourceLang": "hi", "answer": "माझं नाव राहुल आहे.", "note": "Possessive flip: मेरा → माझं (neuter)." }
+      ]
+    },
+    "relatedPages": ["/hindi-to-marathi/words/", "/phrases/greetings/", "/lessons/01/"],
+    "faq": [
+      { "question": "How do you say hello in Marathi if you know Hindi?", "answer": "नमस्ते becomes नमस्कार — and it works at any hour. Add शुभ सकाळ (good morning) and शुभ रात्री (good night) for time-specific greetings." },
+      { "question": "Is Marathi grammar the same as Hindi?", "answer": "The frame is the same (subject–object–verb, postpositions, gender agreement), but Marathi adds a neuter gender, fuses expressions like मला पाहिजे, and forms the continuous tense with verb + तो + आहे." }
+    ],
+    "appCtaVariant": "phrase",
+    "status": "published"
+  },
+  {
+    "slug": "daily-conversation",
+    "title": "Hindi to Marathi Daily Conversation: Survival Sentences",
+    "description": "Everyday survival sentences mapped Hindi to Marathi — तैयार→तयार, मदद→मदत, चाहिए→पाहिजे, नहीं चाहिए→नको — with the grammar behind each pair.",
+    "h1": "Hindi → Marathi: Daily Conversation Essentials",
+    "searchIntent": "comparison",
+    "level": "beginner",
+    "languagePaths": ["hindi"],
+    "topics": ["daily-life", "conversation"],
+    "primaryKeyword": "hindi to marathi daily conversation",
+    "secondaryKeywords": ["hindi to marathi common sentences", "hindi to marathi sentence translation", "marathi for hindi speakers"],
+    "intro": [
+      "Six survival-sentence mappings from Unit 02 of the Bol Marathi course: being ready, asking for help, saying what is yours, question words, polite imperatives, and the need/don't-want pair. Each row shows the Hindi, the Marathi, the English, and one grammar note.",
+      "The theme of this page is sound shift plus fusion: मदद → मदत and तैयार → तयार are the same words wearing Marathi endings, while नहीं चाहिए fuses into the single word नको."
+    ],
+    "tip": "मदत before मदद: help is the one word you never want to mispronounce.",
+    "bridgeUnits": ["02"],
+    "units": ["02"],
+    "sections": [
+      {
+        "heading": "Sound shifts you can bank on",
+        "paragraphs": [
+          "A reliable early pattern: several Hindi words ending in a consonant + अ pick up a त in Marathi — मदद → मदत. Others drop the tail vowel: तैयार stays तैयार. When in doubt, check the table; the shifts are regular enough to become instinct within a week."
+        ]
+      },
+      {
+        "heading": "The fused forms",
+        "paragraphs": [
+          "Marathi likes single words where Hindi uses phrases: चाहिए → पाहिजे, नहीं चाहिए → नको. Learn the pair पाहिजे/नको as one unit; Unit 02's sentence मला चहा नको, पाणी द्या shows both halves of the conversation."
+        ]
+      }
+    ],
+    "mistakes": [
+      { "wrong": "Saying मदद in Marathi", "right": "मदत", "why": "Same word, Marathi ending: the final द becomes त." },
+      { "wrong": "नाही चाहिए for “don't want”", "right": "नको", "why": "Marathi fuses the whole idea into one word — the highest-utility negation you will learn." }
+    ],
+    "practice": {
+      "mcq": [
+        { "question": "“Help” in Marathi?", "options": ["मदद", "मदत", "मदती", "मदता"], "answer": 1, "explanation": "मदत (madat) — Hindi मदद with the Marathi त ending." },
+        { "question": "“Ready” in Marathi?", "options": ["तयार", "तय्यार", "तेयार", "तयारी"], "answer": 0, "explanation": "तयार — same spelling, no tail vowel change here." }
+      ],
+      "translate": [
+        { "source": "मुझे मदद चाहिए।", "sourceLang": "hi", "answer": "मला मदत पाहिजे.", "note": "From Unit 02 — both halves shift: मदद→मदत and चाहिए→पाहिजे." }
+      ]
+    },
+    "relatedPages": ["/hindi-to-marathi/greetings/", "/phrases/daily/", "/lessons/02/"],
+    "faq": [
+      { "question": "What are the first differences a Hindi speaker hits in Marathi?", "answer": "Fused expressions (पाहिजे, नको), sound shifts (मदद→मदत), the neuter gender, and the continuous tense built with तो + आहे instead of रहा." },
+      { "question": "How do you ask for help in Marathi?", "answer": "मला मदत पाहिजे (I need help). In an emergency the single word मदत! works." }
+    ],
+    "appCtaVariant": "phrase",
+    "status": "published"
+  },
+  {
+    "slug": "questions",
+    "title": "Hindi to Marathi Question Words: क्या → काय",
+    "description": "All six question words mapped Hindi to Marathi — क्या→काय, कहाँ→कुठे, कब→कधी, कैसे→कसे, कौन→कोण, क्यों→का — with example questions.",
+    "h1": "Hindi → Marathi: Question Words (काय, कुठे, कधी)",
+    "searchIntent": "comparison",
+    "level": "beginner",
+    "languagePaths": ["hindi"],
+    "topics": ["questions", "grammar", "conversation"],
+    "primaryKeyword": "hindi to marathi question words",
+    "secondaryKeywords": ["marathi question words", "what where when in marathi", "hindi to marathi kay kuthe"],
+    "intro": [
+      "Six pairs, one pattern: Hindi question words starting with क map to Marathi question words starting with क. क्या→काय, कहाँ→कुठे, कब→कधी, कैसे→कसे, कौन→कोण, क्यों→का. Unit 07 of the course is built entirely on these six.",
+      "The best news on this page: question words stay in place. कुठे जात आहेस? puts कुठे exactly where कहाँ sits in कहाँ जा रहे हो? There is no word-order tax on questions."
+    ],
+    "tip": "Learn the six as a क-family: काय कुठे कधी कसे कोण का — one breath, all six.",
+    "bridgeUnits": ["07"],
+    "units": ["07"],
+    "sections": [
+      {
+        "heading": "The क-family",
+        "paragraphs": [
+          "Both languages front-load interrogatives with क, which makes the mapping feel designed. The two that need attention: क्यों becomes single-syllable का, and कौन becomes कोण — the vowel changes, the role doesn't."
+        ]
+      },
+      {
+        "heading": "Question words in action",
+        "paragraphs": [
+          "Unit 07's lesson sentences show the full swap: कुठे जात आहेस? पुणे. (Where are you going? Pune.) and कधी येत आहेस? उद्या. (When are you coming? Tomorrow.) Notice आहेस tagging along at the end — the verb stays last, as always."
+        ]
+      }
+    ],
+    "mistakes": [
+      { "wrong": "Translating क्यों as a long word", "right": "का — one syllable", "why": "उदाहरण: का आलात? (Why did you come?) — short and final-position-friendly." },
+      { "wrong": "कुन for “who”", "right": "कोण (koṇ)", "why": "The vowel is ओ, and the final ण is retroflex — कोण, not कुन or कौन." }
+    ],
+    "practice": {
+      "mcq": [
+        { "question": "“Where” in Marathi?", "options": ["कधी", "कुठे", "काय", "कसे"], "answer": 1, "explanation": "कुठे (kuṭhe) = where; कधी is when." },
+        { "question": "काय आहे? means…", "options": ["Who is it?", "How is it?", "What is it?", "When is it?"], "answer": 2, "explanation": "काय = what — the opener of Unit 07." },
+        { "question": "“Why” in Marathi?", "options": ["का", "कोण", "कधी", "कसे"], "answer": 0, "explanation": "का (kā) = why — a single syllable." }
+      ],
+      "fill": [
+        { "sentence": "तू ___ जात आहेस? — पुणे.", "answer": "कुठे", "hint": "Answer is a place, so the question word is…" }
+      ]
+    },
+    "relatedPages": ["/grammar/questions/", "/hindi-to-marathi/phrases/", "/lessons/07/"],
+    "faq": [
+      { "question": "What are the six Marathi question words?", "answer": "काय (what), कुठे (where), कधी (when), कसे (how), कोण (who), का (why) — each mapping to its Hindi क-counterpart." },
+      { "question": "Do Marathi questions change word order?", "answer": "No — the question word stays where the answer would go, and the verb stays last: तू कुठे जात आहेस?" }
+    ],
+    "appCtaVariant": "phrase",
+    "status": "published"
+  },
+  {
+    "slug": "travel",
+    "title": "Hindi to Marathi Travel Words: Trains, Tickets & Stays",
+    "description": "12 Hindi-to-Marathi travel mappings — transport, booking, stations, hotels and directions — with the vocabulary travellers actually need in Maharashtra.",
+    "h1": "Hindi → Marathi: Travel Words & Transport",
+    "searchIntent": "comparison",
+    "level": "intermediate",
+    "languagePaths": ["hindi"],
+    "topics": ["travel", "transport", "directions"],
+    "primaryKeyword": "hindi to marathi travel words",
+    "secondaryKeywords": ["marathi travel vocabulary", "train ticket marathi", "directions in marathi"],
+    "intro": [
+      "Twelve bridge rows from Units 14–15 covering a full journey: landscapes and directions, transport modes, booking and platforms, hotels and local transport. Each maps the Hindi phrase you know to the Marathi you will hear at a Maharashtra station or ticket counter.",
+      "Much travel vocabulary is shared — बस, टिकीट, हॉटेल — and the cardinal directions are identical: उत्तर, दक्षिण, पूर्व, पश्चिम. What changes are the transport words themselves and the spelling conventions around loanwords."
+    ],
+    "tip": "Before a trip, memorize the booking row (बुक करा, कन्फर्म, वेटिंग) and platform sentence first — timetables forgive, queues don't.",
+    "bridgeUnits": ["14", "15"],
+    "units": ["14", "15"],
+    "sections": [
+      {
+        "heading": "The good news: directions and half the nouns",
+        "paragraphs": [
+          "उत्तर दक्षिण पूर्व पश्चिम are letter-for-letter Hindi. नदी, पठार, वेटिंग, टर्मिनल, गेट, लॉज cross over untouched. You already own half the travel page."
+        ]
+      },
+      {
+        "heading": "What actually changes",
+        "paragraphs": [
+          "Train is रेल्वे in Marathi (though ट्रेन is universally understood, and course sentences use both). झील becomes सरोवर, पेड़ becomes झाड, जानवर becomes प्राणी. And watch the loanword spellings: Marathi writes प्लॅटफॉर्म, हॉटेल and शेअरिंग with its own conventions (ॅ and ऑ)."
+        ]
+      }
+    ],
+    "mistakes": [
+      { "wrong": "Writing प्लेटफॉर्म in Marathi context", "right": "प्लॅटफॉर्म with ॅ", "why": "Marathi and Hindi spell English loanwords differently — signs in Maharashtra use the ॅ convention." },
+      { "wrong": "Asking for the झील", "right": "सरोवर", "why": "झील is understood by bilinguals but सरोवर is the Marathi word on maps and in speech." }
+    ],
+    "practice": {
+      "mcq": [
+        { "question": "“Train” in formal Marathi?", "options": ["ट्रेन", "रेल्वे", "गाडी", "विमान"], "answer": 1, "explanation": "रेल्वे is the Marathi word; ट्रेन is understood everywhere, and विमान is a flight." },
+        { "question": "Which set is identical in Hindi and Marathi?", "options": ["North–South–East–West", "River–Lake–Sea", "Tree–Flower–Animal", "Train–Bus–Flight"], "answer": 0, "explanation": "उत्तर दक्षिण पूर्व पश्चिम — the directions never change." }
+      ],
+      "fill": [
+        { "sentence": "प्लॅटफॉर्म नंबर ___ आहे. (Platform number five.)", "answer": "पाच", "hint": "From Unit 15's station sentence." }
+      ],
+      "translate": [
+        { "source": "Which train goes to Mumbai?", "answer": "मुंबईला जाणारा ट्रेन कोणता?", "note": "From Unit 15 — note मुंबईला (to Mumbai) and the relative clause जाणारा." }
+      ]
+    },
+    "relatedPages": ["/vocabulary/travel/", "/phrases/travel/", "/lessons/15/"],
+    "faq": [
+      { "question": "How different is travel Marathi from Hindi?", "answer": "Directions, bookings and stays are mostly shared; transport names and nature words shift (ट्रेन→रेल्वे, झील→सरोवर, जानवर→प्राणी), and loanwords take Marathi spellings with ॅ and ऑ." },
+      { "question": "How do you ask “which platform” in Marathi?", "answer": "प्लॅटफॉर्म नंबर कोणता? — or state it: प्लॅटफॉर्म नंबर पाच आहे. The word order matches the Hindi you already know." }
+    ],
+    "appCtaVariant": "phrase",
+    "status": "published"
+  }
+]

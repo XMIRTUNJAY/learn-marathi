@@ -2,19 +2,29 @@
 import AppCTA from '../../components/AppCTA.astro';
 import RelatedContent from '../../components/RelatedContent.astro';
 import Learn from '../../layouts/Learn.astro';
+import PhraseTopicPage from '../../components/PhraseTopicPage.astro';
 import { phraseSets, phrasesFor } from '../../lib/learn';
+import { seoPagesByFamily } from '../../lib/seo';
 import { siteUrl } from '../../lib/site';
 
 export async function getStaticPaths() {
-	return phraseSets.map((p) => ({ params: { set: p.slug } }));
+	return [
+		...phraseSets.map((p) => ({ params: { set: p.slug } })),
+		// Data-driven situational phrase pages (src/data/seo/phrase-pages.json)
+		...seoPagesByFamily('phrases').map((p) => ({ params: { set: p.slug }, props: { seoPage: p } })),
+	];
 }
 
 const { set: slug } = Astro.params;
+const seoPage = Astro.props.seoPage as import('../../lib/seo').SeoPage | undefined;
 const set = phraseSets.find((p) => p.slug === slug);
-if (!set) throw new Error(`Unknown phrase set: ${slug}`);
-const phrases = phrasesFor(set);
+if (!set && !seoPage) throw new Error(`Unknown phrase set: ${slug}`);
+const phrases = set ? phrasesFor(set) : [];
 ---
 
+{seoPage ? (
+	<PhraseTopicPage page={seoPage} />
+) : set && (
 <Learn
 	title={`${set.title}: Free Lesson`}
 	h1={`${set.title} (with Hindi & English)`}
@@ -73,3 +83,4 @@ const phrases = phrasesFor(set);
 
 	<RelatedContent links={set.related} />
 </Learn>
+)}

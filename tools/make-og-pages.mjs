@@ -75,6 +75,21 @@ pages.set('hindi-to-marathi/phrases', 'Hindi to Marathi Phrases');
 pages.set('english-to-marathi/words', 'English to Marathi Words');
 pages.set('english-to-marathi/phrases', 'English to Marathi Phrases');
 
+// SEO content-engine pages (src/data/seo/*.json) — published only.
+const seoFamilies = [
+  ['vocab-topics.json', 'vocabulary'],
+  ['phrase-pages.json', 'phrases'],
+  ['grammar-pages.json', 'grammar'],
+  ['hindi-bridges.json', 'hindi-to-marathi'],
+  ['english-paths.json', 'english-to-marathi'],
+];
+for (const [file, basePath] of seoFamilies) {
+  const list = JSON.parse(readFileSync(join(root, 'src', 'data', 'seo', file), 'utf8'));
+  for (const p of list) {
+    if (p.status === 'published') pages.set(`${basePath}/${p.slug}`, p.title);
+  }
+}
+
 const card = (label) => `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
 <rect width="1200" height="630" fill="#8E2D12"/>
 <rect x="80" y="232" width="100" height="100" rx="22" fill="#FDFBF7"/>

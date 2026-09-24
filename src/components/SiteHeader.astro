@@ -8,19 +8,50 @@ const current = Astro.url.pathname.replace(import.meta.env.BASE_URL, '').replace
 const hi = Astro.url.pathname.includes('/hi/');
 // Streak rendered client-side to avoid SSR localStorage access
 
-const links = hi
-	? HI_NAV.map((l) => ({ href: siteUrl(l.href), label: l.label, match: l.href.replace(/\//g, '') }))
-	: [
+// Grouped information architecture: Learn / Practice / Explore.
+// Hindi pages keep the flat HI_NAV strip (smaller, localized link set).
+const groups = [
+	{
+		label: 'Learn',
+		match: 'learn',
+		links: [
+			{ href: siteUrl('/start/'), label: 'Start here', match: 'start' },
+			{ href: siteUrl('/lessons/'), label: 'Course (26 units)', match: 'lessons' },
 			{ href: siteUrl('/vocabulary/'), label: 'Vocabulary', match: 'vocabulary' },
 			{ href: siteUrl('/phrases/'), label: 'Phrases', match: 'phrases' },
+			{ href: siteUrl('/grammar/'), label: 'Grammar', match: 'grammar' },
+			{ href: siteUrl('/marathi-pronunciation/'), label: 'Pronunciation', match: 'marathi-pronunciation' },
+		],
+	},
+	{
+		label: 'Practice',
+		match: 'practice',
+		links: [
+			{ href: siteUrl('/quiz/'), label: 'Quizzes', match: 'quiz' },
+			{ href: siteUrl('/review/'), label: 'Review (SRS)', match: 'review' },
+			{ href: siteUrl('/downloads/'), label: 'Anki decks', match: 'downloads' },
+		],
+	},
+	{
+		label: 'Explore',
+		match: 'explore',
+		links: [
 			{ href: siteUrl('/hindi-to-marathi/'), label: 'Hindi → Marathi', match: 'hindi-to-marathi' },
 			{ href: siteUrl('/english-to-marathi/'), label: 'English → Marathi', match: 'english-to-marathi' },
-			{ href: siteUrl('/grammar/'), label: 'Grammar', match: 'grammar' },
-			{ href: siteUrl('/lessons/'), label: 'Lessons', match: 'lessons' },
-			{ href: siteUrl('/quiz/'), label: 'Quiz', match: 'quiz' },
-			{ href: siteUrl('/blog/'), label: 'Blog', match: 'blog' },
-			{ href: siteUrl('/app/'), label: 'App', match: 'app' },
-		];
+			{ href: siteUrl('/hi/'), label: 'हिंदी में सीखें', match: 'hi' },
+		],
+	},
+];
+
+// Top-level items rendered outside the dropdowns (visible without a tap).
+const directLinks = [
+	{ href: siteUrl('/blog/'), label: 'Blog', match: 'blog' },
+	{ href: siteUrl('/app/'), label: 'App', match: 'app' },
+];
+
+const links = hi
+	? HI_NAV.map((l) => ({ href: siteUrl(l.href), label: l.label, match: l.href.replace(/\//g, '') }))
+	: [];
 ---
 
 <header class="site-header" transition:name="header" transition:persist>
@@ -37,15 +68,46 @@ const links = hi
 			<div id="online-status" class="online-status" role="status" aria-live="polite" aria-atomic="true" title="Connection status"></div>
 		</div>
 	</div>
-	<nav class="nav-strip" aria-label="Primary">
-		{links.map((link) => (
-			<a
-				href={link.href}
-				aria-current={current === link.match || current.startsWith(link.match + '/') ? 'page' : undefined}
-			>
-				{link.label}
-			</a>
-		))}
+	<nav class={hi ? 'nav-strip' : 'nav-strip nav-strip--groups'} aria-label="Primary">
+		{hi ? (
+			links.map((link) => (
+				<a
+					href={link.href}
+					aria-current={current === link.match || current.startsWith(link.match + '/') ? 'page' : undefined}
+				>
+					{link.label}
+				</a>
+			))
+		) : (
+			<>
+			{groups.map((group) => {
+				const active = group.links.some((l) => current === l.match || current.startsWith(l.match + '/'));
+				return (
+					<details class="nav-group">
+						<summary aria-current={active ? 'page' : undefined}>{group.label}</summary>
+						<div class="nav-menu">
+							{group.links.map((link) => (
+								<a
+									href={link.href}
+									aria-current={current === link.match || current.startsWith(link.match + '/') ? 'page' : undefined}
+								>
+									{link.label}
+								</a>
+							))}
+						</div>
+					</details>
+				);
+			})}
+			{directLinks.map((link) => (
+				<a
+					href={link.href}
+					aria-current={current === link.match || current.startsWith(link.match + '/') ? 'page' : undefined}
+				>
+					{link.label}
+				</a>
+			))}
+			</>
+		)}
 	</nav>
 </header>
 
@@ -69,6 +131,25 @@ const links = hi
 	}
 	initConnectivityAnalytics();
 	document.addEventListener('astro:page-load', initConnectivityAnalytics);
+
+	// Nav dropdowns: close on outside click / Escape (progressive enhancement —
+	// without JS the details elements still toggle on tap).
+	function initNavGroups() {
+		const groups = document.querySelectorAll('.nav-group');
+		if (!groups.length) return;
+		if ((window as unknown as { __navGroupsInit?: boolean }).__navGroupsInit) return;
+		(window as unknown as { __navGroupsInit?: boolean }).__navGroupsInit = true;
+		document.addEventListener('click', (e) => {
+			groups.forEach((g) => {
+				if (g.hasAttribute('open') && !g.contains(e.target as Node)) g.removeAttribute('open');
+			});
+		});
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') groups.forEach((g) => g.removeAttribute('open'));
+		});
+	}
+	initNavGroups();
+	document.addEventListener('astro:page-load', initNavGroups);
 
 	// Render streak ring client-side
 	(function () {
@@ -236,6 +317,68 @@ const links = hi
 		color: rgb(var(--black));
 		font-weight: 700;
 		background: var(--accent-fixed);
+	}
+	/* Grouped nav (Learn / Practice / Explore) — zero-JS details dropdowns */
+	.nav-strip--groups {
+		overflow: visible; /* dropdown menus must not be clipped */
+		justify-content: safe center;
+	}
+	.nav-group {
+		position: relative;
+		flex-shrink: 0;
+	}
+	.nav-group > summary {
+		list-style: none;
+		cursor: pointer;
+		color: rgb(var(--gray-dark));
+		font-size: 0.9rem;
+		padding: 0.45em 0.75em;
+		border-radius: 6px;
+		white-space: nowrap;
+		user-select: none;
+	}
+	.nav-group > summary::-webkit-details-marker { display: none; }
+	.nav-group > summary::after {
+		content: '▾';
+		margin-left: 0.35em;
+		font-size: 0.75em;
+		color: rgb(var(--gray));
+	}
+	.nav-group[open] > summary::after { content: '▴'; }
+	.nav-group > summary:hover {
+		color: rgb(var(--black));
+		background: rgb(var(--gray-light));
+	}
+	.nav-group > summary[aria-current='page'] {
+		color: rgb(var(--black));
+		font-weight: 700;
+		background: var(--accent-fixed);
+	}
+	.nav-menu {
+		position: absolute;
+		top: calc(100% + 4px);
+		left: 0;
+		z-index: 60;
+		display: grid;
+		gap: 0.15em;
+		min-width: 13em;
+		padding: 0.45em;
+		background: var(--paper);
+		border: var(--border);
+		border-radius: var(--radius);
+		box-shadow: 0 10px 30px rgb(0 0 0 / 0.12);
+	}
+	.nav-menu a {
+		padding: 0.55em 0.8em;
+		border-radius: 8px;
+	}
+	@media (max-width: 560px) {
+		.nav-menu {
+			position: fixed;
+			left: 1em;
+			right: 1em;
+			top: auto;
+		}
 	}
 	@media (max-width: 860px) {
 		.topbar { gap: 0.5em; padding: 0.5em 0.75em; }

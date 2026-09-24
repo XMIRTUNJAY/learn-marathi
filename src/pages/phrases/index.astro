@@ -1,5 +1,6 @@
 ---
 import AppCTA from '../../components/AppCTA.astro';
+import SeoCards from '../../components/SeoCards.astro';
 import Learn from '../../layouts/Learn.astro';
 import { phraseSets, phrasesFor } from '../../lib/learn';
 import { pageArt } from '../../lib/art';
@@ -34,6 +35,8 @@ import { siteUrl } from '../../lib/site';
 			</a>
 		</li>
 	</ul>
+
+	<SeoCards family="phrases" heading="Phrases by situation" />
 
 	<AppCTA variant="general" context="phrases-index" />
 </Learn>
