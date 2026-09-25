@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+<rect width="1200" height="630" fill="#8E2D12"/>
+<rect width="1200" height="630" fill="url(#v)" opacity="0"/>
+
+<g transform="translate(320,380)">
+  <circle cx="120" cy="40" r="44" fill="#FDFBF7"/>
+  <path d="M40 170 q0 -90 80 -90 t80 90 z" fill="#FDFBF7"/>
+  <circle cx="440" cy="40" r="44" fill="#FFDBD1"/>
+  <path d="M360 170 q0 -90 80 -90 t80 90 z" fill="#FFDBD1"/>
+  <g transform="translate(280,-30)">
+    <path d="M0 20 C0 -15 55 -15 55 20 C55 50 0 80 0 100 C0 80 -55 50 -55 20 C-55 -15 0 -15 0 20 z" fill="#F5B841"/>
+  </g>
+  <text x="280" y="230" font-size="34" text-anchor="middle" fill="#FFDBD1" font-family="sans-serif" font-weight="bold">BHETU = LET'S MEET</text>
+</g>
+<rect x="70" y="60" width="92" height="92" rx="22" fill="#FDFBF7"/>
+<text x="116" y="124" font-size="52" text-anchor="middle" fill="#8E2D12" font-family="sans-serif" font-weight="bold">BM</text>
+<text x="70" y="240" font-size="58" fill="#FDFBF7" font-family="sans-serif" font-weight="bold" textLength="760" lengthAdjust="spacingAndGlyphs">What Does "Bhet" Mean?</text>
+<text x="70" y="292" font-size="30" fill="#FFDBD1" font-family="sans-serif">Learn Marathi · Bol Marathi</text>
+</svg>

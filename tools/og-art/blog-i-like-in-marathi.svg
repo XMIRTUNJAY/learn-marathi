@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+<rect width="1200" height="630" fill="#8E2D12"/>
+<rect width="1200" height="630" fill="url(#v)" opacity="0"/>
+
+<g transform="translate(240,370)">
+  <g transform="translate(90,90)">
+    <path d="M0 16 C0 -16 48 -16 48 16 C48 44 0 70 0 88 C0 70 -48 44 -48 16 C-48 -16 0 -16 0 16 z" fill="#FFDBD1"/>
+  </g>
+  <g transform="translate(330,40)" stroke="#F5B841" fill="#F5B841">
+    <path d="M0 130 v-92 h18 v74 a16 16 0 1 1 -18 18 z M18 38 l60 -18 v70 M78 92 v0" stroke-width="0"/>
+    <rect x="14" y="30" width="10" height="88" />
+    <rect x="14" y="30" width="52" height="12" transform="skewY(-14)"/>
+    <circle cx="66" cy="110" r="18"/>
+    <circle cx="10" cy="138" r="14"/>
+  </g>
+  <g transform="translate(540,90)">
+    <path d="M0 0 q70 -26 130 0 v110 q-60 -22 -130 0 z" fill="#FDFBF7"/>
+    <path d="M0 0 q-70 -26 -130 0 v110 q60 -22 130 0 z" fill="#FDFBF7" opacity="0.85"/>
+    <path d="M0 -14 v138" stroke="#8E2D12" stroke-width="6"/>
+  </g>
+  <text x="330" y="250" font-size="34" text-anchor="middle" fill="#FFDBD1" font-family="sans-serif" font-weight="bold">MALA AAVDAT</text>
+</g>
+<rect x="70" y="60" width="92" height="92" rx="22" fill="#FDFBF7"/>
+<text x="116" y="124" font-size="52" text-anchor="middle" fill="#8E2D12" font-family="sans-serif" font-weight="bold">BM</text>
+<text x="70" y="240" font-size="58" fill="#FDFBF7" font-family="sans-serif" font-weight="bold" textLength="760" lengthAdjust="spacingAndGlyphs">Saying "I Like" in Marathi</text>
+<text x="70" y="292" font-size="30" fill="#FFDBD1" font-family="sans-serif">Learn Marathi · Bol Marathi</text>
+</svg>

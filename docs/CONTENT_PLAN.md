@@ -206,6 +206,28 @@ Plan size: **~110 tracked intents**. Publish order: READY pages in
 validation-first batches of ~10 (`npm run content:qa` gate, then build +
 `content:report`), AUTHOR pages only after review sign-off.
 
+---
+
+## Question-blog batch (2026-09-25) — 10 LIVE (blog format, custom OG cards)
+
+How-to / word-meaning / rescue-line posts under `/blog/` (not dataset pages) —
+question-style format for featured snippets / People Also Ask. Every Marathi
+string resolves from vocab.json / units.json; images are bespoke vector
+cards (public/og/og-blog-*.png) generated via `tools/make-og-blog-art.mjs`.
+
+| Slug | Intent |
+|---|---|
+| how-to-shop-in-marathi | Bargaining script (Unit 09) |
+| train-station-marathi | Station sentences (Unit 15) |
+| how-to-tell-time-in-marathi | वाजले + time words |
+| how-are-you-in-marathi | कसा/कसे आहात |
+| bhet-meaning-in-marathi | भेटने / भेटूया |
+| thamba-meaning-in-marathi | थांबणे / थांबा |
+| yes-no-in-marathi | हो / नको |
+| this-in-marathi | हा / ही / हे |
+| i-like-in-marathi | आवडतं frame (Unit 18) |
+| i-dont-understand-in-marathi | Rescue lines |
+
 ## Per-page checklist (all new pages)
 
 1. Entry added to the right `src/data/seo/*.json` with `status: draft`.
