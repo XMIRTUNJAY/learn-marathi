@@ -25,6 +25,19 @@ const posts = [
 	['/blog/money-prices/', 'Money & Prices', 'Numbers 1–10 plus market words.'],
 	['/blog/polite-marathi/', 'Polite Marathi', 'Please, thanks, sorry — used right.'],
 ];
+
+const answers = [
+	['/blog/how-to-shop-in-marathi/', 'How to Shop in Marathi', '12 market words + the 6-line bargaining script.'],
+	['/blog/train-station-marathi/', 'At the Train Station', 'Which train, booking, platform, hotel.'],
+	['/blog/how-to-tell-time-in-marathi/', 'How to Tell Time', 'वाजले, day parts, Unit 16 sentences.'],
+	['/blog/how-are-you-in-marathi/', '“How Are You?” in Marathi', 'कसा आहेस? vs the formal कसे आहात?'],
+	['/blog/bhet-meaning-in-marathi/', 'भेट (Bhet) Meaning', 'To meet — plus every goodbye form.'],
+	['/blog/thamba-meaning-in-marathi/', 'थांबा (Thamba) Meaning', 'Stop / wait, in autos and shops.'],
+	['/blog/yes-no-in-marathi/', 'Yes & No in Marathi', 'हो, नको, बरोबर, चूक — answers and refusals.'],
+	['/blog/this-in-marathi/', 'हा, ही, हे — “This”', 'Three genders, one habit.'],
+	['/blog/i-like-in-marathi/', 'Saying “I Like…”', 'The मला आवडतं frame, Unit 18.'],
+	['/blog/i-dont-understand-in-marathi/', '“I Don’t Understand”', '5 rescue lines for lost moments.'],
+];
 ---
 
 <Base
@@ -41,11 +54,29 @@ const posts = [
 		<h1>Situations, not chapters</h1>
 		<p class="lede">
 			Fourteen guides for real moments — autos, markets, doctors, offices,
-			festivals. Every word and sentence verified from the Bol Marathi
+			festivals — plus ten quick answers to the questions learners ask
+			most. Every word and sentence verified from the Bol Marathi
 			curriculum; nothing invented.
 		</p>
 		<ul class="card-grid">
 			{posts.map(([href, label, sub]) => (
+				<li>
+					<a class="card" href={siteUrl(href)} data-funnel="path_click">
+						<img src={pageArt(href.replace(/^\//, '').replace(/\/$/, ''))} alt="" loading="lazy" width="1200" height="630" />
+						<h3>{label}</h3>
+						<p>{sub}</p>
+					</a>
+				</li>
+			))}
+		</ul>
+		<h2>You asked — quick answers</h2>
+		<p>
+			Question-first pages: what a word means, how a phrase works, how to
+			handle one exact moment. Same rule — every Marathi string traced to
+			the curriculum.
+		</p>
+		<ul class="card-grid">
+			{answers.map(([href, label, sub]) => (
 				<li>
 					<a class="card" href={siteUrl(href)} data-funnel="path_click">
 						<img src={pageArt(href.replace(/^\//, '').replace(/\/$/, ''))} alt="" loading="lazy" width="1200" height="630" />
