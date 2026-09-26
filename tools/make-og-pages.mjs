@@ -97,8 +97,8 @@ const card = (label) => `<svg xmlns="http://www.w3.org/2000/svg" width="1200" he
 <rect width="1200" height="630" fill="#8E2D12"/>
 <rect x="80" y="232" width="100" height="100" rx="22" fill="#FDFBF7"/>
 <text x="130" y="304" font-size="58" text-anchor="middle" fill="#8E2D12" font-family="sans-serif" font-weight="bold">BM</text>
-<text x="215" y="282" font-size="64" fill="#FDFBF7" font-family="sans-serif" font-weight="bold" textLength="940" lengthAdjust="spacingAndGlyphs">${label}</text>
-<text x="215" y="332" font-size="36" fill="#FFDBD1" font-family="sans-serif">Learn Marathi · Bol Marathi</text>
+<text x="600" y="282" font-size="56" fill="#FDFBF7" font-family="sans-serif" font-weight="bold" text-anchor="middle" style="max-width: 1000px;">${label}</text>
+<text x="600" y="342" font-size="32" fill="#FFDBD1" font-family="sans-serif" text-anchor="middle">Learn Marathi · Bol Marathi</text>
 </svg>`;
 
 const manifest = [];
