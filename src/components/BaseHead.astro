@@ -4,6 +4,7 @@ import '../styles/global.css';
 import { BRAND } from '../data/brand';
 import { pageArtPng } from '../lib/art';
 import { siteUrl } from '../lib/site';
+import ogManifest from '../data/og-manifest.json';
 
 interface Props {
 	title: string;
@@ -18,10 +19,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { title, description, imageUrl, noindex = false, alternates = [] } = Astro.props;
 // Per-page share cards resolve through src/lib/art.ts — the single source of
 // truth for page art — so the social card always matches the visible hero.
-// Explicit imageUrl still wins.
+// Explicit imageUrl still wins; routes without art fall back to a section card.
 const segs = Astro.url.pathname.replace(base || '/', '').split('/').filter(Boolean);
 const route = segs.join('/');
-const resolvedImage = imageUrl ?? pageArtPng(route);
+const section = segs[0] ?? '';
+const sectionImages = ['vocabulary', 'phrases', 'grammar', 'lessons', 'quiz', 'hindi-to-marathi', 'english-to-marathi', 'hi', 'app', 'start', 'downloads'];
+const manifestRoutes = (ogManifest as { routes: string[] }).routes;
+const resolvedImage =
+	imageUrl ??
+	(manifestRoutes.includes(route) ? pageArtPng(route) : null) ??
+	(sectionImages.includes(section) ? `${base}/og-${section}.png` : `${base}/og-default.png`);
 const ogImage = new URL(resolvedImage, Astro.site).toString();
 ---
 
