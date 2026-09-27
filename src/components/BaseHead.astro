@@ -18,15 +18,44 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { title, description, imageUrl, noindex = false, alternates = [] } = Astro.props;
 // Per-page share cards (public/og/<route>.png via tools/make-og-pages,
 // manifest in src/data/og-manifest.json); explicit imageUrl wins, else
-// route match, else section card, else the default card.
+// route match (with renamed mapping), else section card, else the default card.
 const segs = Astro.url.pathname.replace(base || '/', '').split('/').filter(Boolean);
 const section = segs[0] ?? '';
 const route = segs.join('/');
 const sectionImages = ['vocabulary', 'phrases', 'grammar', 'lessons', 'quiz', 'hindi-to-marathi', 'english-to-marathi', 'hi', 'app', 'start', 'downloads'];
 const manifestRoutes = (ogManifest as { routes: string[] }).routes;
+// Renamed file mapping (route -> renamed base filename without extension)
+const renamedMap: Record<string, string> = {
+	'blog': 'og-blog-index',
+	'english-to-marathi/words': 'og-blog-pune-newcomer-words',
+	'grammar/commands-polite': 'og-grammar-commands-polite',
+	'grammar/postpositions': 'og-grammar-postpositions',
+	'hindi-to-marathi/advanced-structures': 'og-hindi-to-marathi-advanced-structures',
+	'hindi-to-marathi/daily-conversation': 'og-hindi-to-marathi-daily-conversation',
+	'hindi-to-marathi/festivals': 'og-hindi-to-marathi-festivals',
+	'hindi-to-marathi/greetings': 'og-hindi-to-marathi-greetings',
+	'hindi-to-marathi/time-seasons': 'og-english-to-marathi-time-seasons',
+	'hindi-to-marathi/travel': 'og-english-to-marathi-transport-travel',
+	'hindi-to-marathi/shopping': 'og-vocabulary-shopping',
+	'hindi-to-marathi/work-career': 'og-hindi-to-marathi-work-career',
+	'phrases/making-plans': 'og-phrases-making-plans',
+	'phrases/office-work': 'og-phrases-office-work',
+	'phrases/phone-and-messaging': 'og-phrases-phone-and-messaging',
+	'phrases/presentations-interviews': 'og-phrases-presentations-interviews',
+	'phrases/shopping': 'og-vocabulary-shopping',
+	'phrases/thanking-apologizing': 'og-phrases-thanking-apologizing',
+	'phrases/travel': 'og-english-to-marathi-transport-travel',
+	'vocabulary/adjectives': 'og-vocabulary-adjectives',
+	'vocabulary/animals': 'og-vocabulary-animals',
+	'vocabulary/body-parts': 'og-vocabulary-body-parts',
+	'vocabulary/clothing': 'og-vocabulary-clothing',
+	'vocabulary/food': 'og-vocabulary-food',
+	'vocabulary/shopping': 'og-vocabulary-shopping',
+	'vocabulary/work-office': 'og-vocabulary-work-office',
+};
 const resolvedImage =
 	imageUrl ??
-	(manifestRoutes.includes(route) ? `${base}/og/og-${route === '' ? 'home' : route.replace(/\//g, '-')}.png` : null) ??
+	(manifestRoutes.includes(route) ? `${base}/og/${renamedMap[route] ?? `og-${route === '' ? 'home' : route.replace(/\//g, '-')}`}.png` : null) ??
 	(sectionImages.includes(section) ? `${base}/og-${section}.png` : `${base}/og-default.png`);
 const ogImage = new URL(resolvedImage, Astro.site).toString();
 ---
