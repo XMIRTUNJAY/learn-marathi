@@ -1173,6 +1173,11 @@ main {
   from { opacity: 0; transform: translateX(-100%); }
   to { opacity: 1; transform: none; }
 }
+
+/* ========================================
+   MOBILE (≤640px) — small-screen layout
+   ======================================== */
+@media (max-width: 640px) {
   :root {
     --font-size-base: 0.9375rem; /* 15px */
     --line-height-base: 1.6;
@@ -1189,11 +1194,6 @@ main {
   
   .card-grid .card img {
     margin: -1em -1em 0.75em -1em;
-  }
-  
-  .hero-figure img {
-    max-height: 180px;
-    object-fit: cover;
   }
   
   .premium-hero__title { font-size: 1.75rem; }
@@ -1255,7 +1255,8 @@ main {
   .practice-cta__body { font-size: var(--text-body-sm); }
   
   .related-lessons__grid { grid-template-columns: 1fr; }
-    .related-lessons__content { padding: var(--space-3); }
+  .related-lessons__content { padding: var(--space-3); }
+}
 
   /* Standard mobile (375px and up) */
 @media (min-width: 375px) {

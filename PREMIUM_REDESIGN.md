@@ -645,6 +645,28 @@ npm run hero:audit       # exit 0, 0 content/topic failures
 for f in $(find dist -name index.html); do c=$(grep -o '<h1' "$f" | wc -l); [ "$c" -gt 1 ] && echo "$c $f"; done   # (no output)
 ```
 
+### CSS regressions fixed (round 4)
+
+Two CSS defects in the redesign were found by measuring the rendered page with a
+headless browser (`tools/measure-hero.mjs`) and comparing against the live site:
+
+1. **Broken media-query wrapper.** The entire "mobile ≤640px" responsive block in
+   `global.css` was missing its `@media (max-width: 640px) { … }` wrapper, so its
+   rules leaked to **all** viewports — including `.hero-figure img{max-height:180px}`,
+   which capped the desktop hero into a short cropped band ("half image"). Fixed by
+   wrapping the block (lines ~1176–1258) properly.
+
+2. **Invalid type tokens.** Every `--text-*` token in `design-system/tokens.css`
+   used the `font` shorthand form (`clamp(…) / 1.2`), but all 126 consumers use
+   `font-size: var(--text-*)`. The trailing `/ <line-height>` makes the declaration
+   invalid, so the whole type scale was silently dropped (h1 collapsed to ~17px).
+   Fixed by making the tokens size-only and adding separate `--leading-*` companions.
+   Desktop h1 is now 40px (was 17px).
+
+Hero is now verified to render at its natural aspect ratio at 1280/1024/768/480/375px,
+matching the live site (`tools/measure-hero.mjs`); mobile keeps the upstream
+`max-height:220px; object-fit:cover` crop.
+
 ---
 
 *Document version: 1.1 | Updated: 2026-09-28 | Branch: premium-redesign*
