@@ -23,3 +23,9 @@ yarn-error.log*
 
 # generated content snapshots are committed intentionally (see tools/),
 # so they are NOT ignored: src/data/learn/*.json
+
+# local scratch / audit artifacts
+livecheck/
+frames/
+tools/ocr-out/
+tessenv/

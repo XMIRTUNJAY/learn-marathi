@@ -1,13 +1,14 @@
 ---
 import AppCTA from '../../components/AppCTA.astro';
 import Base from '../../layouts/Base.astro';
-import { pageArt } from '../../lib/art';
+import { pageArt, pageArtPng } from '../../lib/art';
 import { siteUrl } from '../../lib/site';
 
 const title = 'Real-Life Marathi: Situational Guides';
 const description = 'Real-life Marathi guides: autos, markets, doctors, offices, festivals and more — every word verified from the curriculum.';
 const url = new URL(Astro.url.pathname, Astro.site).toString();
 const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
+const ogImage = pageArtPng('blog');
 
 const posts = [
 	['/blog/autorickshaw-taxi/', 'Marathi for Autorickshaw & Taxi Rides', 'Directions, stop/go, fares.'],
@@ -43,6 +44,7 @@ const answers = [
 <Base
 	title={title}
 	description={description}
+	ogImage={ogImage}
 	alternates={[{ lang: 'en', href: siteUrl('/blog/') }]}
 	crumbs={[
 		{ label: 'Learn Marathi', href: siteUrl('/') },

@@ -2,7 +2,7 @@
 // BaseHead: global metadata (Notebook pattern, standalone version).
 import '../styles/global.css';
 import { BRAND } from '../data/brand';
-import ogManifest from '../data/og-manifest.json';
+import { pageArtPng } from '../lib/art';
 import { siteUrl } from '../lib/site';
 
 interface Props {
@@ -16,18 +16,12 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { title, description, imageUrl, noindex = false, alternates = [] } = Astro.props;
-// Per-page share cards (public/og/<route>.png via tools/make-og-pages,
-// manifest in src/data/og-manifest.json); explicit imageUrl wins, else
-// route match, else section card, else the default card.
+// Per-page share cards resolve through src/lib/art.ts — the single source of
+// truth for page art — so the social card always matches the visible hero.
+// Explicit imageUrl still wins.
 const segs = Astro.url.pathname.replace(base || '/', '').split('/').filter(Boolean);
-const section = segs[0] ?? '';
 const route = segs.join('/');
-const sectionImages = ['vocabulary', 'phrases', 'grammar', 'lessons', 'quiz', 'hindi-to-marathi', 'english-to-marathi', 'hi', 'app', 'start', 'downloads'];
-const manifestRoutes = (ogManifest as { routes: string[] }).routes;
-const resolvedImage =
-	imageUrl ??
-	(manifestRoutes.includes(route) ? `${base}/og/og-${route === '' ? 'home' : route.replace(/\//g, '-')}.png` : null) ??
-	(sectionImages.includes(section) ? `${base}/og-${section}.png` : `${base}/og-default.png`);
+const resolvedImage = imageUrl ?? pageArtPng(route);
 const ogImage = new URL(resolvedImage, Astro.site).toString();
 ---
 

@@ -1,0 +1,185 @@
+---
+// EntryPoints — Three clear entry points: English / Hindi / Continue
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+const entries = [
+  {
+    id: 'english',
+    label: 'I speak English',
+    sublabel: 'English → Marathi',
+    desc: 'Everyday words and sentences with English meanings, pronunciation, and examples.',
+    href: '/english-to-marathi/',
+    icon: '🌍',
+    color: 'var(--color-primary)',
+    colorFixed: 'var(--color-primary-fixed)',
+  },
+  {
+    id: 'hindi',
+    label: 'I speak Hindi',
+    sublabel: 'हिंदी → मराठी',
+    desc: 'Word pairs and sentence bridges mapped from Hindi you already know.',
+    href: '/hindi-to-marathi/',
+    icon: '🔗',
+    color: 'var(--color-success)',
+    colorFixed: 'var(--color-success-bg)',
+  },
+  {
+    id: 'continue',
+    label: 'I know some Marathi',
+    sublabel: 'Continue learning',
+    desc: 'Practice, review, and advance with quizzes, spaced repetition, and lessons.',
+    href: '/start/',
+    icon: '➡️',
+    color: 'var(--color-warning)',
+    colorFixed: 'var(--color-warning-bg)',
+  },
+];
+---
+
+<section class="entry-points {className}" aria-labelledby="entry-points-title">
+  <header class="entry-points__header">
+    <p class="entry-points__kicker kicker">Choose your path</p>
+    <h2 id="entry-points-title" class="entry-points__title">How do you want to learn?</h2>
+  </header>
+
+  <ul class="entry-points__grid">
+    {entries.map((entry, i) => (
+      <li class={`entry-points__card reveal reveal-delay-${i + 1}`}>
+        <a class="entry-points__link" href={entry.href} data-funnel="entry_point_click" data-entry={entry.id}>
+          <div class="entry-points__icon" style={`background: ${entry.colorFixed}; color: ${entry.color};`}>
+            {entry.icon}
+          </div>
+          <div class="entry-points__content">
+            <span class="entry-points__sublabel">{entry.sublabel}</span>
+            <h3 class="entry-points__label">{entry.label}</h3>
+            <p class="entry-points__desc">{entry.desc}</p>
+          </div>
+          <span class="entry-points__arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .entry-points {
+    margin: var(--space-6) 0;
+  }
+
+  .entry-points__header {
+    text-align: center;
+    margin-bottom: var(--space-6);
+  }
+
+  .entry-points__kicker { margin-bottom: var(--space-2); }
+
+  .entry-points__title {
+    font-size: var(--text-h2);
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  .entry-points__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-4);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  @media (max-width: 860px) {
+    .entry-points__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .entry-points__card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .entry-points__card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .entry-points__link {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    text-decoration: none;
+    color: inherit;
+    min-height: 140px;
+  }
+
+  .entry-points__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius);
+    font-size: 1.5rem;
+  }
+
+  .entry-points__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .entry-points__sublabel {
+    font-size: var(--text-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+  }
+
+  .entry-points__label {
+    margin: 0;
+    font-size: var(--text-body);
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.3;
+  }
+
+  .entry-points__desc {
+    margin: 0;
+    font-size: var(--text-body-sm);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .entry-points__arrow {
+    flex-shrink: 0;
+    align-self: center;
+    margin-top: var(--space-1);
+    font-size: 1.5rem;
+    color: var(--color-text-muted);
+    transition: transform var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+  }
+
+  .entry-points__link:hover .entry-points__arrow {
+    transform: translateX(4px);
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 560px) {
+    .entry-points__link { flex-direction: column; align-items: center; text-align: center; }
+    .entry-points__arrow { margin-top: var(--space-2); }
+  }
+</style>

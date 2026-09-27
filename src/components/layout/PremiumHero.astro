@@ -1,0 +1,287 @@
+---
+// PremiumHero — Hero section for homepage and major landing pages
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  kicker?: string;
+  primaryCTA?: {
+    label: string;
+    href: string;
+    variant?: 'primary' | 'ghost';
+  };
+  secondaryCTA?: {
+    label: string;
+    href: string;
+  };
+  illustration?: {
+    src: string;
+    alt: string;
+  };
+  stats?: Array<{
+    value: string;
+    label: string;
+  }>;
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  kicker,
+  primaryCTA,
+  secondaryCTA,
+  illustration,
+  stats,
+  class: className = '',
+} = Astro.props;
+---
+
+<header class="premium-hero {className}">
+  <div class="premium-hero__content">
+    {kicker && <p class="premium-hero__kicker kicker">{kicker}</p>}
+    <h1 class="premium-hero__title">{title}</h1>
+    {subtitle && <p class="premium-hero__subtitle">{subtitle}</p>}
+
+    <div class="premium-hero__actions">
+      {primaryCTA && (
+        <a class="premium-hero__btn premium-hero__btn--primary btn" href={primaryCTA.href}>
+          {primaryCTA.label}
+        </a>
+      )}
+      {secondaryCTA && (
+        <a class="premium-hero__btn premium-hero__btn--secondary btn" href={secondaryCTA.href}>
+          {secondaryCTA.label}
+        </a>
+      )}
+    </div>
+
+    {stats && stats.length > 0 && (
+      <ul class="premium-hero__stats" aria-label="Key metrics">
+        {stats.map((stat, i) => (
+          <li class="premium-hero__stat" style={`--delay: ${i * 0.1}s`}>
+            <article class="stat-card">
+              <strong class="premium-hero__stat-value">{stat.value}</strong>
+              <span class="premium-hero__stat-label">{stat.label}</span>
+            </article>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {/* Divider line after stats */}
+    <div class="hero-divider" aria-hidden="true">
+      <span class="hero-divider__line"></span>
+    </div>
+  </div>
+
+  {illustration && (
+    <div class="premium-hero__illustration" transition:name="hero-illustration">
+      <img src={illustration.src} alt={illustration.alt} loading="eager" width="400" height="400" />
+    </div>
+  )}
+</header>
+
+<style>
+  .premium-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+    align-items: center;
+    padding: var(--space-8) 0;
+    margin: 0;
+  }
+
+  @media (min-width: 900px) {
+    .premium-hero {
+      grid-template-columns: 1fr 1fr;
+      padding: var(--space-8) 0;
+    }
+  }
+
+  .premium-hero__content {
+    max-width: 600px;
+  }
+
+  .premium-hero__kicker {
+    margin-bottom: var(--space-3);
+  }
+
+  .premium-hero__title {
+    font-size: var(--text-display);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin: 0 0 var(--space-4) 0;
+    color: var(--color-text);
+  }
+
+  .premium-hero__subtitle {
+    font-size: var(--text-body-lg);
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin: 0 0 var(--space-6) 0;
+    max-width: 500px;
+  }
+
+  .premium-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .premium-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    padding: 0 var(--space-6);
+    font-size: var(--text-button);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  .premium-hero__btn--primary {
+    background: var(--color-primary);
+    color: var(--color-text-on-primary);
+  }
+
+  .premium-hero__btn--primary:hover {
+    filter: brightness(0.92);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .premium-hero__btn--secondary {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+  }
+
+  .premium-hero__btn--secondary:hover {
+    background: var(--color-primary-fixed);
+    color: var(--color-primary-dark);
+  }
+
+  .premium-hero__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-6);
+  }
+
+  .premium-hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: hero-stat-in 0.5s var(--ease-out) forwards;
+    animation-delay: var(--delay, 0);
+  }
+
+  @keyframes hero-stat-in {
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .premium-hero__stat { opacity: 1; transform: none; animation: none; }
+  }
+
+  .premium-hero__stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.1;
+  }
+
+  .premium-hero__stat-label {
+    font-size: var(--text-caption);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .premium-hero__illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .premium-hero__illustration img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-lg);
+  }
+
+  @media (max-width: 899px) {
+    .premium-hero__illustration { order: -1; }
+    .premium-hero__illustration img { max-width: 280px; }
+  }
+
+  @media (max-width: 640px) {
+    .premium-hero__title { font-size: 2rem; }
+    .premium-hero__subtitle { font-size: 1rem; }
+    .premium-hero__stat-value { font-size: 1.5rem; }
+    .premium-hero__stat-label { font-size: 0.65rem; }
+    .premium-hero__btn { width: 100%; }
+  }
+
+  /* Stats cards */
+  .stat-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--space-4) var(--space-5);
+    min-width: 120px;
+    text-align: center;
+    transition: transform var(--duration-base) var(--ease-spring-gentle),
+                box-shadow var(--duration-base) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+  }
+
+  /* Divider line */
+  .hero-divider {
+    width: 100%;
+    max-width: 600px;
+    margin: var(--space-6) 0 0 0;
+    opacity: 0;
+    animation: fade-in-up var(--duration-slow) var(--ease-out-expo) forwards;
+    animation-delay: calc(var(--stagger-1) * 5);
+  }
+
+  .hero-divider__line {
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-primary-light), transparent);
+    border-radius: 2px;
+    animation: divider-expand 1.2s var(--ease-out-expo) forwards;
+  }
+
+  @keyframes divider-expand {
+    from { width: 0; opacity: 0; }
+    to { width: 100%; opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-divider { opacity: 1; animation: none; }
+    .hero-divider__line { animation: none; width: 100%; }
+  }
+</style>
