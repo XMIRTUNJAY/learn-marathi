@@ -26,7 +26,8 @@ for (const route of ogManifest.routes) {
     'hindi-to-marathi/time-seasons': 'og-english-to-marathi-time-seasons',  // Cross-family OK (time/seasons)
     'hindi-to-marathi/travel': 'og-english-to-marathi-transport-travel',    // Cross-family OK (transport/travel)
     'hindi-to-marathi/shopping': 'og-vocabulary-shopping',  // Use vocabulary shopping image (correct)
-    'hindi-to-marathi/work-career': 'og-hindi-to-marathi-work-career',  // Keep existing (matches)
+    'hindi-to-marathi/work-career': 'og-vocabulary-work-office',  // FIX: base art showed "How to Say Please"; use Office & Work Words
+    'hindi-to-marathi/questions': 'og-grammar-questions',  // FIX: base art showed "Shopping/Bargaining"; use Marathi Question Words
     // Phrases
     'phrases/making-plans': 'og-phrases-making-plans',          // NEW: from Stitch (making plans)
     'phrases/office-work': 'og-phrases-office-work',            // NEW: from Stitch phrases_6 (office work)

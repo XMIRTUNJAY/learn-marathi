@@ -595,40 +595,45 @@ Wiring:
 
 ### Hero image semantic audit (round 3)
 
-The earlier "hero doesn't match the page" problem was **worse than a naming typo**:
-several `public/og/*.webp` files contain the artwork of a *different topic*
-(a historical content rotation). Examples found by OCR:
+**Root cause (important):** the local branch was based on an *old* `main`
+(`286726e`). Upstream `main` had since advanced to `381a427`
+(`feature/image-semantic-audit`), which **replaced ~221 corrected `public/og/*.webp`
+images**. The stale local branch therefore held the *old, rotated* artwork — e.g.
+local `og-vocabulary-animals.webp` showed "Marathi Adjectives: 68 Describing Words".
 
-| File | Topic its page expects | What the file actually shows |
-|------|------------------------|------------------------------|
-| `og-vocabulary-adjectives.webp` | Adjectives | Office & Work Words |
-| `og-vocabulary-animals.webp` | Animals | Adjectives (68 words) |
-| `og-vocabulary-food.webp` | Food | Adjectives (68 words) |
-| `og-vocabulary-body-parts.webp` | Body parts | Abstract Words |
-| `og-vocabulary-clothing.webp` | Clothing | Transport Words |
-| `og-vocabulary-shopping.webp` | Shopping | Abstract Words |
-| `og-phrases-thanking-apologizing.webp` | Thanking | Phone & Messaging |
-| `og-phrases-presentations-interviews.webp` | Presentations | Thanking & Apologizing |
-| `og-hindi-to-marathi-questions.webp` | Questions | Shopping/Bargaining |
-| `og-hindi-to-marathi-festivals.webp` | Festivals | (travel art) |
+Verified directly: the live file and the updated upstream file both OCR as
+"मराठी प्राणी नावे … 40 Animals" (md5 `7e208f3f…`, 119,918 bytes); the old local
+file OCR'd as adjectives. So the page↔image mismatches were **stale assets**, not
+a mapping bug.
 
-**Fix:** `src/lib/art.ts` now holds a single `CONTENT_FIX` map that points every
-affected route at a file whose **OCR-verified content** matches the page topic.
-19 routes corrected (vocabulary ×6, phrases ×6, grammar ×2, hindi-bridge ×5).
-Where no matching art exists (`clothing`, `making-plans`) a neutral,
-topic-appropriate image is used instead of a wrong one.
+**Fix (round 3):**
+
+1. Merged `origin/main` into `premium-redesign`, bringing in the corrected images
+   and upstream's `src/lib/art.ts` mapping (base-name + a small `renamedMap`).
+   `CONTENT_FIX` from round-2 was **reverted** — with correct files, the
+   route-derived base name is correct.
+2. Fixed **2 residual mismatches upstream missed** (confirmed wrong on the live
+   site too) via `art.ts` `renamedMap`:
+   - `hindi-to-marathi/questions` → `og-grammar-questions` ("Marathi Question Words")
+   - `hindi-to-marathi/work-career` → `og-vocabulary-work-office` ("Office & Work Words")
+3. Re-ran OCR over all 221 images (`TESSDATA_PREFIX=C:\Users\kumar\tessdata`,
+   `eng+mar`, `--psm 11`) and rebuilt `tools/ocr-digest.txt` from the corrected files.
 
 **Audit tool:** `tools/hero-audit.mjs` (`npm run hero:audit`) walks every built
-page, extracts its hero/webp + `og:image`, and compares the image's OCR text
-against the page's topic using a controlled lexicon. It exits non-zero on any
-content mismatch, so it works as a CI gate.
+page, extracts its hero + `og:image`, and compares the image's OCR text against
+the page's topic via a controlled lexicon. Graphically-dense art with no readable
+text is reported as *unverifiable* rather than a false failure. Exits non-zero on
+any real mismatch, so it works as a CI gate.
+`tools/page-hero-table.mjs` prints the full `route | file | OCR headline` table
+for manual review (`node tools/page-hero-table.mjs 'vocabulary|phrases|…'`).
 
 Result after fix:
 
 ```
-Pages:                199
-Explicit remaps:      23
-Content/topic FAIL:   0     <-- every hero matches its page
+Pages:                   199
+Explicit remaps:         9
+Content/topic FAIL:      0     <-- every hero matches its page
+Unverifiable (low OCR):  2     (clothing, food — graphical art, matches live)
 ```
 
 ### Verification

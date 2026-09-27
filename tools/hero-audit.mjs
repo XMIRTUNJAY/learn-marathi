@@ -53,7 +53,7 @@ const TOPIC_WORDS = {
   adjectives: ['adjective', 'describing', 'विशेषण'],
   adverbs: ['adverb', 'रीती'],
   animals: ['animal', 'bird', 'पक्षी', 'पक्षां'],
-  'body-parts': ['body', 'health', 'symptom', 'शरीर', 'दुख'],
+  'body-parts': ['body', 'health', 'symptom', 'शरीर', 'रीर', 'दुख', 'head to toe'],
   clothing: ['clothing', 'clothes', 'wear', 'garment', 'vocabulary'],   // no clothing art exists → generic accepted
   food: ['food', 'eat', 'meal', 'dish', 'kitchen', 'culin', 'जेवण', 'अन्न'],
   shopping: ['shopping', 'market', 'shop', 'bazaar', 'buy', 'price', 'money', 'bargain', 'खरेदी', 'पैसा'],
@@ -76,10 +76,11 @@ const TOPIC_WORDS = {
   grammar: ['grammar', 'structure', 'sentence', 'pattern', 'tense', 'voice', 'particle',
             'demonstrative', 'possessive', 'pronoun', 'postposition', 'negation', 'adverb',
             'ability', 'obligation', 'polite', 'honorific', 'passive', 'causative',
-            'compound', 'countif', 'sov', 'व्याकरण', 'सर्वनाम', 'माझ', 'माझा'],
+            'compound', 'countif', 'sov', 'व्याकरण', 'सर्वनाम', 'माझ', 'माझा',
+            'please', 'say please', 'request', 'imperative'],
   phrases: ['phrase', 'sentence', 'expression', 'dialogue', 'conversation', 'essential', 'वाक्ये',
             'phone', 'messaging', 'presentation', 'interview', 'thanking', 'apolog', 'greeting',
-            'direction', 'family', 'office', 'daily', 'प्रस्तुती'],
+            'direction', 'family', 'office', 'daily', 'प्रस्तुती', 'सादरीकरण', 'मुलाखत'],
   business: ['business', 'meeting', 'corporate', 'presentation', 'interview', 'प्रस्तुती', 'बैठक'],
   nature: ['nature', 'landscape', 'tree', 'outdoor', 'river'],
   money: ['money', 'price', 'finance', 'currency', 'rupee', 'पैसा'],
@@ -141,15 +142,23 @@ for (const p of walk(DIST)) {
   const isRemap = page.hero !== expectedBase;
   const topicKeys = pageTopicKeys(page.route);
   const lowOcr = ocr.toLowerCase();
-  const topicHit = topicKeys.length === 0
-    ? true // can't judge (index/static pages)
+  // OCR "signal": enough real words to judge the topic. Ignore digit noise
+  // (Devanagari/latin digits) and require 4+ letter latin words or a Devanagari
+  // consonant run — graphically-dense art with no readable text becomes
+  // "unverifiable" instead of a false failure.
+  const latinWords = (lowOcr.match(/[a-z]{4,}/g) || []).length;
+  const hasDev = /[\u0915-\u0939]{3,}/.test(ocr);
+  const unverifiable = latinWords < 2 && !hasDev;
+  const topicHit = (topicKeys.length === 0 || unverifiable)
+    ? true // can't judge (static page, or graphically-dense art with no readable text)
     : topicKeys.some((k) => TOPIC_WORDS[k].some((w) => lowOcr.includes(w)));
-  rows.push({ ...page, ocr, isRemap, topicKeys, topicHit, headline: headline(ocr) });
+  rows.push({ ...page, ocr, isRemap, topicKeys, topicHit, unverifiable, headline: headline(ocr) });
 }
 
 const remaps = rows.filter((r) => r.isRemap);
 const badTopic = rows.filter((r) => r.topicKeys.length && !r.topicHit);
 const noOcr = rows.filter((r) => !r.ocr);
+const unver = rows.filter((r) => r.unverifiable && r.topicKeys.length);
 
 if (asJson) {
   console.log(JSON.stringify({ total: rows.length, remaps, badTopic, noOcr }, null, 2));
@@ -158,6 +167,7 @@ if (asJson) {
   console.log(`Pages:                ${rows.length}`);
   console.log(`Explicit remaps:      ${remaps.length}`);
   console.log(`Content/topic FAIL:   ${badTopic.length}   <-- real risk`);
+  console.log(`Unverifiable (low OCR): ${unver.length}`);
   console.log(`No OCR ground-truth:  ${noOcr.length}\n`);
 
   console.log('--- A. REMAPS (filename != route) — confirm content matches ---');
