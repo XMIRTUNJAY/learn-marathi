@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 const BASE = 'http://localhost:4322/learn-marathi';
 const routes = [
-  '/', '/vocabulary/', '/vocabulary/greetings/', '/lessons/', '/lessons/01/',
+  '/', '/vocabulary/', '/vocabulary/transport/', '/lessons/', '/lessons/01/',
   '/phrases/', '/grammar/', '/hindi-to-marathi/', '/english-to-marathi/',
   '/quiz/', '/review/', '/start/', '/app/', '/blog/', '/hi/',
 ];
