@@ -12,20 +12,24 @@ interface Props {
   }>;
   max?: number;
   title?: string;
+  /** Set false when the surrounding section already renders its own heading. */
+  showTitle?: boolean;
 }
 
-const { links, max = 4, title = 'Continue learning' } = Astro.props;
+const { links, max = 4, title = 'Continue learning', showTitle = true } = Astro.props;
 const displayLinks = links.slice(0, max);
 ---
 
 {displayLinks.length > 0 && (
-  <section class="related-lessons" aria-labelledby="related-lessons-title">
-    <header class="related-lessons__header">
-      <h2 id="related-lessons-title" class="related-lessons__title">{title}</h2>
-    </header>
+  <section class="related-lessons" aria-labelledby={showTitle ? 'related-lessons-title' : undefined}>
+    {showTitle && (
+      <header class="related-lessons__header">
+        <h2 id="related-lessons-title" class="related-lessons__title">{title}</h2>
+      </header>
+    )}
     <ul class="related-lessons__grid">
       {displayLinks.map((link, i) => (
-        <li class="related-lessons__card reveal reveal-delay-{i + 1}">
+        <li class={`related-lessons__card reveal reveal-delay-${i + 1}`}>
           <a class="related-lessons__link" href={link.slug} data-funnel="related_lesson_click" data-slug={link.slug}>
             {link.art && (
               <div class="related-lessons__image" style={`background-image: url('${link.lqip || link.art}'); background-size: cover;`}>

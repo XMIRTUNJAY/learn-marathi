@@ -37,7 +37,11 @@ const ogImage = new URL(resolvedImage, Astro.site).toString();
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" />
+<!-- Mukta: warm, distinctive Devanagari + Latin — the primary display/body face
+     chosen in the design system. Noto Sans Devanagari is kept as a coverage
+     fallback for rare conjuncts. Previously only Noto was loaded, so the whole
+     --font-display/--font-body stack silently fell back. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" />
 <link rel="icon" type="image/svg+xml" href={siteUrl('/favicon.svg')} />
 <link rel="manifest" href={siteUrl('/manifest.webmanifest')} />
 <link rel="sitemap" href={siteUrl('/sitemap-index.xml')} />

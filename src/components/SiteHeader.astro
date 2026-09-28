@@ -322,6 +322,8 @@ const links = hi
 	.nav-strip--groups {
 		overflow: visible; /* dropdown menus must not be clipped */
 		justify-content: safe center;
+		flex-wrap: wrap;
+		row-gap: 0.15em;
 	}
 	.nav-group {
 		position: relative;
@@ -372,19 +374,37 @@ const links = hi
 		padding: 0.55em 0.8em;
 		border-radius: 8px;
 	}
-	@media (max-width: 560px) {
-		.nav-menu {
-			position: fixed;
-			left: 1em;
-			right: 1em;
-			top: auto;
-		}
-	}
 	@media (max-width: 860px) {
 		.topbar { gap: 0.5em; padding: 0.5em 0.75em; }
 		.brand { font-size: 1.05rem; }
 		.topbar-actions .preferences-wrapper { display: none; }
 		.topbar-search { max-width: none; }
 		.nav-strip { padding: 0 0.75em 0.5em 0.75em; }
+	}
+
+	/* Small screens: dropdowns flow in-place instead of floating off-canvas,
+	   which previously pushed the page past the viewport (horizontal scroll). */
+	@media (max-width: 560px) {
+		.nav-strip--groups {
+			justify-content: flex-start;
+			flex-wrap: wrap;
+		}
+		.nav-group {
+			display: contents;
+		}
+		.nav-group > summary { order: 0; }
+		.nav-menu {
+			position: static;
+			left: auto;
+			right: auto;
+			top: auto;
+			width: 100%;
+			min-width: 0;
+			flex: 1 0 100%;
+			order: 1;
+			box-shadow: none;
+			margin: 0.15em 0 0.35em;
+		}
+		.nav-menu a { padding: 0.6em 0.8em; }
 	}
 </style>

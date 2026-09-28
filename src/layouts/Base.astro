@@ -27,9 +27,11 @@ type Props = {
 	alternates?: { lang: string; href: string }[];
 	lang?: string;
 	crumbs?: { label: string; href: string }[];
+	/** Opt-in: let the page manage its own full-bleed sections (homepage / landing pages). */
+	wide?: boolean;
 };
 
-const { title, description, ogImage, noindex, alternates, lang = 'en', crumbs = [] } = Astro.props;
+const { title, description, ogImage, noindex, alternates, lang = 'en', crumbs = [], wide = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -73,7 +75,7 @@ const { title, description, ogImage, noindex, alternates, lang = 'en', crumbs = 
 		<a class="skip-link" href="#main">Skip to content</a>
 		<div class="scroll-progress" aria-hidden="true"></div>
 		<SiteHeader />
-		<main id="main" transition:animate="fade">
+		<main id="main" class={wide ? 'main--full' : undefined} transition:animate="fade">
 			<slot />
 		</main>
 		<SiteFooter />

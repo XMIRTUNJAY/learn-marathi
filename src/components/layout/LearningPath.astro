@@ -2,6 +2,8 @@
 // LearningPath — Visual learning journey component
 // Shows the path from START to SPEAK
 
+import Icon from '../design-system/Icon.astro';
+
 interface Props {
   currentStep?: number;  // 0-5, highlights current position
   class?: string;
@@ -10,17 +12,17 @@ interface Props {
 const { currentStep = 0, class: className = '' } = Astro.props;
 
 const steps = [
-  { id: 'start', label: 'Start', icon: '🌱', desc: 'First words', href: '/start/' },
-  { id: 'essential', label: 'Essential', icon: '📚', desc: 'Core vocabulary', href: '/vocabulary/' },
-  { id: 'everyday', label: 'Everyday', icon: '🏠', desc: 'Daily words', href: '/vocabulary/daily/' },
-  { id: 'phrases', label: 'Phrases', icon: '💬', desc: 'Useful sentences', href: '/phrases/' },
-  { id: 'sentences', label: 'Sentences', icon: '🔧', desc: 'Build your own', href: '/grammar/' },
-  { id: 'conversations', label: 'Conversations', icon: '🗣️', desc: 'Real dialogue', href: '/phrases/conversations/' },
-  { id: 'speak', label: 'Speak', icon: '✨', desc: 'Fluent Marathi', href: '/app/' },
-];
+  { id: 'start', label: 'Start', icon: 'sprout', desc: 'First words', href: '/start/' },
+  { id: 'essential', label: 'Essential', icon: 'book', desc: 'Core vocabulary', href: '/vocabulary/' },
+  { id: 'everyday', label: 'Everyday', icon: 'home', desc: 'Daily words', href: '/vocabulary/daily/' },
+  { id: 'phrases', label: 'Phrases', icon: 'chat', desc: 'Useful sentences', href: '/phrases/' },
+  { id: 'sentences', label: 'Sentences', icon: 'wrench', desc: 'Build your own', href: '/grammar/' },
+  { id: 'conversations', label: 'Conversations', icon: 'speech', desc: 'Real dialogue', href: '/phrases/conversations/' },
+  { id: 'speak', label: 'Speak', icon: 'spark', desc: 'Fluent Marathi', href: '/app/' },
+] as const;
 ---
 
-<nav class="learning-path {className}" aria-label="Learning journey">
+<nav class={`learning-path ${className}`} aria-label="Learning journey">
   <ol class="learning-path__steps">
     {steps.map((step, i) => {
       const isActive = i === currentStep;
@@ -29,8 +31,8 @@ const steps = [
         <li class={`learning-path__step ${isActive ? 'learning-path__step--active' : ''} ${isCompleted ? 'learning-path__step--completed' : ''}`} data-step={step.id}>
           <a href={step.href} class="learning-path__link" aria-label={`Go to ${step.label}`}>
             <div class="learning-path__node" aria-current={isActive ? 'step' : undefined}>
-              <span class="learning-path__icon" aria-hidden="true">{step.icon}</span>
-              {isCompleted && <span class="learning-path__check" aria-hidden="true">✓</span>}
+              <span class="learning-path__icon" aria-hidden="true"><Icon name={step.icon} size={22} /></span>
+              {isCompleted && <span class="learning-path__check" aria-hidden="true"><Icon name="check" size={22} /></span>}
             </div>
             <div class="learning-path__labels">
               <span class="learning-path__label">{step.label}</span>
@@ -47,8 +49,11 @@ const steps = [
 <style>
   .learning-path {
     margin: var(--space-6) 0;
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
     padding: var(--space-2) var(--space-1);
+    scrollbar-width: thin;
   }
 
   .learning-path__steps {
@@ -107,7 +112,6 @@ const steps = [
     background: var(--color-container);
     border: 2px solid var(--color-border);
     color: var(--color-text-muted);
-    font-size: 1.5rem;
     line-height: 1;
     transition: all var(--duration-base) var(--ease-out);
     position: relative;
