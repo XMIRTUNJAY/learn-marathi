@@ -669,4 +669,60 @@ matching the live site (`tools/measure-hero.mjs`); mobile keeps the upstream
 
 ---
 
-*Document version: 1.1 | Updated: 2026-09-28 | Branch: premium-redesign*
+## 11. HOMEPAGE OVERHAUL + DESIGN-SYSTEM FIXES (round 5)
+
+This round focused on the homepage specifically. Every item below was found by
+measuring the rendered page with a headless browser (new tools: `tools/audit-home.mjs`,
+`tools/find-overflow.mjs`, `tools/verify-home.mjs`, `tools/verify-pages.mjs`),
+not by eye.
+
+### 11.1 Defects found and fixed
+
+| # | Defect | Evidence | Fix |
+|---|--------|----------|-----|
+| 1 | **`Mukta` never loaded** — only Noto Sans Devanagari was fetched, so the whole `--font-display`/`--font-body` stack silently fell back | `document.fonts` showed 0 Mukta faces | Load Mukta (400–800) + keep Noto as coverage fallback in `BaseHead.astro` |
+| 2 | **Mobile horizontal scroll** | `scrollWidth` 775px in a 390px viewport | Header dropdowns flow in-place below 560px instead of floating off-canvas (`SiteHeader.astro`); `.learning-path` given `max-width:100%` |
+| 3 | **Duplicate sections** — "How do you want to learn?" rendered twice (learn+entry-points, same kicker); "Popular lessons this week" + "Popular lessons" | 9 `<h2>`, 2 duplicate pairs | Collapsed to one `EntryPoints` section; `RelatedLessons` gained `showTitle`; homepage rewritten → 6 unique `<h2>` |
+| 4 | **Flat visual rhythm** — every section `rgba(0,0,0,0)` | 1 distinct section background | Section surface utilities (`.section--cream/surface/muted/hero`) + `<Base wide>` full-bleed opt-in → 3 tones, alternating |
+| 5 | **Emoji as icons** | 14 emoji nodes | `Icon.astro` line-icon set → 0 emoji |
+| 6 | **Broken template expressions** | `practice-cta--{variant}` and `reveal-delay-{i + 1}` rendered literally (missing `$`) | Fixed both |
+| 7 | **Missing tokens** | `--space-10` (and `--space-9`) referenced but undefined in `global.css` | Added to `tokens.css` |
+| 8 | Sub-40px tap targets | 3 caught by audit | Section action pills, audio button and FAQ summaries raised to ≥40px |
+
+### 11.2 Homepage structure (11 sections → 8)
+
+```
+1. Hero                (cream + terracotta wash)  ← live word-card demo
+2. The journey         (surface)   LearningPath START → SPEAK
+3. Where you start     (muted)     English / Hindi / Continue
+4. How it works        (surface)   Learn → Practice → Remember
+5. The curriculum      (muted)     6 units + feature set
+6. Why it works        (surface)   audited source + practice loop + explore hubs
+7. FAQ                 (cream)
+8. App bridge          (muted)
+```
+
+### 11.3 New components
+
+- `src/components/design-system/Icon.astro` — consistent line-icon set.
+- `src/components/layout/SectionHead.astro` — one restrained section header.
+- `src/components/layout/WordShowcase.astro` — hero "show, don't tell" card built
+  from live curriculum data (Devanagari headword, transliteration, Hindi + English,
+  example sentence, working audio via the existing `.say`/SayScript path).
+
+### 11.4 Verified after round 5
+
+```
+npm run build                     # 200 pages, 0 errors
+0 emoji nodes (was 14)
+0 horizontal overflow @ desktop + mobile   (mobile scrollWidth 390 = clientWidth 390)
+0 tap targets < 40px (was 3)
+6 unique <h2> (was 9 with duplicates); heading outline H1 → H2 → H3
+0 console errors
+text contrast >= 6.2:1 across all sampled text/background pairs
+28/30 page x viewport combos clean (2 "failures" were a non-existent test route)
+```
+
+---
+
+*Document version: 1.2 | Updated: 2026-09-29 | Branch: premium-redesign*
