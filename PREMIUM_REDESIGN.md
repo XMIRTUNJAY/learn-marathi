@@ -725,4 +725,75 @@ text contrast >= 6.2:1 across all sampled text/background pairs
 
 ---
 
-*Document version: 1.2 | Updated: 2026-09-29 | Branch: premium-redesign*
+## 12. LINKS · NAVBAR · QUIZ (round 6)
+
+### 12.1 Broken links — every internal href audited
+
+Added `tools/check-links.mjs`, which crawls all built HTML and verifies each
+internal href resolves to a real file **including the `/learn-marathi` base
+prefix**. It found **22 broken link targets**:
+
+| Source | Cause |
+|--------|-------|
+| `LearningPath` (homepage) | plain `"/start/"` strings — no base prefix. Two of them (`/vocabulary/daily/`, `/phrases/conversations/`) pointed at **routes that do not exist** |
+| `EntryPoints` (homepage) | same missing base prefix |
+| 4 blog posts | plain hrefs in their related-link lists (17 links) |
+
+Fixes: all hrefs now go through `siteUrl()`. The two dead path steps were
+repointed to real routes (`/vocabulary/daily-life/`, `/phrases/daily/`).
+**Result: 0 broken link targets across 201 HTML files.**
+
+### 12.2 Undefined CSS variables — `--border` was never defined
+
+Added `tools/check-css-vars.mjs`. It found `--border` **used 53 times** but
+**defined nowhere** — so every `border: var(--border)` / `border-bottom:
+var(--border)` declaration was invalid and silently dropped. This made panels,
+sentence tokens, ghost buttons, chips and tables render borderless (the "bland
+rectangle" look). Defined `--border: 1px solid var(--color-border)`; also fixed
+one remaining undefined var (`--color-background` in `MiniQuiz`).
+**Result: 0 undefined-but-used CSS variables.**
+
+### 12.3 Quiz options had no CSS (Astro style scoping)
+
+The answer options, sentence tokens and builder placeholder are created with
+`document.createElement` in the inline quiz engine. Astro scopes a page's
+`<style>` with `[data-astro-cid-*]`, so the compiled selector
+`.qopt[data-astro-cid-7tgvaobk]` could **never match** those runtime elements —
+the entire option stylesheet was dead, which is exactly why the options looked
+like unstyled rectangles. Moved those rules into a `<style is:global>` block.
+Also replaced an invalid `:has-text()` / `:contains()` selector pair (not real
+CSS; the feedback ✓/✕ icon never rendered) with JS-set `.ok` / `.bad` classes.
+
+### 12.4 Learning path — made interactive
+
+Rebuilt as a stepper: "First word → Speaking" header, prev/next scroll controls
+for the horizontal strip (with disabled states and snap scrolling), a
+highlighted rail under the active/completed steps, a pulsing "Start here" badge
+on step 1, and hover/focus lift on each node. All 44 px touch targets.
+
+### 12.5 Navbar — frosted, with a primary CTA
+
+Translucent sticky bar using `backdrop-filter` **behind `@supports`** so it
+stays opaque where blur is unavailable (contrast never depends on blur); a soft
+shadow that appears on scroll; a refined gradient brand mark; a
+"Start learning" pill CTA (hidden ≤640 px where the nav strip already links
+Start here); and redesigned dropdowns (card surface, deeper shadow, hover/active
+pill states, entrance animation).
+
+### 12.6 Verified after round 6
+
+```
+npm run build                      # 200 pages, 0 errors
+0 broken internal link targets (was 22)          tools/check-links.mjs
+0 undefined CSS variables (--border fixed)       tools/check-css-vars.mjs
+quiz: options 2px border / 16px radius / .k badge rendered + hover + ok/bad
+quiz: feedback icon ✕ renders; sentence tokens now have 1px border
+path: all 7 links resolve under base; hover changes node border; nav works
+header: sticky, CTA -> /learn-marathi/start/, scroll shadow toggles
+home: 0 emoji, 0 horizontal overflow, 0 tap targets < 44px, no console errors
+30/30 route x viewport combos clean
+```
+
+---
+
+*Document version: 1.3 | Updated: 2026-09-29 | Branch: premium-redesign*

@@ -5,6 +5,7 @@
 
 import Icon from '../design-system/Icon.astro';
 import SectionHead from './SectionHead.astro';
+import { siteUrl } from '../../lib/site';
 
 interface Props {
   kicker?: string;
@@ -26,7 +27,7 @@ const entries = [
     label: 'I speak English',
     sublabel: 'English → Marathi',
     desc: 'Everyday words and sentences with English meanings, pronunciation and examples.',
-    href: '/english-to-marathi/',
+    href: siteUrl('/english-to-marathi/'),
     icon: 'globe',
     tone: 'primary',
   },
@@ -35,7 +36,7 @@ const entries = [
     label: 'I speak Hindi',
     sublabel: 'हिंदी → मराठी',
     desc: 'Word pairs and sentence bridges mapped from the Hindi you already know.',
-    href: '/hindi-to-marathi/',
+    href: siteUrl('/hindi-to-marathi/'),
     icon: 'link',
     tone: 'success',
   },
@@ -44,7 +45,7 @@ const entries = [
     label: 'I know some Marathi',
     sublabel: 'Continue learning',
     desc: 'Practice and advance with quizzes, spaced repetition and the 26-unit course.',
-    href: '/start/',
+    href: siteUrl('/start/'),
     icon: 'compass',
     tone: 'warning',
   },

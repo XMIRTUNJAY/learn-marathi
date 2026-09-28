@@ -32,6 +32,12 @@
   /* Border */
   --color-border: #DFC0B7;
 
+  /* Border shorthand — used pervasively as `border: var(--border)` and
+     `border-bottom: var(--border)` (53 call sites). It was never defined, so
+     every one of those declarations was invalid and silently dropped, leaving
+     panels, tokens, ghost buttons and tables borderless. */
+  --border: 1px solid var(--color-border);
+
   /* Semantic */
   --color-success: #2E7D5B;
   --color-success-bg: #E8F4EC;
