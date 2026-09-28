@@ -1,382 +1,636 @@
 ---
-import AppCTA from '../components/AppCTA.astro';
+// Bol Marathi — Homepage
+//
+// "A premium Marathi-learning product that happens to have an excellent SEO library."
+//
+// Structure (alternating surfaces for rhythm, no duplicated sections):
+//   1. Hero                (cream, soft terracotta wash)  ← live word-card demo
+//   2. The journey         (surface)  ← learning path START → SPEAK
+//   3. Where you start     (muted)    ← English / Hindi / Continue
+//   4. How it works        (surface)  ← Learn → Practice → Remember
+//   5. The curriculum      (muted)    ← 26 units + feature set
+//   6. Why it works        (surface)  ← audited source + practice loop
+//   7. FAQ                 (cream)
+//   8. App bridge          (muted)
+//
+// Every claim about numbers is derived from the single curriculum source.
+
 import Base from '../layouts/Base.astro';
 import JsonLd from '../components/JsonLd.astro';
-import Mascot from '../components/Mascot.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { BOL_MARATHI_APP } from '../data/app';
-import { clusters, phraseSets, grammarTopics, units, vocab } from '../lib/learn';
+import { grammarTopics, clusters, units, vocab } from '../lib/learn';
 import { pageArt, pageLQIP } from '../lib/art';
 import { siteUrl } from '../lib/site';
 
+// Layout + design system
+import PremiumHero from '../components/layout/PremiumHero.astro';
+import WordShowcase from '../components/layout/WordShowcase.astro';
+import SectionHead from '../components/layout/SectionHead.astro';
+import LearningPath from '../components/layout/LearningPath.astro';
+import EntryPoints from '../components/layout/EntryPoints.astro';
+import PracticeCTA from '../components/learning/PracticeCTA.astro';
+import Icon from '../components/design-system/Icon.astro';
+import SayScript from '../components/SayScript.astro';
+
 const homeUrl = new URL(import.meta.env.BASE_URL, Astro.site).toString();
-const sections = [
-	{ kicker: 'Vocabulary', title: 'Words grouped the way you use them', href: siteUrl('/vocabulary/'), items: clusters.map((c) => ({ label: c.title, href: siteUrl(`/vocabulary/${c.slug}/`), art: pageArt(`vocabulary/${c.slug}`), lqip: pageLQIP(`vocabulary/${c.slug}`) })) },
-	{ kicker: 'Phrases', title: 'Say it in Marathi', href: siteUrl('/phrases/'), items: phraseSets.map((p) => ({ label: p.title, href: siteUrl(`/phrases/${p.slug}/`), art: pageArt(`phrases/${p.slug}`), lqip: pageLQIP(`phrases/${p.slug}`) })) },
-	{ kicker: 'Grammar', title: 'Patterns, not rules', href: siteUrl('/grammar/'), items: grammarTopics.map((g) => ({ label: g.title, href: siteUrl(`/grammar/${g.slug}/`), art: pageArt(`grammar/${g.slug}`), lqip: pageLQIP(`grammar/${g.slug}`) })) },
-];
 
-const paths = [
-	{ href: siteUrl('/start/'), label: 'New to Marathi? Start here', desc: 'Six steps: words → greetings → sentences → bridges → your first lesson.', art: pageArt('start'), lqip: pageLQIP('start') },
-	{ href: siteUrl('/hindi-to-marathi/'), label: 'Learn from Hindi', desc: 'Word pairs and sentence bridges mapped from Hindi you already know.', art: pageArt('hindi-to-marathi'), lqip: pageLQIP('hindi-to-marathi') },
-	{ href: siteUrl('/english-to-marathi/'), label: 'Learn from English', desc: 'Everyday words and sentences with English meanings and pronunciation.', art: pageArt('english-to-marathi'), lqip: pageLQIP('english-to-marathi') },
-	{ href: siteUrl('/hi/'), label: 'हिंदी में सीखें', desc: 'पूरा शुरुआती खंड हिंदी में — शब्द, वाक्य और ऐप।', art: pageArt('hi'), lqip: pageLQIP('hi'), lang: 'hi' },
-	{ href: siteUrl('/quiz/'), label: 'Test yourself', desc: '10-question quizzes with instant feedback.', art: pageArt('quiz'), lqip: pageLQIP('quiz') },
-	{ href: siteUrl('/downloads/'), label: 'Free Anki decks', desc: 'Top 100 words or the full 1002-word set.', art: pageArt('downloads'), lqip: pageLQIP('downloads') },
-];
+const lessonCount = units.length * 6;
 
-const popular = [
-	{ href: siteUrl('/marathi-numbers/'), label: 'Numbers 1–20', desc: 'Count, prices and time.', art: pageArt('marathi-numbers'), lqip: pageLQIP('marathi-numbers') },
-	{ href: siteUrl('/marathi-days-months/'), label: 'Days & months', desc: 'Weeks, months, parts of day.', art: pageArt('marathi-days-months'), lqip: pageLQIP('marathi-days-months') },
-	{ href: siteUrl('/marathi-pronunciation/'), label: 'Pronunciation', desc: 'Sounds Hindi speakers must learn.', art: pageArt('marathi-pronunciation'), lqip: pageLQIP('marathi-pronunciation') },
-];
-
+/* ---- How it works: the method ---- */
 const method = [
-	{ n: '1 · Learn', title: 'Read real words', body: 'Words and sentences from the curriculum — every one with Hindi and English meanings.', href: siteUrl('/vocabulary/'), cta: 'Browse vocabulary' },
-	{ n: '2 · Practice', title: 'Say it, test it', body: 'Listen to each word, say it aloud, take a 10-question quiz with instant feedback.', href: siteUrl('/quiz/'), cta: 'Take a quiz' },
-	{ n: '3 · Remember', title: 'Review before you forget', body: 'Weakest-word-first practice and spaced repetition — the app\u2019s review loop.', href: siteUrl('/app/'), cta: 'See the practice loop' },
-];
+  {
+    icon: 'book',
+    title: 'Learn',
+    body: 'Read real words and sentences from the curriculum — each with Hindi and English meanings, audio and a worked example.',
+    href: siteUrl('/vocabulary/'),
+    cta: 'Browse vocabulary',
+  },
+  {
+    icon: 'target',
+    title: 'Practice',
+    body: 'Listen, say it aloud, flip cards to test recall, and take short quizzes with instant feedback.',
+    href: siteUrl('/quiz/'),
+    cta: 'Take a quiz',
+  },
+  {
+    icon: 'refresh',
+    title: 'Remember',
+    body: 'Weakest-word-first review and spaced repetition make each word stick instead of fading by tomorrow.',
+    href: siteUrl('/review/'),
+    cta: 'Start reviewing',
+  },
+] as const;
 
+/* ---- Curriculum: first six units ---- */
+const preview = units.slice(0, 6).map((u) => ({
+  slug: siteUrl(`/lessons/${u.unit}/`),
+  unit: u.unit,
+  title: u.titleEn,
+  subtitle: u.subtitleEn,
+  goals: u.goalsEn.slice(0, 2),
+  art: pageArt(`lessons/${u.unit}`),
+  lqip: pageLQIP(`lessons/${u.unit}`),
+}));
+
+/* ---- Feature set ---- */
+const features = [
+  { icon: 'headphones', label: 'Audio on every word' },
+  { icon: 'cards', label: 'Spaced-repetition review' },
+  { icon: 'mic', label: 'Pronunciation & speaking' },
+  { icon: 'grid', label: 'Sentence building' },
+  { icon: 'flame', label: 'Streaks & progress' },
+  { icon: 'package', label: 'Free Anki decks' },
+] as const;
+
+/* ---- Why it works ---- */
+const why = [
+  'Weakest words first — review targets what you keep forgetting.',
+  'Review before you forget — scheduled repetition with recall tracking.',
+  'Listen and speak — quizzes, mic checks and Marathi voice setup.',
+  'Build sentences — arrange words into correct Marathi order.',
+  'Stay consistent — streaks, XP, levels and reminders.',
+] as const;
+
+/* ---- Explore hubs ---- */
+const hubs = [
+  { icon: 'book', title: 'Vocabulary', desc: `${vocab.length.toLocaleString('en-IN')} words in themed sets.`, href: siteUrl('/vocabulary/') },
+  { icon: 'chat', title: 'Phrases', desc: 'Everyday sentences you can use today.', href: siteUrl('/phrases/') },
+  { icon: 'grid', title: 'Grammar', desc: `${grammarTopics.length} patterns, explained simply.`, href: siteUrl('/grammar/') },
+] as const;
+
+/* ---- FAQ ---- */
 const faqs = [
-	{ q: 'Can I learn Marathi from Hindi?', a: 'Yes — start with Hindi → Marathi words and sentence bridges, which map each Hindi pattern onto Marathi word by word.' },
-	{ q: 'Can I learn Marathi from English?', a: 'Yes — every word and lesson carries English meanings, and there is a dedicated English → Marathi section.' },
-	{ q: 'Is Bol Marathi free?', a: `All ${vocab.length} words and ${units.length * 6} lessons on this site are free. App pricing will be announced at launch.` },
-	{ q: 'How many lessons are there?', a: `${units.length} units and ${units.length * 6} lessons, from Marathi Fundamentals to a final assessment.` },
-	{ q: 'Does Bol Marathi teach speaking?', a: 'The website teaches reading knowledge; the app adds listening, speaking checks, sentence building and spaced repetition.' },
-	{ q: 'How is the app different from this website?', a: 'The website gives you the knowledge. The app gives you the practice loop — listen, speak, build, review, remember — plus streaks, XP and weakest-word recommendations.' },
-];
+  { q: 'Can I learn Marathi from Hindi?', a: 'Yes — start with Hindi → Marathi words and sentence bridges, which map each Hindi pattern onto Marathi word by word.' },
+  { q: 'Can I learn Marathi from English?', a: 'Yes — every word and lesson carries English meanings, and there is a dedicated English → Marathi section.' },
+  { q: 'Is Bol Marathi free?', a: `All ${vocab.length.toLocaleString('en-IN')} words and ${units.length} unit lessons on this site are free. App pricing will be announced at launch.` },
+  { q: 'How many lessons are there?', a: `${units.length} units and ${lessonCount} lessons, from Marathi Fundamentals to a final assessment.` },
+  { q: 'Does Bol Marathi teach speaking?', a: 'The website teaches reading knowledge; the app adds listening, speaking checks, sentence building and spaced repetition.' },
+  { q: 'How is the app different from this website?', a: 'The website gives you the knowledge. The app gives you the practice loop — listen, speak, build, review, remember — plus streaks, XP and weakest-word recommendations.' },
+] as const;
 ---
 
-<Base title="Learn Marathi from Hindi or English | Bol Marathi" description={SITE_DESCRIPTION} alternates={[{ lang: 'x-default', href: siteUrl('/') }, { lang: 'en', href: siteUrl('/') }, { lang: 'hi', href: siteUrl('/hi/') }]}>
-	<JsonLd
-		headline={SITE_TITLE}
-		description={SITE_DESCRIPTION}
-		url={homeUrl}
-		type="WebPage"
-		breadcrumbs={[]}
-	/>
-	<JsonLd
-		headline="Learn Marathi — frequently asked questions"
-		description="Answers about learning Marathi from Hindi or English with Bol Marathi."
-		url={homeUrl}
-		type="FAQPage"
-		faq={faqs.map((f) => ({ question: f.q, answer: f.a }))}
-		breadcrumbs={[]}
-	/>
-	<div class="prose">
-		<p class="kicker">Bol Marathi · Learn Marathi</p>
-		<div class="hero-row">
-			<div class="hero-text">
-				<h1>Learn Marathi from Hindi or English.</h1>
-				<p class="lede">
-					Build practical Marathi vocabulary, understand everyday phrases, and
-					practice listening, speaking and sentence building — from the real
-					Bol Marathi curriculum of {units.length} units and {vocab.length} words.
-				</p>
-				<div class="hub-cta">
-					<a class="btn" href={siteUrl('/start/')} data-funnel="path_click">Start Learning Free</a>
-					<a class="btn ghost" href={siteUrl('/lessons/')} data-funnel="path_click">Explore {units.length * 6} Lessons</a>
-				</div>
-			</div>
-			<div class="hero-mascot">
-				<Mascot pose="wave" size="lg" ariaLabel="Mascot welcoming you to learn Marathi" />
-			</div>
-		</div>
-		<ul class="stat-strip" aria-label="Free content included">
-			<li><strong>{units.length}</strong> units</li>
-			<li><strong>{units.length * 6}</strong> lessons</li>
-			<li><strong>{vocab.length.toLocaleString('en-IN')}</strong> words</li>
-			<li class="stat-free"><strong>Free</strong> no signup</li>
-		</ul>
-		<p class="byline">Curated by Bol Marathi · <a href={siteUrl('/how-it-works/')}>how the curriculum works</a></p>
-	</div>
+<Base
+  wide
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  alternates={[
+    { lang: 'x-default', href: siteUrl('/') },
+    { lang: 'en', href: siteUrl('/') },
+    { lang: 'hi', href: siteUrl('/hi/') }
+  ]}
+>
+  <JsonLd
+    headline={SITE_TITLE}
+    description={SITE_DESCRIPTION}
+    url={homeUrl}
+    type="WebPage"
+    breadcrumbs={[]}
+  />
+  <JsonLd
+    headline="Learn Marathi — frequently asked questions"
+    description="Answers about learning Marathi from Hindi or English with Bol Marathi."
+    url={homeUrl}
+    type="FAQPage"
+    faq={faqs.map(f => ({ question: f.q, answer: f.a }))}
+    breadcrumbs={[]}
+  />
 
-	<section>
-		<div class="section-head">
-			<div>
-				<p class="kicker">Choose your path</p>
-				<h2>How do you want to learn?</h2>
-			</div>
-		</div>
-		<ul class="card-grid">
-			{paths.map((p, i) => (
-				<li class={`reveal reveal-delay-${i + 1}`}>
-					<a class="card" href={p.href} data-funnel="path_click" lang={p.lang}>
-						<img src={p.art} alt="" loading="lazy" width="1200" height="630" style={`background-image: url('${p.lqip}'); background-size: cover;`} onload="this.style.backgroundImage=''" />
-						<h3>{p.label}</h3>
-						<p>{p.desc}</p>
-					</a>
-				</li>
-			))}
-		</ul>
-	</section>
+  <!-- 1 · HERO -->
+  <section class="section section--hero">
+    <div class="container-wide">
+      <PremiumHero
+        kicker="Bol Marathi · Learn Marathi"
+        title="Learn Marathi the way it's actually spoken."
+        subtitle={`One audited curriculum takes you from your first word to confident conversation — ${units.length} units, ${lessonCount} lessons and ${vocab.length.toLocaleString('en-IN')}+ words, each with audio, Hindi and English.`}
+        primaryCTA={{ label: 'Start learning free', href: siteUrl('/start/') }}
+        secondaryCTA={{ label: 'See the curriculum', href: siteUrl('/lessons/') }}
+        stats={[
+          { value: String(units.length), label: 'Units' },
+          { value: String(lessonCount), label: 'Lessons' },
+          { value: `${vocab.length.toLocaleString('en-IN')}+`, label: 'Words' },
+          { value: 'Free', label: 'No signup' },
+        ]}
+      >
+        <WordShowcase slot="visual" class="animate-in" />
+      </PremiumHero>
+    </div>
+  </section>
 
-	<section>
-		<div class="section-head">
-			<div>
-				<p class="kicker">The method</p>
-				<h2>Learn → Practice → Remember</h2>
-			</div>
-		</div>
-		<ul class="card-grid method-grid">
-			{method.map((m, i) => (
-				<li class={`reveal reveal-delay-${i + 1}`}>
-					<a class="card" href={m.href} data-funnel="method_click">
-						<p class="kicker">{m.n}</p>
-						<h3>{m.title}</h3>
-						<p>{m.body}</p>
-						<span class="method-cta">{m.cta} &rarr;</span>
-					</a>
-				</li>
-			))}
-		</ul>
-	</section>
+  <!-- 2 · THE JOURNEY -->
+  <section class="section section--surface" aria-labelledby="journey-title">
+    <div class="container-wide">
+      <SectionHead
+        id="journey-title"
+        kicker="The path"
+        title="From your first word to fluent Marathi"
+        lede="A single, ordered route — no guesswork about what to learn next. Tap any step to jump in."
+      />
+      <div class="reveal">
+        <LearningPath currentStep={0} />
+      </div>
+    </div>
+  </section>
 
-	<section>
-		<div class="section-head">
-			<div>
-				<p class="kicker">Who is it for</p>
-				<h2>Learning Marathi? Start from your language.</h2>
-			</div>
-		</div>
-		<div class="prose">
-			<ul class="why">
-				<li><strong>Hindi speakers</strong> — map Hindi patterns onto Marathi word by word.</li>
-				<li><strong>English speakers</strong> — every word and lesson carries English meanings.</li>
-				<li><strong>Beginners</strong> — greetings, first words, first sentences, zero assumed knowledge.</li>
-				<li><strong>Travellers</strong> — travel, shopping and restaurant-ready phrases.</li>
-				<li><strong>Living or working in Maharashtra</strong> — daily conversation, workplace words, real lessons.</li>
-			</ul>
-		</div>
-	</section>
+  <!-- 3 · WHERE YOU START -->
+  <section class="section section--muted" aria-labelledby="entry-points-title">
+    <div class="container-wide">
+      <EntryPoints class="reveal" />
+    </div>
+  </section>
 
-	<section>
-		<div class="section-head">
-			<div>
-				<p class="kicker">Popular right now</p>
-				<h2>Marathi learners start here</h2>
-			</div>
-		</div>
-		<ul class="card-grid">
-			{popular.map((p, i) => (
-				<li class={`reveal reveal-delay-${i + 1}`}>
-					<a class="card" href={p.href}>
-						<img src={p.art} alt="" loading="lazy" width="1200" height="630" style={`background-image: url('${p.lqip}'); background-size: cover;`} onload="this.style.backgroundImage=''" />
-						<h3>{p.label}</h3>
-						<p>{p.desc}</p>
-					</a>
-				</li>
-			))}
-		</ul>
-	</section>
+  <!-- 4 · HOW IT WORKS -->
+  <section class="section section--surface" aria-labelledby="method-title">
+    <div class="container-wide">
+      <SectionHead
+        id="method-title"
+        kicker="How it works"
+        title="Learn → Practice → Remember"
+        lede="Three loops, repeated until Marathi becomes automatic."
+      />
+      <ol class="method-grid">
+        {method.map((m, i) => (
+          <li class={`method-card reveal reveal-delay-${i + 1}`}>
+            <a class="method-card__link" href={m.href} data-funnel="method_click">
+              <span class="method-card__icon" aria-hidden="true"><Icon name={m.icon} size={22} /></span>
+              <span class="method-card__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="method-card__title">{m.title}</h3>
+              <p class="method-card__body">{m.body}</p>
+              <span class="method-card__cta">{m.cta} <Icon name="arrow-right" size={16} /></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
 
-	{sections.map((s) => (
-		<section>
-			<div class="section-head">
-				<div>
-					<p class="kicker">{s.kicker}</p>
-					<h2>{s.title}</h2>
-				</div>
-				<a href={s.href}>All &rarr;</a>
-			</div>
-			<ul class="card-grid">
-				{s.items.map((i, idx) => (
-					<li class={`reveal reveal-delay-${(idx % 6) + 1}`}>
-						<a class="card" href={i.href}>
-							<img src={i.art} alt="" loading="lazy" width="1200" height="630" style={`background-image: url('${i.lqip}'); background-size: cover;`} onload="this.style.backgroundImage=''" />
-							<h3>{i.label}</h3>
-						</a>
-					</li>
-				))}
-			</ul>
-		</section>
-	))}
+  <!-- 5 · THE CURRICULUM -->
+  <section class="section section--muted" aria-labelledby="curriculum-title">
+    <div class="container-wide">
+      <SectionHead
+        id="curriculum-title"
+        kicker="The curriculum"
+        title={`${units.length} units, built to be finished`}
+        lede="Each unit pairs new vocabulary with grammar, listening, speaking and a sentence builder."
+        actionLabel={`All ${units.length} units`}
+        actionHref={siteUrl('/lessons/')}
+      />
+      <ul class="unit-grid">
+        {preview.map((u, i) => (
+          <li class={`unit-card reveal reveal-delay-${i + 1}`}>
+            <a class="unit-card__link" href={u.slug}>
+              <div class="unit-card__media" style={`background-image: url('${u.lqip || u.art}'); background-size: cover;`}>
+                <img src={u.art} alt="" loading="lazy" width="1200" height="630" />
+              </div>
+              <div class="unit-card__body">
+                <span class="unit-card__unit">Unit {u.unit}</span>
+                <h3 class="unit-card__title">{u.title}</h3>
+                <p class="unit-card__goals">{u.goals.join(' · ')}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
 
-	<section>
-		<div class="section-head">
-			<div>
-				<p class="kicker">Why Bol Marathi</p>
-				<h2>Reading teaches. Practice makes it stick.</h2>
-			</div>
-			<a href={siteUrl('/app/')}>The app &rarr;</a>
-		</div>
-		<div class="prose">
-			<ul class="why">
-				<li><strong>Weakest words first</strong> — recommendations target what you keep forgetting.</li>
-				<li><strong>Review before you forget</strong> — scheduled repetition with recall tracking.</li>
-				<li><strong>Listen and speak</strong> — quizzes, mic checks and Marathi voice setup.</li>
-				<li><strong>Build sentences</strong> — arrange words into correct Marathi order.</li>
-				<li><strong>Stay consistent</strong> — streaks, XP, levels and reminders.</li>
-			</ul>
-		</div>
-	</section>
+      <ul class="feature-row">
+        {features.map((f) => (
+          <li class="feature-chip">
+            <Icon name={f.icon} size={18} />
+            <span>{f.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
 
-	<section>
-		<div class="section-head">
-			<div>
-				<p class="kicker">Why trust this</p>
-				<h2>One curriculum, audited and open</h2>
-			</div>
-			<a href={siteUrl('/how-it-works/')}>Methodology &rarr;</a>
-		</div>
-		<div class="prose">
-			<p>
-				Every page here comes from the same {units.length}-unit Bol Marathi
-				curriculum ({vocab.length} words) — synced, versioned and
-				language-checked, never invented for the web. The website teaches
-				reading knowledge; the app adds the practice loop.
-			</p>
-		</div>
-	</section>
+  <!-- 6 · WHY IT WORKS -->
+  <section class="section section--surface" aria-labelledby="why-title">
+    <div class="container-wide">
+      <SectionHead
+        id="why-title"
+        kicker="Why it works"
+        title="One curriculum, audited — plus a practice loop"
+        lede={`Every page comes from the same ${units.length}-unit Bol Marathi curriculum (${vocab.length.toLocaleString('en-IN')} words): synced, versioned and language-checked, never invented for the web.`}
+        actionLabel="Methodology"
+        actionHref={siteUrl('/how-it-works/')}
+      />
+      <div class="why-layout">
+        <ul class="why-list">
+          {why.map((w) => (
+            <li class="why-item">
+              <span class="why-item__mark" aria-hidden="true"><Icon name="check" size={16} /></span>
+              <span>{w}</span>
+            </li>
+          ))}
+        </ul>
 
-	<section>
-		<div class="section-head">
-			<div>
-				<p class="kicker">Lessons</p>
-				<h2>Follow the curriculum</h2>
-			</div>
-			<a href={siteUrl('/lessons/')}>All {units.length} units &rarr;</a>
-		</div>
-		<ul class="card-grid">
-			{units.slice(0, 6).map((u) => (
-				<li>
-					<a class="card" href={siteUrl(`/lessons/${u.unit}/`)}>
-						<img src={pageArt(`lessons/${u.unit}`)} alt="" loading="lazy" width="1200" height="630" />
-						<h3>Unit {u.unit} — {u.titleEn}</h3>
-						<p>{u.goalsEn.slice(0, 2).join(' · ')}</p>
-					</a>
-				</li>
-			))}
-		</ul>
-	</section>
+        <div class="hubs">
+          {hubs.map((h) => (
+            <a class="hub-card reveal" href={h.href}>
+              <span class="hub-card__icon" aria-hidden="true"><Icon name={h.icon} size={20} /></span>
+              <span class="hub-card__text">
+                <strong>{h.title}</strong>
+                <span>{h.desc}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<section>
-		<div class="section-head">
-			<div>
-				<p class="kicker">FAQ</p>
-				<h2>Common questions</h2>
-			</div>
-		</div>
-		<div class="prose">
-			{faqs.map((f) => (
-				<details>
-					<summary>{f.q}</summary>
-					<p>{f.a}</p>
-				</details>
-			))}
-		</div>
-	</section>
+  <!-- 7 · FAQ -->
+  <section class="section section--cream" aria-labelledby="faq-title">
+    <div class="container-wide">
+      <SectionHead id="faq-title" kicker="FAQ" title="Common questions" />
+      <div class="faq-grid">
+        {faqs.map((f) => (
+          <details class="faq-item reveal">
+            <summary>
+              <span>{f.q}</span>
+              <span class="faq-item__chevron" aria-hidden="true"><Icon name="arrow-right" size={18} /></span>
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
 
-	<div class="prose">
-		<AppCTA variant="general" context="hub" />
-	</div>
+  <!-- 8 · APP BRIDGE -->
+  <section class="section section--muted" aria-label="Practice in the app">
+    <div class="container-wide">
+      <PracticeCTA variant="general" context="homepage" />
+    </div>
+  </section>
 </Base>
 
-<style>
-	.hero-row {
-		display: flex;
-		align-items: flex-start;
-		justify-content: space-between;
-		gap: 2rem;
-		flex-wrap: wrap;
-		margin: 1.5rem 0 1rem 0;
-	}
-	.hero-text { flex: 1; min-width: 280px; }
-	.hero-mascot {
-		flex-shrink: 0;
-		align-self: flex-start;
-	}
-	.hero-mascot .mascot-svg {
-		animation: mascot-wave 2s ease-in-out infinite;
-	}
-	@media (max-width: 760px) {
-		.hero-row { flex-direction: column; align-items: center; text-align: center; }
-		.hero-mascot { order: -1; margin-bottom: 1rem; }
-		.hero-text h1 { font-size: 1.75rem; }
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.hero-mascot .mascot-svg { animation: none; }
-	}
+<SayScript />
 
-	.hub-cta { display: flex; flex-wrap: wrap; gap: 0.75em; margin: 1.5em 0 0.5em 0; }
-	.hub-cta .btn {
-		display: inline-block;
-		min-height: 52px;
-		line-height: 52px;
-		padding: 0 1.5em;
-		background: var(--accent);
-		color: #fff;
-		font-size: 0.95rem;
-		font-weight: 600;
-		text-decoration: none;
-		border-radius: var(--radius);
-	}
-	.hub-cta .btn:hover { background: var(--accent); filter: brightness(0.92); color: #fff; }
-	.hub-cta .btn.ghost {
-		background: transparent;
-		color: var(--accent);
-		border: var(--border);
-		line-height: 50px;
-	}
-	.byline { font-size: 0.85rem; color: rgb(var(--gray)); }
-	.stat-strip {
-		list-style: none;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5em 1.5em;
-		margin: 1.25em 0 0.75em 0;
-		padding: 0.75em 1.25em;
-		border: var(--border);
-		border-radius: var(--radius);
-		background: var(--accent-fixed);
-		width: fit-content;
-		max-width: 100%;
-	}
-	.stat-strip li {
-		font-size: 0.88rem;
-		color: var(--accent-on-fixed);
-		white-space: nowrap;
-	}
-	.stat-strip strong { font-size: 1.05rem; font-weight: 700; }
-	.stat-strip li + li { border-left: 1px solid rgb(195 79 44 / 0.35); padding-left: 1.5em; }
-	.method-grid { grid-template-columns: repeat(3, 1fr); }
-	@media (max-width: 860px) {
-		.method-grid { grid-template-columns: 1fr; }
-	}
-	.method-grid .card .kicker { margin-bottom: 0.3em; }
-	.method-cta {
-		display: inline-block;
-		margin-top: 0.4em;
-		font-size: 0.88rem;
-		font-weight: 600;
-		color: var(--accent);
-	}
-	.method-grid .card:hover .method-cta { color: var(--accent-container); }
-	section { margin-top: var(--space-5); }
-	.section-head {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		gap: 1em;
-		border-bottom: var(--border);
-		padding-bottom: 0.5em;
-		margin-bottom: 0.25em;
-	}
-	.section-head h2 { font-size: 1.4rem; margin: 0; }
-	.section-head a { font-size: 0.9rem; white-space: nowrap; }
-	.card-grid h3 { font-size: 1.05rem; }
-	.why { padding-left: 1.2em; }
-	.why li { margin-bottom: 0.5em; }
-	details {
-		border: var(--border);
-		border-radius: var(--radius);
-		background: var(--card);
-		padding: 0.9em 1.1em;
-		margin-bottom: 0.6em;
-	}
-	details summary {
-		font-weight: 600;
-		cursor: pointer;
-	}
-	details p { margin: 0.6em 0 0.2em 0; }
+<script>
+  // Reveal-on-scroll (respects reduced motion; re-runs on view-transition nav).
+  function initReveal() {
+    const els = document.querySelectorAll('.reveal:not(.visible), .animate-in:not(.visible)');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach((el) => el.classList.add('visible'));
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
+    els.forEach((el) => observer.observe(el));
+  }
+  initReveal();
+  document.addEventListener('astro:page-load', initReveal);
+</script>
+
+<style>
+  /* ---------- Method ---------- */
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: method;
+  }
+
+  .method-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: transform var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .method-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+  }
+
+  .method-card__link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    height: 100%;
+    padding: var(--space-5);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .method-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius);
+    background: var(--color-primary-fixed);
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .method-card__num {
+    font-size: var(--text-caption);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-text-muted);
+  }
+
+  .method-card__title {
+    margin: 0;
+    font-size: var(--text-h3);
+    font-weight: 700;
+  }
+
+  .method-card__body {
+    margin: 0;
+    flex: 1;
+    font-size: var(--text-body-sm);
+    line-height: 1.65;
+    color: var(--color-text-muted);
+  }
+
+  .method-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    margin-top: var(--space-3);
+    font-size: var(--text-body-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .method-card:hover .method-card__cta :global(.icon) { transform: translateX(3px); }
+  .method-card__cta :global(.icon) { transition: transform var(--duration-fast) var(--ease-out); }
+
+  @media (max-width: 860px) {
+    .method-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Curriculum ---------- */
+  .unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-4);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .unit-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .unit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+  }
+
+  .unit-card__link { display: block; text-decoration: none; color: inherit; height: 100%; }
+
+  .unit-card__media {
+    aspect-ratio: 1200 / 630;
+    position: relative;
+    background: var(--color-container-low);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .unit-card__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .unit-card__body { padding: var(--space-4); }
+
+  .unit-card__unit {
+    font-size: var(--text-caption);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+  }
+
+  .unit-card__title {
+    margin: var(--space-1) 0 var(--space-2);
+    font-size: var(--text-h4);
+    font-weight: 700;
+  }
+
+  .unit-card__goals {
+    margin: 0;
+    font-size: var(--text-body-sm);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .feature-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    list-style: none;
+    padding: var(--space-6) 0 0;
+    margin: var(--space-3) 0 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .feature-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: var(--text-body-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: 0.5em 0.9em;
+  }
+
+  .feature-chip :global(.icon) { color: var(--color-primary); }
+
+  /* ---------- Why it works ---------- */
+  .why-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .why-layout { grid-template-columns: 1fr; }
+  }
+
+  .why-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .why-item {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+    font-size: var(--text-body);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .why-item__mark {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-top: 0.15em;
+    border-radius: 50%;
+    background: var(--color-success-bg);
+    color: var(--color-success);
+  }
+
+  .hubs {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .hub-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-container-low);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--duration-fast) var(--ease-out),
+                background var(--duration-fast) var(--ease-out);
+  }
+
+  .hub-card:hover { border-color: var(--color-primary); background: var(--color-primary-fixed); }
+
+  .hub-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .hub-card__text { display: flex; flex-direction: column; gap: 0.1em; }
+  .hub-card__text strong { font-size: var(--text-body); font-weight: 700; }
+  .hub-card__text span { font-size: var(--text-body-sm); color: var(--color-text-muted); }
+
+  /* ---------- FAQ ---------- */
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-3);
+    align-items: start;
+  }
+
+  .faq-item {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    padding: var(--space-4) var(--space-5);
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .faq-item[open] { border-color: var(--color-primary); }
+
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    min-height: 44px;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .faq-item summary::-webkit-details-marker { display: none; }
+
+  .faq-item__chevron {
+    display: inline-flex;
+    color: var(--color-text-muted);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .faq-item[open] .faq-item__chevron { transform: rotate(90deg); color: var(--color-primary); }
+
+  .faq-item p {
+    margin: var(--space-3) 0 0 0;
+    font-size: var(--text-body-sm);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
 </style>

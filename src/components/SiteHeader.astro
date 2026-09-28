@@ -64,6 +64,9 @@ const links = hi
 			<Search />
 		</div>
 		<div class="topbar-actions">
+			<a class="nav-cta" href={siteUrl('/start/')}>
+				Start learning
+			</a>
 			<Preferences />
 			<div id="online-status" class="online-status" role="status" aria-live="polite" aria-atomic="true" title="Connection status"></div>
 		</div>
@@ -151,6 +154,19 @@ const links = hi
 	initNavGroups();
 	document.addEventListener('astro:page-load', initNavGroups);
 
+	// Translucent sticky header gains a shadow once the page is scrolled.
+	function initHeaderScroll() {
+		if ((window as unknown as { __headerScrollInit?: boolean }).__headerScrollInit) return;
+		(window as unknown as { __headerScrollInit?: boolean }).__headerScrollInit = true;
+		const header = document.querySelector('.site-header');
+		if (!header) return;
+		const update = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+		window.addEventListener('scroll', update, { passive: true });
+		update();
+	}
+	initHeaderScroll();
+	document.addEventListener('astro:page-load', initHeaderScroll);
+
 	// Render streak ring client-side
 	(function () {
 		const container = document.getElementById('streak-ring');
@@ -198,11 +214,27 @@ const links = hi
 
 <style>
 	.site-header {
-		border-bottom: var(--border);
-		background: var(--paper);
 		position: sticky;
 		top: 0;
 		z-index: 50;
+		background: var(--paper);
+		border-bottom: var(--border);
+		transition: box-shadow var(--duration-base) var(--ease-out), background var(--duration-base) var(--ease-out);
+	}
+	/* Frosted variant only where backdrop blur is actually supported; otherwise
+	   the opaque cream above is used so contrast never suffers. */
+	@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+		.site-header {
+			background: color-mix(in srgb, var(--paper) 84%, transparent);
+			backdrop-filter: saturate(1.4) blur(12px);
+			-webkit-backdrop-filter: saturate(1.4) blur(12px);
+		}
+		.site-header.is-scrolled {
+			background: color-mix(in srgb, var(--paper) 94%, transparent);
+		}
+	}
+	.site-header.is-scrolled {
+		box-shadow: 0 8px 28px rgb(45 27 21 / 0.08);
 	}
 	.topbar {
 		width: var(--measure-wide);
@@ -214,8 +246,11 @@ const links = hi
 		gap: 0.75em;
 	}
 	.brand {
+		display: inline-flex;
+		align-items: center;
 		font-weight: 700;
-		font-size: 1.2rem;
+		font-size: 1.15rem;
+		letter-spacing: -0.015em;
 		color: rgb(var(--black));
 		text-decoration: none;
 		white-space: nowrap;
@@ -224,14 +259,14 @@ const links = hi
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 1.6em;
-		height: 1.6em;
-		border-radius: 10px;
-		background: var(--accent);
+		width: 1.75em;
+		height: 1.75em;
+		border-radius: 9px;
+		background: linear-gradient(140deg, var(--accent), var(--accent-container));
 		color: #fff;
-		font-size: 0.9em;
-		margin-right: 0.4em;
-		vertical-align: -0.3em;
+		font-size: 0.85em;
+		margin-right: 0.45em;
+		box-shadow: 0 2px 8px rgb(142 45 18 / 0.28);
 	}
 	.brand-group {
 		display: flex;
@@ -261,6 +296,33 @@ const links = hi
 		align-items: center;
 		gap: 0.5em;
 		flex-shrink: 0;
+	}
+	.nav-cta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 40px;
+		padding: 0 1.05em;
+		font-size: 0.88rem;
+		font-weight: 700;
+		letter-spacing: 0.005em;
+		color: #fff;
+		background: var(--accent);
+		border-radius: var(--radius-full);
+		text-decoration: none;
+		white-space: nowrap;
+		box-shadow: 0 2px 10px rgb(142 45 18 / 0.25);
+		transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+	}
+	.nav-cta:hover {
+		color: #fff;
+		filter: brightness(1.06);
+		transform: translateY(-1px);
+		box-shadow: 0 6px 18px rgb(142 45 18 / 0.3);
+	}
+	.nav-cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+	@media (prefers-reduced-motion: reduce) {
+		.nav-cta { transition: none; }
 	}
 	.online-status {
 		display: inline-flex;
@@ -322,6 +384,8 @@ const links = hi
 	.nav-strip--groups {
 		overflow: visible; /* dropdown menus must not be clipped */
 		justify-content: safe center;
+		flex-wrap: wrap;
+		row-gap: 0.15em;
 	}
 	.nav-group {
 		position: relative;
@@ -356,29 +420,43 @@ const links = hi
 	}
 	.nav-menu {
 		position: absolute;
-		top: calc(100% + 4px);
+		top: calc(100% + 8px);
 		left: 0;
 		z-index: 60;
 		display: grid;
-		gap: 0.15em;
-		min-width: 13em;
-		padding: 0.45em;
-		background: var(--paper);
+		gap: 0.1em;
+		min-width: 14em;
+		padding: 0.5em;
+		background: var(--card);
 		border: var(--border);
 		border-radius: var(--radius);
-		box-shadow: 0 10px 30px rgb(0 0 0 / 0.12);
+		box-shadow: 0 18px 44px rgb(45 27 21 / 0.14);
+		animation: menu-in 0.16s var(--ease-out);
+	}
+	@keyframes menu-in {
+		from { opacity: 0; transform: translateY(-4px); }
+		to { opacity: 1; transform: none; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.nav-menu { animation: none; }
 	}
 	.nav-menu a {
-		padding: 0.55em 0.8em;
+		display: block;
+		padding: 0.6em 0.85em;
 		border-radius: 8px;
+		font-size: 0.9rem;
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+		transition: background 0.12s ease, color 0.12s ease;
 	}
-	@media (max-width: 560px) {
-		.nav-menu {
-			position: fixed;
-			left: 1em;
-			right: 1em;
-			top: auto;
-		}
+	.nav-menu a:hover {
+		background: var(--accent-fixed);
+		color: var(--accent-on-fixed);
+	}
+	.nav-menu a[aria-current='page'] {
+		background: var(--accent-fixed);
+		color: var(--accent-on-fixed);
+		font-weight: 700;
 	}
 	@media (max-width: 860px) {
 		.topbar { gap: 0.5em; padding: 0.5em 0.75em; }
@@ -386,5 +464,38 @@ const links = hi
 		.topbar-actions .preferences-wrapper { display: none; }
 		.topbar-search { max-width: none; }
 		.nav-strip { padding: 0 0.75em 0.5em 0.75em; }
+		.nav-cta { min-height: 36px; padding: 0 0.85em; font-size: 0.82rem; }
+	}
+
+	/* Smallest screens: the nav strip already carries "Start here", so drop the
+	   top-bar CTA rather than crowd the search field. */
+	@media (max-width: 640px) {
+		.nav-cta { display: none; }
+	}
+
+	/* Small screens: dropdowns flow in-place instead of floating off-canvas,
+	   which previously pushed the page past the viewport (horizontal scroll). */
+	@media (max-width: 560px) {
+		.nav-strip--groups {
+			justify-content: flex-start;
+			flex-wrap: wrap;
+		}
+		.nav-group {
+			display: contents;
+		}
+		.nav-group > summary { order: 0; }
+		.nav-menu {
+			position: static;
+			left: auto;
+			right: auto;
+			top: auto;
+			width: 100%;
+			min-width: 0;
+			flex: 1 0 100%;
+			order: 1;
+			box-shadow: none;
+			margin: 0.15em 0 0.35em;
+		}
+		.nav-menu a { padding: 0.6em 0.8em; }
 	}
 </style>

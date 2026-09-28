@@ -6,19 +6,20 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-      "dev": "astro dev",
-      "prebuild": "node ./tools/validate-content.mjs && node ./tools/build-search-index.mjs",
-      "build": "astro build",
-      "preview": "astro preview",
-      "astro": "astro",
-      "sync": "node ./tools/sync-learn-marathi.mjs",
-      "qa": "node ./tools/qa.mjs",
-      "content:qa": "node ./tools/validate-content.mjs",
-      "content:manifest": "node ./tools/content-manifest.mjs",
-      "content:og": "node ./tools/make-og-pages.mjs",
-      "content:report": "node ./tools/content-report.mjs",
-      "audit:images": "node ./tools/audit-images.mjs"
-    },
+    "dev": "astro dev",
+    "prebuild": "node ./tools/validate-content.mjs && node ./tools/build-search-index.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "sync": "node ./tools/sync-learn-marathi.mjs",
+    "qa": "node ./tools/qa.mjs",
+    "content:qa": "node ./tools/validate-content.mjs",
+    "content:manifest": "node ./tools/content-manifest.mjs",
+    "content:og": "node ./tools/make-og-pages.mjs",
+    "content:report": "node ./tools/content-report.mjs",
+    "audit:images": "node ./tools/audit-images.mjs",
+    "hero:audit": "node ./tools/hero-audit.mjs"
+  },
   "dependencies": {
     "@astrojs/mdx": "^8.0.0",
     "@astrojs/rss": "^4.0.19",

@@ -142,6 +142,7 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 				qw.textContent = q.mr;
 				qt.textContent = q.tr;
 				fb.textContent = '';
+				fb.className = 'qfb';
 				next.hidden = true;
 				var pool = shuffle(words.filter(function (w) { return meaning(w) !== meaning(q); }))
 					.slice(0, 3).map(meaning);
@@ -169,6 +170,7 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 				opts.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
 				btn.classList.add(ok ? 'ok' : 'bad');
 				fb.textContent = ok ? 'Correct!' : 'Not quite — ' + q.mr + ' means "' + meaning(q) + '".';
+				fb.className = 'qfb ' + (ok ? 'ok' : 'bad');
 				try {
 					if (!ok && q && q.id) {
 						document.dispatchEvent(new CustomEvent('srs-add', { detail: { wordId: q.id, grade: 'again' } }));
@@ -204,6 +206,7 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 				aprompt.textContent = b.prompt;
 				ahindi.textContent = b.hindi;
 				afb.textContent = '';
+				afb.className = 'qfb';
 				acheck.hidden = false; anext.hidden = true;
 				picked = [];
 				renderBank(shuffle(b.tokens.slice()), b);
@@ -251,6 +254,7 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 				var ok = picked.length === b.answer.length && picked.every(function (t, n) { return t === b.answer[n]; });
 				if (ok) { ascore++; asc.textContent = 'Score ' + ascore; }
 				afb.textContent = ok ? 'Correct! ' + b.answer.join(' ') : 'Not quite — correct order: ' + b.answer.join(' ');
+				afb.className = 'qfb ' + (ok ? 'ok' : 'bad');
 				acheck.hidden = true; anext.hidden = false;
 			});
 			anext.addEventListener('click', function () {
@@ -471,102 +475,9 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 		gap: 0.65em;
 		margin: 1.1em 0 0.75em 0;
 	}
-	.qopt {
-		font: inherit;
-		display: flex;
-		align-items: center;
-		gap: 1em;
-		text-align: left;
-		background: var(--card);
-		border: 2px solid rgb(223 192 183 / 0.5);
-		border-radius: var(--radius);
-		padding: 1em 1.25em;
-		cursor: pointer;
-		color: rgb(var(--gray-dark));
-		font-size: 1.02rem;
-		transition: all 0.15s ease;
-		position: relative;
-		overflow: hidden;
-	}
-	.qopt::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(135deg, var(--accent-fixed) 0%, transparent 50%);
-		opacity: 0;
-		transition: opacity 0.2s ease;
-	}
-	.qopt:hover:not(:disabled) {
-		border-color: var(--accent);
-		transform: translateY(-1px);
-		box-shadow: 0 4px 12px rgb(142 45 18 / 0.08);
-	}
-	.qopt:hover:not(:disabled)::before { opacity: 1; }
-	.qopt:focus-visible {
-		outline: 2px solid var(--accent);
-		outline-offset: 2px;
-	}
-	.qopt:disabled { cursor: default; }
-	.qopt:not(.ok):not(.bad):disabled { opacity: 0.55; }
-	.qopt .k {
-		flex: none;
-		width: 2.4em;
-		height: 2.4em;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: var(--radius);
-		background: var(--accent-fixed);
-		font-size: 0.9rem;
-		font-weight: 700;
-		color: var(--accent-on-fixed);
-		transition: all 0.15s ease;
-		font-variant-numeric: tabular-nums;
-	}
-	.qopt-text {
-		flex: 1;
-		line-height: 1.6;
-		font-weight: 500;
-	}
-	.qopt.ok {
-		border-color: var(--success);
-		background: var(--success-bg);
-		animation: opt-pop 0.25s ease-out;
-	}
-	.qopt.ok .k {
-		background: var(--success);
-		color: #fff;
-		transform: scale(1.1);
-	}
-	.qopt.bad {
-		border-color: var(--accent);
-		background: var(--accent-fixed);
-		animation: opt-shake 0.35s ease-out;
-	}
-	.qopt.bad .k {
-		background: var(--accent);
-		color: #fff;
-	}
-	.qopt.ok .qopt-text,
-	.qopt.bad .qopt-text {
-		color: inherit;
-	}
-	@keyframes opt-pop {
-		0% { transform: scale(0.98); }
-		50% { transform: scale(1.01); }
-		100% { transform: none; }
-	}
-	@keyframes opt-shake {
-		0%, 100% { transform: translateX(0); }
-		20% { transform: translateX(-4px); }
-		40% { transform: translateX(4px); }
-		60% { transform: translateX(-3px); }
-		80% { transform: translateX(3px); }
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.qopt, .qopt .k { transition: none; }
-		.qopt.ok, .qopt.bad { animation: none; }
-	}
+	/* NOTE: .qopt / .tok / .ph styles live in the <style is:global> block below,
+	   because those elements are created by JS (document.createElement) and so
+	   never receive Astro's scoped [data-astro-cid-*] attribute. */
 
 	/* Feedback panel */
 	.qfb {
@@ -596,13 +507,17 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 		justify-content: center;
 		font-size: 0.75rem;
 	}
-	.qfb:has-text("Correct")::before,
-	.qfb:contains("Correct")::before {
+	/* :has-text() / :contains() are not real CSS selectors — those rules were
+	   invalid and dropped, so the feedback icon never appeared. The quiz JS now
+	   sets .ok / .bad on the feedback element instead. */
+	.qfb.ok { color: var(--success); }
+	.qfb.ok:not(:empty)::before {
 		background: var(--success);
 		color: #fff;
 		content: '✓';
 	}
-	.qfb:not(:has-text("Correct"))::before {
+	.qfb.bad { color: var(--accent); }
+	.qfb.bad:not(:empty)::before {
 		background: var(--accent);
 		color: #fff;
 		content: '✕';
@@ -639,47 +554,10 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 		background: var(--container-low);
 		border-style: dashed;
 	}
-	.abuild .ph {
-		color: rgb(var(--gray));
-		font-size: 0.9rem;
-		align-self: center;
-		animation: ph-pulse 1.8s ease-in-out infinite;
-	}
-	@keyframes ph-pulse {
-		0%, 100% { opacity: 0.5; }
-		50% { opacity: 1; }
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.abuild .ph { animation: none; opacity: 0.6; }
-	}
+	/* .abuild .ph lives in the <style is:global> block below (JS-created placeholder). */
 
-	.tok {
-		font: inherit;
-		font-size: 1.02rem;
-		background: var(--card);
-		border: var(--border);
-		border-radius: 10px;
-		padding: 0.5em 0.85em;
-		cursor: pointer;
-		color: rgb(var(--gray-dark));
-		line-height: 1.6;
-		transition: all 0.12s ease;
-		box-shadow: 0 1px 2px rgb(45 27 21 / 0.04);
-	}
-	.tok:hover {
-		border-color: var(--accent);
-		transform: translateY(-1px);
-		box-shadow: 0 3px 8px rgb(142 45 18 / 0.08);
-	}
-	.tok:active { transform: scale(0.98); }
-	.tok.in-answer {
-		background: var(--accent-fixed);
-		border-color: var(--accent);
-		color: var(--accent-on-fixed);
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.tok { transition: none; }
-	}
+
+	/* .tok lives in the <style is:global> block below (JS-created tokens). */
 
 	/* Buttons */
 	.btn {
@@ -810,5 +688,151 @@ const description = `10 questions on ${cluster.title.toLowerCase()} with instant
 	}
 	@media (prefers-reduced-motion: reduce) {
 		section[role="tabpanel"] { animation: none; }
+	}
+</style>
+
+<!--
+  Dynamic quiz UI (answer options, sentence tokens, builder placeholder) is
+  created with document.createElement in the inline engine above. Astro scopes
+  the <style> above with a [data-astro-cid-*] attribute, which those runtime
+  elements never receive — so their rules must be global or they are silently
+  dropped (this is why the options previously rendered as unstyled buttons).
+-->
+<style is:global>
+	/* ===== Answer options ===== */
+	.qopt {
+		font: inherit;
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		width: 100%;
+		text-align: left;
+		background: var(--card);
+		border: 2px solid rgb(223 192 183 / 0.5);
+		border-radius: var(--radius);
+		padding: 1em 1.25em;
+		cursor: pointer;
+		color: rgb(var(--gray-dark));
+		font-size: 1.02rem;
+		transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+		position: relative;
+		overflow: hidden;
+	}
+	.qopt::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, var(--accent-fixed) 0%, transparent 50%);
+		opacity: 0;
+		transition: opacity 0.2s ease;
+	}
+	.qopt:hover:not(:disabled) {
+		border-color: var(--accent);
+		transform: translateY(-1px);
+		box-shadow: 0 4px 12px rgb(142 45 18 / 0.08);
+	}
+	.qopt:hover:not(:disabled)::before { opacity: 1; }
+	.qopt:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+	.qopt:disabled { cursor: default; }
+	.qopt:not(.ok):not(.bad):disabled { opacity: 0.55; }
+	.qopt .k {
+		flex: none;
+		width: 2.4em;
+		height: 2.4em;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--radius);
+		background: var(--accent-fixed);
+		font-size: 0.9rem;
+		font-weight: 700;
+		color: var(--accent-on-fixed);
+		transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+		font-variant-numeric: tabular-nums;
+	}
+	.qopt-text { flex: 1; line-height: 1.6; font-weight: 500; }
+	.qopt.ok {
+		border-color: var(--success);
+		background: var(--success-bg);
+		animation: opt-pop 0.25s ease-out;
+	}
+	.qopt.ok .k { background: var(--success); color: #fff; transform: scale(1.1); }
+	.qopt.bad {
+		border-color: var(--accent);
+		background: var(--accent-fixed);
+		animation: opt-shake 0.35s ease-out;
+	}
+	.qopt.bad .k { background: var(--accent); color: #fff; }
+	.qopt.ok .qopt-text,
+	.qopt.bad .qopt-text { color: inherit; }
+	@keyframes opt-pop {
+		0% { transform: scale(0.98); }
+		50% { transform: scale(1.01); }
+		100% { transform: none; }
+	}
+	@keyframes opt-shake {
+		0%, 100% { transform: translateX(0); }
+		20% { transform: translateX(-4px); }
+		40% { transform: translateX(4px); }
+		60% { transform: translateX(-3px); }
+		80% { transform: translateX(3px); }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.qopt, .qopt .k { transition: none; }
+		.qopt.ok, .qopt.bad { animation: none; }
+	}
+
+	/* ===== Sentence-building tokens ===== */
+	.tok {
+		font: inherit;
+		font-size: 1.02rem;
+		background: var(--card);
+		border: var(--border);
+		border-radius: 10px;
+		padding: 0.5em 0.85em;
+		cursor: pointer;
+		color: rgb(var(--gray-dark));
+		line-height: 1.6;
+		transition: border-color 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+		box-shadow: 0 1px 2px rgb(45 27 21 / 0.04);
+	}
+	.tok:hover {
+		border-color: var(--accent);
+		transform: translateY(-1px);
+		box-shadow: 0 3px 8px rgb(142 45 18 / 0.08);
+	}
+	.tok:active { transform: scale(0.98); }
+	.tok:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+	.tok.in-answer {
+		background: var(--accent-fixed);
+		border-color: var(--accent);
+		color: var(--accent-on-fixed);
+	}
+	/* tokens placed into the answer row read as "used" */
+	.abuild .tok {
+		background: var(--accent-fixed);
+		border-color: var(--accent);
+		color: var(--accent-on-fixed);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.tok { transition: none; }
+	}
+
+	/* ===== Sentence-builder placeholder ===== */
+	.abuild .ph {
+		color: rgb(var(--gray));
+		font-size: 0.9rem;
+		align-self: center;
+		animation: ph-pulse 1.8s ease-in-out infinite;
+	}
+	@keyframes ph-pulse {
+		0%, 100% { opacity: 0.5; }
+		50% { opacity: 1; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.abuild .ph { animation: none; opacity: 0.6; }
 	}
 </style>
