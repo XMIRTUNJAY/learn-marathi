@@ -30,3 +30,8 @@ frames/
 tools/ocr-out/
 tessenv/
 tools/redesign-shots/
+og-validation/
+playwright-screenshots/
+test-results/
+temp_new_images/
+design-audit/
