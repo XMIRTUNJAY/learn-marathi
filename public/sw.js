@@ -17,7 +17,7 @@ self.addEventListener('install', (event) => {
         BASE,
         BASE + 'manifest.webmanifest',
         BASE + 'favicon.svg',
-        BASE + 'og/og-default.png',
+        BASE + 'og/og-default.jpg',
         BASE + 'search-index.json',
         ...PRECACHE_MANIFEST.map((entry) => BASE + entry.url),
       ].filter(Boolean);

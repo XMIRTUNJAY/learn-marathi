@@ -465,7 +465,7 @@
   {
     "slug": "family-home",
     "title": "Hindi to Marathi Family & Home: Relations, Rooms, Daily Life",
-    "description": "Family relations and home vocabulary mapped Hindi to Marathi — relations, rooms, everyday household words — from Units 03, 05, 20.",
+    "description": "Hindi to Marathi family words — relations, rooms and everyday household vocabulary — from Units 03, 05, 20.",
     "h1": "Hindi → Marathi: Family & Home",
     "searchIntent": "comparison",
     "level": "beginner",
@@ -973,7 +973,7 @@
   {
     "slug": "health-body",
     "title": "Hindi to Marathi Health & Body: Symptoms, Doctor Visit",
-    "description": "Health and body vocabulary mapped Hindi to Marathi — body parts, symptoms, doctor sentences — from Units 10, 17.",
+    "description": "Hindi to Marathi health words — body parts, symptoms and doctor sentences — from Units 10, 17.",
     "h1": "Hindi → Marathi: Health & Body",
     "searchIntent": "comparison",
     "level": "intermediate",
@@ -1101,7 +1101,7 @@
   {
     "slug": "time-seasons",
     "title": "Hindi to Marathi Time & Seasons: Clock, Calendar, Weather",
-    "description": "Time, seasons and calendar mapped Hindi to Marathi — clock words, day parts, seasons, dates — from Units 16, 14.",
+    "description": "Hindi to Marathi time words — clock, day parts, seasons, calendar and dates — from Units 16, 14.",
     "h1": "Hindi → Marathi: Time & Seasons",
     "searchIntent": "comparison",
     "level": "beginner",
@@ -1354,7 +1354,7 @@
   {
     "slug": "work-career",
     "title": "Hindi to Marathi Work & Career: Jobs, Office, Professions",
-    "description": "Work and career vocabulary mapped Hindi to Marathi — jobs, office, traditional professions, modern roles — from Units 11, 19, 23.",
+    "description": "Hindi to Marathi work words — jobs, office, traditional professions and modern roles — from Units 11, 19, 23.",
     "h1": "Hindi → Marathi: Work & Career",
     "searchIntent": "comparison",
     "level": "intermediate",
@@ -1641,7 +1641,7 @@
   {
     "slug": "advanced-structures",
     "title": "Hindi to Marathi Advanced: Passive, Causative",
-    "description": "Advanced structures mapped Hindi to Marathi — passive, causative, relative-correlative, conditionals — from Unit 21.",
+    "description": "Hindi to Marathi advanced grammar — passive, causative, relative-correlative and conditionals — from Unit 21.",
     "h1": "Hindi → Marathi: Advanced Structures",
     "searchIntent": "comparison",
     "level": "advanced",
@@ -1765,7 +1765,7 @@
   {
     "slug": "media-news",
     "title": "Hindi to Marathi Media & News: Politics, Formal Register",
-    "description": "Media and news vocabulary mapped Hindi to Marathi — political terms, report language, formal register words — from Units 23, 24.",
+    "description": "Hindi to Marathi news words — political terms, report language and formal register — from Units 23, 24.",
     "h1": "Hindi → Marathi: Media & News",
     "searchIntent": "comparison",
     "level": "advanced",
@@ -1893,7 +1893,7 @@
   {
     "slug": "business",
     "title": "Hindi to Marathi Business: Trade, Finance",
-    "description": "Business and finance vocabulary mapped Hindi to Marathi — trade, banking, contracts, formal letters — from Units 19, 23.",
+    "description": "Hindi to Marathi business words — trade, finance, banking, contracts and formal letters — from Units 19, 23.",
     "h1": "Hindi → Marathi: Business & Finance",
     "searchIntent": "comparison",
     "level": "advanced",
@@ -2274,7 +2274,7 @@
   {
     "slug": "school-and-study",
     "title": "Hindi to Marathi School & Study: Classroom, Subjects, Exams",
-    "description": "Education vocabulary mapped Hindi to Marathi -- classroom, subjects, exams, grades -- from Unit 11 (education half).",
+    "description": "Hindi to Marathi school words — classroom, subjects, exams and grades — from Unit 11 (education half).",
     "h1": "Hindi to Marathi: School & Study",
     "searchIntent": "comparison",
     "level": "beginner",
@@ -2400,7 +2400,7 @@
   {
     "slug": "technology",
     "title": "Hindi to Marathi Technology: Phone, Internet, Apps",
-    "description": "Technology vocabulary mapped Hindi to Marathi -- phone, internet, apps, social media, devices -- from Unit 12.",
+    "description": "Hindi to Marathi technology words — phone, internet, apps, social media and devices — from Unit 12.",
     "h1": "Hindi to Marathi: Technology & Internet",
     "searchIntent": "comparison",
     "level": "intermediate",
@@ -2525,7 +2525,7 @@
   {
     "slug": "festivals",
     "title": "Hindi to Marathi Festivals: Diwali, Ganpati & More",
-    "description": "Festival vocabulary mapped Hindi to Marathi -- Diwali, Ganpati, Gudi Padwa, Holi, Makar Sankranti -- from Unit 13.",
+    "description": "Hindi to Marathi festival words — Diwali, Ganpati, Gudi Padwa, Holi and Makar Sankranti — from Unit 13.",
     "h1": "Hindi to Marathi: Festivals & Celebrations",
     "searchIntent": "comparison",
     "level": "beginner",
@@ -2915,7 +2915,7 @@
   {
     "slug": "literature-words",
     "title": "Hindi to Marathi Literature Terms: Poetry, Drama, Fiction",
-    "description": "Literature vocabulary mapped Hindi to Marathi -- poetry, drama, fiction, awards, digital terms from Unit 22.",
+    "description": "Hindi to Marathi literature words — poetry, drama, fiction, awards and digital terms — from Unit 22.",
     "h1": "Hindi to Marathi: Literature & Literary Terms",
     "searchIntent": "comparison",
     "level": "advanced",

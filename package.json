@@ -18,7 +18,9 @@
     "content:og": "node ./tools/make-og-pages.mjs",
     "content:report": "node ./tools/content-report.mjs",
     "audit:images": "node ./tools/audit-images.mjs",
-    "hero:audit": "node ./tools/hero-audit.mjs"
+    "hero:audit": "node ./tools/hero-audit.mjs",
+    "og:social": "node ./tools/optimize-og-social.mjs",
+    "og:check": "node ./tools/check-og-resolve.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.0",
