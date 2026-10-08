@@ -440,6 +440,11 @@ export const unitSeo: Record<string, { h1: string; blurb: string }> = {
   '24': { h1: 'Marathi Media & News Words: Press, Broadcast & Social', blurb: 'Follow Marathi news and media.' },
   '25': { h1: 'Advanced Marathi Conversation: Debate & Presentation', blurb: 'Argue, present and persuade.' },
   '26': { h1: 'Marathi Final Assessment: Mock Exam & Certificate', blurb: 'Prove your Marathi end to end.' },
+  '27': { h1: '7-Day Marathi Challenge: Day-by-Day Sprint', blurb: 'Greetings to revision in seven daily wins.' },
+  '28': { h1: 'Marathi Pronouns (Sarvanam): मी to स्वतः', blurb: 'Personal, possessive and question pronouns.' },
+  '29': { h1: 'Marathi Words & Meanings: Shabdarth Lists', blurb: 'Letter words, synonyms and antonyms.' },
+  '30': { h1: 'Hindi to Marathi Phrases: Daily Translation', blurb: 'Say daily Hindi lines in Marathi.' },
+  '31': { h1: 'Marathi Top-Up Bundle: Family, Weather & More', blurb: 'Bank, tech, quiz and thin-topic top-ups.' },
 };
 
 /** Phrases for a set: speaking rows of referenced units (real app content). */

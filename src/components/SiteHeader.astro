@@ -3,6 +3,7 @@ import Search from './Search.astro';
 import Preferences from './Preferences.astro';
 import { siteUrl } from '../lib/site';
 import { HI_NAV } from '../i18n/hi';
+import { units } from '../lib/learn';
 
 const current = Astro.url.pathname.replace(import.meta.env.BASE_URL, '').replace(/\/$/, '');
 const hi = Astro.url.pathname.includes('/hi/');
@@ -16,7 +17,7 @@ const groups = [
 		match: 'learn',
 		links: [
 			{ href: siteUrl('/start/'), label: 'Start here', match: 'start' },
-			{ href: siteUrl('/lessons/'), label: 'Course (26 units)', match: 'lessons' },
+			{ href: siteUrl('/lessons/'), label: `Course (${units.length} units)`, match: 'lessons' },
 			{ href: siteUrl('/vocabulary/'), label: 'Vocabulary', match: 'vocabulary' },
 			{ href: siteUrl('/phrases/'), label: 'Phrases', match: 'phrases' },
 			{ href: siteUrl('/grammar/'), label: 'Grammar', match: 'grammar' },

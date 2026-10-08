@@ -1016,6 +1016,46 @@
     "keywords": "unit 26 final assessment अंतिम मूल्यमापन • final assessment lesson"
   },
   {
+    "id": "unit-27",
+    "title": "Unit 27: 7-Day Marathi Challenge",
+    "type": "lesson",
+    "url": "/learn-marathi/lessons/27/",
+    "description": "Seven-Day Challenge",
+    "keywords": "unit 27 7-day marathi challenge 7 दिवसांत मराठी • 7-day marathi challenge lesson"
+  },
+  {
+    "id": "unit-28",
+    "title": "Unit 28: Marathi Pronouns",
+    "type": "lesson",
+    "url": "/learn-marathi/lessons/28/",
+    "description": "Using Pronouns",
+    "keywords": "unit 28 marathi pronouns सर्वनाम • marathi pronouns lesson"
+  },
+  {
+    "id": "unit-29",
+    "title": "Unit 29: Shabdarth: Words & Meanings",
+    "type": "lesson",
+    "url": "/learn-marathi/lessons/29/",
+    "description": "Ru-words, Synonyms, Antonyms and One-word Substitutions",
+    "keywords": "unit 29 shabdarth: words & meanings शब्दार्थ • words & meanings lesson"
+  },
+  {
+    "id": "unit-30",
+    "title": "Unit 30: Hindi to Marathi Phrases",
+    "type": "lesson",
+    "url": "/learn-marathi/lessons/30/",
+    "description": "Hindi-sentence-to-Marathi Translations",
+    "keywords": "unit 30 hindi to marathi phrases वाक्य अनुवाद • phrase translation lesson"
+  },
+  {
+    "id": "unit-31",
+    "title": "Unit 31: Top-Up: Family, Weather, Questions, Market & More",
+    "type": "lesson",
+    "url": "/learn-marathi/lessons/31/",
+    "description": "Family, Weather, Questions, Market and More",
+    "keywords": "unit 31 top-up: family, weather, questions, market & more पूरक संच • top-up bundle lesson"
+  },
+  {
     "id": "word-v-greet-01",
     "title": "नमस्कार",
     "type": "word",
@@ -9032,143 +9072,1191 @@
     "keywords": "सारखं same / similar जैसा sārkha"
   },
   {
-    "id": "word-v-tech-01",
+    "id": "word-v-chl-01",
+    "title": "नमस्कार",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "hello / respectful greeting (नमस्ते)",
+    "keywords": "नमस्कार hello / respectful greeting नमस्ते namaskār"
+  },
+  {
+    "id": "word-v-chl-02",
+    "title": "ओळख",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "introduction / acquaintance (पहचान)",
+    "keywords": "ओळख introduction / acquaintance पहचान oḷakh"
+  },
+  {
+    "id": "word-v-chl-03",
+    "title": "धन्यवाद",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "thanks (धन्यवाद)",
+    "keywords": "धन्यवाद thanks धन्यवाद dhanyavād"
+  },
+  {
+    "id": "word-v-chl-04",
+    "title": "कृपया",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "please (कृपया)",
+    "keywords": "कृपया please कृपया kṛpayā"
+  },
+  {
+    "id": "word-v-chl-05",
+    "title": "माफ करा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "forgive me / sorry (माफ करें)",
+    "keywords": "माफ करा forgive me / sorry माफ करें māph karā"
+  },
+  {
+    "id": "word-v-chl-06",
+    "title": "हो",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "yes (हाँ)",
+    "keywords": "हो yes हाँ ho"
+  },
+  {
+    "id": "word-v-chl-07",
+    "title": "नाही",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "no / not (नहीं)",
+    "keywords": "नाही no / not नहीं nāhī"
+  },
+  {
+    "id": "word-v-chl-08",
+    "title": "मी",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "I (मैं)",
+    "keywords": "मी i मैं mī"
+  },
+  {
+    "id": "word-v-chl-09",
+    "title": "तुम्ही",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "you (polite) (आप / तुम)",
+    "keywords": "तुम्ही you (polite) आप / तुम tumhī"
+  },
+  {
+    "id": "word-v-chl-10",
+    "title": "कसे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "how (masculine / plural) (कैसे)",
+    "keywords": "कसे how (masculine / plural) कैसे kase"
+  },
+  {
+    "id": "word-v-chl-11",
+    "title": "छान",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "nice / good / fine (अच्छा / बढ़िया)",
+    "keywords": "छान nice / good / fine अच्छा / बढ़िया chān"
+  },
+  {
+    "id": "word-v-chl-12",
+    "title": "कुटुंब",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "family (परिवार)",
+    "keywords": "कुटुंब family परिवार kuṭumba"
+  },
+  {
+    "id": "word-v-chl-13",
+    "title": "आई",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "mother (माँ)",
+    "keywords": "आई mother माँ āī"
+  },
+  {
+    "id": "word-v-chl-14",
+    "title": "मित्र",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "friend (दोस्त)",
+    "keywords": "मित्र friend दोस्त mitra"
+  },
+  {
+    "id": "word-v-chl-15",
+    "title": "जेवण",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "meal / food (भोजन)",
+    "keywords": "जेवण meal / food भोजन jevaṇ"
+  },
+  {
+    "id": "word-v-chl-16",
+    "title": "पाणी",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "water (पानी)",
+    "keywords": "पाणी water पानी pāṇī"
+  },
+  {
+    "id": "word-v-chl-17",
+    "title": "चहा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "tea (चाय)",
+    "keywords": "चहा tea चाय cahā"
+  },
+  {
+    "id": "word-v-chl-18",
+    "title": "बाजार",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "market (बाज़ार)",
+    "keywords": "बाजार market बाज़ार bājār"
+  },
+  {
+    "id": "word-v-chl-19",
+    "title": "किंमत",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "price (क़ीमत)",
+    "keywords": "किंमत price क़ीमत kiṃmat"
+  },
+  {
+    "id": "word-v-chl-20",
+    "title": "वेळ",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "time (समय)",
+    "keywords": "वेळ time समय veḷ"
+  },
+  {
+    "id": "word-v-chl-21",
+    "title": "दिवस",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "day (दिन)",
+    "keywords": "दिवस day दिन divas"
+  },
+  {
+    "id": "word-v-chl-22",
+    "title": "सराव",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "practice (अभ्यास)",
+    "keywords": "सराव practice अभ्यास sarāv"
+  },
+  {
+    "id": "word-v-chl-23",
+    "title": "प्रश्न",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "question (प्रश्न)",
+    "keywords": "प्रश्न question प्रश्न praśna"
+  },
+  {
+    "id": "word-v-chl-24",
+    "title": "अभिनंदन",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "congratulations (बधाई)",
+    "keywords": "अभिनंदन congratulations बधाई abhinandan"
+  },
+  {
+    "id": "word-v-pron-16",
+    "title": "हा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "this (masculine) (यह (पुल्लिंग))",
+    "keywords": "हा this (masculine) यह (पुल्लिंग) hā"
+  },
+  {
+    "id": "word-v-pron-17",
+    "title": "ही",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "this (feminine) (यह (स्त्रीलिंग))",
+    "keywords": "ही this (feminine) यह (स्त्रीलिंग) hī"
+  },
+  {
+    "id": "word-v-pron-18",
+    "title": "हे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "this (neuter) / these (यह (नपुंसकलिंग) / ये)",
+    "keywords": "हे this (neuter) / these यह (नपुंसकलिंग) / ये he"
+  },
+  {
+    "id": "word-v-pron-19",
+    "title": "माझा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "my / mine (masculine) (मेरा)",
+    "keywords": "माझा my / mine (masculine) मेरा mājhā"
+  },
+  {
+    "id": "word-v-pron-20",
+    "title": "तुझा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "your / yours (informal, masculine) (तुम्हारा / तेरा)",
+    "keywords": "तुझा your / yours (informal, masculine) तुम्हारा / तेरा tujhā"
+  },
+  {
+    "id": "word-v-pron-21",
+    "title": "त्याचा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "his (masculine owned) (उसका (पुल्लिंग))",
+    "keywords": "त्याचा his (masculine owned) उसका (पुल्लिंग) tyācā"
+  },
+  {
+    "id": "word-v-pron-22",
+    "title": "तिचा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "her (masculine owned) (उसका (स्त्री मालक))",
+    "keywords": "तिचा her (masculine owned) उसका (स्त्री मालक) ticā"
+  },
+  {
+    "id": "word-v-pron-23",
+    "title": "कोण",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "who (कौन)",
+    "keywords": "कोण who कौन koṇ"
+  },
+  {
+    "id": "word-v-pron-24",
+    "title": "काय",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "what (क्या)",
+    "keywords": "काय what क्या kāy"
+  },
+  {
+    "id": "word-v-pron-25",
+    "title": "कुठे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "where (कहाँ)",
+    "keywords": "कुठे where कहाँ kuṭhe"
+  },
+  {
+    "id": "word-v-pron-26",
+    "title": "स्वतः",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "self / oneself (स्वयं / खुद)",
+    "keywords": "स्वतः self / oneself स्वयं / खुद svataḥ"
+  },
+  {
+    "id": "word-v-pron-27",
+    "title": "आपण",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "we (inclusive) / you (polite) (हम (समावेशक) / आप)",
+    "keywords": "आपण we (inclusive) / you (polite) हम (समावेशक) / आप āpaṇ"
+  },
+  {
+    "id": "word-v-pron-28",
+    "title": "तुम्ही",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "you (formal / plural) (आप)",
+    "keywords": "तुम्ही you (formal / plural) आप tumhī"
+  },
+  {
+    "id": "word-v-pron-29",
+    "title": "आम्ही",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "we (exclusive) (हम (असमावेशक))",
+    "keywords": "आम्ही we (exclusive) हम (असमावेशक) āmhī"
+  },
+  {
+    "id": "word-v-pron-30",
+    "title": "ते",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "they / that (neuter) (वे / वह (नपुंसक))",
+    "keywords": "ते they / that (neuter) वे / वह (नपुंसक) te"
+  },
+  {
+    "id": "word-v-pron-31",
+    "title": "ती",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "she / that (feminine) (वह (स्त्रीलिंग) / वे)",
+    "keywords": "ती she / that (feminine) वह (स्त्रीलिंग) / वे tī"
+  },
+  {
+    "id": "word-v-pron-32",
+    "title": "मला",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "to me / I (dative) (मुझे / मुझको)",
+    "keywords": "मला to me / i (dative) मुझे / मुझको malā"
+  },
+  {
+    "id": "word-v-pron-33",
+    "title": "तुला",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "to you (informal dative) (तुम्हें / तुझको)",
+    "keywords": "तुला to you (informal dative) तुम्हें / तुझको tulā"
+  },
+  {
+    "id": "word-v-voc-01",
+    "title": "रुचकर",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "tasty (स्वादिष्ट)",
+    "keywords": "रुचकर tasty स्वादिष्ट rucakara"
+  },
+  {
+    "id": "word-v-voc-02",
+    "title": "रुग्ण",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "patient (रोगी)",
+    "keywords": "रुग्ण patient रोगी rugṇa"
+  },
+  {
+    "id": "word-v-voc-03",
+    "title": "रुमाल",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "handkerchief (रुमाल)",
+    "keywords": "रुमाल handkerchief रुमाल rumāla"
+  },
+  {
+    "id": "word-v-voc-04",
+    "title": "रुंद",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "wide (चौड़ा)",
+    "keywords": "रुंद wide चौड़ा runda"
+  },
+  {
+    "id": "word-v-voc-05",
+    "title": "रुजलेला",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "rooted, established (जड़ पकड़ा हुआ)",
+    "keywords": "रुजलेला rooted, established जड़ पकड़ा हुआ rujalelā"
+  },
+  {
+    "id": "word-v-voc-06",
+    "title": "सुंदर",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "beautiful (सुंदर)",
+    "keywords": "सुंदर beautiful सुंदर sundara"
+  },
+  {
+    "id": "word-v-voc-07",
+    "title": "चांगला",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "good (अच्छा)",
+    "keywords": "चांगला good अच्छा cāṅgalā"
+  },
+  {
+    "id": "word-v-voc-08",
+    "title": "वाईट",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "bad (बुरा)",
+    "keywords": "वाईट bad बुरा vāīṭa"
+  },
+  {
+    "id": "word-v-voc-09",
+    "title": "मोठा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "big (बड़ा)",
+    "keywords": "मोठा big बड़ा moṭhā"
+  },
+  {
+    "id": "word-v-voc-10",
+    "title": "लहान",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "small (छोटा)",
+    "keywords": "लहान small छोटा lahāna"
+  },
+  {
+    "id": "word-v-voc-11",
+    "title": "जलद",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "fast (तेज़)",
+    "keywords": "जलद fast तेज़ jalada"
+  },
+  {
+    "id": "word-v-voc-12",
+    "title": "हळू",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "slow (धीमा)",
+    "keywords": "हळू slow धीमा haḷū"
+  },
+  {
+    "id": "word-v-voc-13",
+    "title": "आनंद",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "joy (आनंद)",
+    "keywords": "आनंद joy आनंद ānanda"
+  },
+  {
+    "id": "word-v-voc-14",
+    "title": "दुःख",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "sorrow (दुःख)",
+    "keywords": "दुःख sorrow दुःख duḥkha"
+  },
+  {
+    "id": "word-v-voc-15",
+    "title": "प्रेम",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "love (प्रेम)",
+    "keywords": "प्रेम love प्रेम prema"
+  },
+  {
+    "id": "word-v-voc-16",
+    "title": "राग",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "anger (गुस्सा)",
+    "keywords": "राग anger गुस्सा rāga"
+  },
+  {
+    "id": "word-v-voc-17",
+    "title": "सत्य",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "truth (सत्य)",
+    "keywords": "सत्य truth सत्य satya"
+  },
+  {
+    "id": "word-v-voc-18",
+    "title": "खोटे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "false (झूठा)",
+    "keywords": "खोटे false झूठा khoṭe"
+  },
+  {
+    "id": "word-v-voc-19",
+    "title": "जीवन",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "life (जीवन)",
+    "keywords": "जीवन life जीवन jīvana"
+  },
+  {
+    "id": "word-v-voc-20",
+    "title": "स्वप्न",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "dream (सपना)",
+    "keywords": "स्वप्न dream सपना svapna"
+  },
+  {
+    "id": "word-v-voc-21",
+    "title": "यश",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "success (सफलता)",
+    "keywords": "यश success सफलता yaśa"
+  },
+  {
+    "id": "word-v-voc-22",
+    "title": "अपयश",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "failure (असफलता)",
+    "keywords": "अपयश failure असफलता apayaśa"
+  },
+  {
+    "id": "word-v-voc-23",
+    "title": "प्रकाश",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "light (प्रकाश)",
+    "keywords": "प्रकाश light प्रकाश prakāśa"
+  },
+  {
+    "id": "word-v-voc-24",
+    "title": "अंधार",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "darkness (अंधेरा)",
+    "keywords": "अंधार darkness अंधेरा andhāra"
+  },
+  {
+    "id": "word-v-voc-25",
+    "title": "गरम",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "hot (गरम)",
+    "keywords": "गरम hot गरम garama"
+  },
+  {
+    "id": "word-v-voc-26",
+    "title": "थंड",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "cold (ठंडा)",
+    "keywords": "थंड cold ठंडा thaṇḍa"
+  },
+  {
+    "id": "word-v-voc-27",
+    "title": "नवीन",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "new (नया)",
+    "keywords": "नवीन new नया navīna"
+  },
+  {
+    "id": "word-v-voc-28",
+    "title": "जुना",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "old (पुराना)",
+    "keywords": "जुना old पुराना junā"
+  },
+  {
+    "id": "word-v-voc-29",
+    "title": "मित्र",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "friend (मित्र)",
+    "keywords": "मित्र friend मित्र mitra"
+  },
+  {
+    "id": "word-v-voc-30",
+    "title": "शत्रू",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "enemy (शत्रु)",
+    "keywords": "शत्रू enemy शत्रु śatrū"
+  },
+  {
+    "id": "word-v-phr-01",
+    "title": "मला भूक लागली आहे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "I am hungry (मुझे भूख लगी है)",
+    "keywords": "मला भूक लागली आहे i am hungry मुझे भूख लगी है malā bhūk lāglī āhe"
+  },
+  {
+    "id": "word-v-phr-02",
+    "title": "मला तहान लागली आहे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "I am thirsty (मुझे प्यास लगी है)",
+    "keywords": "मला तहान लागली आहे i am thirsty मुझे प्यास लगी है malā tahān lāglī āhe"
+  },
+  {
+    "id": "word-v-phr-03",
+    "title": "थोडं थांबा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "Wait a little (थोड़ा रुको)",
+    "keywords": "थोडं थांबा wait a little थोड़ा रुको thoḍaṁ thāmbā"
+  },
+  {
+    "id": "word-v-phr-04",
+    "title": "मला मदत हवी आहे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "I need help (मुझे मदद चाहिए)",
+    "keywords": "मला मदत हवी आहे i need help मुझे मदद चाहिए malā madat havī āhe"
+  },
+  {
+    "id": "word-v-phr-05",
+    "title": "किती वाजले?",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "What time is it? (कितने बजे हैं?)",
+    "keywords": "किती वाजले? what time is it? कितने बजे हैं? kitī vājle?"
+  },
+  {
+    "id": "word-v-phr-06",
+    "title": "मी आता येतो",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "I will come right now (मैं अभी आता हूँ)",
+    "keywords": "मी आता येतो i will come right now मैं अभी आता हूँ mī ātā yeto"
+  },
+  {
+    "id": "word-v-phr-07",
+    "title": "काळजी करू नका",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "Don't worry (चिंता मत करो)",
+    "keywords": "काळजी करू नका don't worry चिंता मत करो kāḷjī karū nakā"
+  },
+  {
+    "id": "word-v-phr-08",
+    "title": "पुन्हा भेटू",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "See you again (फिर मिलेंगे)",
+    "keywords": "पुन्हा भेटू see you again फिर मिलेंगे punhā bheṭū"
+  },
+  {
+    "id": "word-v-phr-09",
+    "title": "मला समजलं नाही",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "I did not understand (मुझे समझ नहीं आया)",
+    "keywords": "मला समजलं नाही i did not understand मुझे समझ नहीं आया malā samajlaṁ nāhī"
+  },
+  {
+    "id": "word-v-phr-10",
+    "title": "हळू बोला",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "Speak slowly (धीरे बोलो)",
+    "keywords": "हळू बोला speak slowly धीरे बोलो haḷū bolā"
+  },
+  {
+    "id": "word-v-phr-11",
+    "title": "माझं नाव ... आहे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "My name is ... (मेरा नाम ... है)",
+    "keywords": "माझं नाव ... आहे my name is ... मेरा नाम ... है mājhaṁ nāv ... āhe"
+  },
+  {
+    "id": "word-v-phr-12",
+    "title": "तुम्ही कुठे राहता?",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "Where do you live? (आप कहाँ रहते हो?)",
+    "keywords": "तुम्ही कुठे राहता? where do you live? आप कहाँ रहते हो? tumhī kuṭhe rāhatā?"
+  },
+  {
+    "id": "word-v-phr-13",
+    "title": "मला मराठी येते",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "I know Marathi (मुझे मराठी आती है)",
+    "keywords": "मला मराठी येते i know marathi मुझे मराठी आती है malā marāṭhī yete"
+  },
+  {
+    "id": "word-v-phr-14",
+    "title": "चव छान आहे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "The taste is nice (स्वाद अच्छा है)",
+    "keywords": "चव छान आहे the taste is nice स्वाद अच्छा है cav chān āhe"
+  },
+  {
+    "id": "word-v-phr-15",
+    "title": "गर्दी आहे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "It is crowded (भीड़ है)",
+    "keywords": "गर्दी आहे it is crowded भीड़ है gardī āhe"
+  },
+  {
+    "id": "word-v-phr-16",
+    "title": "वेळ काय आहे?",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "What is the time? (समय क्या है?)",
+    "keywords": "वेळ काय आहे? what is the time? समय क्या है? veḷ kāy āhe?"
+  },
+  {
+    "id": "word-v-phr-17",
+    "title": "मी विसरलो",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "I forgot (मैं भूल गया)",
+    "keywords": "मी विसरलो i forgot मैं भूल गया mī visaralo"
+  },
+  {
+    "id": "word-v-phr-18",
+    "title": "लक्ष द्या",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "Pay attention (ध्यान दो)",
+    "keywords": "लक्ष द्या pay attention ध्यान दो lakṣa dyā"
+  },
+  {
+    "id": "word-v-phr-19",
+    "title": "बरं झालं",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "That's good / Good that it happened (अच्छा हुआ)",
+    "keywords": "बरं झालं that's good / good that it happened अच्छा हुआ baraṁ jhālaṁ"
+  },
+  {
+    "id": "word-v-phr-20",
+    "title": "चला जाऊया",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "Let's go (चलो चलें)",
+    "keywords": "चला जाऊया let's go चलो चलें calā jāūyā"
+  },
+  {
+    "id": "word-v-phr-21",
+    "title": "मला आवडलं",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "I liked it (मुझे पसंद आया)",
+    "keywords": "मला आवडलं i liked it मुझे पसंद आया malā āvaḍlaṁ"
+  },
+  {
+    "id": "word-v-phr-22",
+    "title": "उद्या भेटू",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "See you tomorrow (कल मिलेंगे)",
+    "keywords": "उद्या भेटू see you tomorrow कल मिलेंगे udyā bheṭū"
+  },
+  {
+    "id": "word-v-phr-23",
+    "title": "शुभ रात्री",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "Good night (शुभ रात्रि)",
+    "keywords": "शुभ रात्री good night शुभ रात्रि śubha rātrī"
+  },
+  {
+    "id": "word-v-phr-24",
+    "title": "अभिनंदन",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "Congratulations (बधाई हो)",
+    "keywords": "अभिनंदन congratulations बधाई हो abhinandan"
+  },
+  {
+    "id": "word-v-fam-26",
+    "title": "काका",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "uncle (father's brother) (चाचा)",
+    "keywords": "काका uncle (father's brother) चाचा kākā"
+  },
+  {
+    "id": "word-v-fam-27",
+    "title": "मामा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "maternal uncle (mother's brother) (मामा)",
+    "keywords": "मामा maternal uncle (mother's brother) मामा māmā"
+  },
+  {
+    "id": "word-v-fam-28",
+    "title": "आत्या",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "paternal aunt (father's sister) (बुआ)",
+    "keywords": "आत्या paternal aunt (father's sister) बुआ ātyā"
+  },
+  {
+    "id": "word-v-fam-29",
+    "title": "कुटुंब",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "family (परिवार)",
+    "keywords": "कुटुंब family परिवार kuṭuṁba"
+  },
+  {
+    "id": "word-v-fam-30",
+    "title": "लग्न",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "wedding, marriage (शादी)",
+    "keywords": "लग्न wedding, marriage शादी lagna"
+  },
+  {
+    "id": "word-v-wea-13",
+    "title": "पाऊस",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "rain (बारिश)",
+    "keywords": "पाऊस rain बारिश pāūsa"
+  },
+  {
+    "id": "word-v-wea-14",
+    "title": "उन्हाळा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "summer (गर्मी का मौसम)",
+    "keywords": "उन्हाळा summer गर्मी का मौसम unhāḷā"
+  },
+  {
+    "id": "word-v-wea-15",
+    "title": "हिवाळा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "winter (सर्दी का मौसम)",
+    "keywords": "हिवाळा winter सर्दी का मौसम hivāḷā"
+  },
+  {
+    "id": "word-v-wea-16",
+    "title": "वादळ",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "storm (तूफ़ान)",
+    "keywords": "वादळ storm तूफ़ान vādaḷa"
+  },
+  {
+    "id": "word-v-wea-17",
+    "title": "धुकं",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "fog (कोहरा)",
+    "keywords": "धुकं fog कोहरा dhukaṁ"
+  },
+  {
+    "id": "word-v-que-01",
+    "title": "कोण",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "who (कौन)",
+    "keywords": "कोण who कौन koṇa"
+  },
+  {
+    "id": "word-v-que-02",
+    "title": "काय",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "what (क्या)",
+    "keywords": "काय what क्या kāya"
+  },
+  {
+    "id": "word-v-que-03",
+    "title": "कुठे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "where (कहाँ)",
+    "keywords": "कुठे where कहाँ kuṭhe"
+  },
+  {
+    "id": "word-v-que-04",
+    "title": "केव्हा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "when (कब)",
+    "keywords": "केव्हा when कब kevhā"
+  },
+  {
+    "id": "word-v-que-05",
+    "title": "कसं",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "how (कैसे)",
+    "keywords": "कसं how कैसे kasaṁ"
+  },
+  {
+    "id": "word-v-shop-13",
+    "title": "किंमत",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "price (कीमत)",
+    "keywords": "किंमत price कीमत kiṁmata"
+  },
+  {
+    "id": "word-v-shop-14",
+    "title": "स्वस्त",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "cheap (सस्ता)",
+    "keywords": "स्वस्त cheap सस्ता svasta"
+  },
+  {
+    "id": "word-v-shop-15",
+    "title": "महाग",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "expensive, costly (महँगा)",
+    "keywords": "महाग expensive, costly महँगा mahāga"
+  },
+  {
+    "id": "word-v-shop-16",
+    "title": "सूट",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "discount (छूट)",
+    "keywords": "सूट discount छूट sūṭa"
+  },
+  {
+    "id": "word-v-col-13",
+    "title": "जांभळा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "purple (बैंगनी)",
+    "keywords": "जांभळा purple बैंगनी jāṁbhaḷā"
+  },
+  {
+    "id": "word-v-col-14",
+    "title": "पांढरा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "white (सफ़ेद)",
+    "keywords": "पांढरा white सफ़ेद pāṁḍharā"
+  },
+  {
+    "id": "word-v-col-15",
+    "title": "सोनेरी",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "golden (सुनहरा)",
+    "keywords": "सोनेरी golden सुनहरा sonerī"
+  },
+  {
+    "id": "word-v-dir-17",
+    "title": "डावा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "left (बायाँ)",
+    "keywords": "डावा left बायाँ ḍāvā"
+  },
+  {
+    "id": "word-v-dir-18",
+    "title": "उजवा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "right (दायाँ)",
+    "keywords": "उजवा right दायाँ ujavā"
+  },
+  {
+    "id": "word-v-dir-19",
+    "title": "सरळ",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "straight (सीधा)",
+    "keywords": "सरळ straight सीधा saraḷa"
+  },
+  {
+    "id": "word-v-dir-20",
+    "title": "मागे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "behind, back (पीछे)",
+    "keywords": "मागे behind, back पीछे māge"
+  },
+  {
+    "id": "word-v-rou-41",
+    "title": "सकाळी उठणे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "to wake up in the morning (सुबह उठना)",
+    "keywords": "सकाळी उठणे to wake up in the morning सुबह उठना sakāḷī uṭhaṇe"
+  },
+  {
+    "id": "word-v-rou-42",
+    "title": "नाश्ता",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "breakfast (नाश्ता)",
+    "keywords": "नाश्ता breakfast नाश्ता nāśtā"
+  },
+  {
+    "id": "word-v-rou-43",
+    "title": "झोपणे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "to sleep (सोना)",
+    "keywords": "झोपणे to sleep सोना jhopaṇe"
+  },
+  {
+    "id": "word-v-greet-16",
+    "title": "शुभेच्छा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "good wishes (शुभकामनाएँ)",
+    "keywords": "शुभेच्छा good wishes शुभकामनाएँ śubhecchā"
+  },
+  {
+    "id": "word-v-greet-17",
+    "title": "अभिनंदन",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "congratulations (बधाई)",
+    "keywords": "अभिनंदन congratulations बधाई abhinaṁdana"
+  },
+  {
+    "id": "word-v-mny-01",
+    "title": "खाते",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "account (खाता)",
+    "keywords": "खाते account खाता khāte"
+  },
+  {
+    "id": "word-v-mny-02",
+    "title": "कर्ज",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "loan (कर्ज़)",
+    "keywords": "कर्ज loan कर्ज़ karja"
+  },
+  {
+    "id": "word-v-mny-03",
+    "title": "व्याज",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "interest (ब्याज)",
+    "keywords": "व्याज interest ब्याज vyāja"
+  },
+  {
+    "id": "word-v-mny-04",
+    "title": "पैसे",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "money (पैसे)",
+    "keywords": "पैसे money पैसे paise"
+  },
+  {
+    "id": "word-v-mny-05",
+    "title": "एटीएम",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "ATM (एटीएम)",
+    "keywords": "एटीएम atm एटीएम eṭīema"
+  },
+  {
+    "id": "word-v-tec-01",
     "title": "मोबाईल",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "mobile phone (मोबाइल)",
-    "keywords": "मोबाईल mobile phone मोबाइल mobāil"
+    "keywords": "मोबाईल mobile phone मोबाइल mobāīla"
   },
   {
-    "id": "word-v-tech-02",
+    "id": "word-v-tec-02",
     "title": "संगणक",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "computer (कंप्यूटर)",
-    "keywords": "संगणक computer कंप्यूटर saṃgaṇak"
+    "keywords": "संगणक computer कंप्यूटर saṁgaṇaka"
   },
   {
-    "id": "word-v-tech-03",
+    "id": "word-v-tec-03",
+    "title": "संदेश",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "message (संदेश)",
+    "keywords": "संदेश message संदेश saṁdeśa"
+  },
+  {
+    "id": "word-v-tec-04",
     "title": "इंटरनेट",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "internet (इंटरनेट)",
-    "keywords": "इंटरनेट internet इंटरनेट inṭarneṭ"
+    "keywords": "इंटरनेट internet इंटरनेट iṁṭarneṭa"
   },
   {
-    "id": "word-v-tech-04",
-    "title": "व्हायफाय",
-    "type": "word",
-    "url": "/learn-marathi/vocabulary/",
-    "description": "WiFi (वाईफाई)",
-    "keywords": "व्हायफाय wifi वाईफाई vhāiphāi"
-  },
-  {
-    "id": "word-v-tech-05",
-    "title": "ऐप",
+    "id": "word-v-tec-05",
+    "title": "अ‍ॅप",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "app (ऐप)",
-    "keywords": "ऐप app ऐप aip"
+    "keywords": "अ‍ॅप app ऐप ăp"
   },
   {
-    "id": "word-v-tech-06",
-    "title": "व्हाट्सअॅप",
+    "id": "word-v-quz-01",
+    "title": "प्रश्नमंजुषा",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "WhatsApp (व्हाट्सएप)",
-    "keywords": "व्हाट्सअॅप whatsapp व्हाट्सएप vhāṭsaiap"
+    "description": "quiz (प्रश्नोत्तरी)",
+    "keywords": "प्रश्नमंजुषा quiz प्रश्नोत्तरी praśnamaṁjuṣā"
   },
   {
-    "id": "word-v-tech-07",
-    "title": "कॅमरा",
+    "id": "word-v-quz-02",
+    "title": "उत्तर",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "camera (कैमरा)",
-    "keywords": "कॅमरा camera कैमरा kaimrā"
+    "description": "answer (उत्तर)",
+    "keywords": "उत्तर answer उत्तर uttara"
   },
   {
-    "id": "word-v-tech-08",
-    "title": "बॅटरी",
+    "id": "word-v-quz-03",
+    "title": "गुण",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "battery (बैटरी)",
-    "keywords": "बॅटरी battery बैटरी baimṛī"
+    "description": "marks, points, score (अंक)",
+    "keywords": "गुण marks, points, score अंक guṇa"
   },
   {
-    "id": "word-v-tech-09",
-    "title": "चार्जर",
+    "id": "word-v-tec-06",
+    "title": "वाईफाय",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "charger (चार्जर)",
-    "keywords": "चार्जर charger चार्जर cārjar"
+    "description": "Wi-Fi (वाईफाई)",
+    "keywords": "वाईफाय wi-fi वाईफाई vāīphāya"
   },
   {
-    "id": "word-v-tech-10",
+    "id": "word-v-tec-07",
+    "title": "ब्लूटूथ",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "Bluetooth (ब्लूटूथ)",
+    "keywords": "ब्लूटूथ bluetooth ब्लूटूथ blūtūtha"
+  },
+  {
+    "id": "word-v-tec-08",
     "title": "स्क्रीन",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "screen (स्क्रीन)",
-    "keywords": "स्क्रीन screen स्क्रीन skrīn"
+    "keywords": "स्क्रीन screen स्क्रीन skrīna"
   },
   {
-    "id": "word-v-tech-11",
-    "title": "पासवर्ड",
+    "id": "word-v-tec-09",
+    "title": "कीबोर्ड",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "password (पासवर्ड)",
-    "keywords": "पासवर्ड password पासवर्ड pāsvarḍ"
+    "description": "keyboard (कीबोर्ड)",
+    "keywords": "कीबोर्ड keyboard कीबोर्ड kīborda"
   },
   {
-    "id": "word-v-tech-12",
-    "title": "गुगल",
+    "id": "word-v-tec-10",
+    "title": "चार्जर",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "Google (गूगल)",
-    "keywords": "गुगल google गूगल gugal"
+    "description": "charger (चार्जर)",
+    "keywords": "चार्जर charger चार्जर cārjara"
   },
   {
-    "id": "word-v-tech-13",
-    "title": "ईमेल",
+    "id": "word-v-brd-01",
+    "title": "पोपट",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "email (ईमेल)",
-    "keywords": "ईमेल email ईमेल īmeil"
+    "description": "parrot (तोता)",
+    "keywords": "पोपट parrot तोता popaṭa"
   },
   {
-    "id": "word-v-tech-14",
-    "title": "व्हिडिओ कॉल",
-    "type": "word",
-    "url": "/learn-marathi/vocabulary/",
-    "description": "video call (वीडियो कॉल)",
-    "keywords": "व्हिडिओ कॉल video call वीडियो कॉल viḍiyo kāl"
-  },
-  {
-    "id": "word-v-tech-15",
-    "title": "सिम कार्ड",
-    "type": "word",
-    "url": "/learn-marathi/vocabulary/",
-    "description": "SIM card (सिम कार्ड)",
-    "keywords": "सिम कार्ड sim card सिम कार्ड sim kāṛḍ"
-  },
-  {
-    "id": "word-v-bird-01",
-    "title": "पक्षी",
-    "type": "word",
-    "url": "/learn-marathi/vocabulary/",
-    "description": "bird (पक्षी)",
-    "keywords": "पक्षी bird पक्षी pakṣī"
-  },
-  {
-    "id": "word-v-bird-02",
-    "title": "कोबळ",
+    "id": "word-v-brd-02",
+    "title": "कबूतर",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "pigeon (कबूतर)",
-    "keywords": "कोबळ pigeon कबूतर kobaḷ"
+    "keywords": "कबूतर pigeon कबूतर kabūtara"
   },
   {
-    "id": "word-v-bird-03",
+    "id": "word-v-brd-03",
+    "title": "कावळा",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "crow (कौआ)",
+    "keywords": "कावळा crow कौआ kāvaḷā"
+  },
+  {
+    "id": "word-v-brd-04",
     "title": "चिमणी",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
@@ -9176,171 +10264,131 @@
     "keywords": "चिमणी sparrow गौरैया cimaṇī"
   },
   {
-    "id": "word-v-bird-04",
+    "id": "word-v-brd-05",
+    "title": "गरुड",
+    "type": "word",
+    "url": "/learn-marathi/vocabulary/",
+    "description": "eagle (गरुड़)",
+    "keywords": "गरुड eagle गरुड़ garuḍa"
+  },
+  {
+    "id": "word-v-brd-06",
     "title": "मोर",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "peacock (मोर)",
-    "keywords": "मोर peacock मोर mor"
+    "keywords": "मोर peacock मोर mora"
   },
   {
-    "id": "word-v-bird-05",
-    "title": "कोयल",
+    "id": "word-v-brd-07",
+    "title": "बदक",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "koel / cuckoo (कोयल)",
-    "keywords": "कोयल koel / cuckoo कोयल koyal"
+    "description": "duck (बत्तख)",
+    "keywords": "बदक duck बत्तख badaka"
   },
   {
-    "id": "word-v-bird-06",
-    "title": "पोपट",
-    "type": "word",
-    "url": "/learn-marathi/vocabulary/",
-    "description": "parrot (तोता)",
-    "keywords": "पोपट parrot तोता popaṭ"
-  },
-  {
-    "id": "word-v-bird-07",
-    "title": "उड्डाण",
-    "type": "word",
-    "url": "/learn-marathi/vocabulary/",
-    "description": "owl (उल्लू)",
-    "keywords": "उड्डाण owl उल्लू uḍḍāṇ"
-  },
-  {
-    "id": "word-v-bird-08",
-    "title": "काक",
-    "type": "word",
-    "url": "/learn-marathi/vocabulary/",
-    "description": "crow (कौवा)",
-    "keywords": "काक crow कौवा kāk"
-  },
-  {
-    "id": "word-v-bird-09",
-    "title": "गरुड",
-    "type": "word",
-    "url": "/learn-marathi/vocabulary/",
-    "description": "eagle / Garuda (गरुड़)",
-    "keywords": "गरुड eagle / garuda गरुड़ garuḍ"
-  },
-  {
-    "id": "word-v-bird-10",
+    "id": "word-v-brd-08",
     "title": "हंस",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "swan (हंस)",
-    "keywords": "हंस swan हंस haṃs"
+    "keywords": "हंस swan हंस haṁsa"
   },
   {
-    "id": "word-v-bird-11",
-    "title": "बगळा",
+    "id": "word-v-brd-09",
+    "title": "घुबड",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "egret / heron (बगुला)",
-    "keywords": "बगळा egret / heron बगुला bagaḷā"
+    "description": "owl (उल्लू)",
+    "keywords": "घुबड owl उल्लू ghubada"
   },
   {
-    "id": "word-v-bird-12",
-    "title": "शकुन",
+    "id": "word-v-brd-10",
+    "title": "साळुंकी",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "kite / hawk (चील)",
-    "keywords": "शकुन kite / hawk चील śakun"
+    "description": "myna (मैना)",
+    "keywords": "साळुंकी myna मैना sāḷuṁkī"
   },
   {
-    "id": "word-v-shape-01",
-    "title": "आकार",
+    "id": "word-v-shp-01",
+    "title": "वर्तुळ",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "shape / size (आकार)",
-    "keywords": "आकार shape / size आकार ākār"
+    "description": "circle (वृत्त)",
+    "keywords": "वर्तुळ circle वृत्त vartuḷa"
   },
   {
-    "id": "word-v-shape-02",
-    "title": "गोल",
+    "id": "word-v-shp-02",
+    "title": "चौरस",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "circle / round (गोल)",
-    "keywords": "गोल circle / round गोल gol"
+    "description": "square (वर्ग)",
+    "keywords": "चौरस square वर्ग caurasa"
   },
   {
-    "id": "word-v-shape-03",
-    "title": "चौकोन",
-    "type": "word",
-    "url": "/learn-marathi/vocabulary/",
-    "description": "square (चौकोर)",
-    "keywords": "चौकोन square चौकोर caukon"
-  },
-  {
-    "id": "word-v-shape-04",
+    "id": "word-v-shp-03",
     "title": "त्रिकोण",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "triangle (त्रिकोण)",
-    "keywords": "त्रिकोण triangle त्रिकोण trikon"
+    "description": "triangle (त्रिभुज)",
+    "keywords": "त्रिकोण triangle त्रिभुज trikoṇa"
   },
   {
-    "id": "word-v-shape-05",
+    "id": "word-v-shp-04",
     "title": "आयत",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "rectangle (आयत)",
-    "keywords": "आयत rectangle आयत āyat"
+    "keywords": "आयत rectangle आयत āyata"
   },
   {
-    "id": "word-v-shape-06",
-    "title": "अर्धवर्तुळ",
-    "type": "word",
-    "url": "/learn-marathi/vocabulary/",
-    "description": "semicircle (अर्धवृत्त)",
-    "keywords": "अर्धवर्तुळ semicircle अर्धवृत्त ardhavartul"
-  },
-  {
-    "id": "word-v-shape-07",
+    "id": "word-v-shp-05",
     "title": "अंडाकृती",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "oval (अंडाकार)",
-    "keywords": "अंडाकृती oval अंडाकार aṇḍākṛtī"
+    "keywords": "अंडाकृती oval अंडाकार aṁḍākṛtī"
   },
   {
-    "id": "word-v-shape-08",
-    "title": "त्रिभुज",
+    "id": "word-v-shp-06",
+    "title": "तारा",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "triangle (alt) (त्रिभुज)",
-    "keywords": "त्रिभुज triangle (alt) त्रिभुज tribhuj"
+    "description": "star (तारा)",
+    "keywords": "तारा star तारा tārā"
   },
   {
-    "id": "word-v-shape-09",
-    "title": "षट्कोण",
+    "id": "word-v-shp-07",
+    "title": "हृदय",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "hexagon (षट्कोण)",
-    "keywords": "षट्कोण hexagon षट्कोण ṣaṭkoṇ"
+    "description": "heart (दिल)",
+    "keywords": "हृदय heart दिल hṛdaya"
   },
   {
-    "id": "word-v-shape-10",
-    "title": "अष्टकोण",
+    "id": "word-v-shp-08",
+    "title": "रेषा",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "octagon (अष्टकोण)",
-    "keywords": "अष्टकोण octagon अष्टकोण aṣṭakoṇ"
+    "description": "line (रेखा)",
+    "keywords": "रेषा line रेखा reṣā"
   },
   {
-    "id": "word-v-shape-11",
-    "title": "वर्तुळ",
+    "id": "word-v-shp-09",
+    "title": "ठिपका",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "circle (formal) (वृत्त)",
-    "keywords": "वर्तुळ circle (formal) वृत्त vartul"
+    "description": "dot (बिंदु)",
+    "keywords": "ठिपका dot बिंदु ṭhipakā"
   },
   {
-    "id": "word-v-shape-12",
-    "title": "कोन",
+    "id": "word-v-shp-10",
+    "title": "घन",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "angle / corner (कोण)",
-    "keywords": "कोन angle / corner कोण kon"
+    "description": "cube (घन)",
+    "keywords": "घन cube घन ghana"
   }
 ]

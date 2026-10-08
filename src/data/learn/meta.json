@@ -1,8 +1,8 @@
 {
-  "syncedAt": "2026-10-08T08:54:18.721Z",
+  "syncedAt": "2026-10-08T09:49:30.336Z",
   "unitsCount": 31,
   "lessonsCount": 186,
-  "vocabCount": 1142,
+  "vocabCount": 1167,
   "categories": {
     "Greetings": 17,
     "Pronouns": 26,
@@ -36,7 +36,9 @@
     "Challenge": 24,
     "Vocabulary": 30,
     "Money": 5,
-    "Tech": 5,
-    "Quiz": 3
+    "Technology": 10,
+    "Quiz": 3,
+    "Birds": 10,
+    "Shapes": 10
   }
 }
