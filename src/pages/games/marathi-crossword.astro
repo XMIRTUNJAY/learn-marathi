@@ -272,6 +272,32 @@ const description =
 			}
 		}
 
+		function highlightWord(r: number, c: number) {
+			// softly highlight every cell of the across/down word through (r, c)
+			const wordHere = puzzle.words.find((x) => {
+				for (let i = 0; i < x.cells.length; i++) {
+					const wr = x.dir === 'across' ? x.row : x.row + i;
+					const wc = x.dir === 'across' ? x.col + i : x.col;
+					if (wr === r && wc === c) return true;
+				}
+				return false;
+			});
+			for (const [k, val] of cells) {
+				const btn = val.parentElement as HTMLElement;
+				btn.classList.remove('wordhl');
+				if (!wordHere) continue;
+				const [rr, cc] = k.split(':').map(Number);
+				for (let i = 0; i < wordHere.cells.length; i++) {
+					const wr = wordHere.dir === 'across' ? wordHere.row : wordHere.row + i;
+					const wc = wordHere.dir === 'across' ? wordHere.col + i : wordHere.col;
+					if (wr === rr && wc === cc) {
+						btn.classList.add('wordhl');
+						break;
+					}
+				}
+			}
+		}
+
 		function select(r: number, c: number) {
 			if (!isFilled(r, c)) return;
 			sel = { row: r, col: c };
@@ -280,6 +306,7 @@ const description =
 				const [rr, cc] = k.split(':').map(Number);
 				btn.classList.toggle('selected', rr === r && cc === c);
 			}
+			highlightWord(r, c);
 		}
 
 		function move(dr: number, dc: number) {
@@ -301,12 +328,15 @@ const description =
 			if (!sel) return;
 			entries.set(key(sel.row, sel.col), ak);
 			const val = cells.get(key(sel.row, sel.col));
-			if (val) val.textContent = ak;
+			if (val) {
+				val.textContent = ak;
+				const btn = val.parentElement as HTMLElement;
+				btn.classList.remove('pop');
+				void btn.offsetWidth; // restart animation
+				btn.classList.add('pop');
+			}
 			sfx.play('key');
-			// advance to next cell of the word containing sel (prefer across)
-			const w = puzzle.words.find((x) =>
-				x.words ? true : true
-			);
+			// advance to the next cell of the word through the selection (prefer across)
 			const wordHere = puzzle.words.find((x) => {
 				for (let i = 0; i < x.cells.length; i++) {
 					const wr = x.dir === 'across' ? x.row : x.row + i;
@@ -321,7 +351,6 @@ const description =
 					const wc = wordHere.dir === 'across' ? wordHere.col + i : wordHere.col;
 					return wr === sel!.row && wc === sel!.col;
 				});
-				void w;
 				const next = wordHere.cells[idx + 1];
 				if (next) {
 					const nr = wordHere.dir === 'across' ? wordHere.row : wordHere.row + (idx + 1);
@@ -414,8 +443,10 @@ const description =
 			}
 			if (wrong === 0 && empty === 0) {
 				sfx.play('round');
+				if (navigator.vibrate) try { navigator.vibrate([30, 40, 60]); } catch { /* ignore */ }
 				msg.textContent = 'Everything checks out!';
 				msg.className = 'wl-msg ok';
+				done.classList.add('confetti', 'bounce-in');
 				finish();
 			} else {
 				sfx.play('wrong');
@@ -473,6 +504,7 @@ const description =
 			entries = new Map();
 			sel = null;
 			done.hidden = true;
+			done.classList.remove('confetti', 'bounce-in');
 			msg.textContent = '';
 			msg.className = 'wl-msg';
 			renderTabs();
@@ -480,6 +512,9 @@ const description =
 			renderGrid();
 			renderKeys();
 			renderClues();
+			// preselect the first letter cell so the keypad works immediately
+			const first = puzzle.words.find((w) => w.dir === 'across') ?? puzzle.words[0];
+			if (first) select(first.row, first.col);
 		}
 
 		if (sfxMuted()) sfx.setMuted(true);

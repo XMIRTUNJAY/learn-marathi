@@ -43,3 +43,25 @@ export function romanize(akshara: string): string {
 	}
 	return out || akshara;
 }
+
+/** Matra display order within a base consonant (bare form first, then ा ि ी ु ू ृ े ै ो ौ ं ः). */
+const MATRA_ORDER = ['', 'ा', 'ि', 'ी', 'ु', 'ू', 'ृ', 'े', 'ै', 'ो', 'ौ', 'ं', 'ः', 'ॅ', 'ॉ'];
+
+/**
+ * Sort key that orders aksharas like the Devanagari varnamala: independent
+ * vowels (अ-औ) first, then consonants (क-ह…), bare base before its matra
+ * forms — the order Marathi readers expect on a keyboard.
+ */
+export function aksharaSortKey(akshara: string): number {
+	const cp = akshara.codePointAt(0) ?? 0;
+	let group: number;
+	if (cp >= 0x0904 && cp <= 0x0914) group = 0; // independent vowels
+	else if ((cp >= 0x0915 && cp <= 0x0939) || (cp >= 0x0958 && cp <= 0x095f) || (cp >= 0x0978 && cp <= 0x097f)) group = 1; // consonants
+	else group = 2; // anything else, last
+	// base position: first codepoint
+	const baseCp = cp;
+	// matra suffix order: strip the base char, map the remainder
+	const rest = akshara.slice(String.fromCodePoint(cp).length);
+	const matraIdx = MATRA_ORDER.indexOf(rest);
+	return group * 1000000 + baseCp * 100 + (matraIdx >= 0 ? matraIdx : MATRA_ORDER.length);
+}

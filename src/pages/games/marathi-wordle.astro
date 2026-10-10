@@ -103,7 +103,7 @@ const description =
 	import { evaluateGuess, isWin, shareGrid, type TileState } from '../../lib/games/wordle';
 	import { makeStorage } from '../../lib/games/storage';
 	import { makeSfx, sfxMuted } from '../../lib/games/sfx';
-	import { romanize } from '../../lib/games/mrKeys';
+	import { romanize, aksharaSortKey } from '../../lib/games/mrKeys';
 
 	type GWord = {
 		id: string;
@@ -157,7 +157,7 @@ const description =
 		for (const w of [...answers, ...practice]) {
 			for (const a of splitGraphemes(normalizeMr(w.mr))) keySet.add(a);
 		}
-		const keys = [...keySet].sort((a, b) => romanize(a).localeCompare(romanize(b)));
+		const keys = [...keySet].sort((a, b) => aksharaSortKey(a) - aksharaSortKey(b));
 		const keyState = new Map<string, TileState>();
 		const RANK: Record<TileState, number> = { absent: 0, present: 1, correct: 2 };
 
@@ -282,8 +282,17 @@ const description =
 		function type(ak: string) {
 			if (finished || guess.length >= word.len) return;
 			sfx.play('key');
+			if (navigator.vibrate) try { navigator.vibrate(8); } catch { /* ignore */ }
 			guess.push(ak);
 			renderBoard();
+			// pop the tile that was just filled
+			const row = board.children[history.length] as HTMLElement | undefined;
+			const tile = row?.children[guess.length - 1] as HTMLElement | undefined;
+			if (tile) {
+				tile.classList.remove('pop');
+				void tile.offsetWidth; // restart animation
+				tile.classList.add('pop');
+			}
 		}
 
 		function submit() {
@@ -291,6 +300,14 @@ const description =
 			if (guess.length !== word.len) {
 				msg.textContent = `Need ${word.len} aksharas — ${guess.length} so far.`;
 				msg.className = 'wl-msg bad';
+				sfx.play('wrong');
+				// shake the active row
+				const row = board.children[history.length] as HTMLElement | undefined;
+				if (row) {
+					row.classList.remove('shake');
+					void row.offsetWidth;
+					row.classList.add('shake');
+				}
 				return;
 			}
 			sfx.play('submit');
@@ -306,6 +323,18 @@ const description =
 			if (lastWon || history.length >= 6) {
 				finished = true;
 				sfx.play(lastWon ? 'win' : 'lose');
+				if (navigator.vibrate) try { navigator.vibrate(lastWon ? [30, 40, 60] : 80); } catch { /* ignore */ }
+				if (lastWon) {
+					// victory cascade on the winning row
+					const row = board.children[history.length - 1] as HTMLElement | undefined;
+					if (row) {
+						[...row.children].forEach((tile, i) => {
+							const el = tile as HTMLElement;
+							el.style.animationDelay = (i * 90).toString() + 'ms';
+							el.classList.add('dance');
+						});
+					}
+				}
 				if (mode === 'daily') {
 					store.set('daily-' + today, JSON.stringify({ word: word.mr, history, done: true }));
 				}
@@ -324,6 +353,8 @@ const description =
 
 		function showResult(justFinished: boolean) {
 			done.hidden = false;
+			done.classList.toggle('confetti', finished && lastWon);
+			done.classList.add('bounce-in');
 			const score = done.querySelector('.gr-score') as HTMLElement;
 			const body = done.querySelector('.gr-body') as HTMLElement;
 			const tries = history.length;

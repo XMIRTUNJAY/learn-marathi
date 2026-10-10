@@ -276,6 +276,7 @@ const description =
 			current = next;
 			score += 1;
 			streak += 1;
+			if (navigator.vibrate) try { navigator.vibrate(15); } catch { /* ignore */ }
 			if (score > best) {
 				best = score;
 				store.set('best', String(best));
@@ -283,6 +284,9 @@ const description =
 			msg.textContent = '';
 			msg.className = 'wl-msg';
 			hintEl.textContent = '';
+			wordEl.classList.remove('flip-in', 'ok-flash');
+			void wordEl.offsetWidth; // restart animation
+			wordEl.classList.add('flip-in', 'ok-flash');
 			wordEl.textContent = next.mr;
 			wordEl.lang = 'mr';
 			renderChain();
@@ -312,6 +316,7 @@ const description =
 			over = true;
 			sfx.play('round');
 			done.hidden = false;
+			done.classList.add('confetti', 'bounce-in');
 			const scoreEl = done.querySelector('.gr-score') as HTMLElement;
 			const body = done.querySelector('.gr-body') as HTMLElement;
 			scoreEl.textContent = `Chain length ${score} · Best ${best}`;

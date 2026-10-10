@@ -181,7 +181,7 @@ const description =
 		let hintStage = 0;
 		let nextId = 1;
 
-		function render() {
+		function render(animateLast = false) {
 			buildEl.innerHTML = '';
 			bankEl.innerHTML = '';
 			if (!placed.length && !locked) {
@@ -192,6 +192,10 @@ const description =
 			}
 			for (const t of placed) buildEl.appendChild(tile(t, 'placed'));
 			for (const t of bank) bankEl.appendChild(tile(t, 'bank'));
+			if (animateLast && placed.length) {
+				const lastPlaced = buildEl.querySelector('.tok:last-of-type') as HTMLElement | null;
+				lastPlaced?.classList.add('pop');
+			}
 		}
 
 		function tile(t: { id: number; text: string }, zone: 'placed' | 'bank') {
@@ -200,43 +204,22 @@ const description =
 			b.className = 'tok';
 			b.lang = 'mr';
 			b.textContent = t.text;
-			b.draggable = true;
 			b.dataset.id = String(t.id);
 			b.setAttribute('aria-label', `${zone === 'placed' ? 'Remove' : 'Place'} ${t.text}`);
 			b.addEventListener('click', () => {
-				if (locked) return;
+				if (locked || suppressClick) return;
 				if (zone === 'bank') {
 					sfx.play('pick');
 					move(t, bank, placed);
+					render(true);
 				} else {
 					sfx.play('remove');
 					move(t, placed, bank);
-				}
-				render();
-			});
-			b.addEventListener('dragstart', (e) => {
-				if (locked) {
-					e.preventDefault();
-					return;
-				}
-				e.dataTransfer?.setData('text/plain', String(t.id));
-			});
-			b.addEventListener('dragover', (e) => {
-				if (zone === 'placed' && !locked) e.preventDefault();
-			});
-			b.addEventListener('drop', (e) => {
-				e.preventDefault();
-				if (locked || zone !== 'placed') return;
-				const dragId = parseInt(e.dataTransfer?.getData('text/plain') ?? '', 10);
-				const from = placed.findIndex((x) => x.id === dragId);
-				const to = placed.findIndex((x) => x.id === t.id);
-				if (from >= 0 && to >= 0 && from !== to) {
-					const [moved] = placed.splice(from, 1);
-					placed.splice(to, 0, moved as { id: number; text: string });
-					sfx.play('place');
-					render();
+					render(true);
 				}
 			});
+			attachDrag(b, t, zone);
+			// keyboard reorder within the current zone
 			b.addEventListener('keydown', (e) => {
 				if (locked) return;
 				if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
@@ -247,7 +230,7 @@ const description =
 					if (i >= 0 && j >= 0 && j < list.length) {
 						const [moved] = list.splice(i, 1);
 						list.splice(j, 0, moved as { id: number; text: string });
-						render();
+						render(true);
 						const again = (zone === 'placed' ? buildEl : bankEl).querySelector(
 							`[data-id="${t.id}"]`
 						) as HTMLElement | null;
@@ -256,6 +239,68 @@ const description =
 				}
 			});
 			return b;
+		}
+
+		// Pointer-based drag & drop — works with mouse, pen and touch.
+		let suppressClick = false;
+		function attachDrag(b: HTMLButtonElement, t: { id: number; text: string }, zone: 'placed' | 'bank') {
+			let startX = 0;
+			let startY = 0;
+			let dragging = false;
+			let moved = false;
+
+			b.addEventListener('pointerdown', (e) => {
+				if (locked) return;
+				if (zone !== 'placed') return; // reorder only inside the sentence row
+				if (e.pointerType === 'mouse' && e.button !== 0) return;
+				startX = e.clientX;
+				startY = e.clientY;
+				dragging = false;
+				moved = false;
+				// capture immediately: after the pointer leaves the button we still
+				// receive pointermove/pointerup (without this, drags die instantly)
+				try { b.setPointerCapture(e.pointerId); } catch { /* ignore */ }
+			});
+			b.addEventListener('pointermove', (e) => {
+				if (locked || zone !== 'placed') return;
+				if (!dragging) {
+					if (Math.hypot(e.clientX - startX, e.clientY - startY) < 8) return;
+					dragging = true;
+					moved = true;
+					b.classList.add('dragging');
+				}
+				const target = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
+				const overTok = target?.closest('#ss-build .tok') as HTMLElement | null;
+				for (const el of buildEl.querySelectorAll('.tok.drop-target')) el.classList.remove('drop-target');
+				if (overTok && overTok !== b) overTok.classList.add('drop-target');
+			});
+			const finishDrag = (e: PointerEvent) => {
+				const wasDragging = dragging;
+				dragging = false;
+				b.classList.remove('dragging');
+				for (const el of buildEl.querySelectorAll('.tok.drop-target')) el.classList.remove('drop-target');
+				if (!wasDragging) return;
+				const target = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
+				const overTok = target?.closest('#ss-build .tok') as HTMLElement | null;
+				if (overTok && overTok !== b) {
+					const fromId = parseInt(b.dataset.id ?? '', 10);
+					const toId = parseInt(overTok.dataset.id ?? '', 10);
+					const from = placed.findIndex((x) => x.id === fromId);
+					const to = placed.findIndex((x) => x.id === toId);
+					if (from >= 0 && to >= 0 && from !== to) {
+						const [movedTile] = placed.splice(from, 1);
+						placed.splice(to, 0, movedTile as { id: number; text: string });
+						sfx.play('place');
+					}
+				}
+				suppressClick = true;
+				setTimeout(() => {
+					suppressClick = false;
+				}, 50);
+				render(true);
+			};
+			b.addEventListener('pointerup', finishDrag);
+			b.addEventListener('pointercancel', finishDrag);
 		}
 
 		function move(t: { id: number; text: string }, from: { id: number; text: string }[], to: { id: number; text: string }[]) {
@@ -274,6 +319,7 @@ const description =
 			idx = 0;
 			score = 0;
 			done.hidden = true;
+			done.classList.remove('confetti', 'bounce-in');
 			nextBtn.hidden = true;
 			renderMeta();
 			load();
@@ -316,12 +362,16 @@ const description =
 			if (placed.length !== it.answer.length) {
 				msg.textContent = 'All tiles must be in your sentence first.';
 				msg.className = 'wl-msg bad';
+				buildEl.classList.remove('wrong-shake');
+				void buildEl.offsetWidth;
+				buildEl.classList.add('wrong-shake');
 				return;
 			}
 			const texts = placed.map((t) => t.text);
 			const ok = isAccepted({ answer: it.answer, alternates: it.alternates }, texts);
 			locked = true;
 			sfx.play(ok ? 'correct' : 'wrong');
+			if (navigator.vibrate) try { navigator.vibrate(ok ? [20, 30, 40] : 60); } catch { /* ignore */ }
 			if (ok) {
 				score += 1;
 				hindiEl.hidden = false;
@@ -371,6 +421,7 @@ const description =
 		function finish() {
 			sfx.play('round');
 			done.hidden = false;
+			done.classList.add('confetti', 'bounce-in');
 			const best = Math.max(score, parseInt(store.get('best-' + level) || '0', 10));
 			store.set('best-' + level, String(best));
 			const scoreEl = done.querySelector('.gr-score') as HTMLElement;

@@ -9361,35 +9361,35 @@
   },
   {
     "id": "word-v-pron-28",
-    "title": "तुम्ही",
+    "title": "कोणी",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "you (formal / plural) (आप)",
-    "keywords": "तुम्ही you (formal / plural) आप tumhī"
+    "description": "someone (कोई)",
+    "keywords": "कोणी someone कोई koṇī"
   },
   {
     "id": "word-v-pron-29",
-    "title": "आम्ही",
+    "title": "काही",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "we (exclusive) (हम (असमावेशक))",
-    "keywords": "आम्ही we (exclusive) हम (असमावेशक) āmhī"
+    "description": "something (कुछ)",
+    "keywords": "काही something कुछ kāhī"
   },
   {
     "id": "word-v-pron-30",
-    "title": "ते",
+    "title": "सर्व",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "they / that (neuter) (वे / वह (नपुंसक))",
-    "keywords": "ते they / that (neuter) वे / वह (नपुंसक) te"
+    "description": "all (सब)",
+    "keywords": "सर्व all सब sarva"
   },
   {
     "id": "word-v-pron-31",
-    "title": "ती",
+    "title": "प्रत्येक",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "she / that (feminine) (वह (स्त्रीलिंग) / वे)",
-    "keywords": "ती she / that (feminine) वह (स्त्रीलिंग) / वे tī"
+    "description": "each (हर एक)",
+    "keywords": "प्रत्येक each हर एक pratyeka"
   },
   {
     "id": "word-v-pron-32",
@@ -9713,19 +9713,19 @@
   },
   {
     "id": "word-v-phr-09",
-    "title": "मला समजलं नाही",
+    "title": "परत सांगा",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "I did not understand (मुझे समझ नहीं आया)",
-    "keywords": "मला समजलं नाही i did not understand मुझे समझ नहीं आया malā samajlaṁ nāhī"
+    "description": "say again (फिर से कहो)",
+    "keywords": "परत सांगा say again फिर से कहो parata sāṁgā"
   },
   {
     "id": "word-v-phr-10",
-    "title": "हळू बोला",
+    "title": "मोठ्याने बोला",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "Speak slowly (धीरे बोलो)",
-    "keywords": "हळू बोला speak slowly धीरे बोलो haḷū bolā"
+    "description": "speak loudly (ज़ोर से बोलो)",
+    "keywords": "मोठ्याने बोला speak loudly ज़ोर से बोलो moṭhyāne bolā"
   },
   {
     "id": "word-v-phr-11",
@@ -9801,11 +9801,11 @@
   },
   {
     "id": "word-v-phr-20",
-    "title": "चला जाऊया",
+    "title": "लवकर या",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "Let's go (चलो चलें)",
-    "keywords": "चला जाऊया let's go चलो चलें calā jāūyā"
+    "description": "come soon (जल्दी आओ)",
+    "keywords": "लवकर या come soon जल्दी आओ lavakara yā"
   },
   {
     "id": "word-v-phr-21",
@@ -9841,11 +9841,11 @@
   },
   {
     "id": "word-v-fam-26",
-    "title": "काका",
+    "title": "मावशी",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "uncle (father's brother) (चाचा)",
-    "keywords": "काका uncle (father's brother) चाचा kākā"
+    "description": "aunt (maternal) (मौसी)",
+    "keywords": "मावशी aunt (maternal) मौसी māvaśī"
   },
   {
     "id": "word-v-fam-27",
@@ -9865,11 +9865,11 @@
   },
   {
     "id": "word-v-fam-29",
-    "title": "कुटुंब",
+    "title": "परिवार",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
     "description": "family (परिवार)",
-    "keywords": "कुटुंब family परिवार kuṭuṁba"
+    "keywords": "परिवार family परिवार parivāra"
   },
   {
     "id": "word-v-fam-30",
@@ -9881,67 +9881,67 @@
   },
   {
     "id": "word-v-wea-13",
-    "title": "पाऊस",
+    "title": "गारा",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "rain (बारिश)",
-    "keywords": "पाऊस rain बारिश pāūsa"
+    "description": "hail (ओले)",
+    "keywords": "गारा hail ओले gārā"
   },
   {
     "id": "word-v-wea-14",
-    "title": "उन्हाळा",
+    "title": "दमट",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "summer (गर्मी का मौसम)",
-    "keywords": "उन्हाळा summer गर्मी का मौसम unhāḷā"
+    "description": "humid (उमस)",
+    "keywords": "दमट humid उमस damaṭa"
   },
   {
     "id": "word-v-wea-15",
-    "title": "हिवाळा",
+    "title": "कोरडे",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "winter (सर्दी का मौसम)",
-    "keywords": "हिवाळा winter सर्दी का मौसम hivāḷā"
+    "description": "dry (सूखा)",
+    "keywords": "कोरडे dry सूखा koraḍe"
   },
   {
     "id": "word-v-wea-16",
-    "title": "वादळ",
+    "title": "सरी",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "storm (तूफ़ान)",
-    "keywords": "वादळ storm तूफ़ान vādaḷa"
+    "description": "shower (of rain) (बौछार)",
+    "keywords": "सरी shower (of rain) बौछार sarī"
   },
   {
     "id": "word-v-wea-17",
-    "title": "धुकं",
+    "title": "वावटळ",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "fog (कोहरा)",
-    "keywords": "धुकं fog कोहरा dhukaṁ"
+    "description": "whirlwind (बवंडर)",
+    "keywords": "वावटळ whirlwind बवंडर vāvaṭaḷa"
   },
   {
     "id": "word-v-que-01",
-    "title": "कोण",
+    "title": "कोणता",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "who (कौन)",
-    "keywords": "कोण who कौन koṇa"
+    "description": "which (masc.) (कौन-सा)",
+    "keywords": "कोणता which (masc.) कौन-सा koṇatā"
   },
   {
     "id": "word-v-que-02",
-    "title": "काय",
+    "title": "कुठला",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "what (क्या)",
-    "keywords": "काय what क्या kāya"
+    "description": "which one (कौन-सा)",
+    "keywords": "कुठला which one कौन-सा kuṭhalā"
   },
   {
     "id": "word-v-que-03",
-    "title": "कुठे",
+    "title": "कशासाठी",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "where (कहाँ)",
-    "keywords": "कुठे where कहाँ kuṭhe"
+    "description": "what for (किस लिए)",
+    "keywords": "कशासाठी what for किस लिए kaśāsāṭhī"
   },
   {
     "id": "word-v-que-04",
@@ -9961,59 +9961,59 @@
   },
   {
     "id": "word-v-shop-13",
-    "title": "किंमत",
+    "title": "बिल",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "price (कीमत)",
-    "keywords": "किंमत price कीमत kiṁmata"
+    "description": "bill (बिल)",
+    "keywords": "बिल bill बिल bila"
   },
   {
     "id": "word-v-shop-14",
-    "title": "स्वस्त",
+    "title": "पैसे",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "cheap (सस्ता)",
-    "keywords": "स्वस्त cheap सस्ता svasta"
+    "description": "money (पैसे)",
+    "keywords": "पैसे money पैसे paise"
   },
   {
     "id": "word-v-shop-15",
-    "title": "महाग",
+    "title": "खर्च",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "expensive, costly (महँगा)",
-    "keywords": "महाग expensive, costly महँगा mahāga"
+    "description": "expense (खर्च)",
+    "keywords": "खर्च expense खर्च kharca"
   },
   {
     "id": "word-v-shop-16",
-    "title": "सूट",
+    "title": "बाजार",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "discount (छूट)",
-    "keywords": "सूट discount छूट sūṭa"
+    "description": "market (बाज़ार)",
+    "keywords": "बाजार market बाज़ार bājāra"
   },
   {
     "id": "word-v-col-13",
-    "title": "जांभळा",
+    "title": "नारंगी",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "purple (बैंगनी)",
-    "keywords": "जांभळा purple बैंगनी jāṁbhaḷā"
+    "description": "orange (नारंगी)",
+    "keywords": "नारंगी orange नारंगी nāraṁgī"
   },
   {
     "id": "word-v-col-14",
-    "title": "पांढरा",
+    "title": "चंदेरी",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "white (सफ़ेद)",
-    "keywords": "पांढरा white सफ़ेद pāṁḍharā"
+    "description": "silvery (रुपहला)",
+    "keywords": "चंदेरी silvery रुपहला caṁderī"
   },
   {
     "id": "word-v-col-15",
-    "title": "सोनेरी",
+    "title": "तांबडा",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "golden (सुनहरा)",
-    "keywords": "सोनेरी golden सुनहरा sonerī"
+    "description": "copper-red (तांबई लाल)",
+    "keywords": "तांबडा copper-red तांबई लाल tāṁbaḍā"
   },
   {
     "id": "word-v-dir-17",
@@ -10041,11 +10041,11 @@
   },
   {
     "id": "word-v-dir-20",
-    "title": "मागे",
+    "title": "पुढे",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "behind, back (पीछे)",
-    "keywords": "मागे behind, back पीछे māge"
+    "description": "forward (आगे)",
+    "keywords": "पुढे forward आगे puḍhe"
   },
   {
     "id": "word-v-rou-41",
@@ -10073,19 +10073,19 @@
   },
   {
     "id": "word-v-greet-16",
-    "title": "शुभेच्छा",
+    "title": "सुस्वागतम्",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "good wishes (शुभकामनाएँ)",
-    "keywords": "शुभेच्छा good wishes शुभकामनाएँ śubhecchā"
+    "description": "welcome (सुस्वागतम्)",
+    "keywords": "सुस्वागतम् welcome सुस्वागतम् susvāgatam"
   },
   {
     "id": "word-v-greet-17",
-    "title": "अभिनंदन",
+    "title": "जय महाराष्ट्र",
     "type": "word",
     "url": "/learn-marathi/vocabulary/",
-    "description": "congratulations (बधाई)",
-    "keywords": "अभिनंदन congratulations बधाई abhinaṁdana"
+    "description": "Jai Maharashtra (जय महाराष्ट्र)",
+    "keywords": "जय महाराष्ट्र jai maharashtra जय महाराष्ट्र jaya mahārāṣṭra"
   },
   {
     "id": "word-v-mny-01",

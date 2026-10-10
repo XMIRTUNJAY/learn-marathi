@@ -5,12 +5,12 @@
 			"id": "cw-01",
 			"title": "Word Garden",
 			"titleHi": "शब्दबाग",
-			"rows": 6,
+			"rows": 4,
 			"cols": 4,
 			"words": [
 				{
 					"id": "cw-01-1",
-					"row": 2,
+					"row": 0,
 					"col": 1,
 					"dir": "across",
 					"answer": "भात",
@@ -20,7 +20,7 @@
 				},
 				{
 					"id": "cw-01-2",
-					"row": 2,
+					"row": 0,
 					"col": 2,
 					"dir": "down",
 					"answer": "तलाव",
@@ -30,7 +30,7 @@
 				},
 				{
 					"id": "cw-01-3",
-					"row": 2,
+					"row": 0,
 					"col": 1,
 					"dir": "down",
 					"answer": "भाकरी",
@@ -40,7 +40,7 @@
 				},
 				{
 					"id": "cw-01-4",
-					"row": 3,
+					"row": 1,
 					"col": 2,
 					"dir": "across",
 					"answer": "लाल",
@@ -50,7 +50,7 @@
 				},
 				{
 					"id": "cw-01-5",
-					"row": 4,
+					"row": 2,
 					"col": 2,
 					"dir": "across",
 					"answer": "वही",
@@ -60,7 +60,7 @@
 				},
 				{
 					"id": "cw-01-6",
-					"row": 3,
+					"row": 1,
 					"col": 0,
 					"dir": "across",
 					"answer": "नाक",
@@ -70,7 +70,7 @@
 				},
 				{
 					"id": "cw-01-7",
-					"row": 3,
+					"row": 1,
 					"col": 0,
 					"dir": "down",
 					"answer": "नाताळ",
