@@ -188,7 +188,7 @@ const { title, description, ogImage, noindex, alternates, lang = 'en', crumbs = 
 			var shortcuts = {
 				'/': function () { var s = document.querySelector('[data-search-input]'); if (s) s.focus(); },
 				'?': function () { openModal(); },
-				' ': function (e) { var a = document.querySelector('.say:not([hidden])'); if (a && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') { e.preventDefault(); a.click(); } },
+				' ': function (e) { var a = document.querySelector('.say:not([hidden])'); if (a && !a.closest('[hidden]') && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') { e.preventDefault(); a.click(); } },
 				'ArrowLeft': function () { var l = document.querySelector('.pager a:not(.next)'); if (l) l.click(); },
 				'ArrowRight': function () { var n = document.querySelector('.pager a.next'); if (n) n.click(); },
 				'r': function () { document.body.classList.toggle('reading-mode'); },

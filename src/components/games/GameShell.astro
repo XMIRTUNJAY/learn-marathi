@@ -1,0 +1,57 @@
+---
+// GameShell — shared frame for every game page: sibling-game nav + SFX
+// toggle, then the page content. Rendered inside the existing Base layout.
+import { siteUrl } from '../../lib/site';
+import '../SayScript.astro';
+import '../../styles/games.css';
+
+interface Props {
+	active: string;
+}
+
+const { active } = Astro.props;
+
+const games = [
+	{ slug: 'marathi-wordle', label: 'Wordle' },
+	{ slug: 'picture-guess', label: 'Picture Guess' },
+	{ slug: 'marathi-crossword', label: 'Crossword' },
+	{ slug: 'word-chain', label: 'Word Chain' },
+	{ slug: 'sentence-scramble', label: 'Sentence Scramble' },
+];
+---
+
+<div class="game-shell">
+	<div class="game-topbar">
+		<nav class="game-nav" aria-label="All games">
+			<a href={siteUrl('/games/')} aria-current={active === 'hub' ? 'page' : undefined}>All games</a>
+			{games.map((g) => (
+				<a href={siteUrl(`/games/${g.slug}/`)} aria-current={active === g.slug ? 'page' : undefined}>{g.label}</a>
+			))}
+		</nav>
+		<button type="button" class="sfx-toggle" id="sfx-toggle" aria-pressed="false" title="Sound effects on/off">🔊 SFX</button>
+	</div>
+	<slot />
+</div>
+
+<script>
+	function initSfxToggle() {
+		const btn = document.getElementById('sfx-toggle');
+		if (!btn || (btn as HTMLElement).dataset.bound) return;
+		(btn as HTMLElement).dataset.bound = '1';
+		const get = () => {
+			try { return localStorage.getItem('bol-game-muted') === 'on'; } catch { return false; }
+		};
+		const render = () => {
+			const m = get();
+			btn!.setAttribute('aria-pressed', String(m));
+			btn!.textContent = m ? '🔇 Muted' : '🔊 SFX';
+		};
+		btn!.addEventListener('click', () => {
+			try { localStorage.setItem('bol-game-muted', get() ? 'off' : 'on'); } catch { /* ignore */ }
+			render();
+		});
+		render();
+	}
+	initSfxToggle();
+	document.addEventListener('astro:page-load', initSfxToggle);
+</script>

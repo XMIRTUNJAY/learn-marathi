@@ -203,6 +203,39 @@ const faqs = [
     </div>
   </section>
 
+  <!-- 4b · GAMES -->
+  <section class="section section--muted" aria-labelledby="games-title">
+    <div class="container-wide">
+      <SectionHead
+        id="games-title"
+        kicker="Marathi games"
+        title="Practice that plays like a game"
+        lede="Five small games built on the same curriculum — a daily Wordle, picture guessing, a crossword, word chains and sentence building."
+        actionLabel="All games"
+        actionHref={siteUrl('/games/')}
+      />
+      <ul class="card-grid">
+        {
+          [
+            { href: siteUrl('/games/marathi-wordle/'), icon: 'grid', name: 'Marathi Wordle', desc: 'The daily Marathi word — six tries, one akshara per tile.' },
+            { href: siteUrl('/games/picture-guess/'), icon: 'eye', name: 'Picture Guess', desc: 'Guess the word behind the picture, with hints and audio.' },
+            { href: siteUrl('/games/marathi-crossword/'), icon: 'clipboard', name: 'Marathi Crossword', desc: 'Curated grids where every cell is a full akshara.' },
+            { href: siteUrl('/games/word-chain/'), icon: 'link', name: 'Word Chain', desc: 'Chain words end-to-end — शब्दसाखळी with 800+ words.' },
+            { href: siteUrl('/games/sentence-scramble/'), icon: 'cards', name: 'Sentence Scramble', desc: 'Rebuild real curriculum sentences from shuffled tiles.' },
+          ].map((g, i) => (
+            <li class={`reveal reveal-delay-${i + 1}`}>
+              <a class="card" href={g.href} data-funnel="game_start">
+                <span class="game-chip" aria-hidden="true"><Icon name={g.icon} size={20} /></span>
+                <h3>{g.name}</h3>
+                <p>{g.desc}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
   <!-- 5 · THE CURRICULUM -->
   <section class="section section--muted" aria-labelledby="curriculum-title">
     <div class="container-wide">
@@ -632,5 +665,17 @@ const faqs = [
     font-size: var(--text-body-sm);
     line-height: 1.7;
     color: var(--color-text-muted);
+  }
+
+  .game-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 10px;
+    background: var(--accent-fixed);
+    color: var(--accent-on-fixed);
+    margin-bottom: 0.4em;
   }
 </style>

@@ -6,6 +6,7 @@ import AppCTA from '../../components/AppCTA.astro';
 import RelatedContent from '../../components/RelatedContent.astro';
 import Learn from '../../layouts/Learn.astro';
 import PremiumGrammarPage from '../../components/PremiumGrammarPage.astro';
+import GameLinks from '../../components/games/GameLinks.astro';
 import { getUnit, grammarTopics } from '../../lib/learn';
 import { seoPagesByFamily } from '../../lib/seo';
 import { siteUrl } from '../../lib/site';
@@ -62,6 +63,8 @@ const notes = topic ? topic.picks.flatMap(({ unit: no, lessons }) => {
   ))}
 
   <AppCTA variant="grammar" context={`grammar-${topic.slug}`} />
+
+  <GameLinks variant="grammar" />
 
   <RelatedContent links={topic.related} />
 </Learn>

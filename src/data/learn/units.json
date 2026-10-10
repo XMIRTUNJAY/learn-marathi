@@ -11898,16 +11898,16 @@
         "lesson": 1,
         "title": "वैयक्तिक सर्वनामे • Personal Pronouns",
         "titleEn": "Personal Pronouns",
-        "text": "मी (मैं = I), तू (तू = you-informal), तो (वह = he), ती (वह = she), ते (वे = they). क्रियापद शेवटी: मी जातो, ती जाते.",
-        "textEn": "Personal pronouns: mi (I), tu (you-informal), to (he), ti (she), te (they). Marathi is SOV so the verb comes last: mi jato (I go), ti jate (she goes). Gender shows on the verb.",
-        "note": "मी/तू अनौपचारिक; वडिलांशी तुम्ही वापरा."
+        "text": "मी (मैं = I), तू (तू = you-informal), तो (वह = he), प्रत्येक (हर एक = each), सर्व (सब = all). क्रियापद शेवटी: मी जातो, प्रत्येक जाते.",
+        "textEn": "Personal pronouns: mi (I), tu (you-informal), to (he), pratyek (each), sarva (all). Marathi is SOV so the verb comes last: mi jato (I go), pratyek jate (each goes). Gender shows on the verb.",
+        "note": "मी/तू अनौपचारिक; वडिलांशी कोणी वापरा."
       },
       {
         "lesson": 2,
         "title": "दर्शक सर्वनामे • Demonstratives",
         "titleEn": "Demonstratives",
-        "text": "हा (यह = this-masc), ही (यह = this-fem), हे (यह/ये = this-neut/plural). जवळसाठी हा/ही/हे, लांबसाठी तो/ती/ते.",
-        "textEn": "Demonstratives agree in gender: ha (this-masc), hi (this-fem), he (this-neuter or these). Near objects use ha/hi/he; distant ones use to/ti/te (that/those).",
+        "text": "हा (यह = this-masc), ही (यह = this-fem), हे (यह/ये = this-neut/plural). जवळसाठी हा/ही/हे, लांबसाठी तो/प्रत्येक/सर्व.",
+        "textEn": "Demonstratives agree in gender: ha (this-masc), hi (this-fem), he (this-neuter or these). Near objects use ha/hi/he; distant ones use to/pratyek/sarva (that/each/all).",
         "note": "लिंगानुसार हा/ही/हे बदलते."
       },
       {
@@ -11928,11 +11928,11 @@
       },
       {
         "lesson": 5,
-        "title": "स्वतः, आपण, तुम्ही • Reflexive and Formal",
+        "title": "स्वतः, आपण, कोणी • Reflexive and Formal",
         "titleEn": "Reflexive and Formal",
-        "text": "स्वतः (स्वयं = self), आपण (हम/आप = we-inclusive/formal you), तुम्ही (आप = you-formal), आम्ही (हम = we-exclusive). स्वतः जा; आपण जाऊया.",
-        "textEn": "Svatah (self/oneself), aapan (inclusive we / polite you), tumhi (formal you), amhi (exclusive we). Use tumhi/aapan with elders; svatah adds emphasis: svatah ja (go yourself).",
-        "note": "आदरासाठी तुम्ही/आपण वापरा, तू फक्त मित्रांना."
+        "text": "स्वतः (स्वयं = self), आपण (हम/आप = we-inclusive/formal you), कोणी (कोई = someone), काही (कुछ = something). स्वतः जा; आपण जाऊया.",
+        "textEn": "Svatah (self/oneself), aapan (inclusive we / polite you), koni (someone), kahi (something). Use koni/aapan with elders; svatah adds emphasis: svatah ja (go yourself).",
+        "note": "आदरासाठी कोणी/आपण वापरा, तू फक्त मित्रांना."
       },
       {
         "lesson": 6,
@@ -11946,10 +11946,10 @@
     "cultural": [
       {
         "lesson": 1,
-        "title": "तू विरुद्ध तुम्ही",
-        "titleEn": "Tu vs Tumhi",
-        "text": "मित्रांना तू (तुम-informal), वडीलधाऱ्यांना तुम्ही (आप). आई-वडिलांना कधीही तू म्हणू नका.",
-        "textEn": "Use tu only with close friends and children; use tumhi with parents, teachers and strangers. Calling an elder tu sounds rude.",
+        "title": "तू विरुद्ध कोणी",
+        "titleEn": "Tu vs Koni",
+        "text": "मित्रांना तू (तुम-informal), वडीलधाऱ्यांना कोणी (कोई). आई-वडिलांना कधीही तू म्हणू नका.",
+        "textEn": "Use tu only with close friends and children; use koni with parents, teachers and strangers. Calling an elder tu sounds rude.",
         "note": "आदर हाच मराठी शिष्टाचार."
       },
       {
@@ -11978,10 +11978,10 @@
       },
       {
         "lesson": 5,
-        "title": "आम्ही विरुद्ध आपण",
-        "titleEn": "Amhi vs Aapan",
-        "text": "आम्ही (हम-exclusive = we without listener), आपण (हम-inclusive = we with listener). कुटुंबासोबत आपण म्हणा.",
-        "textEn": "Amhi excludes the listener (we will go, you stay); aapan includes them (we will all go). Families prefer aapan to sound together.",
+        "title": "काही विरुद्ध आपण",
+        "titleEn": "Kahi vs Aapan",
+        "text": "काही (कुछ = something), आपण (हम-inclusive = we with listener). कुटुंबासोबत आपण म्हणा.",
+        "textEn": "Kahi means something; aapan includes the listener (we will all go). Families prefer aapan to sound together.",
         "note": "समावेशक बोलणे आपुलकी वाढवते."
       },
       {
@@ -11989,7 +11989,7 @@
         "title": "सर्वनामांतून आपुलकी",
         "titleEn": "Warmth Through Pronouns",
         "text": "योग्य सर्वनाम (सही सर्वनाम = correct pronoun) निवडणे म्हणजे आदर दाखवणे. प्रश्नमंजुषेत हाच नियम तपासा.",
-        "textEn": "Choosing the right pronoun shows respect and warmth. The quiz tests exactly this: tu for friends, tumhi/aapan for elders.",
+        "textEn": "Choosing the right pronoun shows respect and warmth. The quiz tests exactly this: tu for friends, koni/aapan for elders.",
         "note": "योग्य सर्वनाम = योग्य आदर."
       }
     ],
@@ -12031,10 +12031,10 @@
       },
       {
         "lesson": 6,
-        "sentence": "तुम्ही कुठे राहता? आम्ही पुण्यात राहतो.",
-        "hindi": "आप कहाँ रहते हैं? हम पुणे में रहते हैं।",
-        "english": "Where do you live? We live in Pune.",
-        "tip": "कुठे = where. आम्ही = we. Revision of all pronouns."
+        "sentence": "कोणी कुठे राहता? काही पुण्यात राहतो.",
+        "hindi": "कोई कहाँ रहता है? कुछ पुणे में रहता है।",
+        "english": "Where does someone live? Something lives in Pune.",
+        "tip": "कुठे = where. काही = something. Revision of all pronouns."
       }
     ],
     "listening": [
@@ -12068,16 +12068,16 @@
       },
       {
         "lesson": 5,
-        "marathi": "तुम्ही स्वतः करा, आम्ही मदत करतो.",
-        "hindi": "आप खुद कीजिए, हम मदद करते हैं।",
-        "english": "You do it yourself, we will help.",
+        "marathi": "कोणी स्वतः करा, काही मदत करतो.",
+        "hindi": "कोई खुद करे, कुछ मदद करता है।",
+        "english": "Someone do it yourself, something will help.",
         "speaker": "elder"
       },
       {
         "lesson": 6,
-        "marathi": "आपण सगळे कुठे आहोत? मला सांगा, तुम्हाला काय हवं?",
-        "hindi": "हम सब कहाँ हैं? मुझे बताओ, आपको क्या चाहिए?",
-        "english": "Where are we all? Tell me, what do you want?",
+        "marathi": "आपण सगळे कुठे आहोत? मला सांगा, कोणाला काय हवं?",
+        "hindi": "हम सब कहाँ हैं? मुझे बताओ, किसी को क्या चाहिए?",
+        "english": "Where are we all? Tell me, what does someone want?",
         "speaker": "teacher"
       }
     ],
@@ -12152,38 +12152,38 @@
       },
       {
         "lesson": 5,
-        "hindi": "आप खुद कीजिए",
-        "english": "you do it yourself",
-        "marathi": "तुम्ही स्वतः करा",
+        "hindi": "कोई खुद करे",
+        "english": "someone do it yourself",
+        "marathi": "कोणी स्वतः करा",
         "map": {
-          "आप": "तुम्ही",
+          "कोई": "कोणी",
           "खुद": "स्वतः",
-          "कीजिए": "करा"
+          "करे": "करा"
         },
         "mapEn": {
-          "you-formal": "तुम्ही",
+          "someone": "कोणी",
           "self": "स्वतः",
           "do": "करा"
         },
-        "grammar": "आदरासाठी तुम्ही + स्वतः.",
-        "grammarEn": "tumhi + svatah for polite emphasis."
+        "grammar": "आदरासाठी कोणी + स्वतः.",
+        "grammarEn": "koni + svatah for polite emphasis."
       },
       {
         "lesson": 6,
-        "hindi": "आपको क्या चाहिए",
-        "english": "what do you need",
-        "marathi": "तुम्हाला काय पाहिजे",
+        "hindi": "किसी को क्या चाहिए",
+        "english": "what does someone need",
+        "marathi": "कोणाला काय पाहिजे",
         "map": {
-          "आपको": "तुम्हाला",
+          "किसी को": "कोणाला",
           "क्या": "काय",
           "चाहिए": "पाहिजे"
         },
         "mapEn": {
-          "to you": "तुम्हाला",
+          "to someone": "कोणाला",
           "what": "काय",
           "need": "पाहिजे"
         },
-        "grammar": "तुम्हाला/मला + काय + पाहिजे.",
+        "grammar": "कोणाला/मला + काय + पाहिजे.",
         "grammarEn": "Dative pronoun + kay + pahije for needs."
       }
     ],
@@ -12279,20 +12279,20 @@
       },
       {
         "lesson": 6,
-        "prompt": "साचा: तुम्हाला ___ पाहिजे? → बनवा: What do you need?",
-        "promptEn": "Pattern: तुम्हाला ___ पाहिजे? (What do you need?) → Build: What do you need?",
+        "prompt": "साचा: कोणाला ___ पाहिजे? → बनवा: What does someone need?",
+        "promptEn": "Pattern: कोणाला ___ पाहिजे? (What does someone need?) → Build: What does someone need?",
         "tokens": [
-          "तुम्हाला",
+          "कोणाला",
           "काय",
           "पाहिजे"
         ],
         "answer": [
-          "तुम्हाला",
+          "कोणाला",
           "काय",
           "पाहिजे"
         ],
-        "hindi": "आपको क्या चाहिए?",
-        "hindiEn": "What do you need?"
+        "hindi": "किसी को क्या चाहिए?",
+        "hindiEn": "What does someone need?"
       }
     ]
   },
@@ -12769,7 +12769,7 @@
         "lesson": 2,
         "title": "आदरार्थी आज्ञा • Polite Requests",
         "titleEn": "Polite Requests",
-        "text": "थोडं थांबा (थोड़ा रुको), हळू बोला (धीरे बोलो), लक्ष द्या (ध्यान दो) — शेवटचा 'ा' आदर दाखवतो. मला मदत हवी आहे (मुझे मदद चाहिए) ही नम्र मागणी.",
+        "text": "थोडं थांबा (थोड़ा रुको), मोठ्याने बोला (ज़ोर से बोलो), लक्ष द्या (ध्यान दो) — शेवटचा 'ा' आदर दाखवतो. मला मदत हवी आहे (मुझे मदद चाहिए) ही नम्र मागणी.",
         "textEn": "Polite imperatives end in -ā: thāmbā (please wait), bolā (please speak), dyā (please give). Malā madat havī āhe = I need help, the soft way to ask.",
         "note": "थांबा/बोला/द्या = आदरार्थी आज्ञा."
       },
@@ -12777,9 +12777,9 @@
         "lesson": 3,
         "title": "प्रवास प्रश्न • Travel Phrases",
         "titleEn": "Travel Phrases",
-        "text": "तुम्ही कुठे राहता? (आप कहाँ रहते हो?), गर्दी आहे (भीड़ है), चला जाऊया (चलो चलें), पुन्हा भेटू (फिर मिलेंगे) — प्रवासातली 4 कामाची वाक्ये.",
-        "textEn": "Tumhī kuṭhe rāhatā? = where do you live (respectful). Gardī āhe = it is crowded. Calā jāūyā = let's go. Punhā bheṭū = see you again.",
-        "note": "तुम्ही = आदरार्थी तुम्ही, जाऊया = चला + जाऊ."
+        "text": "तुम्ही कुठे राहता? (आप कहाँ रहते हो?), गर्दी आहे (भीड़ है), लवकर या (जल्दी आओ), पुन्हा भेटू (फिर मिलेंगे) — प्रवासातली 4 कामाची वाक्ये.",
+        "textEn": "Tumhī kuṭhe rāhatā? = where do you live (respectful). Gardī āhe = it is crowded. Lavkar yā = come soon. Punhā bheṭū = see you again.",
+        "note": "तुम्ही = आदरार्थी तुम्ही, या = येणे आज्ञा."
       },
       {
         "lesson": 4,
@@ -12793,8 +12793,8 @@
         "lesson": 5,
         "title": "भावना वाक्ये • Feelings Phrases",
         "titleEn": "Feelings Phrases",
-        "text": "काळजी करू नका (चिंता मत करो), मला समजलं नाही (मुझे समझ नहीं आया), मी विसरलो (मैं भूल गया), बरं झालं (अच्छा हुआ) — भावना सांगणारी वाक्ये.",
-        "textEn": "Kāḷjī karū nakā = don't worry. Malā samajlaṁ nāhī = I did not understand. Mī visaralo = I forgot (masculine speaker). Baraṁ jhālaṁ = good, that's good.",
+        "text": "काळजी करू नका (चिंता मत करो), परत सांगा (फिर से कहो), मी विसरलो (मैं भूल गया), बरं झालं (अच्छा हुआ) — भावना सांगणारी वाक्ये.",
+        "textEn": "Kāḷjī karū nakā = don't worry. Parat sāṅgā = say again. Mī visaralo = I forgot (masculine speaker). Baraṁ jhālaṁ = good, that's good.",
         "note": "नका = मत करो (आदरार्थी नकार), विसरलो = पुल्लिंगी."
       },
       {
@@ -12819,8 +12819,8 @@
         "lesson": 2,
         "title": "नम्र विनंती",
         "titleEn": "Polite Requests",
-        "text": "मला मदत हवी आहे (मुझे मदद चाहिए) म्हणा, आदेश देऊ नका. हळू बोला (धीरे बोलो) ही नम्र विनंती आहे.",
-        "textEn": "Say malā madat havī āhe (I need help) instead of barking orders. Haḷū bolā softens speech requests politely.",
+        "text": "मला मदत हवी आहे (मुझे मदद चाहिए) म्हणा, आदेश देऊ नका. मोठ्याने बोला (ज़ोर से बोलो) ही नम्र विनंती आहे.",
+        "textEn": "Say malā madat havī āhe (I need help) instead of barking orders. Moṭhyāne bolā requests speaking loudly, politely.",
         "note": "मदत मागा, हक्क सांगू नका."
       },
       {
@@ -12866,17 +12866,17 @@
       },
       {
         "lesson": 2,
-        "sentence": "मला मदत हवी आहे. हळू बोला.",
-        "hindi": "मुझे मदद चाहिए। धीरे बोलो।",
-        "english": "I need help. Please speak slowly.",
-        "tip": "मदत हवी आहे = need help. हळू = slowly."
+        "sentence": "मला मदत हवी आहे. मोठ्याने बोला.",
+        "hindi": "मुझे मदद चाहिए। ज़ोर से बोलो।",
+        "english": "I need help. Please speak loudly.",
+        "tip": "मदत हवी आहे = need help. मोठ्याने = loudly."
       },
       {
         "lesson": 3,
-        "sentence": "तुम्ही कुठे राहता? चला जाऊया.",
-        "hindi": "आप कहाँ रहते हो? चलो चलें।",
-        "english": "Where do you live? Let's go.",
-        "tip": "कुठे = where. जाऊया = let us go."
+        "sentence": "तुम्ही कुठे राहता? लवकर या.",
+        "hindi": "आप कहाँ रहते हो? जल्दी आओ।",
+        "english": "Where do you live? Come soon.",
+        "tip": "कुठे = where. लवकर = soon. या = come."
       },
       {
         "lesson": 4,
@@ -12917,9 +12917,9 @@
       },
       {
         "lesson": 3,
-        "marathi": "तुम्ही कुठे राहता? गर्दी आहे, चला जाऊया.",
-        "hindi": "आप कहाँ रहते हो? भीड़ है, चलो चलें।",
-        "english": "Where do you live? It is crowded, let's go.",
+        "marathi": "तुम्ही कुठे राहता? गर्दी आहे, लवकर या.",
+        "hindi": "आप कहाँ रहते हो? भीड़ है, जल्दी आओ।",
+        "english": "Where do you live? It is crowded, come soon.",
         "speaker": "guest"
       },
       {
@@ -12931,9 +12931,9 @@
       },
       {
         "lesson": 5,
-        "marathi": "काळजी करू नका, मला समजलं नाही, मी विसरलो.",
-        "hindi": "चिंता मत करो, मुझे समझ नहीं आया, मैं भूल गया।",
-        "english": "Don't worry, I did not understand, I forgot.",
+        "marathi": "काळजी करू नका, परत सांगा, मी विसरलो.",
+        "hindi": "चिंता मत करो, फिर से कहो, मैं भूल गया।",
+        "english": "Don't worry, say again, I forgot.",
         "speaker": "elder"
       },
       {
@@ -13160,72 +13160,72 @@
   {
     "bridge": [
       {
-        "grammar": "काका = वडिलांचा भाऊ. माझा/माझे हे संख्येनुसार बदलते.",
-        "grammarEn": "Kākā = father's brother. Mājhā (masc. sing.) / mājhe (pl.) agree with the noun.",
-        "hindi": "मेरे चाचा पुणे में रहते हैं",
+        "grammar": "मावशी = आईची बहीण. माझा/माझे हे संख्येनुसार बदलते.",
+        "grammarEn": "Māvśī = mother's sister. Mājhā (masc. sing.) / mājhe (pl.) agree with the noun.",
+        "hindi": "मेरी मौसी पुणे में रहती हैं",
         "lesson": 1,
         "map": {
-          "पुणे में रहते हैं": "पुण्यात राहतात",
-          "मेरे": "माझे",
-          "चाचा": "काका"
+          "पुणे में रहती हैं": "पुण्यात राहतात",
+          "मेरी": "माझी",
+          "मौसी": "मावशी"
         },
         "mapEn": {
           "live in Pune": "पुण्यात राहतात",
-          "my": "माझे",
-          "uncle": "काका"
+          "my": "माझी",
+          "aunt": "मावशी"
         },
-        "marathi": "माझे काका पुण्यात राहतात"
+        "marathi": "माझी मावशी पुण्यात राहतात"
       },
       {
-        "grammar": "पाऊस पडत आहे = continuous present. खूप = intensifier before adjective/verb.",
-        "grammarEn": "Pāūs paḍat āhe = it is raining. Khūp = very, placed before the verb phrase.",
-        "hindi": "आज बहुत बारिश हो रही है",
+        "grammar": "गारा पडत आहे = continuous present. खूप = intensifier before adjective/verb.",
+        "grammarEn": "Gārā paḍat āhe = it is hailing. Khūp = very, placed before the verb phrase.",
+        "hindi": "आज बहुत ओले पड़ रहे हैं",
         "lesson": 2,
         "map": {
           "आज": "आज",
           "बहुत": "खूप",
-          "बारिश हो रही है": "पाऊस पडत आहे"
+          "ओले पड़ रहे हैं": "गारा पडत आहे"
         },
         "mapEn": {
-          "heavy rain is falling": "पाऊस पडत आहे",
+          "hail is falling": "गारा पडत आहे",
           "today": "आज",
           "very": "खूप"
         },
-        "marathi": "आज खूप पाऊस पडत आहे"
+        "marathi": "आज खूप गारा पडत आहे"
       },
       {
-        "grammar": "कुठे = where. जातोस (informal you) / जाता (formal you).",
-        "grammarEn": "Kuṭhe = where. Jātos = you go (informal); jātā = formal.",
-        "hindi": "तुम कहाँ जा रहे हो",
+        "grammar": "कशासाठी = what for. जातोस (informal you) / जाता (formal you).",
+        "grammarEn": "Kaśāsāṭhī = what for. Jātos = you go (informal); jātā = formal.",
+        "hindi": "तुम किस लिए जा रहे हो",
         "lesson": 3,
         "map": {
-          "कहाँ": "कुठे",
+          "किस लिए": "कशासाठी",
           "जा रहे हो": "जातोस",
           "तुम": "तू"
         },
         "mapEn": {
           "are going": "जातोस",
-          "where": "कुठे",
+          "what for": "कशासाठी",
           "you": "तू"
         },
-        "marathi": "तू कुठे जातोस"
+        "marathi": "तू कशासाठी जातोस"
       },
       {
-        "grammar": "किंमत = price. किती = how much. ची = of (feminine).",
-        "grammarEn": "Kiṁmat = price. Kitī = how much. Cī links feminine noun: bhājīcī kiṁmat.",
-        "hindi": "इस सब्ज़ी की कीमत कितनी है",
+        "grammar": "बिल = bill. किती = how much. ची = of (feminine).",
+        "grammarEn": "Bil = bill. Kitī = how much. Cī links feminine noun: bhājīce bil.",
+        "hindi": "इस सब्ज़ी का बिल कितना है",
         "lesson": 4,
         "map": {
-          "इस सब्ज़ी की": "या भाजीची",
-          "कितनी है": "किती",
-          "कीमत": "किंमत"
+          "इस सब्ज़ी का": "या भाजीचे",
+          "कितना है": "किती",
+          "बिल": "बिल"
         },
         "mapEn": {
           "how much": "किती",
-          "of this vegetable": "या भाजीची",
-          "price": "किंमत"
+          "of this vegetable": "या भाजीचे",
+          "bill": "बिल"
         },
-        "marathi": "या भाजीची किंमत किती"
+        "marathi": "या भाजीचे बिल किती"
       },
       {
         "grammar": "मला = to me. पाठव = send (imperative).",
@@ -13265,17 +13265,17 @@
     "cultural": [
       {
         "lesson": 1,
-        "note": "शहरात विभक्त, गावात एकत्र कुटुंब.",
-        "text": "महाराष्ट्रात पूर्वी एकत्र कुटुंब पद्धत होती — काका, आत्या, आजी-आजोबा एकाच घरात. आता शहरांत विभक्त कुटुंबं वाढली आहेत, पण सणांना सगळे एकत्र येतात.",
-        "textEn": "Maharashtra traditionally had joint families - uncles, aunts and grandparents under one roof. Cities now have nuclear families, but festivals bring everyone together.",
-        "title": "एकत्र कुटुंब",
+        "note": "शहरात विभक्त, गावात एकत्र परिवार.",
+        "text": "महाराष्ट्रात पूर्वी एकत्र परिवार पद्धत होती — मावशी, आत्या, आजी-आजोबा एकाच घरात. आता शहरांत विभक्त परिवारं वाढली आहेत, पण सणांना सगळे एकत्र येतात.",
+        "textEn": "Maharashtra traditionally had joint families - aunts and grandparents under one roof. Cities now have nuclear families, but festivals bring everyone together.",
+        "title": "एकत्र परिवार",
         "titleEn": "Joint Family"
       },
       {
         "lesson": 2,
         "note": "जून ते सप्टेंबर पावसाळा.",
-        "text": "महाराष्ट्रात तीन ऋतू — उन्हाळा (मार्च-मे), पावसाळा (जून-सप्टेंबर), हिवाळा (नोव्हेंबर-फेब्रुवारी). कोकणात मुसळधार पाऊस पडतो, शेती पावसावर अवलंबून आहे.",
-        "textEn": "Maharashtra has three seasons - summer (March-May), monsoon (June-September), winter (Nov-Feb). Konkan gets very heavy rain and farming depends on the monsoon.",
+        "text": "महाराष्ट्रात तीन ऋतू — दमट (मार्च-मे), पावसाळा (जून-सप्टेंबर), कोरडे (नोव्हेंबर-फेब्रुवारी). कोकणात मुसळधार गारा पडतो, शेती पावसावर अवलंबून आहे.",
+        "textEn": "Maharashtra has three seasons - humid (March-May), monsoon (June-September), dry (Nov-Feb). Konkan gets very heavy hail and farming depends on the monsoon.",
         "title": "तीन ऋतू आणि मान्सून",
         "titleEn": "Three Seasons and Monsoon"
       },
@@ -13306,14 +13306,14 @@
       {
         "lesson": 6,
         "note": "उजळणी = यशाची गुरुकिल्ली.",
-        "text": "मराठी शिकताना नियमित उजळणी (revision) महत्त्वाची. प्रश्नमंजुषा सोडवणे, गुण मोजणे आणि चुका सुधारणे यामुळे आत्मविश्वास वाढतो. शुभेच्छा!",
-        "textEn": "Regular revision matters when learning Marathi. Solving quizzes, counting marks and correcting mistakes builds confidence. Good luck!",
+        "text": "मराठी शिकताना नियमित उजळणी (revision) महत्त्वाची. प्रश्नमंजुषा सोडवणे, गुण मोजणे आणि चुका सुधारणे यामुळे आत्मविश्वास वाढतो. सुस्वागतम्!",
+        "textEn": "Regular revision matters when learning Marathi. Solving quizzes, counting marks and correcting mistakes builds confidence. Welcome!",
         "title": "उजळणीचे महत्त्व",
         "titleEn": "Importance of Revision"
       }
     ],
     "goals": [
-      "विस्तारित कुटुंब शब्द",
+      "विस्तारित परिवार शब्द",
       "हवामान आणि ऋतू",
       "प्रश्नार्थक शब्द",
       "बाजार, बँक आणि पैसे",
@@ -13332,32 +13332,32 @@
       {
         "lesson": 1,
         "note": "माझा (पु.), माझी (स्त्री.), माझे (अनेक).",
-        "text": "विस्तारित कुटुंब: काका (वडिलांचा भाऊ), मामा (आईचा भाऊ), आत्या (वडिलांची बहीण). माझा काका, माझी आत्या — विशेषण नामाप्रमाणे बदलते.",
-        "textEn": "Extended family: kākā (father's brother), māmā (mother's brother), ātyā (father's sister). Possessives agree: mājhā kākā (masc.), mājhī ātyā (fem.), mājhe cousins (plural).",
-        "title": "विस्तारित कुटुंब • Extended Family",
+        "text": "विस्तारित परिवार: मावशी (आईची बहीण), मामा (आईचा भाऊ), आत्या (वडिलांची बहीण). माझी मावशी, माझी आत्या — विशेषण नामाप्रमाणे बदलते.",
+        "textEn": "Extended family: māvaśī (mother's sister), māmā (mother's brother), ātyā (father's sister). Possessives agree: mājhī māvaśī (fem.), mājhī ātyā (fem.), mājhe cousins (plural).",
+        "title": "विस्तारित परिवार • Extended Family",
         "titleEn": "Extended Family"
       },
       {
         "lesson": 2,
-        "note": "पाऊस पडतो = पावसाळा चालू.",
-        "text": "हवामान: आज ऊन आहे, पाऊस पडत आहे, थंडी आहे. ऋतू — उन्हाळा, पावसाळा, हिवाळा. वादळ आले, धुकं पडलं.",
-        "textEn": "Weather phrases: āj ūn āhe (it is sunny), pāūs paḍat āhe (it is raining), thaṇḍī āhe (it is cold). Seasons: unhāḷā (summer), pāvsāḷā (monsoon), hivāḷā (winter).",
+        "note": "गारा पडतो = पावसाळा चालू.",
+        "text": "हवामान: आज ऊन आहे, गारा पडत आहे, थंडी आहे. ऋतू — दमट, पावसाळा, कोरडे. सरी आली, वावटळ पडलं.",
+        "textEn": "Weather phrases: āj ūn āhe (it is sunny), gārā paḍat āhe (it is hailing), thaṇḍī āhe (it is cold). Seasons: damaṭ (humid), pāvsāḷā (monsoon), koraḍe (dry).",
         "title": "हवामान आणि ऋतू • Weather",
         "titleEn": "Weather and Seasons"
       },
       {
         "lesson": 3,
         "note": "प्रश्नार्थक शब्द वाक्याच्या सुरुवातीला.",
-        "text": "कोण (who), काय (what), कुठे (where), केव्हा (when), कसं (how), का (why), किती (how much). तू कुठे जातोस? तुला काय पाहिजे?",
-        "textEn": "Koṇ (who), kāy (what), kuṭhe (where), kevhā (when), kasaṁ (how), kā (why), kitī (how much). Question word comes first: tū kuṭhe jātos (where are you going)?",
+        "text": "कोणता (which), कुठला (which one), कशासाठी (what for), केव्हा (when), कसं (how), का (why), किती (how much). तू कशासाठी जातोस? तुला कुठला पाहिजे?",
+        "textEn": "Koṇtā (which), kuṭhlā (which one), kaśāsāṭhī (what for), kevhā (when), kasaṁ (how), kā (why), kitī (how much). Question word comes first: tū kaśāsāṭhī jātos (what for are you going)?",
         "title": "प्रश्नार्थक शब्द • Questions",
         "titleEn": "Question Words"
       },
       {
         "lesson": 4,
         "note": "किती + वस्तू + पाहिजे.",
-        "text": "बाजारात: याची किंमत किती? हे स्वस्त / महाग आहे. सूट आहे का? बँकेत: माझं खाते आहे, कर्ज पाहिजे, व्याज किती?",
-        "textEn": "In the market: yācī kiṁmat kitī (what is the price)? He svasta (cheap) / mahāg (costly) āhe. Sūṭ āhe kā (is there a discount)? In the bank: khāte (account), karja (loan), vyāj (interest).",
+        "text": "बाजारात: याचे बिल किती? हे पैसे / खर्च आहे. बाजार आहे का? बँकेत: माझं खाते आहे, कर्ज पाहिजे, व्याज किती?",
+        "textEn": "In the market: yāce bil kitī (what is the bill)? He paise (money) / kharca (expense) āhe. Bājār āhe kā (is there a market)? In the bank: khāte (account), karja (loan), vyāj (interest).",
         "title": "बाजार आणि पैसे • Market",
         "titleEn": "Market and Money"
       },
@@ -13372,13 +13372,13 @@
       {
         "lesson": 6,
         "note": "चूक झाली तरी हरकत नाही — सराव महत्त्वाचा.",
-        "text": "उजळणी: प्रश्नमंजुषा सोडवा — उत्तर निवडा, गुण मोजा. मी कोण आहे? पाऊस केव्हा पडतो? किंमत किती? सर्व धडे एकत्र आठवा.",
-        "textEn": "Revision: solve the quiz - pick the answer (uttar), count the marks (guṇ). Mī koṇ āhe (who am I)? Pāūs kevhā paḍto (when does it rain)? Kiṁmat kitī (what price)? Recall all lessons together.",
+        "text": "उजळणी: प्रश्नमंजुषा सोडवा — उत्तर निवडा, गुण मोजा. मी कोणता आहे? गारा केव्हा पडतो? बिल किती? सर्व धडे एकत्र आठवा.",
+        "textEn": "Revision: solve the quiz - pick the answer (uttar), count the marks (guṇ). Mī koṇtā āhe (which am I)? Gārā kevhā paḍto (when does hail fall)? Bil kitī (what bill)? Recall all lessons together.",
         "title": "प्रश्नमंजुषा • Quiz Revision",
         "titleEn": "Quiz Revision"
       }
     ],
-    "intro": "कुटुंब, हवामान, प्रश्न, बाजार आणि मोबाईल — राहिलेले विषय, अधिक शब्द, शेवटी प्रश्नमंजुषा.",
+    "intro": "परिवार, हवामान, प्रश्न, बाजार आणि मोबाईल — राहिलेले विषय, अधिक शब्द, शेवटी प्रश्नमंजुषा.",
     "lessons": 6,
     "listening": [
       {
@@ -13389,24 +13389,24 @@
         "speaker": "child"
       },
       {
-        "english": "It is winter, there is fog in the morning.",
-        "hindi": "सर्दी का मौसम है, सुबह कोहरा है।",
+        "english": "It is dry, there is a whirlwind in the morning.",
+        "hindi": "सूखा है, सुबह बवंडर है।",
         "lesson": 2,
-        "marathi": "हिवाळा आहे, सकाळी धुकं असतं.",
+        "marathi": "कोरडे आहे, सकाळी वावटळ असतं.",
         "speaker": "teacher"
       },
       {
-        "english": "When will you come? What do you want?",
-        "hindi": "तुम कब आओगे? तुम्हें क्या चाहिए?",
+        "english": "When will you come? Which one do you want?",
+        "hindi": "तुम कब आओगे? तुम्हें कौन-सा चाहिए?",
         "lesson": 3,
-        "marathi": "तू केव्हा येणार? तुला काय पाहिजे?",
+        "marathi": "तू केव्हा येणार? तुला कुठला पाहिजे?",
         "speaker": "friend"
       },
       {
-        "english": "This is costly, give a discount. I will pay by ATM.",
-        "hindi": "यह महँगा है, छूट दो। मैं एटीएम से पैसे निकालूँगा।",
+        "english": "This is an expense, give a market. I will withdraw money from the ATM.",
+        "hindi": "यह खर्च है, बाज़ार दो। मैं एटीएम से पैसे निकालूँगा।",
         "lesson": 4,
-        "marathi": "हे महाग आहे, सूट द्या. मी एटीएममधून पैसे काढतो.",
+        "marathi": "हे खर्च आहे, बाजार द्या. मी एटीएममधून पैसे काढतो.",
         "speaker": "shopkeeper"
       },
       {
@@ -13427,37 +13427,37 @@
     "sentenceBuilder": [
       {
         "answer": [
-          "माझे",
-          "काका",
+          "माझी",
+          "मावशी",
           "पुण्यात",
           "राहतात"
         ],
-        "hindi": "मेरे चाचा पुणे में रहते हैं।",
-        "hindiEn": "My uncle lives in Pune.",
+        "hindi": "मेरी मौसी पुणे में रहती हैं।",
+        "hindiEn": "My aunt lives in Pune.",
         "lesson": 1,
-        "prompt": "साचा: माझे ___ पुण्यात राहतात → बनवा: My uncle lives in Pune",
-        "promptEn": "Pattern: माझे ___ पुण्यात राहतात (My ___ lives in Pune) → Build: My uncle lives in Pune",
+        "prompt": "साचा: माझी ___ पुण्यात राहतात → बनवा: My aunt lives in Pune",
+        "promptEn": "Pattern: माझी ___ पुण्यात राहतात (My ___ lives in Pune) → Build: My aunt lives in Pune",
         "tokens": [
           "राहतात",
-          "काका",
-          "माझे",
+          "मावशी",
+          "माझी",
           "पुण्यात"
         ]
       },
       {
         "answer": [
           "आज",
-          "पाऊस",
+          "गारा",
           "पडत",
           "आहे"
         ],
-        "hindi": "आज बारिश हो रही है।",
-        "hindiEn": "It is raining today.",
+        "hindi": "आज ओले पड़ रहे हैं।",
+        "hindiEn": "It is hailing today.",
         "lesson": 2,
-        "prompt": "साचा: आज ___ → बनवा: It is raining today",
-        "promptEn": "Pattern: आज ___ (Today ___) → Build: It is raining today",
+        "prompt": "साचा: आज ___ → बनवा: It is hailing today",
+        "promptEn": "Pattern: आज ___ (Today ___) → Build: It is hailing today",
         "tokens": [
-          "पाऊस",
+          "गारा",
           "आहे",
           "आज",
           "पडत"
@@ -13466,35 +13466,35 @@
       {
         "answer": [
           "तू",
-          "कुठे",
+          "कशासाठी",
           "जातोस"
         ],
-        "hindi": "तुम कहाँ जा रहे हो?",
-        "hindiEn": "Where are you going?",
+        "hindi": "तुम किस लिए जा रहे हो?",
+        "hindiEn": "What for are you going?",
         "lesson": 3,
-        "prompt": "साचा: तू ___ जातोस? → बनवा: Where are you going?",
-        "promptEn": "Pattern: तू ___ जातोस? (You go ___?) → Build: Where are you going?",
+        "prompt": "साचा: तू ___ जातोस? → बनवा: What for are you going?",
+        "promptEn": "Pattern: तू ___ जातोस? (You go ___?) → Build: What for are you going?",
         "tokens": [
           "जातोस",
           "तू",
-          "कुठे"
+          "कशासाठी"
         ]
       },
       {
         "answer": [
-          "याची",
-          "किंमत",
+          "याचे",
+          "बिल",
           "किती"
         ],
-        "hindi": "इसकी कीमत कितनी है?",
-        "hindiEn": "What is its price?",
+        "hindi": "इसका बिल कितना है?",
+        "hindiEn": "What is its bill?",
         "lesson": 4,
-        "prompt": "साचा: याची ___ किती? → बनवा: What is its price?",
-        "promptEn": "Pattern: याची ___ किती? (Its ___ how much?) → Build: What is its price?",
+        "prompt": "साचा: याचे ___ किती? → बनवा: What is its bill?",
+        "promptEn": "Pattern: याचे ___ किती? (Its ___ how much?) → Build: What is its bill?",
         "tokens": [
           "किती",
-          "याची",
-          "किंमत"
+          "याचे",
+          "बिल"
         ]
       },
       {
@@ -13536,32 +13536,32 @@
     ],
     "speaking": [
       {
-        "english": "My uncle lives in Pune.",
-        "hindi": "मेरे चाचा पुणे में रहते हैं।",
+        "english": "My aunt lives in Pune.",
+        "hindi": "मेरी मौसी पुणे में रहती हैं।",
         "lesson": 1,
-        "sentence": "माझे काका पुण्यात राहतात.",
-        "tip": "माझे = my (plural/honorific). राहतात = live."
+        "sentence": "माझी मावशी पुण्यात राहतात.",
+        "tip": "माझी = my (feminine). राहतात = live (honorific)."
       },
       {
-        "english": "It is raining heavily today.",
-        "hindi": "आज बहुत बारिश हो रही है।",
+        "english": "It is hailing heavily today.",
+        "hindi": "आज बहुत ओले पड़ रहे हैं।",
         "lesson": 2,
-        "sentence": "आज खूप पाऊस पडत आहे.",
+        "sentence": "आज खूप गारा पडत आहे.",
         "tip": "खूप = very. पडत आहे = is falling."
       },
       {
-        "english": "Where are you going?",
-        "hindi": "तुम कहाँ जा रहे हो?",
+        "english": "What for are you going?",
+        "hindi": "तुम किस लिए जा रहे हो?",
         "lesson": 3,
-        "sentence": "तू कुठे जातोस?",
-        "tip": "कुठे = where. जातोस = go (informal you)."
+        "sentence": "तू कशासाठी जातोस?",
+        "tip": "कशासाठी = what for. जातोस = go (informal you)."
       },
       {
-        "english": "What is the price of this vegetable?",
-        "hindi": "इस सब्ज़ी की कीमत कितनी है?",
+        "english": "What is the bill for this vegetable?",
+        "hindi": "इस सब्ज़ी का बिल कितना है?",
         "lesson": 4,
-        "sentence": "या भाजीची किंमत किती?",
-        "tip": "किंमत = price. किती = how much."
+        "sentence": "या भाजीचे बिल किती?",
+        "tip": "बिल = bill. किती = how much."
       },
       {
         "english": "Send me a message.",
@@ -13578,7 +13578,7 @@
         "tip": "बरोबर = correct. का = question marker."
       }
     ],
-    "subtitle": "कुटुंब, हवामान, प्रश्न, बाजार • Family, Weather, Market",
+    "subtitle": "परिवार, हवामान, प्रश्न, बाजार • Family, Weather, Market",
     "subtitleEn": "Family, Weather, Questions, Market and More",
     "title": "पूरक संच • Top-Up Bundle",
     "titleEn": "Top-Up: Family, Weather, Questions, Market & More",

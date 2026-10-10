@@ -11,6 +11,7 @@ import SentenceBuilder from '../../components/SentenceBuilder.astro';
 import Mascot from '../../components/Mascot.astro';
 import Learn from '../../layouts/Learn.astro';
 import PremiumVocabPage from '../../components/PremiumVocabPage.astro';
+import GameLinks from '../../components/games/GameLinks.astro';
 import { clusters, wordsByCategory, getUnit } from '../../lib/learn';
 import { seoPagesByFamily } from '../../lib/seo';
 import { siteUrl } from '../../lib/site';
@@ -126,6 +127,7 @@ const navSections = cluster ? [
       what the listening and speaking practice in Bol Marathi is for.
     </p>
     <p><a class="btn" href={siteUrl(`/quiz/${cluster.slug}/`)}>Quiz yourself on {cluster.title} →</a></p>
+    <GameLinks variant="vocab" />
   </div>
 
   <!-- PRACTICE CTA — contextual app bridge -->
