@@ -7,9 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node ./tools/validate-content.mjs && node ./tools/build-search-index.mjs",
+    "prebuild": "node ./tools/validate-content.mjs && node --experimental-strip-types ./tools/validate-games.mts && node ./tools/build-search-index.mjs",
     "build": "astro build",
     "preview": "astro preview",
+    "test": "node --test --experimental-strip-types \"tests/*.test.ts\"",
     "astro": "astro",
     "sync": "node ./tools/sync-learn-marathi.mjs",
     "qa": "node ./tools/qa.mjs",

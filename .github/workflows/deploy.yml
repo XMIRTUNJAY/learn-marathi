@@ -28,6 +28,8 @@ jobs:
         run: npm ci
       - name: Content QA gate (fails before build on bad data)
         run: npm run qa
+      - name: Game logic + data tests
+        run: npm test
 
   build:
     needs: qa

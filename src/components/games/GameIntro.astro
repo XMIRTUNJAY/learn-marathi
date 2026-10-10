@@ -1,0 +1,17 @@
+---
+// GameIntro — accessible how-to-play instructions (details element, open by
+// default so first-time players see them; collapsible afterwards).
+interface Props {
+	title?: string;
+	steps: string[];
+}
+
+const { title = 'How to play', steps } = Astro.props;
+---
+
+<details class="game-intro" open>
+	<summary>{title}</summary>
+	<ol>
+		{steps.map((s) => <li set:html={s} />)}
+	</ol>
+</details>
